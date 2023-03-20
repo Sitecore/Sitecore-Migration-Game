@@ -1,0 +1,98 @@
+@font-face{
+    font-family: 'Work Sans', sans-serif;
+    src: url('fonts/font.ttf');
+  }
+  
+  body {
+    background: white;
+    color: #AAA;
+    font-size: 29px;
+    font-family: 'Work Sans', sans-serif;
+    line-height: 46.5px;
+    margin: 160px;
+  }
+  
+  /* scrollbar */
+  ::-webkit-scrollbar {
+    width: 16px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: lightgray;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: whitesmoke;
+  }
+  
+  br {
+    content: '';
+    display: block;
+    margin-bottom: 24px;
+  }
+  
+  .img {
+    white-space: pre;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    font-family: 'Nanum Gothic Coding', monospace;
+    transform: translateX(-50%);
+    line-height: 11.67px;
+  }
+  
+  .room-name {
+    margin-top: 88px;
+    font-family: 'Nanum Gothic Coding', monospace;
+    font-size: 40.5px;
+  }
+  
+  .title {
+    font-family: 'Nanum Gothic Coding', monospace;
+    font-size: 140px;
+    line-height: 104px;
+  }
+  
+  #output {
+    padding: 33px 33px 0 33px;
+  }
+  
+  #output div {
+    margin-bottom: 16px;
+  }
+  
+  .input {
+    display: flex;
+  }
+  
+  #input {
+    color: lightskyblue;
+    background: transparent;
+    font-size: 29px;
+    font-family: 'Work Sans', sans-serif;
+    border: none;
+    position: relative;
+    bottom: 1px;
+    margin-left: 8px;
+  }
+  
+  .ml-2 {
+    margin-left: 33px;
+  }
+  
+  #input:focus {
+    outline: none;
+  }
+  
+  /* color the user's input & links */
+  .user, a {
+    color: lightskyblue;
+  }
+  
+  @keyframes blink {
+    0% {background: #AAA;}
+    49% {background: #AAA;}
+    60% {background: transparent;}
+    99% {background: transparent;}
+    100% {background: #AAA;}
+  }
