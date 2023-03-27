@@ -1,0 +1,51 @@
+{
+  "title": "Sitecore Composable Game",
+  "description": "A game about Sitecore Composability",
+  "prompts": [
+    {
+      "text": "Welcome Sitecore traveler, you are about to embark on your Composable journey, but in order to begin, start by selecting your current Sitecore platform product:",
+      "id": "start",
+      "optionType": "buttons",
+      "options": [
+        {
+          "text": "Sitecore XP",
+          "value": "xp",
+          "targetId": "xp"
+        },
+        {
+          "text": "Sitecore XM",
+          "value": "xm",
+          "targetId": "xm"
+        },
+        {
+          "text": "Sitecore XC",
+          "value": "xc",
+          "targetId": "xc"
+        }
+      ],
+      "nextId": "xc",
+      "start": true
+    },
+    {
+      "text": "Great, what features of Sitecore XP are you currently using?",
+      "id": "xp",
+      "optionType": "multiselect",
+      "clearText": true,
+      "options": [{ "text": "Pattern/Profile Cards", "value": "pattern_cards" }]
+    },
+    {
+      "text": "Oh, I'm sorry to hear that",
+      "id": "xc",
+      "clearText": true,
+      "start": false
+    }
+  ],
+  "results": [
+    {
+      "title": "You are a Sitecore Composability Master",
+      "description": "You are a Sitecore Composability Master",
+      "text": "You are a Sitecore Composability Master\n",
+      "id": "winner"
+    }
+  ]
+}
