@@ -4,6 +4,7 @@ import './App.css';
 import { Container, MantineProvider } from '@mantine/core';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { IDefinition, IPrompt } from 'models/Definitions';
+import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 
 const App = () => {
   const [selectedValues, setSelectedValues] = React.useState('');
@@ -75,24 +76,25 @@ const App = () => {
   };
 
   return (
-    <MantineProvider theme={{ colorScheme: 'dark' }}>
-      <Container my="sm" size="sm" className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-        {!loading && (
-          <>
-            <div id="output">{output}</div>
+    <Container my="sm" size="sm" className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+      </header>
+      {!loading && (
+        <>
+          <div id="output">{output}</div>
 
-            {prompt?.options != null && (
-              <div className="input">
+          {prompt?.options != null && (
+            <>
+              {prompt?.optionType === 'multiselect' && <MultiSelect options={prompt.options}></MultiSelect>}
+              {prompt?.optionType === 'buttons' && (
                 <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options}></ButtonGroup>
-              </div>
-            )}
-          </>
-        )}
-      </Container>
-    </MantineProvider>
+              )}
+            </>
+          )}
+        </>
+      )}
+    </Container>
   );
 };
 

@@ -31,11 +31,20 @@
       "id": "xp",
       "optionType": "multiselect",
       "clearText": true,
-      "options": [{ "text": "Pattern/Profile Cards", "value": "pattern_cards" }]
+      "options": [
+        { "text": "Pattern/Profile Cards", "value": "pattern_cards" },
+        { "text": "Identity Resolution", "value": "identity" },
+        { "text": "Historical Personalization (Greater than 90 Days)", "value": "historical_personalization" },
+        { "text": "External Data Systems", "value": "external_data_systems" },
+        { "text": "Custom Rules", "value": "custom_rules" },
+        { "text": "Marketing Automation", "value": "marketing_automation" },
+        { "text": "Sending Email (EXM)", "value": "exm" }
+      ]
     },
     {
       "text": "Oh, I'm sorry to hear that",
       "id": "xc",
+      "optionType": "result",
       "clearText": true,
       "start": false
     }
