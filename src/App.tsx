@@ -1,44 +1,32 @@
-import {
-  Badge,
-  Center,
-  Container,
-  Flex,
-  Grid,
-  Group,
-  Loader,
-  LoadingOverlay,
-  Paper,
-  Space,
-  Stack,
-  Title,
-} from '@mantine/core';
+import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Title } from '@mantine/core';
 import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 import { Navigation } from 'components/Navigation/Navigation';
 import { SettingModal } from 'components/SettingModal/SettingModal';
+import { useTrait } from 'hooks/useTrait';
 import { IAnswer, IDefinition, IOption, IPrompt } from 'models/Definitions';
 import React, { useEffect } from 'react';
 
 const App = () => {
-  const [answers, setAnswers] = React.useState<IAnswer[] | undefined>();
-  const [questions, setNextQuestions] = React.useState<IPrompt[] | undefined>();
+  const answers = useTrait<IAnswer[]>([]);
+  const questions = useTrait<IPrompt[]>([]);
   const [theme, setTheme] = React.useState('Corporate');
   const [persona, setPersona] = React.useState('Developer');
   const [prompt, setPrompt] = React.useState<IPrompt | undefined>();
   const [loading, setLoading] = React.useState(true);
-  const [config, setConfig] = React.useState<IDefinition | undefined>();
   const [authModelOpen, setAuthModalOpen] = React.useState(false);
   const [settingModalOpen, setSettingModalOpen] = React.useState(false);
   const [showResult, setShowResult] = React.useState(false);
   const [showQuestions, setShowQuestions] = React.useState(true);
 
+  const config = React.useRef<IDefinition>();
+
   useEffect(() => {
     const initializeApp = async () => {
-      const data = await fetchConfig();
+      config.current = await fetchConfig();
 
-      setConfig(data);
-      initializeStartPrompt(data);
+      initializeStartPrompt();
       setLoading(false);
     };
 
@@ -48,8 +36,9 @@ const App = () => {
   const triggerNextPrompt = () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
     if (questions) {
-      if (questions.length > 0) {
-        const nextPrompt = questions.shift();
+      if (questions.get().length > 0) {
+        // May need to refactor
+        const nextPrompt = questions.get().shift();
         setPrompt(nextPrompt);
       } else {
         initializeResult();
@@ -59,16 +48,13 @@ const App = () => {
     }
   };
 
-  const initializeStartPrompt = (data?: IDefinition | undefined) => {
-    if (!data) {
-      // if data not passed, use global config state
-      data = config;
-    }
-
-    if (data != null) {
-      const currentPrompt = data.prompts.find((p: IPrompt) => p.start === true);
+  const initializeStartPrompt = () => {
+    if (config.current !== undefined) {
+      const currentPrompt = config.current.prompts.find((p: IPrompt) => p.start === true);
 
       if (currentPrompt != null) {
+        questions.set([]);
+        answers.set([]);
         setPrompt(currentPrompt);
         setShowQuestions(true);
         setShowResult(false);
@@ -121,10 +107,10 @@ const App = () => {
 
   const saveAnswers = (promptAnswers: IAnswer[]) => {
     // Save Answers to Collection
-    if (answers && answers.length > 0) {
-      setAnswers([...answers, ...promptAnswers]);
+    if (answers.get() && answers.get().length > 0) {
+      answers.set([...answers.get(), ...promptAnswers]);
     } else {
-      setAnswers(promptAnswers);
+      answers.set(promptAnswers);
     }
   };
 
@@ -132,7 +118,7 @@ const App = () => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
 
-    if (!config) {
+    if (config.current !== undefined) {
       // Get current prompts option prompt ids for only answers
       let optionsSelected: IOption[] | undefined = prompt!.options?.filter(
         (o) => answers.find((a) => a.value === o.value) != null
@@ -143,14 +129,27 @@ const App = () => {
         let promptIds = optionsSelected.map((o) => o.promptIds);
 
         // Get prompts from prompt ids
-        nextQuestions = config!.prompts.filter((p) => promptIds.includes(p.id));
+        //nextQuestions
+
+        nextQuestions = config.current.prompts.filter((p) => promptIds.includes(p.id));
+        const newQuestions = [...questions.get(), ...nextQuestions];
+
+        console.log(newQuestions);
+        questions.set(newQuestions);
+
+        console.log(questions);
       }
 
-      if (questions) {
-        setNextQuestions([...questions, ...nextQuestions]);
-      } else {
-        setNextQuestions(nextQuestions);
-      }
+      // Handle Current Prompt next Ids
+      // if (prompt!.promptIds) {
+      //   nextQuestions = config.prompts.filter((p) => prompt!.promptIds.includes(p.id));
+
+      //   if (questions) {
+      //     setNextQuestions([...questions, ...nextQuestions]);
+      //   } else {
+      //     setNextQuestions(nextQuestions);
+      //   }
+      // }
     }
   };
 
@@ -165,7 +164,7 @@ const App = () => {
           />
           <AuthModal isOpen={authModelOpen} onClose={() => setAuthModalOpen(false)}></AuthModal>
           <SettingModal
-            config={config}
+            config={config.current}
             isOpen={settingModalOpen}
             onClose={() => setSettingModalOpen(false)}
           ></SettingModal>

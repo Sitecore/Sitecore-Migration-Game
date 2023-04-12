@@ -28,9 +28,8 @@ export interface IPrompt {
   id: string;
   options?: IOption[];
   optionType: 'buttons' | 'multiselect' | 'result';
-  nextId?: string; // If no buttons, this is the next prompt
+  promptIds?: string[]; // If prompt requires additional prompts, this is the list of prompt ids
   start?: boolean; // If true, this is the first prompt
-  clearText?: boolean; // If true, clear the text when this prompt is shown
   themeId: string;
 }
 

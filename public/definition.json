@@ -101,7 +101,7 @@
         { "text": "Sending Email (EXM)", "value": "exm" },
         { "text": "Forms", "value": "forms", "promptIds": "wffm" }
       ],
-      "promptIds": "technologies"
+      "promptIds": ["technologies"]
     },
     {
       "text": "You selected that you are using forms, are you using WFFM (Web Forms for Marketers)?",
