@@ -6,7 +6,7 @@ import { MantineProvider } from '@mantine/core';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <MantineProvider theme={{ colorScheme: 'dark' }}>
+  <MantineProvider theme={{ colorScheme: 'light' }}>
     <App />
   </MantineProvider>
 );

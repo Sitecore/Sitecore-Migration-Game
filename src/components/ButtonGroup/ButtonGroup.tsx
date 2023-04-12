@@ -14,7 +14,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
         <>
           <Group>
             {options?.map((o: IOption) => (
-              <Button key={o.value} value={o.targetId} onClick={optionSelectEvent}>
+              <Button key={o.value} value={o.value} onClick={optionSelectEvent}>
                 {o.text}
               </Button>
             ))}

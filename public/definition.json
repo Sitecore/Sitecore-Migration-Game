@@ -1,60 +1,130 @@
 {
   "title": "Sitecore Composable Game",
   "description": "A game about Sitecore Composability",
+  "themes": [
+    {
+      "title": "Fantasy",
+      "id": "fantasy",
+      "personas": [
+        {
+          "title": "Wizard",
+          "description": "Uses magic to solve problems",
+          "personaTypeId": "developer"
+        },
+        {
+          "title": "Fighter",
+          "description": "Leads the group into battle",
+          "personaTypeId": "architect"
+        },
+        {
+          "title": "Bard",
+          "description": "Uses charm to inspire others into action",
+          "personaTypeId": "ambassador"
+        }
+      ]
+    },
+    {
+      "title": "Corporate",
+      "id": "corporate",
+      "personas": [
+        {
+          "title": "Developer",
+          "description": "Uses tech to solve problems",
+          "personaTypeId": "developer"
+        },
+        {
+          "title": "Team Lead/Architect",
+          "description": "Leads the group into battle",
+          "personaTypeId": "architect"
+        },
+        {
+          "title": "Technology Ambassador",
+          "description": "Uses charm to inspire others into action",
+          "personaTypeId": "ambassador"
+        }
+      ]
+    }
+  ],
+  "personaTypes": [
+    {
+      "title": "Developer",
+      "id": "developer"
+    },
+    {
+      "title": "Team Lead/Architect",
+      "id": "team-lead"
+    },
+    {
+      "title": "Tech Ambassador",
+      "id": "ambassador"
+    }
+  ],
   "prompts": [
     {
       "text": "Welcome Sitecore traveler, you are about to embark on your Composable journey, but in order to begin, start by selecting your current Sitecore platform product:",
-      "id": "start",
+      "id": "platform",
       "optionType": "buttons",
       "options": [
         {
           "text": "Sitecore XP",
           "value": "xp",
-          "targetId": "xp"
+          "promptIds": "xp-capabilities"
         },
         {
           "text": "Sitecore XM",
           "value": "xm",
-          "targetId": "xm"
+          "promptIds": "xm"
         },
         {
           "text": "Sitecore XC",
           "value": "xc",
-          "targetId": "xc"
+          "promptIds": "xp-capabilities"
         }
       ],
-      "nextId": "xc",
       "start": true
     },
     {
       "text": "Great, what features of Sitecore XP are you currently using?",
-      "id": "xp",
+      "id": "xp-capabilities",
       "optionType": "multiselect",
-      "clearText": true,
       "options": [
         { "text": "Pattern/Profile Cards", "value": "pattern_cards" },
         { "text": "Identity Resolution", "value": "identity" },
-        { "text": "Historical Personalization (Greater than 90 Days)", "value": "historical_personalization" },
+        {
+          "text": "Historical Personalization",
+          "value": "historical_personalization",
+          "promptIds": "personalization_age"
+        },
         { "text": "External Data Systems", "value": "external_data_systems" },
         { "text": "Custom Rules", "value": "custom_rules" },
         { "text": "Marketing Automation", "value": "marketing_automation" },
-        { "text": "Sending Email (EXM)", "value": "exm" }
+        { "text": "Sending Email (EXM)", "value": "exm" },
+        { "text": "Forms", "value": "forms", "promptIds": "wffm" }
+      ],
+      "promptIds": "technologies"
+    },
+    {
+      "text": "You selected that you are using forms, are you using WFFM (Web Forms for Marketers)?",
+      "id": "wffm",
+      "optionType": "buttons",
+      "options": [
+        { "text": "No", "value": "No" },
+        { "text": "Yes", "value": "Yes" }
       ]
     },
     {
-      "text": "Oh, I'm sorry to hear that",
-      "id": "xc",
-      "optionType": "result",
-      "clearText": true,
-      "start": false
+      "text": "What technologies is your Sitecore platform currently using",
+      "id": "technologies",
+      "optionType": "multiselect",
+      "options": [
+        { "text": "Headless - Next.js", "value": "nextjs" },
+        { "text": "Headless - .Net Core", "value": "netcore" },
+        { "text": ".Net MVC", "value": "mvc" }
+      ]
     }
   ],
-  "results": [
-    {
-      "title": "You are a Sitecore Composability Master",
-      "description": "You are a Sitecore Composability Master",
-      "text": "You are a Sitecore Composability Master\n",
-      "id": "winner"
-    }
+  "responses": [
+    { "id": "xmc", "path": "/data/xmc.mdx" },
+    { "id": "ordercloud", "path": "/data/ordercloud.mdx" }
   ]
 }
