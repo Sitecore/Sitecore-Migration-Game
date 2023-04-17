@@ -2,7 +2,6 @@ export interface IDefinition {
   title: string;
   description?: string;
   prompts: IPrompt[];
-  responses: IResponse[];
 }
 
 export interface IPersona {
@@ -31,17 +30,14 @@ export interface IPrompt {
   promptIds?: string[]; // If prompt requires additional prompts, this is the list of prompt ids
   start?: boolean; // If true, this is the first prompt
   themeId: string;
-}
-
-export interface IResponse {
-  path: string;
-  id: string;
+  disabled?: boolean;
 }
 
 export interface IOption {
   text: string;
   value: string;
   promptIds?: string; // Required for Buttons, but not for MultiSelect, but used to fill additional prompts
+  disabled?: boolean;
 }
 
 export interface IAnswer {

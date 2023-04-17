@@ -1,4 +1,4 @@
-import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Title } from '@mantine/core';
+import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Title, Text } from '@mantine/core';
 import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
@@ -7,6 +7,8 @@ import { SettingModal } from 'components/SettingModal/SettingModal';
 import { useTrait } from 'hooks/useTrait';
 import { IAnswer, IDefinition, IOption, IPrompt } from 'models/Definitions';
 import React, { useEffect } from 'react';
+import General from './data/general.mdx';
+import { MDXProvider } from '@mdx-js/react';
 
 const App = () => {
   const answers = useTrait<IAnswer[]>([]);
@@ -16,11 +18,17 @@ const App = () => {
   const [prompt, setPrompt] = React.useState<IPrompt | undefined>();
   const [loading, setLoading] = React.useState(true);
   const [authModelOpen, setAuthModalOpen] = React.useState(false);
-  const [settingModalOpen, setSettingModalOpen] = React.useState(false);
-  const [showResult, setShowResult] = React.useState(false);
+  const [settingModalOpen, setSettingModalOpen] = React.useState(true);
+  const [showResult, setShowResult] = React.useState(true);
+  const [result, setResult] = React.useState<string>('');
   const [showQuestions, setShowQuestions] = React.useState(true);
 
   const config = React.useRef<IDefinition>();
+
+  const components = {
+    h1: (props: any) => <Title {...props} />,
+    h2: (props: any) => <Title {...props} />,
+  };
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -31,6 +39,7 @@ const App = () => {
     };
 
     initializeApp().catch((e) => console.error(e));
+    // eslint-disable-next-line
   }, []);
 
   const triggerNextPrompt = () => {
@@ -69,8 +78,7 @@ const App = () => {
     return data;
   };
 
-  const initializeResult = () => {
-    // Load MDX File with Answers collection
+  const initializeResult = async () => {
     setShowResult(true);
     setShowQuestions(false);
   };
@@ -141,15 +149,11 @@ const App = () => {
       }
 
       // Handle Current Prompt next Ids
-      // if (prompt!.promptIds) {
-      //   nextQuestions = config.prompts.filter((p) => prompt!.promptIds.includes(p.id));
+      if (prompt?.promptIds !== undefined && prompt.promptIds.length > 0) {
+        nextQuestions = config.current.prompts.filter((p) => prompt.promptIds!.includes(p.id));
 
-      //   if (questions) {
-      //     setNextQuestions([...questions, ...nextQuestions]);
-      //   } else {
-      //     setNextQuestions(nextQuestions);
-      //   }
-      // }
+        questions.set([...questions.get(), ...nextQuestions]);
+      }
     }
   };
 
@@ -174,7 +178,7 @@ const App = () => {
               <Stack>
                 <Grid justify="flex-end">
                   <Grid.Col span={6}>
-                    <Badge color="red">Questions</Badge>
+                    <Badge color="red">Remaining Questions: {questions.get().length + 1}</Badge>
                   </Grid.Col>
                   <Grid.Col span={6}>
                     <Group position="right" spacing="xs">
@@ -204,9 +208,29 @@ const App = () => {
           )}
 
           {showResult && (
-            <Paper p="md" shadow="xs" withBorder mt="lg" display="hidden">
-              <Badge color="green">Solution</Badge>
-              <Title>Coming Soon :-)</Title>
+            <Paper p="md" shadow="xs" withBorder>
+              <Stack>
+                <Grid justify="flex-end">
+                  <Grid.Col span={6}>
+                    <Badge color="green">Solution</Badge>
+                  </Grid.Col>
+                  <Grid.Col span={6}>
+                    <Group position="right" spacing="xs">
+                      <Badge color="orange" variant="dot">
+                        {theme}
+                      </Badge>
+                      <Badge color="orange" variant="dot">
+                        {persona}
+                      </Badge>
+                    </Group>
+                  </Grid.Col>
+                </Grid>
+                <Text>
+                  <MDXProvider components={components}>
+                    <General theme={theme} persona={persona} answers={answers.get()} />
+                  </MDXProvider>
+                </Text>
+              </Stack>
             </Paper>
           )}
         </>

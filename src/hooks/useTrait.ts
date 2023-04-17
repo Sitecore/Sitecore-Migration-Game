@@ -5,7 +5,7 @@ export const useTrait = <T>(initialValue: T) => {
 
   let current = trait;
 
-  const get = <T>() => current;
+  const get = () => current;
 
   const set = (value: T) => {
     current = value;

@@ -1,6 +1,6 @@
 import { Button, Checkbox, Group } from '@mantine/core';
 import { IOption } from 'models/Definitions';
-import { ChangeEvent, FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 interface MultiSelectProps {
   options: IOption[];

@@ -104,6 +104,16 @@
       "promptIds": ["technologies"]
     },
     {
+      "text": "Age of Your Personalizations",
+      "id": "personalization_age",
+      "optionType": "buttons",
+      "options": [
+        { "text": "Less than 30 Days (Real-Time)", "value": "realtime" },
+        { "text": "Less than 90 but more than 30 Days", "value": "personalize" },
+        { "text": "Greater than 90 Days", "value": "cdp" }
+      ]
+    },
+    {
       "text": "You selected that you are using forms, are you using WFFM (Web Forms for Marketers)?",
       "id": "wffm",
       "optionType": "buttons",
@@ -117,14 +127,14 @@
       "id": "technologies",
       "optionType": "multiselect",
       "options": [
-        { "text": "Headless - Next.js", "value": "nextjs" },
-        { "text": "Headless - .Net Core", "value": "netcore" },
-        { "text": ".Net MVC", "value": "mvc" }
+        { "text": ".Net Core", "value": "netcore", "promptIds": "jss_version" },
+        { "text": "Next.js", "value": "nextjs", "promptIds": "jss_version" },
+        { "text": "React JS", "value": "react", "promptIds": "jss_version" },
+        { "text": "Vue JS", "value": "vue", "promptIds": "jss_version" },
+        { "text": "Angular JS", "value": "angular", "promptIds": "jss_version" },
+        { "text": ".Net MVC", "value": "mvc" },
+        { "text": "Web Forms", "value": "webforms" }
       ]
     }
-  ],
-  "responses": [
-    { "id": "xmc", "path": "/data/xmc.mdx" },
-    { "id": "ordercloud", "path": "/data/ordercloud.mdx" }
   ]
 }
