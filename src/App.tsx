@@ -18,7 +18,7 @@ const App = () => {
   const [prompt, setPrompt] = React.useState<IPrompt | undefined>();
   const [loading, setLoading] = React.useState(true);
   const [authModelOpen, setAuthModalOpen] = React.useState(false);
-  const [settingModalOpen, setSettingModalOpen] = React.useState(true);
+  const [settingModalOpen, setSettingModalOpen] = React.useState(false);
   const [showResult, setShowResult] = React.useState(true);
   const [result, setResult] = React.useState<string>('');
   const [showQuestions, setShowQuestions] = React.useState(true);
