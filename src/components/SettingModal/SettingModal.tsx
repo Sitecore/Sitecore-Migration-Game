@@ -16,9 +16,9 @@ export const SettingModal: FC<SettingModalProps> = ({ isOpen, onClose, config })
       opened={isOpen}
       onClose={() => onClose('corporate')}
       overlayProps={{ opacity: 0.8, blur: 4 }}
-      size="60%"
       withCloseButton={false}
       closeOnEscape={false}
+      size="xl"
       closeOnClickOutside={false}
     >
       <Flex mih={50} gap="md" justify="center" align="center">
