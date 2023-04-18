@@ -1,34 +1,27 @@
 import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Title, Text } from '@mantine/core';
 import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
+import { MarkdownDisplay } from 'components/MarkdownDisplay/MarkdownDisplay';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 import { Navigation } from 'components/Navigation/Navigation';
 import { SettingModal } from 'components/SettingModal/SettingModal';
 import { useTrait } from 'hooks/useTrait';
 import { IAnswer, IDefinition, IOption, IPrompt } from 'models/Definitions';
 import React, { useEffect } from 'react';
-import General from './data/general.mdx';
-import { MDXProvider } from '@mdx-js/react';
 
 const App = () => {
   const answers = useTrait<IAnswer[]>([]);
   const questions = useTrait<IPrompt[]>([]);
-  const [theme, setTheme] = React.useState('Corporate');
-  const [persona, setPersona] = React.useState('Developer');
+  const [theme, setTheme] = React.useState('corporate');
+  const [persona, setPersona] = React.useState('developer');
   const [prompt, setPrompt] = React.useState<IPrompt | undefined>();
   const [loading, setLoading] = React.useState(true);
   const [authModelOpen, setAuthModalOpen] = React.useState(false);
-  const [settingModalOpen, setSettingModalOpen] = React.useState(false);
+  const [settingModalOpen, setSettingModalOpen] = React.useState(true);
   const [showResult, setShowResult] = React.useState(true);
-  const [result, setResult] = React.useState<string>('');
   const [showQuestions, setShowQuestions] = React.useState(true);
 
   const config = React.useRef<IDefinition>();
-
-  const components = {
-    h1: (props: any) => <Title {...props} />,
-    h2: (props: any) => <Title {...props} />,
-  };
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -122,6 +115,11 @@ const App = () => {
     }
   };
 
+  const handleSettingChange = (theme: string) => {
+    setTheme(theme);
+    setSettingModalOpen(false);
+  };
+
   const populateQuestions = (answers: IAnswer[]) => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
@@ -170,7 +168,7 @@ const App = () => {
           <SettingModal
             config={config.current}
             isOpen={settingModalOpen}
-            onClose={() => setSettingModalOpen(false)}
+            onClose={(theme: string) => handleSettingChange(theme)}
           ></SettingModal>
 
           {showQuestions && (
@@ -226,9 +224,7 @@ const App = () => {
                   </Grid.Col>
                 </Grid>
                 <Text>
-                  <MDXProvider components={components}>
-                    <General theme={theme} persona={persona} answers={answers.get()} />
-                  </MDXProvider>
+                  <MarkdownDisplay theme={theme} persona={persona} answers={answers.get()} />
                 </Text>
               </Stack>
             </Paper>
