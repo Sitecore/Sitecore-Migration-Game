@@ -1,4 +1,4 @@
-import { Button, Group } from '@mantine/core';
+import { Button, SimpleGrid, Tooltip } from '@mantine/core';
 import { IOption } from 'models/Definitions';
 import { FC } from 'react';
 
@@ -12,13 +12,23 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
     <div>
       {options && (
         <>
-          <Group>
+          <SimpleGrid cols={2}>
             {options?.map((o: IOption) => (
-              <Button key={o.value} value={o.value} onClick={optionSelectEvent}>
-                {o.text}
-              </Button>
+              <>
+                {o.tooltip ? (
+                  <Tooltip label={o.tooltip}>
+                    <Button key={o.value} value={o.value} onClick={optionSelectEvent}>
+                      {o.text}
+                    </Button>
+                  </Tooltip>
+                ) : (
+                  <Button key={o.value} value={o.value} onClick={optionSelectEvent}>
+                    {o.text}
+                  </Button>
+                )}
+              </>
             ))}
-          </Group>
+          </SimpleGrid>
         </>
       )}
     </div>

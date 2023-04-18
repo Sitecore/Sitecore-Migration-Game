@@ -61,32 +61,72 @@
   ],
   "prompts": [
     {
-      "text": "Welcome Sitecore traveler, you are about to embark on your Composable journey, but in order to begin, start by selecting your current Sitecore platform product:",
+      "text": [
+        "Through this app, you'll be making choices to let the system know more about your current solution. Recommendations about how you may want to make a migration from Sitecore's traditional platform DXP to a composable DXP will be given once you've made your selections!",
+        "First we need to know your starting point.  Which version of the Sitecore platform DXP are you currently using?"
+      ],
       "id": "platform",
+      "theme": "corporate",
       "optionType": "buttons",
+      "disabled": false,
       "options": [
         {
-          "text": "Sitecore XP",
+          "text": "Experience Commerce",
+          "value": "xc",
+          "promptIds": "xp-capabilities"
+        },
+        {
+          "text": "Experience Platform",
           "value": "xp",
           "promptIds": "xp-capabilities"
         },
         {
-          "text": "Sitecore XM",
-          "value": "xm",
-          "promptIds": "xm"
-        },
-        {
-          "text": "Sitecore XC",
-          "value": "xc",
-          "promptIds": "xp-capabilities"
+          "text": "Experience Manager",
+          "value": "xm"
         }
       ],
       "start": true
     },
     {
-      "text": "Great, what features of Sitecore XP are you currently using?",
+      "text": [
+        "Your eyes slowly adjust to the dim lighting of the room.  An old man in a long violet robe looks down upon you from a raised platform.  A power seems to emanate from him and he holds a magical staff.",
+        "Old Man: \"Welcome to my tower, adventurer.  You have been chosen to save your kingdom by setting forth on the Quest of Migration.  There are many paths you might take, and many great things you may see.\"",
+        "With a wave of his staff, three portals appear before you, each leading to different rooms or building that feel familiar.  One is a large vault filled with riches. Another is a tavern filled with guests and music. The third portal shows you an enormous library filled with ancient texts of wisdom.",
+        "Your quest begins with a choice.  Where will you start?"
+      ],
+      "id": "platform",
+      "theme": "fantasy",
+      "optionType": "buttons",
+      "disabled": false,
+      "options": [
+        {
+          "text": "Enter the vault",
+          "tooltip": "Sitecore Experience Commerce (XC)",
+          "value": "xc",
+          "promptIds": "xp-capabilities"
+        },
+        {
+          "text": "Visit the tavern",
+          "tooltip": "Sitecore Experience Platform (XP)",
+          "value": "xp",
+          "promptIds": "xp-capabilities"
+        },
+        {
+          "text": "Peruse the library",
+          "tooltip": "Sitecore Experience Manager (XM)",
+          "value": "xm"
+        }
+      ],
+      "start": true
+    },
+    {
+      "text": [
+        "With Sitecore Experience Platform, there are a lot of modules and features that are available to your team. Some you may have planned to use in the future, others you are currently using as part of your solution.",
+        "Choose the features that you are currently using:"
+      ],
       "id": "xp-capabilities",
       "optionType": "multiselect",
+      "theme": "corporate",
       "options": [
         { "text": "Pattern/Profile Cards", "value": "pattern_cards" },
         { "text": "Identity Resolution", "value": "identity" },
@@ -101,11 +141,53 @@
         { "text": "Sending Email (EXM)", "value": "exm" },
         { "text": "Forms", "value": "forms", "promptIds": "wffm" }
       ],
+      "disabled": false,
       "promptIds": ["technologies"]
     },
     {
-      "text": "Age of Your Personalizations",
+      "text": [
+        "You enter a room with many strange magical objects on shelves and tables around the room. As you search the room and turn them over, you recognize that some of them are from your home land! These items must be the ones you have to return to your land with. You open up your pack and start shoving items from your homeland into the pack.",
+        "Choose the items that you need to bring back:"
+      ],
+      "id": "xp-capabilities",
+      "optionType": "multiselect",
+      "disabled": false,
+      "theme": "fantasy",
+      "options": [
+        {
+          "text": "Dreamcatcher",
+          "tooltip": "Pattern Profile Matching",
+          "value": "pattern_cards"
+        },
+        {
+          "text": "Scrying Pool",
+          "tooltip": "Identity Resolution",
+          "value": "identity"
+        },
+        {
+          "text": "Orb of Knowledge",
+          "tooltip": "Historical Personalization",
+          "value": "historical_personalization",
+          "promptIds": "personalization_age"
+        },
+        {
+          "text": "Belgar's Bindings",
+          "tooltip": "Personalization with External Systems",
+          "value": "external_data_systems"
+        },
+        { "text": "Artificer's Tools", "tooltip": "Custom Personalization Rules", "value": "custom_rules" },
+        { "text": "Amulet of Summoning", "tooltip": "Marketing Automation", "value": "marketing_automation" },
+        { "text": "Stones of Speaking", "tooltip": "Sending Email/EXM", "value": "exm" },
+        { "text": "The Scroll of Words", "tooltip": "Sitecore Forms/WFFM", "value": "forms", "promptIds": "wffm" },
+        { "text": "Scroll of Detect Thoughts", "tooltip": "Capturing more than VIEW events", "value": "view_events" }
+      ],
+      "promptIds": ["technologies"]
+    },
+    {
+      "text": ["Age of Your Personalizations"],
       "id": "personalization_age",
+      "theme": "corporate",
+      "disabled": true,
       "optionType": "buttons",
       "options": [
         { "text": "Less than 30 Days (Real-Time)", "value": "realtime" },
@@ -114,26 +196,59 @@
       ]
     },
     {
-      "text": "You selected that you are using forms, are you using WFFM (Web Forms for Marketers)?",
+      "text": ["You selected that you are using forms, are you using WFFM (Web Forms for Marketers)?"],
       "id": "wffm",
+      "theme": "corporate",
       "optionType": "buttons",
+      "disabled": true,
       "options": [
         { "text": "No", "value": "No" },
         { "text": "Yes", "value": "Yes" }
       ]
     },
     {
-      "text": "What technologies is your Sitecore platform currently using",
+      "text": [
+        "Some development options are no longer available with Sitecore XM Cloud, such as Sitecore MVC, or traditional MVC-based SXA, and any other non-headless implementation choice.",
+        "Please choose which non-Headless options you are currently using below:"
+      ],
       "id": "technologies",
+      "theme": "corporate",
       "optionType": "multiselect",
+      "disabled": false,
       "options": [
         { "text": ".Net Core", "value": "netcore", "promptIds": "jss_version" },
         { "text": "Next.js", "value": "nextjs", "promptIds": "jss_version" },
         { "text": "React JS", "value": "react", "promptIds": "jss_version" },
         { "text": "Vue JS", "value": "vue", "promptIds": "jss_version" },
         { "text": "Angular JS", "value": "angular", "promptIds": "jss_version" },
+        { "text": "MVC SXA", "value": "sxa" },
         { "text": ".Net MVC", "value": "mvc" },
         { "text": "Web Forms", "value": "webforms" }
+      ]
+    },
+    {
+      "text": [
+        "A pair of guards stand before the door at the end of the hall. You are about to walk past them and enter the next room when one of them holds out an arm to stop you.",
+        "\"You can't bring that in here\" they say, pointing at your equipment. \"The Tamasks don't like certain artifacts in their realm.  You will need to exchange it for Tamask approved artifacts.",
+        "Select the artifacts that you are currently using that you'll need to drop to continue."
+      ],
+      "id": "technologies",
+      "theme": "fantasy",
+      "disabled": false,
+      "optionType": "multiselect",
+      "options": [
+        {
+          "text": "Glowing Square Iron Shield",
+          "tooltip": ".Net Core",
+          "value": "netcore",
+          "promptIds": "jss_version"
+        },
+        { "text": "Rounded Enchanted Boots", "tooltip": "Next.js", "value": "nextjs", "promptIds": "jss_version" },
+        { "text": "Magic Orb Helmet", "tooltip": "React JS", "value": "react", "promptIds": "jss_version" },
+        { "text": "Sword of Fire", "tooltip": "Vue JS", "value": "vue", "promptIds": "jss_version" },
+        { "text": "Enchanted Book", "tooltip": "Angular JS", "value": "angular", "promptIds": "jss_version" },
+        { "text": "Dreary Slimy Ring", "tooltip": ".Net MVC", "value": "mvc" },
+        { "text": "Shield of Weakness", "tooltip": "Web Forms", "value": "webforms" }
       ]
     }
   ]

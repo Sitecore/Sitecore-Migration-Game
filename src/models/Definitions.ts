@@ -23,14 +23,14 @@ export interface ITheme {
 }
 
 export interface IPrompt {
-  text: string;
+  text: string[];
   id: string;
   options?: IOption[];
-  optionType: 'buttons' | 'multiselect' | 'result';
+  optionType: 'buttons' | 'multiselect';
   promptIds?: string[]; // If prompt requires additional prompts, this is the list of prompt ids
   start?: boolean; // If true, this is the first prompt
-  themeId: string;
-  disabled?: boolean;
+  theme: string;
+  disabled: boolean;
 }
 
 export interface IOption {
@@ -38,6 +38,7 @@ export interface IOption {
   value: string;
   promptIds?: string; // Required for Buttons, but not for MultiSelect, but used to fill additional prompts
   disabled?: boolean;
+  tooltip?: string;
 }
 
 export interface IAnswer {

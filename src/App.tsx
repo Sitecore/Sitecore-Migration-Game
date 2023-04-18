@@ -12,7 +12,7 @@ import React, { useEffect } from 'react';
 const App = () => {
   const answers = useTrait<IAnswer[]>([]);
   const questions = useTrait<IPrompt[]>([]);
-  const [theme, setTheme] = React.useState('corporate');
+  const theme = useTrait<string>('corporate');
   const [persona, setPersona] = React.useState('developer');
   const [prompt, setPrompt] = React.useState<IPrompt | undefined>();
   const [loading, setLoading] = React.useState(true);
@@ -52,7 +52,7 @@ const App = () => {
 
   const initializeStartPrompt = () => {
     if (config.current !== undefined) {
-      const currentPrompt = config.current.prompts.find((p: IPrompt) => p.start === true);
+      const currentPrompt = config.current.prompts.find((p: IPrompt) => p.start === true && p.theme === theme.get());
 
       if (currentPrompt != null) {
         questions.set([]);
@@ -115,9 +115,10 @@ const App = () => {
     }
   };
 
-  const handleSettingChange = (theme: string) => {
-    setTheme(theme);
+  const handleSettingChange = (newTheme: string) => {
+    theme.set(newTheme);
     setSettingModalOpen(false);
+    initializeStartPrompt();
   };
 
   const populateQuestions = (answers: IAnswer[]) => {
@@ -135,20 +136,19 @@ const App = () => {
         let promptIds = optionsSelected.map((o) => o.promptIds);
 
         // Get prompts from prompt ids
-        //nextQuestions
-
-        nextQuestions = config.current.prompts.filter((p) => promptIds.includes(p.id));
+        nextQuestions = config.current.prompts.filter(
+          (p) => promptIds.includes(p.id) && p.theme === theme.get() && p.disabled === false
+        );
         const newQuestions = [...questions.get(), ...nextQuestions];
 
-        console.log(newQuestions);
         questions.set(newQuestions);
-
-        console.log(questions);
       }
 
       // Handle Current Prompt next Ids
       if (prompt?.promptIds !== undefined && prompt.promptIds.length > 0) {
-        nextQuestions = config.current.prompts.filter((p) => prompt.promptIds!.includes(p.id));
+        nextQuestions = config.current.prompts.filter(
+          (p) => prompt.promptIds!.includes(p.id) && p.theme === theme.get() && p.disabled === false
+        );
 
         questions.set([...questions.get(), ...nextQuestions]);
       }
@@ -168,7 +168,7 @@ const App = () => {
           <SettingModal
             config={config.current}
             isOpen={settingModalOpen}
-            onClose={(theme: string) => handleSettingChange(theme)}
+            onClose={(newTheme: string) => handleSettingChange(newTheme)}
           ></SettingModal>
 
           {showQuestions && (
@@ -181,7 +181,7 @@ const App = () => {
                   <Grid.Col span={6}>
                     <Group position="right" spacing="xs">
                       <Badge color="orange" variant="dot">
-                        {theme}
+                        {theme.get()}
                       </Badge>
                       <Badge color="orange" variant="dot">
                         {persona}
@@ -190,7 +190,17 @@ const App = () => {
                   </Grid.Col>
                 </Grid>
 
-                <Title order={3}>{prompt?.text}</Title>
+                {prompt?.text != null && prompt?.text.length > 0 && (
+                  <>
+                    {prompt?.text.map((t, i) => {
+                      return (
+                        <Text size="lg" key={i}>
+                          {t}
+                        </Text>
+                      );
+                    })}
+                  </>
+                )}
                 {prompt?.options != null && (
                   <>
                     {prompt?.optionType === 'multiselect' && (
@@ -215,7 +225,7 @@ const App = () => {
                   <Grid.Col span={6}>
                     <Group position="right" spacing="xs">
                       <Badge color="orange" variant="dot">
-                        {theme}
+                        {theme.get()}
                       </Badge>
                       <Badge color="orange" variant="dot">
                         {persona}
@@ -224,7 +234,7 @@ const App = () => {
                   </Grid.Col>
                 </Grid>
                 <Text>
-                  <MarkdownDisplay theme={theme} persona={persona} answers={answers.get()} />
+                  <MarkdownDisplay theme={theme.get()} persona={persona} answers={answers.get()} />
                 </Text>
               </Stack>
             </Paper>

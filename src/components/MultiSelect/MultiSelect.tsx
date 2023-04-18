@@ -1,4 +1,4 @@
-import { Button, Checkbox, Group } from '@mantine/core';
+import { Button, Checkbox, Group, Tooltip } from '@mantine/core';
 import { IOption } from 'models/Definitions';
 import { FC, useState } from 'react';
 
@@ -15,7 +15,15 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
       <Checkbox.Group label="" description="Select all that apply" onChange={setSelected}>
         <Group mt="xs">
           {options.map((option: IOption) => (
-            <Checkbox key={option.value} value={option.value} label={option.text} />
+            <>
+              {option.tooltip ? (
+                <Tooltip label={option.tooltip}>
+                  <Checkbox key={option.value} value={option.value} label={option.text} />
+                </Tooltip>
+              ) : (
+                <Checkbox key={option.value} value={option.value} label={option.text} />
+              )}
+            </>
           ))}
         </Group>
       </Checkbox.Group>
