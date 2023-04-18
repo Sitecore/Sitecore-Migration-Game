@@ -172,7 +172,7 @@ const App = () => {
           ></SettingModal>
 
           {showQuestions && (
-            <Paper p="md" shadow="xs" withBorder>
+            <Paper p="md" shadow="lg" withBorder>
               <Stack>
                 <Grid justify="flex-end">
                   <Grid.Col span={6}>
