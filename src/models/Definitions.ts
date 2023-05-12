@@ -55,6 +55,7 @@ export interface IOptionType {
 export interface IOption {
   name: string;
   value: string;
+  label: string;
   promptIds?: string; // Required for Buttons, but not for MultiSelect, but used to fill additional prompts
   disabled?: boolean;
   tooltip?: string;
