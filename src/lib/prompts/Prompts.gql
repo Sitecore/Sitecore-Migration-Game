@@ -1,4 +1,4 @@
-fragment Prompt on Prompts {
+fragment PromptDetails on Prompt {
   id
   name
   text
@@ -14,6 +14,14 @@ fragment Prompt on Prompts {
     results {
       ... on GamePersona {
         id
+      }
+    }
+  }
+  optionType {
+    results {
+      ... on PromptOptionTypes {
+        id
+        name
       }
     }
   }
@@ -34,7 +42,7 @@ fragment Prompt on Prompts {
 query GetAllPromptsQuery {
   allPrompt {
     results {
-      ...Prompt
+      ...PromptDetails
     }
   }
 }
@@ -42,7 +50,15 @@ query GetAllPromptsQuery {
 query GetPromptsByThemeAndPersonaQuery($themeId: ID!, $personaId: ID!) {
   allPrompt(where: { AND: [{ theme: { prompt_ids: $themeId } }, { persona: { prompt_ids: $personaId } }] }) {
     results {
-      ...Prompt
+      ...PromptDetails
+    }
+  }
+}
+
+query GetPromptsByThemeQuery($themeId: ID!) {
+  allPrompt(where: { theme: { prompt_ids: $themeId } }) {
+    results {
+      ...PromptDetails
     }
   }
 }

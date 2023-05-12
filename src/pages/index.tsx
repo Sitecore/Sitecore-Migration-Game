@@ -15,7 +15,7 @@ const App = () => {
   const theme = useTrait<string>('corporate');
   const promptService = PromptService();
 
-  const [persona, setPersona] = React.useState('developer');
+  const [persona, setPersona] = React.useState('nMeJvakIB0Kvx29f5uVdiw'); // Hard coding to Developer Persona until we complete Personas :-)
   const [prompt, setPrompt] = React.useState<IPrompt | undefined>();
   const [loading, setLoading] = React.useState(true);
   const [authModelOpen, setAuthModalOpen] = React.useState(false);
@@ -25,18 +25,32 @@ const App = () => {
   const [showQuestions, setShowQuestions] = React.useState(true);
 
   useEffect(() => {
-    const initializeApp = async () => {
-      setLoading(false);
-    };
-
     initializeApp().catch((e) => console.error(e));
     // eslint-disable-next-line
   }, []);
 
+  const initializeApp = async () => {
+    // Should maybe preload themes and personas here
+    setLoading(false);
+  };
+
   const preloadPrompts = async () => {
     let data = await promptService.GetAllPromptsByThemePersona(theme.get(), persona);
 
-    console.log(data);
+    if (data != null) {
+      setPrompts(data.results);
+
+      // Set Starting Prompt
+      const currentPrompt = data.results.find((p: IPrompt) => p.start === true);
+
+      if (currentPrompt !== undefined) {
+        setPrompt(currentPrompt);
+      } else {
+        //setShowError(true);
+        console.error('No start prompt found');
+        console.log(prompts);
+      }
+    }
   };
 
   const triggerNextPrompt = () => {
@@ -54,15 +68,17 @@ const App = () => {
     }
   };
 
-  const initializeStartPrompt = () => {
-    preloadPrompts(); // TODO: This whole function needs to be refactored
-    //const currentPrompt = config.current.prompts.find((p: IPrompt) => p.start === true && p.theme === theme.get());
+  const initializeStartPrompt = async () => {
+    setLoading(true);
+    await preloadPrompts();
+
+    // TODO: Show messaging if no prompts/start prompts are found
 
     questions.set([]);
     answers.set([]);
-    //setPrompt(currentPrompt);
     setShowQuestions(true);
     setShowResult(false);
+    setLoading(false);
   };
 
   const initializeResult = async () => {
@@ -109,44 +125,44 @@ const App = () => {
     }
   };
 
-  const handleSettingChange = (newTheme: string) => {
+  const handleSettingChange = async (newTheme: string) => {
     theme.set(newTheme);
     setSettingModalOpen(false);
-    initializeStartPrompt();
+    await initializeStartPrompt();
   };
 
   const populateQuestions = (answers: IAnswer[]) => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
 
-    if (config.current !== undefined) {
-      // Get current prompts option prompt ids for only answers
-      let optionsSelected: IOption[] | undefined = prompt!.options?.filter(
-        (o) => answers.find((a) => a.value === o.value) != null
-      );
+    // if (config.current !== undefined) {
+    //   // Get current prompts option prompt ids for only answers
+    //   let optionsSelected: IOption[] | undefined = prompt!.options?.filter(
+    //     (o) => answers.find((a) => a.value === o.value) != null
+    //   );
 
-      if (optionsSelected) {
-        // Get prompt ids from options
-        let promptIds = optionsSelected.map((o) => o.promptIds);
+    //   if (optionsSelected) {
+    //     // Get prompt ids from options
+    //     let promptIds = optionsSelected.map((o) => o.promptIds);
 
-        // Get prompts from prompt ids
-        nextQuestions = config.current.prompts.filter(
-          (p) => promptIds.includes(p.id) && p.theme === theme.get() && p.disabled === false
-        );
-        const newQuestions = [...questions.get(), ...nextQuestions];
+    //     // Get prompts from prompt ids
+    //     nextQuestions = config.current.prompts.filter(
+    //       (p) => promptIds.includes(p.id) && p.theme === theme.get() && p.disabled === false
+    //     );
+    //     const newQuestions = [...questions.get(), ...nextQuestions];
 
-        questions.set(newQuestions);
-      }
+    //     questions.set(newQuestions);
+    //   }
 
-      // Handle Current Prompt next Ids
-      if (prompt?.promptIds !== undefined && prompt.promptIds.length > 0) {
-        nextQuestions = config.current.prompts.filter(
-          (p) => prompt.promptIds!.includes(p.id) && p.theme === theme.get() && p.disabled === false
-        );
+    //   // Handle Current Prompt next Ids
+    //   if (prompt?.promptIds !== undefined && prompt.promptIds.length > 0) {
+    //     nextQuestions = config.current.prompts.filter(
+    //       (p) => prompt.promptIds!.includes(p.id) && p.theme === theme.get() && p.disabled === false
+    //     );
 
-        questions.set([...questions.get(), ...nextQuestions]);
-      }
-    }
+    //     questions.set([...questions.get(), ...nextQuestions]);
+    //   }
+    // }
   };
 
   return (
@@ -179,25 +195,21 @@ const App = () => {
                     </Group>
                   </Grid.Col>
                 </Grid>
-
-                {prompt?.text != null && prompt?.text.length > 0 && (
+                <Text>{prompt?.text}</Text>
+                {prompt?.options?.results != null && (
                   <>
-                    {prompt?.text.map((t, i) => {
-                      return (
-                        <Text size="lg" key={i}>
-                          {t}
-                        </Text>
-                      );
-                    })}
-                  </>
-                )}
-                {prompt?.options != null && (
-                  <>
-                    {prompt?.optionType === 'multiselect' && (
-                      <MultiSelect multiSelectSubmit={multiSelectSubmit} options={prompt.options}></MultiSelect>
+                    {prompt?.optionType?.results[0].name === 'Checklist' && (
+                      <>
+                        <MultiSelect
+                          multiSelectSubmit={multiSelectSubmit}
+                          options={prompt.options.results}
+                        ></MultiSelect>
+                      </>
                     )}
-                    {prompt?.optionType === 'buttons' && (
-                      <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options}></ButtonGroup>
+                    {prompt?.optionType?.results[0].name === 'Buttons' && (
+                      <>
+                        <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options.results}></ButtonGroup>
+                      </>
                     )}
                   </>
                 )}

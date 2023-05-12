@@ -13,10 +13,11 @@ export const PromptService = () => {
     });
 
     if (error) {
+      console.log(error);
       return null;
     }
 
-    const results = data?.allPrompts as IResult<IPrompt[]>;
+    const results = data?.allPrompt as IResult<IPrompt[]>;
 
     return results;
   };
@@ -25,10 +26,11 @@ export const PromptService = () => {
     const { error, data } = await chOneService().query({ query: GetAllPromptsQuery });
 
     if (error) {
+      console.log(error);
       return null;
     }
 
-    const results = data?.allPrompts;
+    const results = data?.allPrompt;
 
     return results;
   };

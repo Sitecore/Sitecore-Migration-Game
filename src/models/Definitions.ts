@@ -24,7 +24,7 @@ export interface ITheme {
 }
 
 export interface IResult<T> {
-  total: number;
+  total?: number;
   results: T;
 }
 
@@ -34,11 +34,13 @@ export interface IImage {
 }
 
 export interface IPrompt {
-  text: string[];
+  text: string;
+  bodyText?: string;
   id: string;
+  name: string;
   options?: IResult<IOption[]>;
-  optionType: IResult<IOptionType>;
-  promptIds?: string[]; // If prompt requires additional prompts, this is the list of prompt ids
+  optionType: IResult<IOptionType[]>;
+  promptIds?: IResult<IPrompt[]>; // If prompt requires additional prompts, this is the list of prompt ids
   start?: boolean; // If true, this is the first prompt
   theme: IResult<ITheme[]>;
   persona: IResult<IPersona[]>;
@@ -51,7 +53,7 @@ export interface IOptionType {
 }
 
 export interface IOption {
-  text: string;
+  name: string;
   value: string;
   promptIds?: string; // Required for Buttons, but not for MultiSelect, but used to fill additional prompts
   disabled?: boolean;

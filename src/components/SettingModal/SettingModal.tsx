@@ -6,7 +6,6 @@ import { FC, useEffect, useState } from 'react';
 interface SettingModalProps {
   isOpen: boolean;
   onClose: (themeId: string) => void;
-  config: IDefinition | undefined;
 }
 
 //#region Styles
@@ -34,7 +33,7 @@ const useStyles = createStyles((theme) => ({
 }));
 //#endregion
 
-export const SettingModal: FC<SettingModalProps> = ({ isOpen, onClose, config }) => {
+export const SettingModal: FC<SettingModalProps> = ({ isOpen, onClose }) => {
   //#region State/Props
   const { classes } = useStyles();
   const [themes, setTheme] = useState<ITheme[] | undefined>(); //config?.theme || 'corporate'
