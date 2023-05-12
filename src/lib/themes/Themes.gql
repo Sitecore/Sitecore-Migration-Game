@@ -17,3 +17,9 @@ query GetAllThemesQuery {
     }
   }
 }
+
+query GetThemesByIdQuery($id: ID!) {
+  gameTheme(id: $id) {
+    ...Theme
+  }
+}

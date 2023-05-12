@@ -40,7 +40,7 @@ export interface IPrompt {
   name: string;
   options?: IResult<IOption[]>;
   optionType: IResult<IOptionType[]>;
-  promptIds?: IResult<IPrompt[]>; // If prompt requires additional prompts, this is the list of prompt ids
+  nextPrompts?: IResult<IPrompt[]>; // If prompt requires additional prompts, this is the list of prompt ids
   start?: boolean; // If true, this is the first prompt
   theme: IResult<ITheme[]>;
   persona: IResult<IPersona[]>;
@@ -56,7 +56,7 @@ export interface IOption {
   name: string;
   value: string;
   label: string;
-  promptIds?: string; // Required for Buttons, but not for MultiSelect, but used to fill additional prompts
+  nextPrompts?: IResult<IPrompt[]>;
   disabled?: boolean;
   tooltip?: string;
 }

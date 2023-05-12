@@ -1,4 +1,4 @@
-import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Text } from '@mantine/core';
+import { Badge, Center, Container, Grid, Group, Header, Loader, Paper, Stack, Text, Title } from '@mantine/core';
 import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
@@ -46,6 +46,7 @@ const App = () => {
       if (currentPrompt !== undefined) {
         setPrompt(currentPrompt);
       } else {
+        // TODO: Show messaging if no prompts/start prompts are found
         //setShowError(true);
         console.error('No start prompt found');
         console.log(prompts);
@@ -71,8 +72,6 @@ const App = () => {
   const initializeStartPrompt = async () => {
     setLoading(true);
     await preloadPrompts();
-
-    // TODO: Show messaging if no prompts/start prompts are found
 
     questions.set([]);
     answers.set([]);
@@ -135,34 +134,34 @@ const App = () => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
 
-    // if (config.current !== undefined) {
-    //   // Get current prompts option prompt ids for only answers
-    //   let optionsSelected: IOption[] | undefined = prompt!.options?.filter(
-    //     (o) => answers.find((a) => a.value === o.value) != null
-    //   );
+    if (prompts !== undefined) {
+      // Get current prompts option prompt ids for only answers
+      let optionsSelected: IOption[] | undefined = prompt!.options?.results.filter(
+        (o) => answers.find((a) => a.value === o.value) != null
+      );
 
-    //   if (optionsSelected) {
-    //     // Get prompt ids from options
-    //     let promptIds = optionsSelected.map((o) => o.promptIds);
+      if (optionsSelected) {
+        // Get prompt ids from options
+        let promptIds = optionsSelected.map((o) => o.promptIds);
 
-    //     // Get prompts from prompt ids
-    //     nextQuestions = config.current.prompts.filter(
-    //       (p) => promptIds.includes(p.id) && p.theme === theme.get() && p.disabled === false
-    //     );
-    //     const newQuestions = [...questions.get(), ...nextQuestions];
+        // Get prompts from prompt ids
+        nextQuestions = prompts.filter(
+          (p) => promptIds.includes(p.id) && p.theme.results[0].id === theme.get() && p.disabled === false
+        );
+        const newQuestions = [...questions.get(), ...nextQuestions];
 
-    //     questions.set(newQuestions);
-    //   }
+        questions.set(newQuestions);
+      }
 
-    //   // Handle Current Prompt next Ids
-    //   if (prompt?.promptIds !== undefined && prompt.promptIds.length > 0) {
-    //     nextQuestions = config.current.prompts.filter(
-    //       (p) => prompt.promptIds!.includes(p.id) && p.theme === theme.get() && p.disabled === false
-    //     );
+      // // Handle Current Prompt next Ids
+      // if (prompt?.promptIds !== undefined && prompt.promptIds.length > 0) {
+      //   nextQuestions = config.current.prompts.filter(
+      //     (p) => prompt.promptIds!.includes(p.id) && p.theme === theme.get() && p.disabled === false
+      //   );
 
-    //     questions.set([...questions.get(), ...nextQuestions]);
-    //   }
-    // }
+      //   questions.set([...questions.get(), ...nextQuestions]);
+      // }
+    }
   };
 
   return (
@@ -235,7 +234,20 @@ const App = () => {
                     </Group>
                   </Grid.Col>
                 </Grid>
-                <Text>Refactor</Text>
+                <Title size="md">TODO: This is static, needs to generate from CH1 Still</Title>
+                <Text>
+                  Congratulations! Based on your answers, we have some guides for you that will be of interest for your
+                  specific situation.
+                </Text>
+                <Text>Please read through this guide to get advice on options for your situation.</Text>
+                <Title>Sitecore Experience platform</Title>
+                <Text>
+                  Based on your answers from the previous questions, you are currently running Sitecore XP. Based on
+                  this, you can refer to the following general guidance for{' '}
+                  <a href="https://doc.sitecore.com/developers/93/sitecore-experience-platform/en/upgrade-guide.html">
+                    Sitecore XP: Sitecore XP 9.3 Upgrade Guide
+                  </a>
+                </Text>
               </Stack>
             </Paper>
           )}

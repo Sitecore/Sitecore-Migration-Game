@@ -10,6 +10,13 @@ fragment PromptDetails on Prompt {
       }
     }
   }
+  nextPrompts {
+    results {
+      ... on Prompt {
+        id
+      }
+    }
+  }
   persona {
     results {
       ... on GamePersona {
@@ -35,6 +42,13 @@ fragment PromptDetails on Prompt {
         label
         value
         tooltip
+        nextPrompts {
+          results {
+            ... on Prompt {
+              id
+            }
+          }
+        }
       }
     }
   }
