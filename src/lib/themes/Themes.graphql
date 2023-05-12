@@ -1,0 +1,19 @@
+fragment Theme on GameTheme {
+  id
+  name
+  description
+  characterImage {
+    results {
+      fileUrl
+      fileName
+    }
+  }
+}
+
+query GetAllThemesQuery {
+  allGameTheme {
+    results {
+      ...Theme
+    }
+  }
+}

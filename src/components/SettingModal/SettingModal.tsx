@@ -1,82 +1,15 @@
-import { Badge, Button, Card, Flex, Group, Image, Modal, SimpleGrid, Text, createStyles, rem } from '@mantine/core';
-import { IDefinition } from 'models/Definitions';
-import { FC } from 'react';
+import { Button, Card, Flex, Group, Image, Modal, SimpleGrid, Text, createStyles, rem } from '@mantine/core';
+import { ThemeService } from 'lib/themes/ThemeService';
+import { IDefinition, ITheme } from 'models/Definitions';
+import { FC, useEffect, useState } from 'react';
 
 interface SettingModalProps {
   isOpen: boolean;
-  onClose: (theme: string) => void;
+  onClose: (themeId: string) => void;
   config: IDefinition | undefined;
 }
 
-export const SettingModal: FC<SettingModalProps> = ({ isOpen, onClose, config }) => {
-  const { classes } = useStyles();
-
-  return (
-    <Modal
-      opened={isOpen}
-      onClose={() => onClose('corporate')}
-      overlayProps={{ opacity: 0.8, blur: 4 }}
-      withCloseButton={false}
-      closeOnEscape={false}
-      size="xl"
-      closeOnClickOutside={false}
-    >
-      <Flex mih={50} gap="md" justify="center" align="center">
-        <SimpleGrid cols={2} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
-          <Card withBorder radius="md" p="md" className={classes.card}>
-            <Card.Section>
-              <Image src="/8-DY3mYkCSjoXc76H.png" />
-            </Card.Section>
-            <Card.Section className={classes.section} mt="md">
-              <Group position="apart">
-                <Text fz="lg" fw={500}>
-                  Fantasy Adventure
-                </Text>
-                <Badge variant="dot" color="orange" size="sm">
-                  Fantasy
-                </Badge>
-              </Group>
-              <Text fz="sm" mt="xs">
-                Take a journey through the fantasy world of the 5th Age. You will be guided through a maze of questions
-                which will help you find the scroll of Sitecore.
-              </Text>
-            </Card.Section>
-            <Group mt="xs">
-              <Button radius="md" style={{ flex: 1 }} onClick={() => onClose('fantasy')}>
-                Continue
-              </Button>
-            </Group>
-          </Card>
-          <Card withBorder radius="md" p="md" className={classes.card}>
-            <Card.Section>
-              <Image src="/sitecore-theme.jpg" />
-            </Card.Section>
-            <Card.Section className={classes.section} mt="md">
-              <Group position="apart">
-                <Text fz="lg" fw={500}>
-                  Corporate (Default)
-                </Text>
-                <Badge variant="dot" color="orange" size="sm">
-                  Corporate
-                </Badge>
-              </Group>
-              <Text fz="sm" mt="xs">
-                Take a journey to discover the required items for your organizations Sitecore Composable journey. By the
-                end of this short questionnaire you'll have a set of steps to guide you on your journey.
-              </Text>
-            </Card.Section>
-            <Group mt="xs">
-              <Button radius="md" style={{ flex: 1 }} onClick={() => onClose('corporate')}>
-                Continue
-              </Button>
-            </Group>
-          </Card>
-        </SimpleGrid>
-      </Flex>
-    </Modal>
-  );
-};
-
+//#region Styles
 const useStyles = createStyles((theme) => ({
   card: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
@@ -99,3 +32,74 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 700,
   },
 }));
+//#endregion
+
+export const SettingModal: FC<SettingModalProps> = ({ isOpen, onClose, config }) => {
+  //#region State/Props
+  const { classes } = useStyles();
+  const [themes, setTheme] = useState<ITheme[] | undefined>(); //config?.theme || 'corporate'
+  let themeService = ThemeService();
+  //#endregion
+
+  //#region useEffect
+  useEffect(() => {
+    initializeSettings();
+
+    //eslint-disable-next-line
+  }, []);
+  //#endregion
+
+  //#region Functions
+  const initializeSettings = async () => {
+    const data = await themeService.GetAllThemes();
+
+    if (data?.results !== undefined) {
+      setTheme(data.results);
+    }
+  };
+  //#endregion
+
+  return (
+    <Modal
+      opened={isOpen}
+      onClose={() => onClose('corporate')}
+      overlayProps={{ opacity: 0.8, blur: 4 }}
+      withCloseButton={false}
+      closeOnEscape={false}
+      size="xl"
+      closeOnClickOutside={false}
+    >
+      <Flex mih={50} gap="md" justify="center" align="center">
+        <SimpleGrid cols={2} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
+          {themes?.map((theme, i) => (
+            <Card withBorder radius="md" p="md" className={classes.card} key={i}>
+              {theme.characterImage?.results !== undefined && (
+                <Card.Section>
+                  <Image
+                    src={theme.characterImage!.results[0].fileUrl}
+                    alt={theme.characterImage!.results[0].fileName ?? ''}
+                  />
+                </Card.Section>
+              )}
+              <Card.Section className={classes.section} mt="md">
+                <Group position="apart">
+                  <Text fz="lg" fw={500}>
+                    {theme.name}
+                  </Text>
+                </Group>
+                <Text fz="sm" mt="xs">
+                  {theme.description}
+                </Text>
+              </Card.Section>
+              <Group mt="xs">
+                <Button radius="md" style={{ flex: 1 }} onClick={() => onClose(theme.id)}>
+                  Continue
+                </Button>
+              </Group>
+            </Card>
+          ))}
+        </SimpleGrid>
+      </Flex>
+    </Modal>
+  );
+};

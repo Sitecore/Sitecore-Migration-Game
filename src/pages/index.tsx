@@ -1,39 +1,43 @@
-import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Title, Text } from '@mantine/core';
+import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Text } from '@mantine/core';
 import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
-import { MarkdownDisplay } from 'components/MarkdownDisplay/MarkdownDisplay';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 import { Navigation } from 'components/Navigation/Navigation';
 import { SettingModal } from 'components/SettingModal/SettingModal';
 import { useTrait } from 'hooks/useTrait';
-import { IAnswer, IDefinition, IOption, IPrompt } from 'models/Definitions';
+import { PromptService } from 'lib/prompts/PromptService';
+import { IAnswer, IOption, IPrompt } from 'models/Definitions';
 import React, { useEffect } from 'react';
 
 const App = () => {
   const answers = useTrait<IAnswer[]>([]);
   const questions = useTrait<IPrompt[]>([]);
   const theme = useTrait<string>('corporate');
+  const promptService = PromptService();
+
   const [persona, setPersona] = React.useState('developer');
   const [prompt, setPrompt] = React.useState<IPrompt | undefined>();
   const [loading, setLoading] = React.useState(true);
   const [authModelOpen, setAuthModalOpen] = React.useState(false);
   const [settingModalOpen, setSettingModalOpen] = React.useState(true);
   const [showResult, setShowResult] = React.useState(true);
+  const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [showQuestions, setShowQuestions] = React.useState(true);
-
-  const config = React.useRef<IDefinition>();
 
   useEffect(() => {
     const initializeApp = async () => {
-      config.current = await fetchConfig();
-
-      initializeStartPrompt();
       setLoading(false);
     };
 
     initializeApp().catch((e) => console.error(e));
     // eslint-disable-next-line
   }, []);
+
+  const preloadPrompts = async () => {
+    let data = await promptService.GetAllPromptsByThemePersona(theme.get(), persona);
+
+    console.log(data);
+  };
 
   const triggerNextPrompt = () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
@@ -51,24 +55,14 @@ const App = () => {
   };
 
   const initializeStartPrompt = () => {
-    if (config.current !== undefined) {
-      const currentPrompt = config.current.prompts.find((p: IPrompt) => p.start === true && p.theme === theme.get());
+    preloadPrompts(); // TODO: This whole function needs to be refactored
+    //const currentPrompt = config.current.prompts.find((p: IPrompt) => p.start === true && p.theme === theme.get());
 
-      if (currentPrompt != null) {
-        questions.set([]);
-        answers.set([]);
-        setPrompt(currentPrompt);
-        setShowQuestions(true);
-        setShowResult(false);
-      }
-    }
-  };
-
-  const fetchConfig = async (): Promise<IDefinition> => {
-    const response = await fetch('./definition.json');
-    const data = await response.json();
-
-    return data;
+    questions.set([]);
+    answers.set([]);
+    //setPrompt(currentPrompt);
+    setShowQuestions(true);
+    setShowResult(false);
   };
 
   const initializeResult = async () => {
@@ -165,11 +159,7 @@ const App = () => {
             startOverTrigger={initializeStartPrompt}
           />
           <AuthModal isOpen={authModelOpen} onClose={() => setAuthModalOpen(false)}></AuthModal>
-          <SettingModal
-            config={config.current}
-            isOpen={settingModalOpen}
-            onClose={(newTheme: string) => handleSettingChange(newTheme)}
-          ></SettingModal>
+          <SettingModal isOpen={settingModalOpen} onClose={(newTheme: string) => handleSettingChange(newTheme)} />
 
           {showQuestions && (
             <Paper p="md" shadow="lg" withBorder>
@@ -233,9 +223,7 @@ const App = () => {
                     </Group>
                   </Grid.Col>
                 </Grid>
-                <Text>
-                  <MarkdownDisplay theme={theme.get()} persona={persona} answers={answers.get()} />
-                </Text>
+                <Text>Refactor</Text>
               </Stack>
             </Paper>
           )}

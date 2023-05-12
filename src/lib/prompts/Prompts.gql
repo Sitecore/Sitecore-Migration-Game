@@ -1,0 +1,48 @@
+fragment Prompt on Prompts {
+  id
+  name
+  text
+  theme {
+    results {
+      __typename
+      ... on GameTheme {
+        id
+      }
+    }
+  }
+  persona {
+    results {
+      ... on GamePersona {
+        id
+      }
+    }
+  }
+  disabled
+  start
+  options {
+    results {
+      ... on PromptOption {
+        id
+        name
+        value
+        tooltip
+      }
+    }
+  }
+}
+
+query GetAllPromptsQuery {
+  allPrompt {
+    results {
+      ...Prompt
+    }
+  }
+}
+
+query GetPromptsByThemeAndPersonaQuery($themeId: ID!, $personaId: ID!) {
+  allPrompt(where: { AND: [{ theme: { prompt_ids: $themeId } }, { persona: { prompt_ids: $personaId } }] }) {
+    results {
+      ...Prompt
+    }
+  }
+}
