@@ -134,7 +134,8 @@ const App = () => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
 
-    if (prompts !== undefined) {
+    // TODO: Move logic to PromptService?!? (or anywhere)
+    if (prompts !== undefined && prompt !== undefined) {
       // Get current prompts option prompt ids for only answers
       let optionsSelected: IOption[] | undefined = prompt!.options?.results.filter(
         (o) => answers.find((a) => a.value === o.value) != null
@@ -142,25 +143,34 @@ const App = () => {
 
       if (optionsSelected) {
         // Get prompt ids from options
-        let promptIds = optionsSelected.map((o) => o.promptIds);
+        // Add filter for if question has already been answered
+        const promptIds = optionsSelected.map((o) => {
+          if (o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0) {
+            return o.nextPrompts?.results[0].id;
+          }
 
-        // Get prompts from prompt ids
-        nextQuestions = prompts.filter(
-          (p) => promptIds.includes(p.id) && p.theme.results[0].id === theme.get() && p.disabled === false
-        );
-        const newQuestions = [...questions.get(), ...nextQuestions];
+          return null;
+        });
 
-        questions.set(newQuestions);
+        if (!promptIds.includes(null)) {
+          // Get prompts from prompt ids
+          nextQuestions = prompts.filter((p) => promptIds.includes(p.id) && p.disabled === false);
+
+          const newQuestions = [...questions.get(), ...nextQuestions];
+
+          questions.set(newQuestions);
+        }
       }
 
-      // // Handle Current Prompt next Ids
-      // if (prompt?.promptIds !== undefined && prompt.promptIds.length > 0) {
-      //   nextQuestions = config.current.prompts.filter(
-      //     (p) => prompt.promptIds!.includes(p.id) && p.theme === theme.get() && p.disabled === false
-      //   );
+      // Handle Current Prompt next Ids
+      if (prompt?.nextPrompts?.results !== undefined && prompt.nextPrompts.results.length > 0) {
+        // Add filter for if question has already been answered
+        const nextPromptIds = prompt.nextPrompts.results.map((p) => p.id);
 
-      //   questions.set([...questions.get(), ...nextQuestions]);
-      // }
+        nextQuestions = prompts.filter((p) => nextPromptIds.includes(p.id) && p.disabled === false);
+
+        questions.set([...questions.get(), ...nextQuestions]);
+      }
     }
   };
 
