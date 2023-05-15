@@ -1,4 +1,4 @@
-import { GetAllPromptsQuery, GetPromptsByThemeAndPersonaQuery } from './Prompts.gql';
+import { GetAllPromptsQuery, GetPromptsByThemeAndPersonaQuery } from '../GraphQL/Queries/Prompts.gql';
 import { IPrompt, IResult } from 'models/Definitions';
 import { chOneService } from 'lib/CHOneService';
 

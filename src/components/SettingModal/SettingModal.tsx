@@ -1,6 +1,6 @@
 import { Button, Card, Flex, Group, Image, Modal, SimpleGrid, Text, createStyles, rem } from '@mantine/core';
-import { ThemeService } from 'lib/themes/ThemeService';
-import { IDefinition, ITheme } from 'models/Definitions';
+import { ThemeService } from 'lib/ThemeService';
+import { ITheme } from 'models/Definitions';
 import { FC, useEffect, useState } from 'react';
 
 interface SettingModalProps {

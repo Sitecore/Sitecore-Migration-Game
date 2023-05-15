@@ -1,5 +1,5 @@
 import { IResult, ITheme } from 'models/Definitions';
-import { GetAllThemesQuery, GetThemeByIdQuery } from './Themes.gql';
+import { GetAllThemesQuery, GetThemeByIdQuery } from '../GraphQL/Queries/Themes.gql';
 import { chOneService } from 'lib/CHOneService';
 
 export const ThemeService = () => {

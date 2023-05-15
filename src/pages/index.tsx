@@ -1,11 +1,11 @@
-import { Badge, Center, Container, Grid, Group, Header, Loader, Paper, Stack, Text, Title } from '@mantine/core';
+import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Text, Title } from '@mantine/core';
 import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 import { Navigation } from 'components/Navigation/Navigation';
 import { SettingModal } from 'components/SettingModal/SettingModal';
 import { useTrait } from 'hooks/useTrait';
-import { PromptService } from 'lib/prompts/PromptService';
+import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models/Definitions';
 import React, { useEffect } from 'react';
 
