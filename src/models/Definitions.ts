@@ -17,26 +17,46 @@ export interface IPersonaType {
 }
 
 export interface ITheme {
-  title: string;
+  name: string;
+  description: string;
   id: string;
-  image?: string;
+  characterImage?: IResult<IImage[]>;
+}
+
+export interface IResult<T> {
+  total?: number;
+  results: T;
+}
+
+export interface IImage {
+  fileUrl: string;
+  fileName: string;
 }
 
 export interface IPrompt {
-  text: string[];
+  text: string;
+  bodyText?: string;
   id: string;
-  options?: IOption[];
-  optionType: 'buttons' | 'multiselect';
-  promptIds?: string[]; // If prompt requires additional prompts, this is the list of prompt ids
+  name: string;
+  options?: IResult<IOption[]>;
+  optionType: IResult<IOptionType[]>;
+  nextPrompts?: IResult<IPrompt[]>; // If prompt requires additional prompts, this is the list of prompt ids
   start?: boolean; // If true, this is the first prompt
-  theme: string;
+  theme: IResult<ITheme[]>;
+  persona: IResult<IPersona[]>;
   disabled: boolean;
 }
 
+export interface IOptionType {
+  id: string;
+  name: string;
+}
+
 export interface IOption {
-  text: string;
+  name: string;
   value: string;
-  promptIds?: string; // Required for Buttons, but not for MultiSelect, but used to fill additional prompts
+  label: string;
+  nextPrompts?: IResult<IPrompt[]>;
   disabled?: boolean;
   tooltip?: string;
 }

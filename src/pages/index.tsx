@@ -1,39 +1,58 @@
-import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Title, Text } from '@mantine/core';
+import { Badge, Center, Container, Grid, Group, Loader, Paper, Stack, Text, Title } from '@mantine/core';
 import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
-import { MarkdownDisplay } from 'components/MarkdownDisplay/MarkdownDisplay';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 import { Navigation } from 'components/Navigation/Navigation';
 import { SettingModal } from 'components/SettingModal/SettingModal';
 import { useTrait } from 'hooks/useTrait';
-import { IAnswer, IDefinition, IOption, IPrompt } from 'models/Definitions';
+import { PromptService } from 'lib/PromptService';
+import { IAnswer, IOption, IPrompt } from 'models/Definitions';
 import React, { useEffect } from 'react';
 
 const App = () => {
   const answers = useTrait<IAnswer[]>([]);
   const questions = useTrait<IPrompt[]>([]);
   const theme = useTrait<string>('corporate');
-  const [persona, setPersona] = React.useState('developer');
+  const promptService = PromptService();
+
+  const [persona, setPersona] = React.useState('nMeJvakIB0Kvx29f5uVdiw'); // Hard coding to Developer Persona until we complete Personas :-)
   const [prompt, setPrompt] = React.useState<IPrompt | undefined>();
   const [loading, setLoading] = React.useState(true);
   const [authModelOpen, setAuthModalOpen] = React.useState(false);
   const [settingModalOpen, setSettingModalOpen] = React.useState(true);
-  const [showResult, setShowResult] = React.useState(true);
+  const [showResult, setShowResult] = React.useState(false);
+  const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [showQuestions, setShowQuestions] = React.useState(true);
 
-  const config = React.useRef<IDefinition>();
-
   useEffect(() => {
-    const initializeApp = async () => {
-      config.current = await fetchConfig();
-
-      initializeStartPrompt();
-      setLoading(false);
-    };
-
     initializeApp().catch((e) => console.error(e));
     // eslint-disable-next-line
   }, []);
+
+  const initializeApp = async () => {
+    // Should maybe preload themes and personas here
+    setLoading(false);
+  };
+
+  const preloadPrompts = async () => {
+    let data = await promptService.GetAllPromptsByThemePersona(theme.get(), persona);
+
+    if (data != null) {
+      setPrompts(data.results);
+
+      // Set Starting Prompt
+      const currentPrompt = data.results.find((p: IPrompt) => p.start === true);
+
+      if (currentPrompt !== undefined) {
+        setPrompt(currentPrompt);
+      } else {
+        // TODO: Show messaging if no prompts/start prompts are found
+        //setShowError(true);
+        console.error('No start prompt found');
+        console.log(prompts);
+      }
+    }
+  };
 
   const triggerNextPrompt = () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
@@ -50,25 +69,15 @@ const App = () => {
     }
   };
 
-  const initializeStartPrompt = () => {
-    if (config.current !== undefined) {
-      const currentPrompt = config.current.prompts.find((p: IPrompt) => p.start === true && p.theme === theme.get());
+  const initializeStartPrompt = async () => {
+    setLoading(true);
+    await preloadPrompts();
 
-      if (currentPrompt != null) {
-        questions.set([]);
-        answers.set([]);
-        setPrompt(currentPrompt);
-        setShowQuestions(true);
-        setShowResult(false);
-      }
-    }
-  };
-
-  const fetchConfig = async (): Promise<IDefinition> => {
-    const response = await fetch('./definition.json');
-    const data = await response.json();
-
-    return data;
+    questions.set([]);
+    answers.set([]);
+    setShowQuestions(true);
+    setShowResult(false);
+    setLoading(false);
   };
 
   const initializeResult = async () => {
@@ -115,40 +124,50 @@ const App = () => {
     }
   };
 
-  const handleSettingChange = (newTheme: string) => {
+  const handleSettingChange = async (newTheme: string) => {
     theme.set(newTheme);
     setSettingModalOpen(false);
-    initializeStartPrompt();
+    await initializeStartPrompt();
   };
 
   const populateQuestions = (answers: IAnswer[]) => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
 
-    if (config.current !== undefined) {
+    // TODO: Move logic to PromptService?!? (or anywhere)
+    if (prompts !== undefined && prompt !== undefined) {
       // Get current prompts option prompt ids for only answers
-      let optionsSelected: IOption[] | undefined = prompt!.options?.filter(
+      let optionsSelected: IOption[] | undefined = prompt!.options?.results.filter(
         (o) => answers.find((a) => a.value === o.value) != null
       );
 
       if (optionsSelected) {
         // Get prompt ids from options
-        let promptIds = optionsSelected.map((o) => o.promptIds);
+        // Add filter for if question has already been answered
+        const promptIds = optionsSelected.map((o) => {
+          if (o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0) {
+            return o.nextPrompts?.results[0].id;
+          }
 
-        // Get prompts from prompt ids
-        nextQuestions = config.current.prompts.filter(
-          (p) => promptIds.includes(p.id) && p.theme === theme.get() && p.disabled === false
-        );
-        const newQuestions = [...questions.get(), ...nextQuestions];
+          return null;
+        });
 
-        questions.set(newQuestions);
+        if (!promptIds.includes(null)) {
+          // Get prompts from prompt ids
+          nextQuestions = prompts.filter((p) => promptIds.includes(p.id) && p.disabled === false);
+
+          const newQuestions = [...questions.get(), ...nextQuestions];
+
+          questions.set(newQuestions);
+        }
       }
 
       // Handle Current Prompt next Ids
-      if (prompt?.promptIds !== undefined && prompt.promptIds.length > 0) {
-        nextQuestions = config.current.prompts.filter(
-          (p) => prompt.promptIds!.includes(p.id) && p.theme === theme.get() && p.disabled === false
-        );
+      if (prompt?.nextPrompts?.results !== undefined && prompt.nextPrompts.results.length > 0) {
+        // Add filter for if question has already been answered
+        const nextPromptIds = prompt.nextPrompts.results.map((p) => p.id);
+
+        nextQuestions = prompts.filter((p) => nextPromptIds.includes(p.id) && p.disabled === false);
 
         questions.set([...questions.get(), ...nextQuestions]);
       }
@@ -165,11 +184,7 @@ const App = () => {
             startOverTrigger={initializeStartPrompt}
           />
           <AuthModal isOpen={authModelOpen} onClose={() => setAuthModalOpen(false)}></AuthModal>
-          <SettingModal
-            config={config.current}
-            isOpen={settingModalOpen}
-            onClose={(newTheme: string) => handleSettingChange(newTheme)}
-          ></SettingModal>
+          <SettingModal isOpen={settingModalOpen} onClose={(newTheme: string) => handleSettingChange(newTheme)} />
 
           {showQuestions && (
             <Paper p="md" shadow="lg" withBorder>
@@ -189,25 +204,21 @@ const App = () => {
                     </Group>
                   </Grid.Col>
                 </Grid>
-
-                {prompt?.text != null && prompt?.text.length > 0 && (
+                <Text>{prompt?.text}</Text>
+                {prompt?.options?.results != null && (
                   <>
-                    {prompt?.text.map((t, i) => {
-                      return (
-                        <Text size="lg" key={i}>
-                          {t}
-                        </Text>
-                      );
-                    })}
-                  </>
-                )}
-                {prompt?.options != null && (
-                  <>
-                    {prompt?.optionType === 'multiselect' && (
-                      <MultiSelect multiSelectSubmit={multiSelectSubmit} options={prompt.options}></MultiSelect>
+                    {prompt?.optionType?.results[0].name === 'Checklist' && (
+                      <>
+                        <MultiSelect
+                          multiSelectSubmit={multiSelectSubmit}
+                          options={prompt.options.results}
+                        ></MultiSelect>
+                      </>
                     )}
-                    {prompt?.optionType === 'buttons' && (
-                      <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options}></ButtonGroup>
+                    {prompt?.optionType?.results[0].name === 'Buttons' && (
+                      <>
+                        <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options.results}></ButtonGroup>
+                      </>
                     )}
                   </>
                 )}
@@ -233,8 +244,19 @@ const App = () => {
                     </Group>
                   </Grid.Col>
                 </Grid>
+                <Title size="md">TODO: This is static, needs to generate from CH1 Still</Title>
                 <Text>
-                  <MarkdownDisplay theme={theme.get()} persona={persona} answers={answers.get()} />
+                  Congratulations! Based on your answers, we have some guides for you that will be of interest for your
+                  specific situation.
+                </Text>
+                <Text>Please read through this guide to get advice on options for your situation.</Text>
+                <Title>Sitecore Experience platform</Title>
+                <Text>
+                  Based on your answers from the previous questions, you are currently running Sitecore XP. Based on
+                  this, you can refer to the following general guidance for{' '}
+                  <a href="https://doc.sitecore.com/developers/93/sitecore-experience-platform/en/upgrade-guide.html">
+                    Sitecore XP: Sitecore XP 9.3 Upgrade Guide
+                  </a>
                 </Text>
               </Stack>
             </Paper>

@@ -1,0 +1,79 @@
+fragment PromptDetails on Prompt {
+  id
+  name
+  text
+  theme {
+    results {
+      __typename
+      ... on GameTheme {
+        id
+      }
+    }
+  }
+  nextPrompts {
+    results {
+      ... on Prompt {
+        id
+      }
+    }
+  }
+  persona {
+    results {
+      ... on GamePersona {
+        id
+      }
+    }
+  }
+  optionType {
+    results {
+      ... on PromptOptionTypes {
+        id
+        name
+      }
+    }
+  }
+  disabled
+  start
+  options {
+    results {
+      ... on PromptOption {
+        id
+        name
+        label
+        value
+        tooltip
+        nextPrompts {
+          results {
+            ... on Prompt {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetAllPromptsQuery {
+  allPrompt {
+    results {
+      ...PromptDetails
+    }
+  }
+}
+
+query GetPromptsByThemeAndPersonaQuery($themeId: ID!, $personaId: ID!) {
+  allPrompt(where: { AND: [{ theme: { prompt_ids: $themeId } }, { persona: { prompt_ids: $personaId } }] }) {
+    results {
+      ...PromptDetails
+    }
+  }
+}
+
+query GetPromptsByThemeQuery($themeId: ID!) {
+  allPrompt(where: { theme: { prompt_ids: $themeId } }) {
+    results {
+      ...PromptDetails
+    }
+  }
+}

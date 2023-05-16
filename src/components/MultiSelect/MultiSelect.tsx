@@ -18,10 +18,10 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
             <>
               {option.tooltip ? (
                 <Tooltip label={option.tooltip}>
-                  <Checkbox key={option.value} value={option.value} label={option.text} />
+                  <Checkbox key={option.value} value={option.value} label={option.label} />
                 </Tooltip>
               ) : (
-                <Checkbox key={option.value} value={option.value} label={option.text} />
+                <Checkbox key={option.value} value={option.value} label={option.label} />
               )}
             </>
           ))}
