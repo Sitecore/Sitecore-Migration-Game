@@ -137,20 +137,29 @@ const App = () => {
     // TODO: Move logic to PromptService?!? (or anywhere)
     if (prompts !== undefined && prompt !== undefined) {
       // Get current prompts option prompt ids for only answers
-      let optionsSelected: IOption[] | undefined = prompt!.options?.results.filter(
-        (o) => answers.find((a) => a.value === o.value) != null
+      let optionsSelectedWithNextPrompts: IOption[] | undefined = prompt.options?.results.filter(
+        (o) =>
+          answers.find((a) => a.value === o.value) != null &&
+          o.nextPrompts?.results !== undefined &&
+          o.nextPrompts.results.length > 0
       );
 
-      if (optionsSelected) {
+      console.log(optionsSelectedWithNextPrompts);
+
+      if (optionsSelectedWithNextPrompts) {
         // Get prompt ids from options
         // Add filter for if question has already been answered
-        const promptIds = optionsSelected.map((o) => {
-          if (o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0) {
-            return o.nextPrompts?.results[0].id;
-          }
+        const promptIds = optionsSelectedWithNextPrompts
+          .map((o) => {
+            if (o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0) {
+              return o.nextPrompts.results.map((p) => p.id);
+            }
 
-          return null;
-        });
+            return null;
+          })
+          .flat();
+
+        console.log(promptIds);
 
         if (!promptIds.includes(null)) {
           // Get prompts from prompt ids
