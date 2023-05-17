@@ -2,6 +2,7 @@ fragment PromptDetails on Prompt {
   id
   name
   text
+  bodyText
   theme {
     results {
       __typename
