@@ -3,6 +3,8 @@ import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 import { Navigation } from 'components/Navigation/Navigation';
+import { OutcomePanel } from 'components/Panels';
+import { RichTextOutput } from 'components/RichTextOutput/RichTextOutput';
 import { SettingModal } from 'components/SettingModal/SettingModal';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
@@ -134,7 +136,7 @@ const App = () => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
 
-    // TODO: Move logic to PromptService?!? (or anywhere)
+    // TODO: Move me please, I hate looking at it myself :-)
     if (prompts !== undefined && prompt !== undefined) {
       // Get current prompts option prompt ids for only answers
       let optionsSelectedWithNextPrompts: IOption[] | undefined = prompt.options?.results.filter(
@@ -144,12 +146,10 @@ const App = () => {
           o.nextPrompts.results.length > 0
       );
 
-      console.log(optionsSelectedWithNextPrompts);
-
       if (optionsSelectedWithNextPrompts) {
         // Get prompt ids from options
         // Add filter for if question has already been answered
-        const promptIds = optionsSelectedWithNextPrompts
+        let promptIds = optionsSelectedWithNextPrompts
           .map((o) => {
             if (o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0) {
               return o.nextPrompts.results.map((p) => p.id);
@@ -159,9 +159,7 @@ const App = () => {
           })
           .flat();
 
-        console.log(promptIds);
-
-        if (!promptIds.includes(null)) {
+        if (promptIds != null) {
           // Get prompts from prompt ids
           nextQuestions = prompts.filter((p) => promptIds.includes(p.id) && p.disabled === false);
 
@@ -214,6 +212,7 @@ const App = () => {
                   </Grid.Col>
                 </Grid>
                 <Text>{prompt?.text}</Text>
+                {prompt?.bodyText && <RichTextOutput content={prompt.bodyText} />}
                 {prompt?.options?.results != null && (
                   <>
                     {prompt?.optionType?.results[0].name === 'Checklist' && (
@@ -235,41 +234,7 @@ const App = () => {
             </Paper>
           )}
 
-          {showResult && (
-            <Paper p="md" shadow="xs" withBorder>
-              <Stack>
-                <Grid justify="flex-end">
-                  <Grid.Col span={6}>
-                    <Badge color="green">Solution</Badge>
-                  </Grid.Col>
-                  <Grid.Col span={6}>
-                    <Group position="right" spacing="xs">
-                      <Badge color="orange" variant="dot">
-                        {theme.get()}
-                      </Badge>
-                      <Badge color="orange" variant="dot">
-                        {persona}
-                      </Badge>
-                    </Group>
-                  </Grid.Col>
-                </Grid>
-                <Title size="md">TODO: This is static, needs to generate from CH1 Still</Title>
-                <Text>
-                  Congratulations! Based on your answers, we have some guides for you that will be of interest for your
-                  specific situation.
-                </Text>
-                <Text>Please read through this guide to get advice on options for your situation.</Text>
-                <Title>Sitecore Experience platform</Title>
-                <Text>
-                  Based on your answers from the previous questions, you are currently running Sitecore XP. Based on
-                  this, you can refer to the following general guidance for{' '}
-                  <a href="https://doc.sitecore.com/developers/93/sitecore-experience-platform/en/upgrade-guide.html">
-                    Sitecore XP: Sitecore XP 9.3 Upgrade Guide
-                  </a>
-                </Text>
-              </Stack>
-            </Paper>
-          )}
+          {showResult && <OutcomePanel answers={answers.get()} />}
         </>
       ) : (
         <>
