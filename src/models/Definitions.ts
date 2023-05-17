@@ -1,3 +1,5 @@
+import { JSONContent } from '@tiptap/core';
+
 export interface IDefinition {
   title: string;
   description?: string;
@@ -35,7 +37,7 @@ export interface IImage {
 
 export interface IPrompt {
   text: string;
-  bodyText?: string;
+  bodyText?: JSONContent;
   id: string;
   name: string;
   options?: IResult<IOption[]>;
