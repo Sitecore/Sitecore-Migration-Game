@@ -50,8 +50,6 @@ export const RichTextOutput: FC<RichTextOutputProps> = ({ content }) => {
     Underline,
   ];
 
-  console.log(content);
-
   return (
     <TypographyStylesProvider>
       <div dangerouslySetInnerHTML={{ __html: generateHTML(content, extensions) }} />
