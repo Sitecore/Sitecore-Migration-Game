@@ -87,15 +87,18 @@ const App = () => {
   };
 
   const optionSelected = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const option = e.currentTarget;
+    const option = prompt?.options?.results.find((o: IOption) => o.value === e.currentTarget.value);
+    if (option === undefined) {
+      return;
+    }
 
-    let answers: IAnswer[] = [
-      {
-        promptId: prompt!.id,
-        prompt: prompt!.text,
-        value: option.value,
-      },
-    ];
+    let answers: IAnswer =
+    {
+      promptId: prompt!.id,
+      prompt: prompt!.text,
+      value: new Array(option.value),
+      valuePrettyText: new Array(option.label),
+    };
 
     saveAnswers(answers);
     populateQuestions(answers);
@@ -104,13 +107,15 @@ const App = () => {
   };
 
   const multiSelectSubmit = (selectedValues: string[]) => {
-    let answers: IAnswer[] = selectedValues.map((v) => {
-      return {
-        promptId: prompt!.id,
-        prompt: prompt!.text,
-        value: v,
-      };
-    });
+    let optionLabels: string[] = [];
+    optionLabels = prompt?.options?.results.filter((o: IOption) => selectedValues.includes(o.value)).map((o) => o.label) || [];
+
+    let answers: IAnswer = {
+      promptId: prompt!.id,
+      prompt: prompt!.text,
+      value: selectedValues,
+      valuePrettyText: optionLabels,
+    };
 
     saveAnswers(answers);
     populateQuestions(answers);
@@ -118,13 +123,12 @@ const App = () => {
     triggerNextPrompt();
   };
 
-  const saveAnswers = (promptAnswers: IAnswer[]) => {
+  const saveAnswers = (promptAnswers: IAnswer) => {
     // Save Answers to Collection
     if (answers.get() && answers.get().length > 0) {
-      answers.set([...answers.get(), ...promptAnswers]);
-      console.log(answers.get(), answers.get().length);
+      answers.set([...answers.get(), promptAnswers]);
     } else {
-      answers.set(promptAnswers);
+      answers.set(new Array(promptAnswers));
     }
   };
 
@@ -134,7 +138,7 @@ const App = () => {
     await initializeStartPrompt();
   };
 
-  const populateQuestions = (answers: IAnswer[]) => {
+  const populateQuestions = (answers: IAnswer) => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
 
@@ -142,7 +146,7 @@ const App = () => {
     if (prompts !== undefined && prompt !== undefined) {
       // Get current prompts option prompt ids for only answers
       let optionsSelected: IOption[] | undefined = prompt!.options?.results.filter(
-        (o) => answers.find((a) => a.value === o.value) != null
+        (o) => answers.value.includes(o.value)
       );
 
       if (optionsSelected) {

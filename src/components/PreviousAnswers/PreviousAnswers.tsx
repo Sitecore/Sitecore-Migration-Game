@@ -23,13 +23,18 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = ({ answers }) => {
             <Collapse in={opened}>
               {answers.length > 0 && (
                 <ul>
-                  {answers.map((answer) => (
-                    <Box>
-                      <Text>{answer.prompt}</Text>
-                      <List>
-                        <List.Item>{answer.value}</List.Item>
-                      </List>                    </Box>
-                  ))}
+                  {
+                    // Using slice() so I don't modify the original array
+                    answers.slice().reverse().map((answer) => (
+                      <Box mt={12}>
+                        <Text>{answer.prompt}</Text>
+                        <List>
+                          {answer.valuePrettyText.map((text) => (
+                            <List.Item>{text}</List.Item>
+                          ))}
+                        </List>
+                      </Box>
+                    ))}
                 </ul>
               )}
             </Collapse>
