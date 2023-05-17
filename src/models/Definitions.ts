@@ -63,5 +63,6 @@ export interface IOption {
 
 export interface IAnswer {
   promptId: string;
+  prompt: string;
   value: string;
 }

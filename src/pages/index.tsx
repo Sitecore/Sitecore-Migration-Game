@@ -3,6 +3,7 @@ import { AuthModal } from 'components/AuthModal/AuthModal';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 import { Navigation } from 'components/Navigation/Navigation';
+import { PreviousAnswers } from 'components/PreviousAnswers/PreviousAnswers';
 import { SettingModal } from 'components/SettingModal/SettingModal';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
@@ -91,6 +92,7 @@ const App = () => {
     let answers: IAnswer[] = [
       {
         promptId: prompt!.id,
+        prompt: prompt!.text,
         value: option.value,
       },
     ];
@@ -105,6 +107,7 @@ const App = () => {
     let answers: IAnswer[] = selectedValues.map((v) => {
       return {
         promptId: prompt!.id,
+        prompt: prompt!.text,
         value: v,
       };
     });
@@ -119,6 +122,7 @@ const App = () => {
     // Save Answers to Collection
     if (answers.get() && answers.get().length > 0) {
       answers.set([...answers.get(), ...promptAnswers]);
+      console.log(answers.get(), answers.get().length);
     } else {
       answers.set(promptAnswers);
     }
@@ -222,6 +226,7 @@ const App = () => {
                     )}
                   </>
                 )}
+                <PreviousAnswers answers={answers.get()}></PreviousAnswers>
               </Stack>
             </Paper>
           )}
