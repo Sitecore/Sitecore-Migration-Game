@@ -1,4 +1,7 @@
+import { Box, Loader, LoadingOverlay } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { RichTextOutput } from 'components/RichTextOutput/RichTextOutput';
+import { Loading } from 'components/ui/Loading/Loading';
 import { OutcomeService } from 'lib/OutcomeService';
 import { IAnswer, IOutcome, IResult } from 'models/Definitions';
 import { FC, useEffect, useState } from 'react';
@@ -10,7 +13,7 @@ interface OutcomeProps {
 export const Outcome: FC<OutcomeProps> = ({ answers }) => {
   const outcomeService = OutcomeService();
   const [outcomes, setOutcomes] = useState<IResult<IOutcome[]> | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [visible, { toggle: toggleVisibility }] = useDisclosure(true);
   const answerOptionIds = answers.map((a) => a.value).flat();
 
   useEffect(() => {
@@ -18,21 +21,18 @@ export const Outcome: FC<OutcomeProps> = ({ answers }) => {
       let data = await outcomeService.GetOutcomeByOptionFilter(answerOptionIds);
 
       setOutcomes(data);
+      toggleVisibility();
     };
 
-    console.log(answerOptionIds);
-
     fetchOutcomes().catch((e) => console.error(e));
-
-    setLoading(false);
 
     // eslint-disable-next-line
   }, [answers]);
 
   return (
-    <div>
-      {loading ? (
-        <div>Loading...</div>
+    <Box>
+      {visible ? (
+        <Loading message="Loading Outcomes..." />
       ) : (
         <>
           {outcomes != null && outcomes.results != null && outcomes.results.length > 0 && (
@@ -46,6 +46,6 @@ export const Outcome: FC<OutcomeProps> = ({ answers }) => {
           )}
         </>
       )}
-    </div>
+    </Box>
   );
 };

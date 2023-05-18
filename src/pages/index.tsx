@@ -11,6 +11,8 @@ import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models/Definitions';
 import React, { useEffect } from 'react';
+import { useDisclosure } from '@mantine/hooks';
+import { Loading } from 'components/ui/Loading/Loading';
 
 const App = () => {
   const answers = useTrait<IAnswer[]>([]);
@@ -246,7 +248,7 @@ const App = () => {
       ) : (
         <>
           <Center>
-            <Loader />
+            <Loading message="Loading Game Configuration..." />
           </Center>
         </>
       )}
