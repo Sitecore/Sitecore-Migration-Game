@@ -1,0 +1,21 @@
+fragment OutcomeDetails on GameOutcome {
+  id
+  name
+  text
+  promptOptionsFilter {
+    results {
+      ... on PromptOption {
+        id
+        value
+      }
+    }
+  }
+}
+
+query GetOutcomeByAnswersQuery($answers: [ID!]!) {
+  allGameOutcome(where: { promptOptionsFilter: { gameOutcome_ids: $answers } }) {
+    results {
+      ...OutcomeDetails
+    }
+  }
+}
