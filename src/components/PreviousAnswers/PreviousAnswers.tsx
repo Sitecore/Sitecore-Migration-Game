@@ -7,6 +7,7 @@ import { Divider } from '@mantine/core';
 interface PreviousAnswersProps {
   answers: IAnswer[];
 }
+
 export const PreviousAnswers: FC<PreviousAnswersProps> = ({ answers }) => {
   const [opened, { toggle }] = useDisclosure(false);
 
@@ -17,7 +18,9 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = ({ answers }) => {
           <Divider my="sm" />
           <Box>
             <Group mb={5}>
-              <Button variant="light" onClick={toggle}>Previous Answers</Button>
+              <Button variant="light" onClick={toggle}>
+                Previous Answers
+              </Button>
             </Group>
 
             <Collapse in={opened}>
@@ -25,16 +28,20 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = ({ answers }) => {
                 <ul>
                   {
                     // Using slice() so I don't modify the original array
-                    answers.slice().reverse().map((answer) => (
-                      <Box mt={12}>
-                        <Text>{answer.prompt}</Text>
-                        <List>
-                          {answer.valuePrettyText.map((text) => (
-                            <List.Item>{text}</List.Item>
-                          ))}
-                        </List>
-                      </Box>
-                    ))}
+                    answers
+                      .slice()
+                      .reverse()
+                      .map((answer) => (
+                        <Box mt={12}>
+                          <Text>{answer.prompt}</Text>
+                          <List>
+                            {answer.valuePrettyText.map((text) => (
+                              <List.Item>{text}</List.Item>
+                            ))}
+                          </List>
+                        </Box>
+                      ))
+                  }
                 </ul>
               )}
             </Collapse>
