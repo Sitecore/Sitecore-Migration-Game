@@ -13,7 +13,7 @@ interface OutcomeProps {
 export const Outcome: FC<OutcomeProps> = ({ answers }) => {
   const outcomeService = OutcomeService();
   const [outcomes, setOutcomes] = useState<IResult<IOutcome[]> | null>(null);
-  const [visible, { toggle: toggleVisibility }] = useDisclosure(true);
+  const [loading, setLoading] = useDisclosure(true);
   const answerOptionIds = answers.map((a) => a.value).flat();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const Outcome: FC<OutcomeProps> = ({ answers }) => {
       let data = await outcomeService.GetOutcomeByOptionFilter(answerOptionIds);
 
       setOutcomes(data);
-      toggleVisibility();
+      setLoading.close();
     };
 
     fetchOutcomes().catch((e) => console.error(e));
@@ -30,9 +30,11 @@ export const Outcome: FC<OutcomeProps> = ({ answers }) => {
   }, [answers]);
 
   return (
-    <Box>
-      {visible ? (
-        <Loading message="Loading Outcomes..." />
+    <>
+      {loading ? (
+        <Box style={{ margin: 'auto' }}>
+          <Loading message="Loading Outcomes..." />
+        </Box>
       ) : (
         <>
           {outcomes != null && outcomes.results != null && outcomes.results.length > 0 && (
@@ -46,6 +48,6 @@ export const Outcome: FC<OutcomeProps> = ({ answers }) => {
           )}
         </>
       )}
-    </Box>
+    </>
   );
 };
