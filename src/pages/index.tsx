@@ -11,6 +11,8 @@ import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models/Definitions';
 import React, { useEffect } from 'react';
+import { useDisclosure } from '@mantine/hooks';
+import { Loading } from 'components/ui/Loading/Loading';
 
 const App = () => {
   const answers = useTrait<IAnswer[]>([]);
@@ -89,16 +91,15 @@ const App = () => {
   };
 
   const optionSelected = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const option = prompt?.options?.results.find((o: IOption) => o.value === e.currentTarget.value);
+    const option = prompt?.options?.results.find((o: IOption) => o.id === e.currentTarget.value);
     if (option === undefined) {
       return;
     }
 
-    let answers: IAnswer =
-    {
+    let answers: IAnswer = {
       promptId: prompt!.id,
       prompt: prompt!.text,
-      value: new Array(option.value),
+      value: new Array(option.id),
       valuePrettyText: new Array(option.label),
     };
 
@@ -110,7 +111,8 @@ const App = () => {
 
   const multiSelectSubmit = (selectedValues: string[]) => {
     let optionLabels: string[] = [];
-    optionLabels = prompt?.options?.results.filter((o: IOption) => selectedValues.includes(o.value)).map((o) => o.label) || [];
+    optionLabels =
+      prompt?.options?.results.filter((o: IOption) => selectedValues.includes(o.id)).map((o) => o.label) || [];
 
     let answers: IAnswer = {
       promptId: prompt!.id,
@@ -148,10 +150,7 @@ const App = () => {
     if (prompts !== undefined && prompt !== undefined) {
       // Get current prompts option prompt ids for only answers
       let optionsSelectedWithNextPrompts: IOption[] | undefined = prompt.options?.results.filter(
-        (o) =>
-          answers.value.includes(o.value) &&
-          o.nextPrompts?.results !== undefined &&
-          o.nextPrompts.results.length > 0
+        (o) => answers.value.includes(o.id) && o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0
       );
 
       if (optionsSelectedWithNextPrompts) {
@@ -219,8 +218,8 @@ const App = () => {
                     </Group>
                   </Grid.Col>
                 </Grid>
+                <Text>{prompt?.bodyText && <RichTextOutput content={prompt.bodyText} />}</Text>
                 <Text>{prompt?.text}</Text>
-                {prompt?.bodyText && <RichTextOutput content={prompt.bodyText} />}
                 {prompt?.options?.results != null && (
                   <>
                     {prompt?.optionType?.results[0].name === 'Checklist' && (
@@ -248,7 +247,7 @@ const App = () => {
       ) : (
         <>
           <Center>
-            <Loader />
+            <Loading message="Loading Game Configuration..." />
           </Center>
         </>
       )}

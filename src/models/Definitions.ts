@@ -55,6 +55,7 @@ export interface IOptionType {
 }
 
 export interface IOption {
+  id: string;
   name: string;
   value: string;
   label: string;
@@ -66,6 +67,13 @@ export interface IOption {
 export interface IAnswer {
   promptId: string;
   prompt: String;
-  value: string[];
+  value: string[]; // changing to be filled with Ids not value, likely going to remove
   valuePrettyText: string[];
+}
+
+export interface IOutcome {
+  id: string;
+  name: string;
+  text: JSONContent;
+  promptOptionsFilter: IResult<IPrompt[]>;
 }
