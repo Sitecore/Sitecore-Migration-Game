@@ -65,5 +65,7 @@ export interface IOption {
 
 export interface IAnswer {
   promptId: string;
-  value: string;
+  prompt: String;
+  value: string[];
+  valuePrettyText: string[];
 }
