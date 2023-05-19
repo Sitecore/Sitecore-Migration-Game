@@ -7,6 +7,7 @@ import { Loading } from 'components/ui/Loading/Loading';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models/Definitions';
+import router from 'next/router';
 import React, { useContext, useEffect } from 'react';
 import { FC } from 'react';
 
@@ -69,10 +70,10 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
         const nextPrompt = questions.get().shift();
         setCurrentPrompt(nextPrompt);
       } else {
-        //initializeResult();
+        router.push('/outcome');
       }
     } else {
-      //initializeResult();
+      // TODO: Show messaging if no prompts/start prompts are found
     }
   };
 
@@ -84,12 +85,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   };
 
   const saveAnswers = (promptAnswers: IAnswer) => {
-    // Save Answers to Collection
-    if (answers.get() && answers.get().length > 0) {
-      gameInfoContext.updateAnswers([...answers.get(), promptAnswers]);
-    } else {
-      gameInfoContext.updateAnswers([promptAnswers]);
-    }
+    gameInfoContext.updateAnswers([promptAnswers]);
   };
 
   const populateQuestions = (answers: IAnswer) => {
@@ -157,7 +153,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
           </Grid.Col>
         </Grid>
         {loading ? (
-          <Loading />
+          <Loading message="Loading prompts..." />
         ) : (
           <>
             <CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />

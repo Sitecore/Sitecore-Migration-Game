@@ -1,33 +1,35 @@
-import { Box, Loader, LoadingOverlay } from '@mantine/core';
+import { Box } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
 import { RichTextOutput } from 'components/RichTextOutput/RichTextOutput';
 import { Loading } from 'components/ui/Loading/Loading';
 import { OutcomeService } from 'lib/OutcomeService';
-import { IAnswer, IOutcome, IResult } from 'models/Definitions';
-import { FC, useEffect, useState } from 'react';
+import { IOutcome, IResult } from 'models/Definitions';
+import { FC, useContext, useEffect, useState } from 'react';
 
-interface OutcomeProps {
-  answers: IAnswer[];
-}
+interface OutcomeProps {}
 
-export const Outcome: FC<OutcomeProps> = ({ answers }) => {
+export const Outcome: FC<OutcomeProps> = () => {
+  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
   const outcomeService = OutcomeService();
   const [outcomes, setOutcomes] = useState<IResult<IOutcome[]> | null>(null);
   const [loading, setLoading] = useDisclosure(true);
-  const answerOptionIds = answers.map((a) => a.value).flat();
+  const answerOptionIds = gameInfoContext.answers?.map((a) => a.value).flat();
 
   useEffect(() => {
-    const fetchOutcomes = async () => {
-      let data = await outcomeService.GetOutcomeByOptionFilter(answerOptionIds);
+    const fetchOutcomes = async (answerBank: string[]) => {
+      let data = await outcomeService.GetOutcomeByOptionFilter(answerBank);
 
       setOutcomes(data);
       setLoading.close();
     };
 
-    fetchOutcomes().catch((e) => console.error(e));
+    if (answerOptionIds !== undefined && answerOptionIds.length > 0) {
+      fetchOutcomes(answerOptionIds).catch((e) => console.error(e));
+    }
 
     // eslint-disable-next-line
-  }, [answers]);
+  }, [answerOptionIds]);
 
   return (
     <>

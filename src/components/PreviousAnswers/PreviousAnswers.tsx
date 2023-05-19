@@ -13,7 +13,7 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = () => {
 
   return (
     <>
-      {gameInfoContext.answers.length > 0 && (
+      {gameInfoContext.answers !== undefined && gameInfoContext.answers.length > 0 && (
         <>
           <Divider my="sm" />
           <Box>
@@ -32,7 +32,7 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = () => {
                       .slice()
                       .reverse()
                       .map((answer: IAnswer) => (
-                        <Box mt={12}>
+                        <Box mt={12} key={answer.promptId}>
                           <Text>{answer.prompt}</Text>
                           <List>
                             {answer.valuePrettyText.map((text) => (

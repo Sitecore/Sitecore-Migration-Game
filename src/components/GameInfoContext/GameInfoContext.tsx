@@ -1,3 +1,4 @@
+import { useTrait } from 'hooks/useTrait';
 import { IAnswer } from 'models/Definitions';
 import { createContext, FC, useState } from 'react';
 
@@ -6,7 +7,7 @@ export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfo
 export interface GameInfoContextType {
   theme: string;
   persona: string;
-  answers: IAnswer[];
+  answers?: IAnswer[] | undefined;
   updateAnswers: (answers: IAnswer[]) => void;
   updatePersona: (persona: string) => void;
   updateTheme: (theme: string) => void;
@@ -17,22 +18,28 @@ interface GameInfoProviderProps {
 }
 
 export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
-  const [answers, setAnswers] = useState<IAnswer[]>([]);
+  const savedAnswers = useTrait<IAnswer[]>([]);
   const [theme, setTheme] = useState<string>('-e_W0k2zO0uZPNBmYtorCQ');
   const [persona, setPersona] = useState<string>('nMeJvakIB0Kvx29f5uVdiw');
 
-  // const updateAnswers = (answers: IAnswer[]) => {
-  //   console.log('updateAnswers not implemented');
-  //   setAnswers(answers);
-  // };
+  const updateAnswers = (promptAnswers: IAnswer[]) => {
+    console.log(promptAnswers);
+    if (savedAnswers.get() && savedAnswers.get().length > 0) {
+      savedAnswers.set([...savedAnswers.get(), ...promptAnswers]);
+    } else {
+      savedAnswers.set(promptAnswers);
+    }
+
+    console.log(savedAnswers);
+  };
 
   return (
     <GameInfoContext.Provider
       value={{
         theme,
         persona,
-        answers,
-        updateAnswers: (value: IAnswer[]) => setAnswers(value),
+        answers: savedAnswers.get(),
+        updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),
         updateTheme: (value: string) => {
           setTheme(value);
         },
