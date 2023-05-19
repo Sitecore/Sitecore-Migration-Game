@@ -1,16 +1,15 @@
 import { Button, Flex, Tooltip, Image, Grid, Container } from '@mantine/core';
+import Link from 'next/link';
 import { FC } from 'react';
 import { BiSave } from 'react-icons/bi';
 import { FiSettings } from 'react-icons/fi';
 import { MdRestartAlt } from 'react-icons/md';
 
 interface NavigationProps {
-  saveTrigger: () => void;
-  settingTrigger: () => void;
-  startOverTrigger: () => void;
+  saveTrigger?: () => void;
 }
 
-export const Navigation: FC<NavigationProps> = ({ saveTrigger, settingTrigger, startOverTrigger }) => {
+export const Navigation: FC<NavigationProps> = ({ saveTrigger }) => {
   return (
     <>
       <Grid align="flex-end">
@@ -25,14 +24,18 @@ export const Navigation: FC<NavigationProps> = ({ saveTrigger, settingTrigger, s
               </Button>
             </Tooltip>
             <Tooltip label="Change Theme and Restart Quest" multiline>
-              <Button variant="subtle" onClick={settingTrigger} compact>
-                <FiSettings size="24px" color="#000" />
-              </Button>
+              <Link href="/">
+                <Button variant="subtle" compact>
+                  <FiSettings size="24px" color="#000" />
+                </Button>
+              </Link>
             </Tooltip>
             <Tooltip label="Start Over">
-              <Button variant="subtle" onClick={startOverTrigger} compact>
-                <MdRestartAlt size="24px" color="#000" />
-              </Button>
+              <Link href="/prompt">
+                <Button variant="subtle" compact>
+                  <MdRestartAlt size="24px" color="#000" />
+                </Button>
+              </Link>
             </Tooltip>
           </Flex>
         </Grid.Col>

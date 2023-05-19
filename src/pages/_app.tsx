@@ -1,12 +1,14 @@
-import { ApolloProvider } from '@apollo/client';
 import { MantineProvider } from '@mantine/core';
+import { GameInfoProvider } from 'components/GameInfoContext/GameInfoContext';
 import { AppProps } from 'next/app';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <MantineProvider theme={{ colorScheme: 'light' }}>
-      <Component {...pageProps} />
-    </MantineProvider>
+    <GameInfoProvider>
+      <MantineProvider theme={{ colorScheme: 'light' }}>
+        <Component {...pageProps} />
+      </MantineProvider>
+    </GameInfoProvider>
   );
 };
 

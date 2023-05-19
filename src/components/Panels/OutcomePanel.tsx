@@ -1,14 +1,13 @@
 import { Badge, Grid, Group, Paper, Stack } from '@mantine/core';
+import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
 import { Outcome } from 'components/Outcome/Outcome';
-import { IAnswer, ITheme } from 'models/Definitions';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
-interface OutcomePanelProps {
-  answers: IAnswer[];
-  theme?: ITheme;
-}
+interface OutcomePanelProps {}
 
-export const OutcomePanel: FC<OutcomePanelProps> = ({ theme, answers }) => {
+export const OutcomePanel: FC<OutcomePanelProps> = () => {
+  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
+
   return (
     <Paper p="md" shadow="xs" withBorder>
       <Stack>
@@ -19,15 +18,15 @@ export const OutcomePanel: FC<OutcomePanelProps> = ({ theme, answers }) => {
           <Grid.Col span={6}>
             <Group position="right" spacing="xs">
               <Badge color="orange" variant="dot">
-                Theme Here
+                {gameInfoContext.theme}
               </Badge>
               <Badge color="orange" variant="dot">
-                Persona Needed
+                {gameInfoContext.persona}
               </Badge>
             </Group>
           </Grid.Col>
         </Grid>
-        <Outcome answers={answers} />
+        <Outcome />
       </Stack>
     </Paper>
   );
