@@ -7,10 +7,9 @@ import { MdRestartAlt } from 'react-icons/md';
 
 interface NavigationProps {
   saveTrigger?: () => void;
-  settingTrigger?: () => void;
 }
 
-export const Navigation: FC<NavigationProps> = ({ saveTrigger, settingTrigger }) => {
+export const Navigation: FC<NavigationProps> = ({ saveTrigger }) => {
   return (
     <>
       <Grid align="flex-end">
@@ -25,12 +24,14 @@ export const Navigation: FC<NavigationProps> = ({ saveTrigger, settingTrigger })
               </Button>
             </Tooltip>
             <Tooltip label="Change Theme and Restart Quest" multiline>
-              <Button variant="subtle" onClick={settingTrigger} compact>
-                <FiSettings size="24px" color="#000" />
-              </Button>
+              <Link href="/">
+                <Button variant="subtle" compact>
+                  <FiSettings size="24px" color="#000" />
+                </Button>
+              </Link>
             </Tooltip>
             <Tooltip label="Start Over">
-              <Link href="/">
+              <Link href="/prompt">
                 <Button variant="subtle" compact>
                   <MdRestartAlt size="24px" color="#000" />
                 </Button>

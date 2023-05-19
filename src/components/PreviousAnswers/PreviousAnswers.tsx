@@ -1,19 +1,19 @@
 import { Button, Group, Collapse, Box, List, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IAnswer } from 'models/Definitions';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { Divider } from '@mantine/core';
+import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
+import { IAnswer } from 'models/Definitions';
 
-interface PreviousAnswersProps {
-  answers: IAnswer[];
-}
+interface PreviousAnswersProps {}
 
-export const PreviousAnswers: FC<PreviousAnswersProps> = ({ answers }) => {
+export const PreviousAnswers: FC<PreviousAnswersProps> = () => {
+  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
   const [opened, { toggle }] = useDisclosure(false);
 
   return (
     <>
-      {answers.length > 0 && (
+      {gameInfoContext.answers.length > 0 && (
         <>
           <Divider my="sm" />
           <Box>
@@ -24,14 +24,14 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = ({ answers }) => {
             </Group>
 
             <Collapse in={opened}>
-              {answers.length > 0 && (
+              {gameInfoContext.answers.length > 0 && (
                 <ul>
                   {
                     // Using slice() so I don't modify the original array
-                    answers
+                    gameInfoContext.answers
                       .slice()
                       .reverse()
-                      .map((answer) => (
+                      .map((answer: IAnswer) => (
                         <Box mt={12}>
                           <Text>{answer.prompt}</Text>
                           <List>

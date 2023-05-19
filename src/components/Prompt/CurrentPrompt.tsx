@@ -1,19 +1,16 @@
+import { Text } from '@mantine/core';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
-import { Text } from '@mantine/core';
-import { FC } from 'react';
-import { IAnswer, IOption, IPrompt } from 'models/Definitions';
 import { RichTextOutput } from 'components/RichTextOutput/RichTextOutput';
-import React from 'react';
+import { IAnswer, IOption, IPrompt } from 'models/Definitions';
+import React, { FC } from 'react';
 
 interface PromptProps {
   prompt: IPrompt | undefined;
-  theme: string;
-  persona: string;
   answerSelected: (answer: IAnswer) => void;
 }
 
-export const CurrentPrompt: FC<PromptProps> = ({ prompt, theme, persona, answerSelected }) => {
+export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
   const optionSelected = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const option = prompt?.options?.results.find((o: IOption) => o.id === e.currentTarget.value);
     if (option === undefined) {

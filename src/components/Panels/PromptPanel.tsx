@@ -1,17 +1,20 @@
 import { Badge, Grid, Group, Paper, Stack } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
+import { PreviousAnswers } from 'components/PreviousAnswers/PreviousAnswers';
 import { CurrentPrompt } from 'components/Prompt/CurrentPrompt';
+import { Loading } from 'components/ui/Loading/Loading';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models/Definitions';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FC } from 'react';
 
-interface PromptPanelProps {
-  theme: string;
-  persona: string;
-}
+interface PromptPanelProps {}
 
-export const PromptPanel: FC<PromptPanelProps> = ({ theme, persona }) => {
+export const PromptPanel: FC<PromptPanelProps> = () => {
+  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
+  const [loading, loadingActions] = useDisclosure(true);
   const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
   const questions = useTrait<IPrompt[]>([]);
@@ -19,19 +22,27 @@ export const PromptPanel: FC<PromptPanelProps> = ({ theme, persona }) => {
 
   const promptService = PromptService();
 
+  useEffect(() => {
+    const initialize = async () => {
+      await initializeStartPrompt();
+    };
+
+    initialize().catch((e) => console.error(e));
+
+    // eslint-disable-next-line
+  }, []);
+
   const initializeStartPrompt = async () => {
-    // setLoading(true);
+    loadingActions.open();
     await preloadPrompts();
 
     questions.set([]);
-    // answers.set([]);
-    // setShowQuestions(true);
-    // setShowResult(false);
-    // setLoading(false);
+    gameInfoContext.updateAnswers([]);
+    loadingActions.close();
   };
 
   const preloadPrompts = async () => {
-    let data = await promptService.GetAllPromptsByThemePersona(theme, persona);
+    let data = await promptService.GetAllPromptsByThemePersona(gameInfoContext.theme, gameInfoContext.persona);
 
     if (data != null) {
       setPrompts(data.results);
@@ -75,9 +86,9 @@ export const PromptPanel: FC<PromptPanelProps> = ({ theme, persona }) => {
   const saveAnswers = (promptAnswers: IAnswer) => {
     // Save Answers to Collection
     if (answers.get() && answers.get().length > 0) {
-      answers.set([...answers.get(), promptAnswers]);
+      gameInfoContext.updateAnswers([...answers.get(), promptAnswers]);
     } else {
-      answers.set(new Array(promptAnswers));
+      gameInfoContext.updateAnswers([promptAnswers]);
     }
   };
 
@@ -127,36 +138,32 @@ export const PromptPanel: FC<PromptPanelProps> = ({ theme, persona }) => {
     }
   };
 
-  useEffect(() => {
-    const initialize = async () => {
-      await initializeStartPrompt();
-    };
-
-    initialize().catch((e) => console.error(e));
-
-    // eslint-disable-next-line
-  }, []);
-
   return (
     <Paper p="md" shadow="lg" withBorder>
       <Stack>
         <Grid justify="flex-end">
           <Grid.Col span={6}>
-            <Badge color="red">Remaining Questions: Many</Badge>
+            <Badge color="red">Remaining Questions: {questions.get().length + 1}</Badge>
           </Grid.Col>
           <Grid.Col span={6}>
             <Group position="right" spacing="xs">
               <Badge color="orange" variant="dot">
-                {theme}
+                {gameInfoContext.theme}
               </Badge>
               <Badge color="orange" variant="dot">
-                {persona}
+                {gameInfoContext.persona}
               </Badge>
             </Group>
           </Grid.Col>
         </Grid>
-        <CurrentPrompt prompt={currentPrompt} theme={theme} persona={persona} answerSelected={answerSelected} />
-        {/* <PreviousAnswers answers={answers}></PreviousAnswers> */}
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />
+            <PreviousAnswers />
+          </>
+        )}
       </Stack>
     </Paper>
   );

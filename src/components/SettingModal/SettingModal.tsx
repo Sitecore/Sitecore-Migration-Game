@@ -13,14 +13,15 @@ import {
   rem,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
 import { Loading } from 'components/ui/Loading/Loading';
 import { ThemeService } from 'lib/ThemeService';
 import { ITheme } from 'models/Definitions';
-import { FC, useEffect, useState } from 'react';
+import router from 'next/router';
+import { FC, useContext, useEffect, useState } from 'react';
 
 interface SettingModalProps {
   isOpen: boolean;
-  onClose: (themeId: string) => void;
 }
 
 //#region Styles
@@ -48,10 +49,11 @@ const useStyles = createStyles((theme) => ({
 }));
 //#endregion
 
-export const SettingModal: FC<SettingModalProps> = ({ isOpen, onClose }) => {
+export const SettingModal: FC<SettingModalProps> = ({ isOpen }) => {
   //#region State/Props
+  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
   const { classes } = useStyles();
-  const [themes, setTheme] = useState<ITheme[] | undefined>(); //config?.theme || 'corporate'
+  const [themes, setThemes] = useState<ITheme[] | undefined>(); //config?.theme || 'corporate'
   const [loading, { toggle: toggleLoading }] = useDisclosure(true);
   let themeService = ThemeService();
   //#endregion
@@ -69,18 +71,24 @@ export const SettingModal: FC<SettingModalProps> = ({ isOpen, onClose }) => {
     const data = await themeService.GetAllThemes();
 
     if (data?.results !== undefined) {
-      setTheme(data.results);
+      setThemes(data.results);
     }
 
     toggleLoading();
+  };
+
+  const handleSettingChange = async (newTheme: string) => {
+    gameInfoContext.updateTheme(newTheme);
+    //gameInfoContext.updatePersona(newPersona);
+    router.push('/prompt');
   };
   //#endregion
 
   return (
     <Modal
       opened={isOpen}
-      onClose={() => onClose('corporate')}
       overlayProps={{ opacity: 0.8, blur: 4 }}
+      onClose={() => {}}
       withCloseButton={false}
       closeOnEscape={false}
       size="xl"
@@ -114,7 +122,7 @@ export const SettingModal: FC<SettingModalProps> = ({ isOpen, onClose }) => {
                   </Text>
                 </Card.Section>
                 <Group mt="xs">
-                  <Button radius="md" style={{ flex: 1 }} onClick={() => onClose(theme.id)}>
+                  <Button radius="md" style={{ flex: 1 }} onClick={() => handleSettingChange(theme.id)}>
                     Continue
                   </Button>
                 </Group>
