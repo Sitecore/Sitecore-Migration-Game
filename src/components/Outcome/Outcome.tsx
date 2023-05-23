@@ -12,7 +12,7 @@ interface OutcomeProps {}
 export const Outcome: FC<OutcomeProps> = () => {
   const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
   const outcomeService = OutcomeService();
-  const [outcomes, setOutcomes] = useState<IResult<IOutcome[]> | null>(null);
+  const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>([]);
   const [loading, setLoading] = useDisclosure(true);
   const answerOptionIds = gameInfoContext.answers?.map((a) => a.value).flat();
 
@@ -20,7 +20,10 @@ export const Outcome: FC<OutcomeProps> = () => {
     const fetchOutcomes = async (answerBank: string[]) => {
       let data = await outcomeService.GetOutcomeByOptionFilter(answerBank);
 
-      setOutcomes(data);
+      if (data?.results) {
+        setOutcomes(data?.results.slice().sort((a, b) => (a.sortOrder ?? 100) - (b.sortOrder ?? 100)));
+      }
+
       setLoading.close();
     };
 
@@ -39,9 +42,9 @@ export const Outcome: FC<OutcomeProps> = () => {
         </Box>
       ) : (
         <>
-          {outcomes != null && outcomes.results != null && outcomes.results.length > 0 && (
+          {outcomes != null && outcomes.length > 0 && (
             <>
-              {outcomes.results.map((o: IOutcome) => (
+              {outcomes.map((o: IOutcome) => (
                 <div key={o.id}>
                   <RichTextOutput content={o.text} />
                 </div>
