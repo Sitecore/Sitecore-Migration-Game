@@ -4,7 +4,7 @@ import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext
 import { RichTextOutput } from 'components/RichTextOutput/RichTextOutput';
 import { Loading } from 'components/ui/Loading/Loading';
 import { OutcomeService } from 'lib/OutcomeService';
-import { IOutcome, IResult } from 'models/Definitions';
+import { IOutcome, IResult } from 'models';
 import { FC, useContext, useEffect, useState } from 'react';
 
 interface OutcomeProps {}

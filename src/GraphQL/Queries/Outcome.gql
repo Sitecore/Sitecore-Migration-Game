@@ -2,6 +2,7 @@ fragment OutcomeDetails on GameOutcome {
   id
   name
   text
+  sortOrder
   promptOptionsFilter {
     results {
       ... on PromptOption {

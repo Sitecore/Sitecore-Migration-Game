@@ -2,7 +2,7 @@ import { Text } from '@mantine/core';
 import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
 import { MultiSelect } from 'components/MultiSelect/MultiSelect';
 import { RichTextOutput } from 'components/RichTextOutput/RichTextOutput';
-import { IAnswer, IOption, IPrompt } from 'models/Definitions';
+import { IAnswer, IOption, IPrompt } from 'models';
 import React, { FC } from 'react';
 
 interface PromptProps {

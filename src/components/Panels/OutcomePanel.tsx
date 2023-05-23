@@ -1,6 +1,7 @@
 import { Badge, Grid, Group, Paper, Stack } from '@mantine/core';
 import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
 import { Outcome } from 'components/Outcome/Outcome';
+import { PreviousAnswers } from 'components/PreviousAnswers/PreviousAnswers';
 import { FC, useContext } from 'react';
 
 interface OutcomePanelProps {}
@@ -27,6 +28,7 @@ export const OutcomePanel: FC<OutcomePanelProps> = () => {
           </Grid.Col>
         </Grid>
         <Outcome />
+        <PreviousAnswers />
       </Stack>
     </Paper>
   );

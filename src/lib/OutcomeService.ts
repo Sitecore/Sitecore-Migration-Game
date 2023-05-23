@@ -1,4 +1,4 @@
-import { IOutcome, IResult } from 'models/Definitions';
+import { IOutcome, IResult } from 'models';
 import { chOneService } from './CHOneService';
 import { GetOutcomeByAnswersQuery } from '../GraphQL/Queries/Outcome.gql';
 

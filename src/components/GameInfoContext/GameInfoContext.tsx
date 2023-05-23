@@ -1,5 +1,5 @@
 import { useTrait } from 'hooks/useTrait';
-import { IAnswer } from 'models/Definitions';
+import { IAnswer } from 'models';
 import { createContext, FC, useState } from 'react';
 
 export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfoContextType);
