@@ -1,5 +1,5 @@
 import { useTrait } from 'hooks/useTrait';
-import { IAnswer } from 'models/Definitions';
+import { IAnswer } from 'models';
 import { createContext, FC, useState } from 'react';
 
 export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfoContextType);
@@ -23,14 +23,11 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
   const [persona, setPersona] = useState<string>('nMeJvakIB0Kvx29f5uVdiw');
 
   const updateAnswers = (promptAnswers: IAnswer[]) => {
-    console.log(promptAnswers);
     if (savedAnswers.get() && savedAnswers.get().length > 0) {
       savedAnswers.set([...savedAnswers.get(), ...promptAnswers]);
     } else {
       savedAnswers.set(promptAnswers);
     }
-
-    console.log(savedAnswers);
   };
 
   return (

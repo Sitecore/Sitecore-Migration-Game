@@ -1,22 +1,9 @@
-import {
-  Button,
-  Card,
-  Flex,
-  Group,
-  Image,
-  Loader,
-  Modal,
-  SimpleGrid,
-  Stack,
-  Text,
-  createStyles,
-  rem,
-} from '@mantine/core';
+import { Button, Card, Flex, Group, Image, Modal, SimpleGrid, Text, createStyles, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
 import { Loading } from 'components/ui/Loading/Loading';
 import { ThemeService } from 'lib/ThemeService';
-import { ITheme } from 'models/Definitions';
+import { ITheme } from 'models';
 import router from 'next/router';
 import { FC, useContext, useEffect, useState } from 'react';
 

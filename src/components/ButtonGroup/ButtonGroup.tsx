@@ -1,5 +1,5 @@
 import { Button, SimpleGrid, Tooltip } from '@mantine/core';
-import { IOption } from 'models/Definitions';
+import { IOption } from 'models';
 import { FC } from 'react';
 
 interface IButtonGroupProps {

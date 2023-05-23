@@ -1,4 +1,4 @@
-import { IResult, ITheme } from 'models/Definitions';
+import { IResult, ITheme } from 'models';
 import { GetAllThemesQuery, GetThemeByIdQuery } from '../GraphQL/Queries/Themes.gql';
 import { chOneService } from 'lib/CHOneService';
 

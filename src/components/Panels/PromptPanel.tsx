@@ -6,7 +6,7 @@ import { CurrentPrompt } from 'components/Prompt/CurrentPrompt';
 import { Loading } from 'components/ui/Loading/Loading';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
-import { IAnswer, IOption, IPrompt } from 'models/Definitions';
+import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
 import React, { useContext, useEffect } from 'react';
 import { FC } from 'react';
@@ -19,7 +19,6 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
   const questions = useTrait<IPrompt[]>([]);
-  const answers = useTrait<IAnswer[]>([]);
 
   const promptService = PromptService();
 

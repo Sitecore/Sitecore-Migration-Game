@@ -3,7 +3,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { FC, useContext } from 'react';
 import { Divider } from '@mantine/core';
 import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
-import { IAnswer } from 'models/Definitions';
+import { IAnswer } from 'models';
 
 interface PreviousAnswersProps {}
 

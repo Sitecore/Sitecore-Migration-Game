@@ -1,5 +1,5 @@
 import { Button, Checkbox, Group, Tooltip } from '@mantine/core';
-import { IOption } from 'models/Definitions';
+import { IOption } from 'models';
 import { FC, useState } from 'react';
 
 interface MultiSelectProps {
