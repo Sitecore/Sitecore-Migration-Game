@@ -17,20 +17,16 @@ export const Outcome: FC<OutcomeProps> = () => {
   const answerOptionIds = gameInfoContext.answers?.map((a) => a.value).flat();
 
   useEffect(() => {
-    const fetchOutcomes = async (answerBank: string[]) => {
-      let data = await outcomeService.GetOutcomeByOptionFilter(answerBank);
-
-      if (data?.results) {
-        setOutcomes(data?.results.slice().sort((a, b) => (a.sortOrder ?? 100) - (b.sortOrder ?? 100)));
-      }
-
-      setLoading.close();
-    };
-
-    if (answerOptionIds !== undefined && answerOptionIds.length > 0) {
-      fetchOutcomes(answerOptionIds).catch((e) => console.error(e));
-    }
-
+    // const fetchOutcomes = async (answerBank: string[]) => {
+    //   let data = await outcomeService.GetOutcomeByOptionFilter(answerBank);
+    //   if (data?.results) {
+    //     setOutcomes(data?.results.slice().sort((a, b) => (a.sortOrder ?? 100) - (b.sortOrder ?? 100)));
+    //   }
+    //   setLoading.close();
+    // };
+    // if (answerOptionIds !== undefined && answerOptionIds.length > 0) {
+    //   fetchOutcomes(answerOptionIds).catch((e) => console.error(e));
+    // }
     // eslint-disable-next-line
   }, [answerOptionIds]);
 
