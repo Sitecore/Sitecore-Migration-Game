@@ -1,6 +1,6 @@
 import { Container } from '@mantine/core';
-import { Navigation } from 'components/Navigation/Navigation';
-import { OutcomePanel } from 'components/Panels';
+import { OutcomePanel } from 'components/Outcomes';
+import { Navigation } from 'components/ui';
 
 interface OutcomePageProps {}
 

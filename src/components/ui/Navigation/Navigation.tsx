@@ -1,6 +1,5 @@
 import { Button, Flex, Grid, Image, Tooltip } from '@mantine/core';
-import { GameInfoContext } from 'components/GameInfoContext/GameInfoContext';
-import Link from 'next/link';
+import { GameInfoContext } from 'components/ui';
 import Router from 'next/router';
 import { FC, useContext } from 'react';
 import { BiSave } from 'react-icons/bi';

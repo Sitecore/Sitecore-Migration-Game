@@ -1,10 +1,5 @@
 import { Center, Container } from '@mantine/core';
-import { AuthModal } from 'components/AuthModal/AuthModal';
-import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
-import { Navigation } from 'components/Navigation/Navigation';
-import { SettingModal } from 'components/SettingModal/SettingModal';
-import { Loading } from 'components/ui/Loading/Loading';
-import router from 'next/router';
+import { AuthModal, GameInfoContext, GameInfoContextType, Loading, SettingModal } from 'components/ui';
 import React, { useContext, useEffect } from 'react';
 
 const App = () => {

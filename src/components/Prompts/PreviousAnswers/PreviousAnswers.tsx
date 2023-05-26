@@ -1,14 +1,13 @@
-import { Button, Group, Collapse, Box, List, Text } from '@mantine/core';
+import { Box, Button, Collapse, Divider, Group, List, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { FC, useContext } from 'react';
-import { Divider } from '@mantine/core';
-import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
+import { useGameInfoContext } from 'components/ui';
 import { IAnswer } from 'models';
+import { FC } from 'react';
 
 interface PreviousAnswersProps {}
 
 export const PreviousAnswers: FC<PreviousAnswersProps> = () => {
-  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
+  const gameInfoContext = useGameInfoContext();
   const [opened, { toggle }] = useDisclosure(false);
 
   return (

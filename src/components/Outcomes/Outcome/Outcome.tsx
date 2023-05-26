@@ -1,16 +1,14 @@
 import { Box } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
-import { RichTextOutput } from 'components/RichTextOutput/RichTextOutput';
-import { Loading } from 'components/ui/Loading/Loading';
+import { Loading, RichTextOutput, useGameInfoContext } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
-import { IOutcome, IResult } from 'models';
-import { FC, useContext, useEffect, useState } from 'react';
+import { IOutcome } from 'models';
+import { FC, useEffect, useState } from 'react';
 
 interface OutcomeProps {}
 
 export const Outcome: FC<OutcomeProps> = () => {
-  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
+  const gameInfoContext = useGameInfoContext();
   const outcomeService = OutcomeService();
   const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>([]);
   const [loading, setLoading] = useDisclosure(true);

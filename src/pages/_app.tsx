@@ -1,5 +1,5 @@
 import { MantineProvider } from '@mantine/core';
-import { GameInfoProvider } from 'components/GameInfoContext/GameInfoContext';
+import { GameInfoProvider } from 'components/ui';
 import { AppProps } from 'next/app';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

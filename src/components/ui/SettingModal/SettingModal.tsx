@@ -1,11 +1,10 @@
 import { Button, Card, Flex, Group, Image, Modal, SimpleGrid, Text, createStyles, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
-import { Loading } from 'components/ui/Loading/Loading';
+import { Loading, useGameInfoContext } from 'components/ui';
 import { ThemeService } from 'lib/ThemeService';
 import { ITheme } from 'models';
 import router from 'next/router';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 interface SettingModalProps {
   isOpen: boolean;
@@ -38,7 +37,7 @@ const useStyles = createStyles((theme) => ({
 
 export const SettingModal: FC<SettingModalProps> = ({ isOpen }) => {
   //#region State/Props
-  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
+  const gameInfoContext = useGameInfoContext();
   const { classes } = useStyles();
   const [themes, setThemes] = useState<ITheme[] | undefined>(); //config?.theme || 'corporate'
   const [loading, { toggle: toggleLoading }] = useDisclosure(true);

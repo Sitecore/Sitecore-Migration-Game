@@ -1,6 +1,6 @@
 import { useTrait } from 'hooks/useTrait';
 import { IAnswer } from 'models';
-import { createContext, FC, useState } from 'react';
+import React, { createContext, FC, useState } from 'react';
 
 export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfoContextType);
 
@@ -13,6 +13,8 @@ export interface GameInfoContextType {
   updateTheme: (theme: string) => void;
   resetAnswers: () => void;
 }
+
+export const useGameInfoContext = () => React.useContext(GameInfoContext);
 
 interface GameInfoProviderProps {
   children: React.ReactNode;

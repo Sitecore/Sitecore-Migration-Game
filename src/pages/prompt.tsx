@@ -1,6 +1,6 @@
 import { Container } from '@mantine/core';
-import { Navigation } from 'components/Navigation/Navigation';
-import { PromptPanel } from 'components/Panels/PromptPanel';
+import { PromptPanel } from 'components/Prompts';
+import { Navigation } from 'components/ui';
 
 const PromptPage = () => {
   return (
