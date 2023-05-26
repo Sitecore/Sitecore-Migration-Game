@@ -17,11 +17,11 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
           {options.map((option: IOption) => (
             <>
               {option.tooltip ? (
-                <Tooltip label={option.tooltip}>
-                  <Checkbox key={option.value} value={option.value} label={option.label} />
+                <Tooltip key={option.id} label={option.tooltip}>
+                  <Checkbox value={option.value} label={option.label} />
                 </Tooltip>
               ) : (
-                <Checkbox key={option.value} value={option.value} label={option.label} />
+                <Checkbox key={option.id} value={option.value} label={option.label} />
               )}
             </>
           ))}

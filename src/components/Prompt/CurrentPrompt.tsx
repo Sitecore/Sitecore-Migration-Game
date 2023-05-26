@@ -44,7 +44,11 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Text>{prompt?.bodyText && <RichTextOutput content={prompt.bodyText} />}</Text>
+      {prompt?.bodyText && (
+        <Text>
+          <RichTextOutput content={prompt.bodyText} />
+        </Text>
+      )}
       <Text>{prompt?.text}</Text>
       {prompt?.options?.results != null && (
         <>
