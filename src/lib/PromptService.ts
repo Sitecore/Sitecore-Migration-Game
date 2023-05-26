@@ -10,6 +10,7 @@ export const PromptService = () => {
     const { data, error } = await chOneService().query({
       query: GetPromptsByThemeAndPersonaQuery,
       variables: { themeId: themeId, personaId: personaId },
+      fetchPolicy: 'no-cache', // Disabled Caching
     });
 
     if (error) {
@@ -23,7 +24,7 @@ export const PromptService = () => {
   };
 
   const GetAllPrompts = async (): Promise<IResult<IPrompt[]> | null> => {
-    const { error, data } = await chOneService().query({ query: GetAllPromptsQuery });
+    const { error, data } = await chOneService().query({ query: GetAllPromptsQuery, fetchPolicy: 'no-cache' });
 
     if (error) {
       console.log(error);

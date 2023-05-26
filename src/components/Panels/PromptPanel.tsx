@@ -37,7 +37,6 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
     await preloadPrompts();
 
     questions.set([]);
-    gameInfoContext.updateAnswers([]);
     loadingActions.close();
   };
 
