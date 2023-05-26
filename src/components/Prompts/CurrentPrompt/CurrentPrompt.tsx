@@ -1,7 +1,6 @@
 import { Text } from '@mantine/core';
-import { ButtonGroup } from 'components/ButtonGroup/ButtonGroup';
-import { MultiSelect } from 'components/MultiSelect/MultiSelect';
-import { RichTextOutput } from 'components/RichTextOutput/RichTextOutput';
+import { ButtonGroup, MultiSelect } from 'components/Prompts';
+import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
 import React, { FC } from 'react';
 

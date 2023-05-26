@@ -1,13 +1,13 @@
-import { ConditionalResponse } from 'components/ConditionalResponse/ConditionalResponse';
-import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
+import { ConditionalResponse } from 'components/Outcomes';
+import { useGameInfoContext } from 'components/ui';
 import { IAnswer, PromptMappings } from 'models';
 import Link from 'next/link';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 
 interface OutcomeGeneratorProps {}
 
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
-  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
+  const gameInfoContext = useGameInfoContext();
 
   return (
     <>

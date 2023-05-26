@@ -1,15 +1,13 @@
 import { Badge, Grid, Group, Paper, Stack } from '@mantine/core';
-import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
-import { MarkdownDisplay } from 'components/MarkdownDisplay/MarkdownDisplay';
-import { Outcome } from 'components/Outcome/Outcome';
-import { OutcomeGenerator } from 'components/OutcomeGenerator/OutcomeGenerator';
-import { PreviousAnswers } from 'components/PreviousAnswers/PreviousAnswers';
-import { FC, useContext } from 'react';
+import { OutcomeGenerator } from 'components/Outcomes';
+import { PreviousAnswers } from 'components/Prompts';
+import { useGameInfoContext } from 'components/ui';
+import { FC } from 'react';
 
 interface OutcomePanelProps {}
 
 export const OutcomePanel: FC<OutcomePanelProps> = () => {
-  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
+  const gameInfoContext = useGameInfoContext();
 
   return (
     <Paper p="md" shadow="xs" withBorder>

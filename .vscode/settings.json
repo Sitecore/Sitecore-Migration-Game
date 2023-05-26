@@ -3,6 +3,9 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#a2decb",
         "activityBar.background": "#a2decb",

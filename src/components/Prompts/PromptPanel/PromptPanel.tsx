@@ -1,20 +1,17 @@
 import { Badge, Grid, Group, Paper, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { GameInfoContext, GameInfoContextType } from 'components/GameInfoContext/GameInfoContext';
-import { PreviousAnswers } from 'components/PreviousAnswers/PreviousAnswers';
-import { CurrentPrompt } from 'components/Prompt/CurrentPrompt';
-import { Loading } from 'components/ui/Loading/Loading';
+import { CurrentPrompt, PreviousAnswers } from 'components/Prompts';
+import { Loading, useGameInfoContext } from 'components/ui';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
-import React, { useContext, useEffect } from 'react';
-import { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 interface PromptPanelProps {}
 
 export const PromptPanel: FC<PromptPanelProps> = () => {
-  const gameInfoContext = useContext<GameInfoContextType>(GameInfoContext);
+  const gameInfoContext = useGameInfoContext();
   const [loading, loadingActions] = useDisclosure(true);
   const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
