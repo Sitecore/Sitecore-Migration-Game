@@ -1,6 +1,8 @@
 import { Button, Flex, Grid, Image, Tooltip } from '@mantine/core';
+import { GameInfoContext } from 'components/GameInfoContext/GameInfoContext';
 import Link from 'next/link';
-import { FC } from 'react';
+import Router from 'next/router';
+import { FC, useContext } from 'react';
 import { BiSave } from 'react-icons/bi';
 import { FiSettings } from 'react-icons/fi';
 import { MdRestartAlt } from 'react-icons/md';
@@ -10,6 +12,18 @@ interface NavigationProps {
 }
 
 export const Navigation: FC<NavigationProps> = ({ saveTrigger }) => {
+  const gameInfoContext = useContext(GameInfoContext);
+
+  const handleAppReset = () => {
+    gameInfoContext.resetAnswers();
+    Router.push('/');
+  };
+
+  const handleStartOver = () => {
+    gameInfoContext.resetAnswers();
+    Router.push('/prompt');
+  };
+
   return (
     <>
       <Grid align="flex-end">
@@ -24,18 +38,14 @@ export const Navigation: FC<NavigationProps> = ({ saveTrigger }) => {
               </Button>
             </Tooltip>
             <Tooltip label="Change Theme and Restart Quest" multiline>
-              <Link href="/">
-                <Button variant="subtle" compact>
-                  <FiSettings size="24px" color="#000" />
-                </Button>
-              </Link>
+              <Button variant="subtle" compact onClick={handleAppReset}>
+                <FiSettings size="24px" color="#000" />
+              </Button>
             </Tooltip>
             <Tooltip label="Start Over">
-              <Link href="/prompt">
-                <Button variant="subtle" compact>
-                  <MdRestartAlt size="24px" color="#000" />
-                </Button>
-              </Link>
+              <Button variant="subtle" compact onClick={handleStartOver}>
+                <MdRestartAlt size="24px" color="#000" />
+              </Button>
             </Tooltip>
           </Flex>
         </Grid.Col>

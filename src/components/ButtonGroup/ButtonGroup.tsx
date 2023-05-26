@@ -17,7 +17,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
               <>
                 {o.tooltip ? (
                   <Tooltip key={o.id} label={o.tooltip}>
-                    <Button value={o.value} onClick={optionSelectEvent}>
+                    <Button key={o.id} value={o.value} onClick={optionSelectEvent}>
                       {o.label}
                     </Button>
                   </Tooltip>

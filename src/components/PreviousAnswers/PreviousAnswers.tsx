@@ -26,22 +26,19 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = () => {
             <Collapse in={opened}>
               {gameInfoContext.answers.length > 0 && (
                 <ul>
-                  {
-                    // Using slice() so I don't modify the original array
-                    gameInfoContext.answers
-                      .slice()
-                      .reverse()
-                      .map((answer: IAnswer) => (
-                        <Box mt={12} key={answer.promptId}>
-                          <Text>{answer.prompt}</Text>
-                          <List>
-                            {answer.valuePrettyText.map((text) => (
-                              <List.Item>{text}</List.Item>
-                            ))}
-                          </List>
-                        </Box>
-                      ))
-                  }
+                  {gameInfoContext.answers
+                    .slice()
+                    .reverse()
+                    .map((answer: IAnswer) => (
+                      <Box mt={12} key={answer.promptId}>
+                        <Text>{answer.prompt}</Text>
+                        <List>
+                          {answer.valuePrettyText.map((text, i) => (
+                            <List.Item key={answer.promptId + i}>{text}</List.Item>
+                          ))}
+                        </List>
+                      </Box>
+                    ))}
                 </ul>
               )}
             </Collapse>
