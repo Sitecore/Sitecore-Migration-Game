@@ -11,6 +11,7 @@ export interface GameInfoContextType {
   updateAnswers: (answers: IAnswer[]) => void;
   updatePersona: (persona: string) => void;
   updateTheme: (theme: string) => void;
+  resetAnswers: () => void;
 }
 
 interface GameInfoProviderProps {
@@ -30,6 +31,10 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
     }
   };
 
+  const resetAnswers = () => {
+    savedAnswers.set([]);
+  };
+
   return (
     <GameInfoContext.Provider
       value={{
@@ -37,6 +42,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
         persona,
         answers: savedAnswers.get(),
         updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),
+        resetAnswers: () => resetAnswers(),
         updateTheme: (value: string) => {
           setTheme(value);
         },
