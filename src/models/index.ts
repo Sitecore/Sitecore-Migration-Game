@@ -7,3 +7,4 @@ export * from './IPersona';
 export * from './IPrompt';
 export * from './IResult';
 export * from './ITheme';
+export * from './PromptMappings';
