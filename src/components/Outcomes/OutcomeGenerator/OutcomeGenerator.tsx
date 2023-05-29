@@ -14,7 +14,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       <ConditionalResponse
         condition={
           gameInfoContext.answers?.find(
-            (x: IAnswer) => x.promptId == PromptMappings.platform && x.value.includes('xm')
+            (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xm')
           ) != undefined
         }
       >
@@ -24,7 +24,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       <ConditionalResponse
         condition={
           gameInfoContext.answers?.find(
-            (x: IAnswer) => x.promptId == PromptMappings.platform && x.value.includes('xp')
+            (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp')
           ) != undefined
         }
       >

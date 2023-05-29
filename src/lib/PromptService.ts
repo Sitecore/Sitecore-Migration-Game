@@ -1,6 +1,6 @@
-import { GetAllPromptsQuery, GetPromptsByThemeAndPersonaQuery } from '../GraphQL/Queries/Prompts.gql';
-import { IPrompt, IResult } from 'models';
 import { chOneService } from 'lib/CHOneService';
+import { IPrompt, IResult } from 'models';
+import { GetAllPromptsQuery, GetPromptsByThemeAndPersonaQuery } from '../GraphQL/Queries/Prompts.gql';
 
 export const PromptService = () => {
   const GetAllPromptsByThemePersona = async (

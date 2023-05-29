@@ -1,5 +1,5 @@
 export enum PromptMappings {
-  platform = 'AnshbURwhkGYwT5gAf0bxw',
+  platform = 'introduction',
   xpFeatures = 'OkD7TPGuAUyF9sx10XKeDw',
   desiredFramework = 'JMKPmvHV9kCBrnJAl2tj_g',
   securePages = 'FOrwkq99jkeUMjCw2_qgrg',
