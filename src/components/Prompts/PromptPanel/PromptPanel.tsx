@@ -109,7 +109,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
         if (promptIds != null) {
           // Get prompts from prompt ids
-          nextQuestions = prompts.filter((p) => promptIds.includes(p.id) && p.disabled === false);
+          nextQuestions = prompts.filter((p) => promptIds.includes(p.id) && p.disabled != true);
 
           const newQuestions = [...questions.get(), ...nextQuestions];
 
@@ -122,7 +122,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
         // Add filter for if question has already been answered
         const nextPromptIds = currentPrompt.nextPrompts.results.map((p) => p.id);
 
-        nextQuestions = prompts.filter((p) => nextPromptIds.includes(p.id) && p.disabled === false);
+        nextQuestions = prompts.filter((p) => nextPromptIds.includes(p.id) && p.disabled != true);
 
         questions.set([...questions.get(), ...nextQuestions]);
       }
