@@ -91,7 +91,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
     if (prompts !== undefined && currentPrompt !== undefined) {
       // Get current prompts option prompt ids for only answers
       let optionsSelectedWithNextPrompts: IOption[] | undefined = currentPrompt.options?.results.filter(
-        (o) => answers.value.includes(o.id) && o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0
+        (o) => answers.value.includes(o.value) && o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0
       );
 
       if (optionsSelectedWithNextPrompts) {
