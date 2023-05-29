@@ -19,8 +19,8 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           ) != undefined
         }
       >
-        <h2>Experience Commerce migration</h2>
-        <p>For your Experience Commerce features, you will first want to migrate this functionality over to OrderCloud. Once XC is removed, you can then migrate your XP features and then finally your XM features. The following migration guides can help with the OrderCloud migration, based on the features you are using:</p>
+        <h2>Experience Commerce (XC) migration</h2>
+        <p>For your XC features, you will first want to migrate this functionality over to OrderCloud. Once XC is removed, you can then migrate your XP features and then finally your XM features. The following migration guides can help with the OrderCloud migration, based on the features you are using:</p>
 
         <ul>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=89f8d1391b416154e55241dde54bcb88">Transitioning from Sitecore XC to OrderCloud: API Access</Link></li>
@@ -123,17 +123,32 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           ) != undefined
         }
       >
-        <Link href="https://developers.sitecore.com/">User chose XP as their platform</Link>
+        <h2>Experience Platform (XP) migration</h2>
+        <p>For your XP features, you will first want to migrate this functionality over it's matching SaaS component: Sitecore XM Cloud embedded personalization, Sitecore Personalize, Sitecore CDP, or Sitecore Send. Once XP features and infrastructure are removed, you can then migrate your content management features. The following migration guides can help with the XP migration, based on the features you are using:</p>
+
+        <ul>
         <ConditionalResponse
           condition={
             gameInfoContext.answers?.find(
-              (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework && x.value.includes('nextjs')
+              (x: IAnswer) => x.promptQuestionId == PromptMappings.xpFeatures && !x.value.includes('exm') && !x.value.includes('marketingautomation')
             ) != undefined
           }
         >
-          <Link href="https://nextjs.org/">Next.js Docs</Link>
+          <li><Link href="https://jasonstcyr.com/2022/07/25/sitecore-architects-guide-to-saas-migration-xp-global-brand-scenario/">Sitecore Architect’s Guide to SaaS Migration – XP Global Brand scenario</Link></li>
         </ConditionalResponse>
+        <ConditionalResponse
+          condition={
+            gameInfoContext.answers?.find(
+              (x: IAnswer) => x.promptQuestionId == PromptMappings.xpFeatures && (x.value.includes('exm') || x.value.includes('marketingautomation'))
+            ) != undefined
+          }
+        >
+          <li><Link href="https://jasonstcyr.com/2023/03/09/sitecore-architects-guide-to-saas-migration-xp-marketing-automation/">Sitecore Architect’s Guide to SaaS Migration – XP Marketing Automation</Link></li>
+        </ConditionalResponse>
+          <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=f1cc98af1b541590e55241dde54bcb0d">Sitecore Platform DXP to Composable: CDP + Personalize Migration Strategies</Link></li>
+        </ul>
       </ConditionalResponse>
+
       <ConditionalResponse
         condition={
           gameInfoContext.answers?.find(
@@ -141,8 +156,54 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           ) != undefined
         }
       >
-        <Link href="https://developers.sitecore.com/">User chose XM as their platform</Link>
+        <h2>Experience Manager (XM) migration</h2>
+        <p>Based on how you've implemented the basic content management and delivery in your solution, you will need to take a different approach. Based on your selections, these are the guides that may help:</p>
+
+        <ul>
+          <ConditionalResponse
+            condition={
+              gameInfoContext.answers?.find(
+                (x: IAnswer) => x.promptQuestionId == PromptMappings.experienceEdge && (x.value.includes('yesexperienceedge') || x.value.includes('someexperienceedge') )
+              ) != undefined
+            }
+          >
+            <li><Link href="https://jasonstcyr.com/2022/05/20/sitecore-architects-guide-to-saas-migration-xm-jamstack-scenario/">Sitecore Architect’s Guide to SaaS Migration – XM Jamstack scenario</Link></li>
+          </ConditionalResponse>
+        </ul>          
       </ConditionalResponse>
+
+      <ul>
+        <ConditionalResponse
+            condition={
+              gameInfoContext.answers?.find(
+                (x: IAnswer) => x.promptQuestionId == PromptMappings.desiredFramework && (x.value.includes('nextjs') || x.value.includes('netcore') )
+              ) != undefined
+            }
+          >
+            <li><Link href="https://github.com/sitecore/xm-cloud-introduction">XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2</Link></li>
+        </ConditionalResponse>
+        <ConditionalResponse
+            condition={
+              gameInfoContext.answers?.find(
+                (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework && x.value.includes('netcore')
+              ) != undefined
+            }
+          >
+            Already on ASP.NET Core headless? There is a migration series about taking a .NET Core site and migrating it to XM Cloud.
+            <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1">Migrating the Sitecore MVP site to XM Cloud – Part 1</Link></li>
+            <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-2">Migrating the Sitecore MVP site to XM Cloud – Part 2</Link></li>
+            <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-3">Migrating the Sitecore MVP site to XM Cloud – Part 3</Link></li>
+            <ConditionalResponse
+              condition={
+                gameInfoContext.answers?.find(
+                  (x: IAnswer) => x.promptQuestionId == PromptMappings.securePages && x.value.includes('securityloginrequired')
+                ) != undefined
+              }
+            >
+              <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-4">Migrating the Sitecore MVP site to XM Cloud – Part 4</Link></li>
+            </ConditionalResponse>
+        </ConditionalResponse>
+      </ul>
     </>
   );
 };
