@@ -171,7 +171,30 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           </ConditionalResponse>
         </ul>          
       </ConditionalResponse>
-
+      <ConditionalResponse
+          condition={
+            gameInfoContext.answers?.find(
+              (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework && x.value.includes('netcore')
+            ) != undefined
+          }
+        >
+        <h2>Already on ASP.NET Core headless?</h2>
+        There is a migration series by Rob Earlam discussing steps taken for a .NET Core site on Sitecore XM and migrating it to XM Cloud.
+        <ul>
+          <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1">Migrating the Sitecore MVP site to XM Cloud – Part 1</Link></li>
+          <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-2">Migrating the Sitecore MVP site to XM Cloud – Part 2</Link></li>
+          <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-3">Migrating the Sitecore MVP site to XM Cloud – Part 3</Link></li>
+          <ConditionalResponse
+            condition={
+              gameInfoContext.answers?.find(
+                (x: IAnswer) => x.promptQuestionId == PromptMappings.securePages && x.value.includes('securityloginrequired')
+              ) != undefined
+            }
+          >
+            <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-4">Migrating the Sitecore MVP site to XM Cloud – Part 4</Link></li>
+          </ConditionalResponse>
+        </ul>
+      </ConditionalResponse>
       <ul>
         <ConditionalResponse
             condition={
@@ -181,27 +204,6 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
             }
           >
             <li><Link href="https://github.com/sitecore/xm-cloud-introduction">XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2</Link></li>
-        </ConditionalResponse>
-        <ConditionalResponse
-            condition={
-              gameInfoContext.answers?.find(
-                (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework && x.value.includes('netcore')
-              ) != undefined
-            }
-          >
-            Already on ASP.NET Core headless? There is a migration series about taking a .NET Core site and migrating it to XM Cloud.
-            <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1">Migrating the Sitecore MVP site to XM Cloud – Part 1</Link></li>
-            <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-2">Migrating the Sitecore MVP site to XM Cloud – Part 2</Link></li>
-            <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-3">Migrating the Sitecore MVP site to XM Cloud – Part 3</Link></li>
-            <ConditionalResponse
-              condition={
-                gameInfoContext.answers?.find(
-                  (x: IAnswer) => x.promptQuestionId == PromptMappings.securePages && x.value.includes('securityloginrequired')
-                ) != undefined
-              }
-            >
-              <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-4">Migrating the Sitecore MVP site to XM Cloud – Part 4</Link></li>
-            </ConditionalResponse>
         </ConditionalResponse>
       </ul>
     </>
