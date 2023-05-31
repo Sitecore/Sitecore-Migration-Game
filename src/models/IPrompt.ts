@@ -6,6 +6,7 @@ export interface IPrompt {
   bodyText?: JSONContent;
   id: string;
   name: string;
+  questionid: string;
   options?: IResult<IOption[]>;
   optionType: IResult<IOptionType[]>;
   nextPrompts?: IResult<IPrompt[]>; // If prompt requires additional prompts, this is the list of prompt ids

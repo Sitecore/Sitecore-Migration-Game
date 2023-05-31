@@ -1,6 +1,7 @@
 fragment PromptDetails on Prompt {
   id
   name
+  questionid
   text
   bodyText
   theme {
