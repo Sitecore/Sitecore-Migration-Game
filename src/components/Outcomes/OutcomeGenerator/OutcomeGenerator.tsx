@@ -1,3 +1,4 @@
+import { Text } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
 import { useGameInfoContext } from 'components/ui';
 import { IAnswer, PromptMappings } from 'models';
@@ -11,34 +12,36 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
   return (
     <>
-      <ConditionalResponse
-        condition={
-          gameInfoContext.answers?.find(
-            (x: IAnswer) => x.promptId == PromptMappings.platform && x.value.includes('xm')
-          ) != undefined
-        }
-      >
-        <Link href="https://developers.sitecore.com/">User chose XM as their platform</Link>
-      </ConditionalResponse>
-      This text will always be displayed.
-      <ConditionalResponse
-        condition={
-          gameInfoContext.answers?.find(
-            (x: IAnswer) => x.promptId == PromptMappings.platform && x.value.includes('xp')
-          ) != undefined
-        }
-      >
-        <Link href="https://developers.sitecore.com/">User chose XP as their platform</Link>
+      <Text>
         <ConditionalResponse
           condition={
             gameInfoContext.answers?.find(
-              (x: IAnswer) => x.promptId == PromptMappings.existingFramework && x.value.includes('nextjs')
+              (x: IAnswer) => x.promptId == PromptMappings.platform && x.value.includes('xm')
             ) != undefined
           }
         >
-          <Link href="https://nextjs.org/">Next.js Docs</Link>
+          <Link href="https://developers.sitecore.com/">User chose XM as their platform</Link>
         </ConditionalResponse>
-      </ConditionalResponse>
+        This text will always be displayed.
+        <ConditionalResponse
+          condition={
+            gameInfoContext.answers?.find(
+              (x: IAnswer) => x.promptId == PromptMappings.platform && x.value.includes('xp')
+            ) != undefined
+          }
+        >
+          <Link href="https://developers.sitecore.com/">User chose XP as their platform</Link>
+          <ConditionalResponse
+            condition={
+              gameInfoContext.answers?.find(
+                (x: IAnswer) => x.promptId == PromptMappings.existingFramework && x.value.includes('nextjs')
+              ) != undefined
+            }
+          >
+            <Link href="https://nextjs.org/">Next.js Docs</Link>
+          </ConditionalResponse>
+        </ConditionalResponse>
+      </Text>
     </>
   );
 };
