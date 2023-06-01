@@ -5,7 +5,7 @@ import { IAnswer, PromptMappings } from 'models';
 import Link from 'next/link';
 import { FC } from 'react';
 
-interface XCFeaturesUsed {
+interface IXCFeaturesUsed {
   carts: boolean;
   customerAccounts: boolean;
   fulfillments: boolean;
@@ -19,23 +19,39 @@ interface XCFeaturesUsed {
   shipping:boolean;
 }
 
-interface XPFeaturesUsed {
+interface IXPFeaturesUsed {
   exm: boolean;
   marketingAutomation: boolean;
   sessionPersonalization: boolean;
 }
 
-interface DesiredFrameworks {
+interface IDesiredFrameworks {
   netcore: boolean;
   nextjs: boolean;
 }
 
-interface ExistingFrameworks {
+interface IExistingFrameworks {
   netcore: boolean;
 }
 
-interface SecuredPages {
+interface ISecuredPages {
   securityloginrequired: boolean;  
+}
+
+class OutcomeConditions{
+  xcFeaturesUsed: IXCFeaturesUsed;
+  xpFeaturesUsed: IXPFeaturesUsed;
+  desiredFrameworks: IDesiredFrameworks;
+  existingFrameworks: IExistingFrameworks;
+  securedPages: ISecuredPages;
+
+  constructor(){
+    this.xcFeaturesUsed = {carts:false, customerAccounts:false, fulfillments:false, giftCards:false, inventory:false, orders:false, payment:false, productCatalog:false, promotions:false, rma:false, shipping:false};
+    this.xpFeaturesUsed = {exm:false, marketingAutomation:false, sessionPersonalization:false};
+    this.desiredFrameworks = {netcore:false, nextjs:false};
+    this.existingFrameworks = {netcore:false};
+    this.securedPages = {securityloginrequired:false};
+  }
 }
 
 interface OutcomeGeneratorProps {}
@@ -43,38 +59,39 @@ interface OutcomeGeneratorProps {}
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
 
+  //Use the OutcomeConditions class for storing all the answers as the conditions we'll use in the logic.
+  let outcomeConditions = new OutcomeConditions();
+
   /*Build up the boolean 'checks' that can be used for returning the correct outcomes.
     The boolean checks are most easily written/understood as answers to single prompts, so for more complex checks you should break down the question into single prompts and then combine
   */
   const isXC = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xc') ) != undefined;
   
-  let xcFeaturesUsed: XCFeaturesUsed = {carts:false, customerAccounts:false, fulfillments:false, giftCards:false, inventory:false, orders:false, payment:false, productCatalog:false, promotions:false, rma:false, shipping:false};
   if(isXC){
     var xcFeatures = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.xcFeatures );
     if(xcFeatures != undefined){
-      xcFeaturesUsed.carts = xcFeatures.value.includes('xccarts');
-      xcFeaturesUsed.customerAccounts = xcFeatures.value.includes('xccustomeraccounts');
-      xcFeaturesUsed.fulfillments = xcFeatures.value.includes('xcfulfillments');
-      xcFeaturesUsed.giftCards = xcFeatures.value.includes('xcgiftcards');
-      xcFeaturesUsed.inventory = xcFeatures.value.includes('xcinventory');
-      xcFeaturesUsed.orders = xcFeatures.value.includes('xcorders');
-      xcFeaturesUsed.payment = xcFeatures.value.includes('xcpayment');
-      xcFeaturesUsed.productCatalog = xcFeatures.value.includes('xcproductcatalog');
-      xcFeaturesUsed.promotions = xcFeatures.value.includes('xcpromotions');
-      xcFeaturesUsed.rma = xcFeatures.value.includes('xcrma');
-      xcFeaturesUsed.shipping = xcFeatures.value.includes('xcshipping');
+      outcomeConditions.xcFeaturesUsed.carts = xcFeatures.value.includes('xccarts');
+      outcomeConditions.xcFeaturesUsed.customerAccounts = xcFeatures.value.includes('xccustomeraccounts');
+      outcomeConditions.xcFeaturesUsed.fulfillments = xcFeatures.value.includes('xcfulfillments');
+      outcomeConditions.xcFeaturesUsed.giftCards = xcFeatures.value.includes('xcgiftcards');
+      outcomeConditions.xcFeaturesUsed.inventory = xcFeatures.value.includes('xcinventory');
+      outcomeConditions.xcFeaturesUsed.orders = xcFeatures.value.includes('xcorders');
+      outcomeConditions.xcFeaturesUsed.payment = xcFeatures.value.includes('xcpayment');
+      outcomeConditions.xcFeaturesUsed.productCatalog = xcFeatures.value.includes('xcproductcatalog');
+      outcomeConditions.xcFeaturesUsed.promotions = xcFeatures.value.includes('xcpromotions');
+      outcomeConditions.xcFeaturesUsed.rma = xcFeatures.value.includes('xcrma');
+      outcomeConditions.xcFeaturesUsed.shipping = xcFeatures.value.includes('xcshipping');
     }
   }
 
   //XC contains XP, so if the user answered XC, then they also have XP
   const isXP = isXC || gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp') ) != undefined;
-  let xpFeaturesUsed: XPFeaturesUsed = {exm:false, marketingAutomation:false, sessionPersonalization:false};
   if(isXP){
     var xpFeatures = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.xpFeatures );
     if(xpFeatures != undefined){
-      xpFeaturesUsed.exm = xpFeatures.value.includes('exm');
-      xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
-      xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
+      outcomeConditions.xpFeaturesUsed.exm = xpFeatures.value.includes('exm');
+      outcomeConditions.xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
+      outcomeConditions.xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
     }
   }
 
@@ -82,25 +99,22 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const isXM = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xm') ) != undefined;
 
   //Determine which frameworks they have in their solution. Only checking for the ones that have content conditions, extend as needed.
-  let existingFrameworks: ExistingFrameworks = {netcore:false};
   var existingFrameworkOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework );
   if(existingFrameworkOptions != undefined){
-    existingFrameworks.netcore = existingFrameworkOptions.value.includes("netcore");
+    outcomeConditions.existingFrameworks.netcore = existingFrameworkOptions.value.includes("netcore");
   }
 
   //If they are on an outdated framework, determine which frameworks they want to move to. Only checking for the ones that have content conditions, extend as needed.
-  let desiredFrameworks: DesiredFrameworks = {netcore:false,nextjs:false};
   var desiredFrameworkOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.desiredFramework );
   if(desiredFrameworkOptions != undefined){
-    desiredFrameworks.netcore = desiredFrameworkOptions.value.includes("netcore");
-    desiredFrameworks.nextjs = desiredFrameworkOptions.value.includes("nextjs");
+    outcomeConditions.desiredFrameworks.netcore = desiredFrameworkOptions.value.includes("netcore");
+    outcomeConditions.desiredFrameworks.nextjs = desiredFrameworkOptions.value.includes("nextjs");
   }
 
   //Check for what type of authentication/authorization is in the solution. Only loading values for those with conditions, to be extended as needed.
-  let securedPages: SecuredPages = {securityloginrequired:false};
   var securedPagesOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.securePages );
   if(securedPagesOptions != undefined){
-    securedPages.securityloginrequired = securedPagesOptions.value.includes("securityloginrequired");
+    outcomeConditions.securedPages.securityloginrequired = securedPagesOptions.value.includes("securityloginrequired");
   }
 
   //For Experience Edge, it can only have a Yes/No/Sometimes value. 
@@ -123,34 +137,34 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
         <ul>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=89f8d1391b416154e55241dde54bcb88">Transitioning from Sitecore XC to OrderCloud: API Access</Link></li>
-        <ConditionalResponse condition={xcFeaturesUsed.carts}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.carts}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=293153231b01a110e55241dde54bcba3">Transitioning from Sitecore XC to OrderCloud: Carts to Unsubmitted Orders and Carts</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.productCatalog}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.productCatalog}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=0e1c6adb1b416910e55241dde54bcb9e">Transitioning from Sitecore XC to OrderCloud: Catalogs and Categories</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.productCatalog}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.productCatalog}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=06a4f29f1b816910e55241dde54bcbb0">Transitioning from Sitecore XC to OrderCloud: Sellable Items to Products</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.customerAccounts}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.customerAccounts}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=0913197d1bcd2154e55241dde54bcb9f">Transitioning from Sitecore XC to OrderCloud: Customer to Buyer Users</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.fulfillments}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.fulfillments}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=3826e72f1b81a110e55241dde54bcb7b">Transitioning from Sitecore XC to OrderCloud: Fulfillments to Shipping</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.inventory}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.inventory}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=c7fb76571b056910e55241dde54bcb63">Transitioning from Sitecore XC to OrderCloud: Inventory and Pricing</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.orders || xcFeaturesUsed.shipping || xcFeaturesUsed.payment || xcFeaturesUsed.giftCards || xcFeaturesUsed.rma}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.orders || outcomeConditions.xcFeaturesUsed.shipping || outcomeConditions.xcFeaturesUsed.payment || outcomeConditions.xcFeaturesUsed.giftCards || outcomeConditions.xcFeaturesUsed.rma}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=6925d18c1b5d6510e55241dde54bcbbf">Transitioning from Sitecore XC to OrderCloud: Orders</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.orders || xcFeaturesUsed.payment}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.orders || outcomeConditions.xcFeaturesUsed.payment}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=bc6e1dd41b192910e55241dde54bcbd3">Transitioning from Sitecore XC to OrderCloud: Order Workflow and Minions</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.payment}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.payment}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=c2bf81801b5d6510e55241dde54bcbd7">Transitioning from Sitecore XC to OrderCloud: Tax and Payments</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xcFeaturesUsed.promotions}>
+        <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.promotions}>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=e3a389dd1b112910722d4042b24bcb93">Transitioning from Sitecore XC to OrderCloud: Promotions</Link></li>
         </ConditionalResponse>
         </ul>
@@ -160,13 +174,13 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <p>For your XP features, you will first want to migrate this functionality over it's matching SaaS component: Sitecore XM Cloud embedded personalization, Sitecore Personalize, Sitecore CDP, or Sitecore Send. Once XP features and infrastructure are removed, you can then migrate your content management features. The following migration guides can help with the XP migration, based on the features you are using:</p>
 
         <ul>
-        <ConditionalResponse condition={xpFeaturesUsed.sessionPersonalization}>
+        <ConditionalResponse condition={outcomeConditions.xpFeaturesUsed.sessionPersonalization}>
           <li><Link href="https://jasonstcyr.com/2023/05/31/sitecore-architects-guide-to-saas-migration-classic-xp-with-simple-personalization/">Sitecore Architect’s Guide to SaaS Migration – Classic XP with Simple Personalization</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={!xpFeaturesUsed.exm && !xpFeaturesUsed.marketingAutomation}>
+        <ConditionalResponse condition={!outcomeConditions.xpFeaturesUsed.exm && !outcomeConditions.xpFeaturesUsed.marketingAutomation}>
           <li><Link href="https://jasonstcyr.com/2022/07/25/sitecore-architects-guide-to-saas-migration-xp-global-brand-scenario/">Sitecore Architect’s Guide to SaaS Migration – XP Global Brand scenario</Link></li>
         </ConditionalResponse>
-        <ConditionalResponse condition={xpFeaturesUsed.exm && xpFeaturesUsed.marketingAutomation}>
+        <ConditionalResponse condition={outcomeConditions.xpFeaturesUsed.exm && outcomeConditions.xpFeaturesUsed.marketingAutomation}>
           <li><Link href="https://jasonstcyr.com/2023/03/09/sitecore-architects-guide-to-saas-migration-xp-marketing-automation/">Sitecore Architect’s Guide to SaaS Migration – XP Marketing Automation</Link></li>
         </ConditionalResponse>
           <li><Link href="https://community.sitecore.com/community?id=community_blog&sys_id=f1cc98af1b541590e55241dde54bcb0d">Sitecore Platform DXP to Composable: CDP + Personalize Migration Strategies</Link></li>
@@ -183,20 +197,20 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           </ConditionalResponse>
         </ul>          
       </ConditionalResponse>
-      <ConditionalResponse condition={existingFrameworks.netcore}>
+      <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
         <h2>Already on ASP.NET Core headless?</h2>
         There is a migration series by Rob Earlam discussing steps taken for a .NET Core site on Sitecore XM and migrating it to XM Cloud.
         <ul>
           <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1">Migrating the Sitecore MVP site to XM Cloud – Part 1</Link></li>
           <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-2">Migrating the Sitecore MVP site to XM Cloud – Part 2</Link></li>
           <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-3">Migrating the Sitecore MVP site to XM Cloud – Part 3</Link></li>
-          <ConditionalResponse condition={securedPages.securityloginrequired}>
+          <ConditionalResponse condition={outcomeConditions.securedPages.securityloginrequired}>
             <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-4">Migrating the Sitecore MVP site to XM Cloud – Part 4</Link></li>
           </ConditionalResponse>
         </ul>
       </ConditionalResponse>
       <ul>
-        <ConditionalResponse condition={desiredFrameworks.nextjs || desiredFrameworks.netcore}>
+        <ConditionalResponse condition={outcomeConditions.desiredFrameworks.nextjs || outcomeConditions.desiredFrameworks.netcore}>
             <li><Link href="https://github.com/sitecore/xm-cloud-introduction">XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2</Link></li>
         </ConditionalResponse>
       </ul>
