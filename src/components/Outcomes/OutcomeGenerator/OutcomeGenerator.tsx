@@ -1,6 +1,6 @@
 import { Text } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
-import { useGameInfoContext } from 'components/ui';
+import { GameInfoContextType, useGameInfoContext } from 'components/ui';
 import { IAnswer, PromptMappings } from 'models';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -52,6 +52,27 @@ class OutcomeConditions{
     this.existingFrameworks = {netcore:false};
     this.securedPages = {securityloginrequired:false};
   }
+
+  /**
+   * Read the XC Features information from a GameInfoContextType
+   * @param gameInfoContext 
+   */
+  parseContext_XCFeatures(gameInfoContext: GameInfoContextType){
+    var xcFeatures = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.xcFeatures );
+    if(xcFeatures != undefined){
+      this.xcFeaturesUsed.carts = xcFeatures.value.includes('xccarts');
+      this.xcFeaturesUsed.customerAccounts = xcFeatures.value.includes('xccustomeraccounts');
+      this.xcFeaturesUsed.fulfillments = xcFeatures.value.includes('xcfulfillments');
+      this.xcFeaturesUsed.giftCards = xcFeatures.value.includes('xcgiftcards');
+      this.xcFeaturesUsed.inventory = xcFeatures.value.includes('xcinventory');
+      this.xcFeaturesUsed.orders = xcFeatures.value.includes('xcorders');
+      this.xcFeaturesUsed.payment = xcFeatures.value.includes('xcpayment');
+      this.xcFeaturesUsed.productCatalog = xcFeatures.value.includes('xcproductcatalog');
+      this.xcFeaturesUsed.promotions = xcFeatures.value.includes('xcpromotions');
+      this.xcFeaturesUsed.rma = xcFeatures.value.includes('xcrma');
+      this.xcFeaturesUsed.shipping = xcFeatures.value.includes('xcshipping');
+    }
+  }
 }
 
 interface OutcomeGeneratorProps {}
@@ -68,20 +89,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const isXC = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xc') ) != undefined;
   
   if(isXC){
-    var xcFeatures = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.xcFeatures );
-    if(xcFeatures != undefined){
-      outcomeConditions.xcFeaturesUsed.carts = xcFeatures.value.includes('xccarts');
-      outcomeConditions.xcFeaturesUsed.customerAccounts = xcFeatures.value.includes('xccustomeraccounts');
-      outcomeConditions.xcFeaturesUsed.fulfillments = xcFeatures.value.includes('xcfulfillments');
-      outcomeConditions.xcFeaturesUsed.giftCards = xcFeatures.value.includes('xcgiftcards');
-      outcomeConditions.xcFeaturesUsed.inventory = xcFeatures.value.includes('xcinventory');
-      outcomeConditions.xcFeaturesUsed.orders = xcFeatures.value.includes('xcorders');
-      outcomeConditions.xcFeaturesUsed.payment = xcFeatures.value.includes('xcpayment');
-      outcomeConditions.xcFeaturesUsed.productCatalog = xcFeatures.value.includes('xcproductcatalog');
-      outcomeConditions.xcFeaturesUsed.promotions = xcFeatures.value.includes('xcpromotions');
-      outcomeConditions.xcFeaturesUsed.rma = xcFeatures.value.includes('xcrma');
-      outcomeConditions.xcFeaturesUsed.shipping = xcFeatures.value.includes('xcshipping');
-    }
+    outcomeConditions.parseContext_XCFeatures(gameInfoContext);
   }
 
   //XC contains XP, so if the user answered XC, then they also have XP
