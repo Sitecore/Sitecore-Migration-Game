@@ -1,3 +1,4 @@
+import { Text } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
 import { useGameInfoContext } from 'components/ui';
 import { IAnswer, PromptMappings } from 'models';
@@ -114,7 +115,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   }
 
   return (
-    <>
+    <Text>
       Based on what has been collected, we believe the following guides will be helpful in your Quest for SaaS! Good luck on your adventure to migrating to a composable DXP stack.
       <ConditionalResponse condition={isXC}>
         <h2>Experience Commerce (XC) migration</h2>
@@ -199,6 +200,6 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
             <li><Link href="https://github.com/sitecore/xm-cloud-introduction">XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2</Link></li>
         </ConditionalResponse>
       </ul>
-    </>
+    </ Text>
   );
 };
