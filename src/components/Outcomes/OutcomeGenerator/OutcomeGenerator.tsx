@@ -159,6 +159,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <p>For your XP features, you will first want to migrate this functionality over it's matching SaaS component: Sitecore XM Cloud embedded personalization, Sitecore Personalize, Sitecore CDP, or Sitecore Send. Once XP features and infrastructure are removed, you can then migrate your content management features. The following migration guides can help with the XP migration, based on the features you are using:</p>
 
         <ul>
+        <ConditionalResponse condition={xpFeaturesUsed.sessionPersonalization}>
+          <li><Link href="https://jasonstcyr.com/2023/05/31/sitecore-architects-guide-to-saas-migration-classic-xp-with-simple-personalization/">Sitecore Architect’s Guide to SaaS Migration – Classic XP with Simple Personalization</Link></li>
+        </ConditionalResponse>
         <ConditionalResponse condition={!xpFeaturesUsed.exm && !xpFeaturesUsed.marketingAutomation}>
           <li><Link href="https://jasonstcyr.com/2022/07/25/sitecore-architects-guide-to-saas-migration-xp-global-brand-scenario/">Sitecore Architect’s Guide to SaaS Migration – XP Global Brand scenario</Link></li>
         </ConditionalResponse>
