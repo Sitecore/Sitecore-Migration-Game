@@ -127,7 +127,17 @@ export class OutcomeConditions {
    * can be supported by XM Cloud
    */
   isSimplePersonalization(): boolean {
-    return this.xpFeaturesUsed.sessionPersonalization;
+    return (
+      this.xpFeaturesUsed.sessionPersonalization &&
+      !this.xpFeaturesUsed.exm &&
+      !this.xpFeaturesUsed.marketingAutomation &&
+      !this.xpFeaturesUsed.historicalPersonalization &&
+      !this.xpFeaturesUsed.customrules &&
+      !this.xpFeaturesUsed.captureadditionalevents &&
+      !this.xpFeaturesUsed.externalDataSystems &&
+      !this.xpFeaturesUsed.identityResolution &&
+      !this.xpFeaturesUsed.patternCards
+    );
   }
 
   /**
