@@ -17,6 +17,7 @@ export interface IXCFeaturesUsed {
 
 export interface IXPFeaturesUsed {
   captureadditionalevents: boolean;
+  customrules: boolean;
   exm: boolean;
   externalDataSystems: boolean;
   forms: boolean;
@@ -92,6 +93,7 @@ export class OutcomeConditions {
     };
     this.xpFeaturesUsed = {
       captureadditionalevents: false,
+      customrules: false,
       exm: false,
       externalDataSystems: false,
       forms: false,
@@ -193,6 +195,7 @@ export class OutcomeConditions {
     var xpFeatures = gameInfoContext.answers?.find((x: IAnswer) => x.promptQuestionId == PromptMappings.xpFeatures);
     if (xpFeatures != undefined) {
       this.xpFeaturesUsed.captureadditionalevents = xpFeatures.value.includes('captureadditionalevents');
+      this.xpFeaturesUsed.customrules = xpFeatures.value.includes('customrules');
       this.xpFeaturesUsed.exm = xpFeatures.value.includes('exm');
       this.xpFeaturesUsed.externalDataSystems = xpFeatures.value.includes('externaldatasystems');
       this.xpFeaturesUsed.forms = xpFeatures.value.includes('forms');
