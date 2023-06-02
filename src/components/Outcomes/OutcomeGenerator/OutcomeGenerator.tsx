@@ -140,7 +140,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
             </li>
           </ConditionalResponse>
           <ConditionalResponse
-            condition={!outcomeConditions.xpFeaturesUsed.exm && !outcomeConditions.xpFeaturesUsed.marketingAutomation}
+            condition={outcomeConditions.isComplexPersonalization() && !outcomeConditions.isMarketingAutomation()}
           >
             <li>
               <Link href="https://jasonstcyr.com/2022/07/25/sitecore-architects-guide-to-saas-migration-xp-global-brand-scenario/">

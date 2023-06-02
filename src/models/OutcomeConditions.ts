@@ -119,7 +119,21 @@ export class OutcomeConditions {
    * that would require Sitecore Personalize or CDP
    */
   isComplexPersonalization(): boolean {
-    return false;
+    return (
+      this.xpFeaturesUsed.historicalPersonalization ||
+      this.xpFeaturesUsed.customrules ||
+      this.xpFeaturesUsed.captureadditionalevents ||
+      this.xpFeaturesUsed.externalDataSystems ||
+      this.xpFeaturesUsed.identityResolution ||
+      this.xpFeaturesUsed.patternCards
+    );
+  }
+
+  /**
+   * Looks at selections to determine if some sort of marketing automation feature is in use
+   */
+  isMarketingAutomation(): boolean {
+    return this.xpFeaturesUsed.forms || this.xpFeaturesUsed.exm || this.xpFeaturesUsed.marketingAutomation;
   }
 
   /**
