@@ -38,12 +38,19 @@ interface ISecuredPages {
   securityloginrequired: boolean;  
 }
 
+enum ExperienceEdgeOption{
+  yes = 'yesexperienceedge',
+  no = 'noexperienceedge',
+  some = 'someexperienceedge',
+}
+
 class OutcomeConditions{
   xcFeaturesUsed: IXCFeaturesUsed;
   xpFeaturesUsed: IXPFeaturesUsed;
   desiredFrameworks: IDesiredFrameworks;
   existingFrameworks: IExistingFrameworks;
   securedPages: ISecuredPages;
+  experienceEdge: ExperienceEdgeOption;
 
   constructor(){
     this.xcFeaturesUsed = {carts:false, customerAccounts:false, fulfillments:false, giftCards:false, inventory:false, orders:false, payment:false, productCatalog:false, promotions:false, rma:false, shipping:false};
@@ -51,11 +58,12 @@ class OutcomeConditions{
     this.desiredFrameworks = {netcore:false, nextjs:false};
     this.existingFrameworks = {netcore:false};
     this.securedPages = {securityloginrequired:false};
+    this.experienceEdge = ExperienceEdgeOption.no;
   }
 
   /**
    * Read the XC Features information from a GameInfoContextType
-   * @param gameInfoContext 
+   * @param gameInfoContext: This is the current context which contains the prompts and answers
    */
   parseContext_XCFeatures(gameInfoContext: GameInfoContextType){
     var xcFeatures = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.xcFeatures );
@@ -71,6 +79,75 @@ class OutcomeConditions{
       this.xcFeaturesUsed.promotions = xcFeatures.value.includes('xcpromotions');
       this.xcFeaturesUsed.rma = xcFeatures.value.includes('xcrma');
       this.xcFeaturesUsed.shipping = xcFeatures.value.includes('xcshipping');
+    }
+  }
+
+   /**
+   * Read the XP Features information from a GameInfoContextType
+   * @param gameInfoContext: This is the current context which contains the prompts and answers 
+   */
+  parseContext_XPFeatures(gameInfoContext: GameInfoContextType){
+    var xpFeatures = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.xpFeatures );
+    if(xpFeatures != undefined){
+      this.xpFeaturesUsed.exm = xpFeatures.value.includes('exm');
+      this.xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
+      this.xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
+    }
+  }
+
+  /**
+   * Determine which frameworks they have in their solution. 
+   * Only checking for the ones that have content conditions, extend as needed.
+   * @param gameInfoContext: This is the current context which contains the prompts and answers 
+   */
+  parseContext_ExistingFramework(gameInfoContext: GameInfoContextType){
+    var existingFrameworkOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework );
+    if(existingFrameworkOptions != undefined){
+      this.existingFrameworks.netcore = existingFrameworkOptions.value.includes("netcore");
+    }
+  }
+
+  /**
+   * If they are on an outdated framework, determine which frameworks they want to move to. 
+   * Only checking for the ones that have content conditions, extend as needed.
+   * @param gameInfoContext: This is the current context which contains the prompts and answers 
+   */
+  parseContext_DesiredFramework(gameInfoContext: GameInfoContextType){
+    
+    var desiredFrameworkOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.desiredFramework );
+    if(desiredFrameworkOptions != undefined){
+      this.desiredFrameworks.netcore = desiredFrameworkOptions.value.includes("netcore");
+      this.desiredFrameworks.nextjs = desiredFrameworkOptions.value.includes("nextjs");
+    }
+  }
+
+  /**
+   * Check for what type of authentication/authorization is in the solution.
+   * Only checking for the ones that have content conditions, extend as needed.
+   * @param gameInfoContext: This is the current context which contains the prompts and answers 
+   */
+  parseContext_SecuredPages(gameInfoContext: GameInfoContextType){
+    var securedPagesOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.securePages );
+    if(securedPagesOptions != undefined){
+      this.securedPages.securityloginrequired = securedPagesOptions.value.includes("securityloginrequired");
+    }
+  }
+
+  /**
+   * Check if Experience Edge was implemented in the current solution.
+   * Defaults to 'no'.
+   * @param gameInfoContext: This is the current context which contains the prompts and answers 
+   */
+   parseContext_ExperienceEdge(gameInfoContext: GameInfoContextType){
+    var experienceEdgeOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.experienceEdge );
+    if(experienceEdgeOptions != undefined){
+      //Determine which value was selected. Default to 'no' if not matching to Yes or Some
+      if(experienceEdgeOptions.value.includes('yesexperienceedge'))
+        this.experienceEdge = ExperienceEdgeOption.yes;
+      else if(experienceEdgeOptions.value.includes('someexperienceedge'))
+        this.experienceEdge = ExperienceEdgeOption.some;
+      else
+        this.experienceEdge = ExperienceEdgeOption.no;
     }
   }
 }
@@ -95,46 +172,16 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   //XC contains XP, so if the user answered XC, then they also have XP
   const isXP = isXC || gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp') ) != undefined;
   if(isXP){
-    var xpFeatures = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.xpFeatures );
-    if(xpFeatures != undefined){
-      outcomeConditions.xpFeaturesUsed.exm = xpFeatures.value.includes('exm');
-      outcomeConditions.xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
-      outcomeConditions.xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
-    }
+    outcomeConditions.parseContext_XPFeatures(gameInfoContext);
   }
 
   //NOTE: For now, all paths assume XM functionality is in use (XC > XP > XM). If there is a need to specifically test for XM selection, then this boolean is used.
   const isXM = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xm') ) != undefined;
 
-  //Determine which frameworks they have in their solution. Only checking for the ones that have content conditions, extend as needed.
-  var existingFrameworkOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework );
-  if(existingFrameworkOptions != undefined){
-    outcomeConditions.existingFrameworks.netcore = existingFrameworkOptions.value.includes("netcore");
-  }
-
-  //If they are on an outdated framework, determine which frameworks they want to move to. Only checking for the ones that have content conditions, extend as needed.
-  var desiredFrameworkOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.desiredFramework );
-  if(desiredFrameworkOptions != undefined){
-    outcomeConditions.desiredFrameworks.netcore = desiredFrameworkOptions.value.includes("netcore");
-    outcomeConditions.desiredFrameworks.nextjs = desiredFrameworkOptions.value.includes("nextjs");
-  }
-
-  //Check for what type of authentication/authorization is in the solution. Only loading values for those with conditions, to be extended as needed.
-  var securedPagesOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.securePages );
-  if(securedPagesOptions != undefined){
-    outcomeConditions.securedPages.securityloginrequired = securedPagesOptions.value.includes("securityloginrequired");
-  }
-
-  //For Experience Edge, it can only have a Yes/No/Sometimes value. 
-  var experienceEdgeOptions = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.experienceEdge );
-  let experienceEdgeYes = false;
-  let experienceEdgeNo = false;
-  let experienceEdgeSome = false;
-  if(experienceEdgeOptions != undefined){
-    experienceEdgeYes = experienceEdgeOptions.value.includes('yesexperienceedge');
-    experienceEdgeNo = experienceEdgeOptions.value.includes('noexperienceedge');
-    experienceEdgeSome = experienceEdgeOptions.value.includes('someexperienceedge');
-  }
+  outcomeConditions.parseContext_ExistingFramework(gameInfoContext);
+  outcomeConditions.parseContext_DesiredFramework(gameInfoContext);
+  outcomeConditions.parseContext_SecuredPages(gameInfoContext);
+  outcomeConditions.parseContext_ExperienceEdge(gameInfoContext);
 
   return (
     <Text>
@@ -200,7 +247,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <p>Based on how you've implemented the basic content management and delivery in your solution, you will need to take a different approach. Based on your selections, these are the guides that may help:</p>
 
         <ul>
-          <ConditionalResponse condition={experienceEdgeYes || experienceEdgeSome}>
+          <ConditionalResponse condition={outcomeConditions.experienceEdge == ExperienceEdgeOption.yes || outcomeConditions.experienceEdge == ExperienceEdgeOption.some}>
             <li><Link href="https://jasonstcyr.com/2022/05/20/sitecore-architects-guide-to-saas-migration-xm-jamstack-scenario/">Sitecore Architect’s Guide to SaaS Migration – XM Jamstack scenario</Link></li>
           </ConditionalResponse>
         </ul>          
