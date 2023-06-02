@@ -244,7 +244,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
       <ConditionalResponse condition={isXM}>
         <h2>Experience Manager (XM) migration</h2>
-        <p>Based on how you've implemented the basic content management and delivery in your solution, you will need to take a different approach. Based on your selections, these are the guides that may help:</p>
+        <p>Based on your selections, these are the guides that may help with the content management and delivery portions of your solution:</p>
 
         <ul>
           <ConditionalResponse condition={outcomeConditions.experienceEdge == ExperienceEdgeOption.yes || outcomeConditions.experienceEdge == ExperienceEdgeOption.some}>
