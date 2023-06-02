@@ -20,6 +20,7 @@ export interface IXPFeaturesUsed {
   exm: boolean;
   forms: boolean;
   historicalPersonalization: boolean;
+  identityResolution: boolean;
   marketingAutomation: boolean;
   patternCards: boolean;
   sessionPersonalization: boolean;
@@ -71,39 +72,42 @@ export class OutcomeConditions {
    * @param gameInfoContext: Optional parameter. Can be used to pass in answers to populate properties.
    */
   constructor(gameInfoContext?: GameInfoContextType) {
-    this.isXC = false;
-    this.isXP = false;
-    this.isXM = true;
-    this.xcFeaturesUsed = {
-      carts: false,
-      customerAccounts: false,
-      fulfillments: false,
-      giftCards: false,
-      inventory: false,
-      orders: false,
-      payment: false,
-      productCatalog: false,
-      promotions: false,
-      rma: false,
-      shipping: false,
-    };
-    this.xpFeaturesUsed = {
-      captureadditionalevents: false,
-      exm: false,
-      forms: false,
-      historicalPersonalization: false,
-      marketingAutomation: false,
-      patternCards: false,
-      sessionPersonalization: false,
-    };
-    this.desiredFrameworks = { netcore: false, nextjs: false };
-    this.existingFrameworks = { netcore: false };
-    this.securedPages = { securityloginrequired: false };
-    this.experienceEdge = ExperienceEdgeOption.no;
-
     //If a gameInfoContext was provided, initialize all data from the answers in the context
     if (gameInfoContext) {
       this.parseContext(gameInfoContext);
+    }
+    //If no context, default to XM with all features not selected.
+    else {
+      this.isXC = false;
+      this.isXP = false;
+      this.isXM = true;
+      this.xcFeaturesUsed = {
+        carts: false,
+        customerAccounts: false,
+        fulfillments: false,
+        giftCards: false,
+        inventory: false,
+        orders: false,
+        payment: false,
+        productCatalog: false,
+        promotions: false,
+        rma: false,
+        shipping: false,
+      };
+      this.xpFeaturesUsed = {
+        captureadditionalevents: false,
+        exm: false,
+        forms: false,
+        historicalPersonalization: false,
+        identityResolution: false,
+        marketingAutomation: false,
+        patternCards: false,
+        sessionPersonalization: false,
+      };
+      this.desiredFrameworks = { netcore: false, nextjs: false };
+      this.existingFrameworks = { netcore: false };
+      this.securedPages = { securityloginrequired: false };
+      this.experienceEdge = ExperienceEdgeOption.no;
     }
   }
 
@@ -191,6 +195,7 @@ export class OutcomeConditions {
       this.xpFeaturesUsed.exm = xpFeatures.value.includes('exm');
       this.xpFeaturesUsed.forms = xpFeatures.value.includes('forms');
       this.xpFeaturesUsed.historicalPersonalization = xpFeatures.value.includes('historicalpersonalization');
+      this.xpFeaturesUsed.identityResolution = xpFeatures.value.includes('identityresolution');
       this.xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
       this.xpFeaturesUsed.patternCards = xpFeatures.value.includes('patterncards');
       this.xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
