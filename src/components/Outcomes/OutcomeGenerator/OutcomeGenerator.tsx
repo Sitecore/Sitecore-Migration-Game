@@ -45,6 +45,9 @@ enum ExperienceEdgeOption{
 }
 
 class OutcomeConditions{
+  isXC: boolean;
+  isXP: boolean;
+  isXM: boolean;
   xcFeaturesUsed: IXCFeaturesUsed;
   xpFeaturesUsed: IXPFeaturesUsed;
   desiredFrameworks: IDesiredFrameworks;
@@ -52,13 +55,53 @@ class OutcomeConditions{
   securedPages: ISecuredPages;
   experienceEdge: ExperienceEdgeOption;
 
-  constructor(){
+  /**
+   * Creates a new instance of OutcomeConditions. 
+   * Defaults all properties, with XM as the assumed product.
+   * @param gameInfoContext: Optional parameter. Can be used to pass in answers to populate properties.
+   */
+  constructor(gameInfoContext?: GameInfoContextType){
+    this.isXC = false;
+    this.isXP = false;
+    this.isXM = true;
     this.xcFeaturesUsed = {carts:false, customerAccounts:false, fulfillments:false, giftCards:false, inventory:false, orders:false, payment:false, productCatalog:false, promotions:false, rma:false, shipping:false};
     this.xpFeaturesUsed = {exm:false, marketingAutomation:false, sessionPersonalization:false};
     this.desiredFrameworks = {netcore:false, nextjs:false};
     this.existingFrameworks = {netcore:false};
     this.securedPages = {securityloginrequired:false};
     this.experienceEdge = ExperienceEdgeOption.no;
+
+    //If a gameInfoContext was provided, initialize all data from the answers in the context
+    if(gameInfoContext){
+      this.parseContext(gameInfoContext);
+    }
+  }
+
+  /**
+   * Reads all the data from a GameInfoContextType and fills in all the properties, based on the prompts and answers.
+   * The boolean checks are most easily written/understood as answers to single prompts, so for more complex checks you should break down the question into single prompts and then combine
+   * @param gameInfoContext: This is the current context which contains the prompts and answers
+   */
+  parseContext(gameInfoContext: GameInfoContextType){
+    this.isXC = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xc') ) != undefined;
+    
+    if(this.isXC){
+      this.parseContext_XCFeatures(gameInfoContext);
+    }
+
+    //XC contains XP, so if the user answered XC, then they also have XP features
+    this.isXP = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp') ) != undefined;
+    if(this.isXC || this.isXP){
+      this.parseContext_XPFeatures(gameInfoContext);
+    }
+
+    //NOTE: For now, all paths assume XM functionality is in use (XC > XP > XM). If there is a need to specifically test for XM selection, then this boolean is used.
+    this.isXM = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xm') ) != undefined;
+
+    this.parseContext_ExistingFramework(gameInfoContext);
+    this.parseContext_DesiredFramework(gameInfoContext);
+    this.parseContext_SecuredPages(gameInfoContext);
+    this.parseContext_ExperienceEdge(gameInfoContext);
   }
 
   /**
@@ -158,45 +201,22 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
 
   //Use the OutcomeConditions class for storing all the answers as the conditions we'll use in the logic.
-  let outcomeConditions = new OutcomeConditions();
-
-  /*Build up the boolean 'checks' that can be used for returning the correct outcomes.
-    The boolean checks are most easily written/understood as answers to single prompts, so for more complex checks you should break down the question into single prompts and then combine
-  */
-  const isXC = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xc') ) != undefined;
-  
-  if(isXC){
-    outcomeConditions.parseContext_XCFeatures(gameInfoContext);
-  }
-
-  //XC contains XP, so if the user answered XC, then they also have XP
-  const isXP = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp') ) != undefined;
-  if(isXP){
-    outcomeConditions.parseContext_XPFeatures(gameInfoContext);
-  }
-
-  //NOTE: For now, all paths assume XM functionality is in use (XC > XP > XM). If there is a need to specifically test for XM selection, then this boolean is used.
-  const isXM = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xm') ) != undefined;
-
-  outcomeConditions.parseContext_ExistingFramework(gameInfoContext);
-  outcomeConditions.parseContext_DesiredFramework(gameInfoContext);
-  outcomeConditions.parseContext_SecuredPages(gameInfoContext);
-  outcomeConditions.parseContext_ExperienceEdge(gameInfoContext);
+  let outcomeConditions = new OutcomeConditions(gameInfoContext);
 
   return (
     <Text>
       Based on what has been collected, we believe the following guides will be helpful in your Quest for SaaS! Good luck on your adventure to migrating to a composable DXP stack.
-      <ConditionalResponse condition={isXC}>
+      <ConditionalResponse condition={outcomeConditions.isXC}>
         <h2>Experience Commerce (XC) migration</h2>
       </ConditionalResponse>
-      <ConditionalResponse condition={isXP}>
+      <ConditionalResponse condition={outcomeConditions.isXP}>
         <h2>Experience Platform (XP) migration</h2>
       </ConditionalResponse>
-      <ConditionalResponse condition={isXM}>
+      <ConditionalResponse condition={outcomeConditions.isXM}>
         <h2>Experience Manager (XM) migration</h2>
       </ConditionalResponse>
       
-      <ConditionalResponse condition={isXC}>
+      <ConditionalResponse condition={outcomeConditions.isXC}>
         <h3>XC features</h3>
         <p>For your XC features, you will first want to migrate this functionality over to OrderCloud. Once XC is removed, you can then migrate your XP features and then finally your XM features. The following migration guides can help with the OrderCloud migration, based on the features you are using:</p>
 
@@ -234,7 +254,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </ConditionalResponse>
         </ul>
       </ConditionalResponse>
-      <ConditionalResponse condition={isXP || isXC}>
+      <ConditionalResponse condition={outcomeConditions.isXP || outcomeConditions.isXC}>
         <h3>XP features</h3>
         <p>For your XP features, you will first want to migrate this functionality over it's matching SaaS component: Sitecore XM Cloud embedded personalization, Sitecore Personalize, Sitecore CDP, or Sitecore Send. Once XP features and infrastructure are removed, you can then migrate your content management features. The following migration guides can help with the XP migration, based on the features you are using:</p>
 
@@ -256,7 +276,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       <p>Based on your selections, these are the guides that may help with the content management and delivery portions of your solution:</p>
 
       <ul>
-        <ConditionalResponse condition={isXM && (outcomeConditions.experienceEdge == ExperienceEdgeOption.yes || outcomeConditions.experienceEdge == ExperienceEdgeOption.some)}>
+        <ConditionalResponse condition={outcomeConditions.isXM && (outcomeConditions.experienceEdge == ExperienceEdgeOption.yes || outcomeConditions.experienceEdge == ExperienceEdgeOption.some)}>
           <li><Link href="https://jasonstcyr.com/2022/05/20/sitecore-architects-guide-to-saas-migration-xm-jamstack-scenario/">Sitecore Architect’s Guide to SaaS Migration – XM Jamstack scenario</Link></li>
         </ConditionalResponse>
         <ConditionalResponse condition={outcomeConditions.desiredFrameworks.nextjs || outcomeConditions.desiredFrameworks.netcore}>
