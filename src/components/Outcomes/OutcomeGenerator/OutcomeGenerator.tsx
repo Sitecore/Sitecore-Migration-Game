@@ -170,7 +170,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   }
 
   //XC contains XP, so if the user answered XC, then they also have XP
-  const isXP = isXC || gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp') ) != undefined;
+  const isXP = gameInfoContext.answers?.find( (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp') ) != undefined;
   if(isXP){
     outcomeConditions.parseContext_XPFeatures(gameInfoContext);
   }
@@ -188,6 +188,16 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       Based on what has been collected, we believe the following guides will be helpful in your Quest for SaaS! Good luck on your adventure to migrating to a composable DXP stack.
       <ConditionalResponse condition={isXC}>
         <h2>Experience Commerce (XC) migration</h2>
+      </ConditionalResponse>
+      <ConditionalResponse condition={isXP}>
+        <h2>Experience Platform (XP) migration</h2>
+      </ConditionalResponse>
+      <ConditionalResponse condition={isXM}>
+        <h2>Experience Manager (XM) migration</h2>
+      </ConditionalResponse>
+      
+      <ConditionalResponse condition={isXC}>
+        <h3>XC features</h3>
         <p>For your XC features, you will first want to migrate this functionality over to OrderCloud. Once XC is removed, you can then migrate your XP features and then finally your XM features. The following migration guides can help with the OrderCloud migration, based on the features you are using:</p>
 
         <ul>
@@ -224,8 +234,8 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </ConditionalResponse>
         </ul>
       </ConditionalResponse>
-      <ConditionalResponse condition={isXP}>
-        <h2>Experience Platform (XP) migration</h2>
+      <ConditionalResponse condition={isXP || isXC}>
+        <h3>XP features</h3>
         <p>For your XP features, you will first want to migrate this functionality over it's matching SaaS component: Sitecore XM Cloud embedded personalization, Sitecore Personalize, Sitecore CDP, or Sitecore Send. Once XP features and infrastructure are removed, you can then migrate your content management features. The following migration guides can help with the XP migration, based on the features you are using:</p>
 
         <ul>
@@ -242,33 +252,29 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </ul>
       </ConditionalResponse>
 
-      <ConditionalResponse condition={isXM}>
-        <h2>Experience Manager (XM) migration</h2>
-        <p>Based on your selections, these are the guides that may help with the content management and delivery portions of your solution:</p>
+      <h3>XM features</h3>
+      <p>Based on your selections, these are the guides that may help with the content management and delivery portions of your solution:</p>
 
-        <ul>
-          <ConditionalResponse condition={outcomeConditions.experienceEdge == ExperienceEdgeOption.yes || outcomeConditions.experienceEdge == ExperienceEdgeOption.some}>
-            <li><Link href="https://jasonstcyr.com/2022/05/20/sitecore-architects-guide-to-saas-migration-xm-jamstack-scenario/">Sitecore Architect’s Guide to SaaS Migration – XM Jamstack scenario</Link></li>
-          </ConditionalResponse>
-        </ul>          
-      </ConditionalResponse>
-      <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
-        <h2>Already on ASP.NET Core headless?</h2>
-        There is a migration series by Rob Earlam discussing steps taken for a .NET Core site on Sitecore XM and migrating it to XM Cloud.
-        <ul>
-          <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1">Migrating the Sitecore MVP site to XM Cloud – Part 1</Link></li>
-          <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-2">Migrating the Sitecore MVP site to XM Cloud – Part 2</Link></li>
-          <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-3">Migrating the Sitecore MVP site to XM Cloud – Part 3</Link></li>
-          <ConditionalResponse condition={outcomeConditions.securedPages.securityloginrequired}>
-            <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-4">Migrating the Sitecore MVP site to XM Cloud – Part 4</Link></li>
-          </ConditionalResponse>
-        </ul>
-      </ConditionalResponse>
       <ul>
+        <ConditionalResponse condition={isXM && (outcomeConditions.experienceEdge == ExperienceEdgeOption.yes || outcomeConditions.experienceEdge == ExperienceEdgeOption.some)}>
+          <li><Link href="https://jasonstcyr.com/2022/05/20/sitecore-architects-guide-to-saas-migration-xm-jamstack-scenario/">Sitecore Architect’s Guide to SaaS Migration – XM Jamstack scenario</Link></li>
+        </ConditionalResponse>
         <ConditionalResponse condition={outcomeConditions.desiredFrameworks.nextjs || outcomeConditions.desiredFrameworks.netcore}>
             <li><Link href="https://github.com/sitecore/xm-cloud-introduction">XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2</Link></li>
         </ConditionalResponse>
+      </ul>          
+      <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
+      <h4>Already on ASP.NET Core headless?</h4>
+      There is a migration series by Rob Earlam discussing steps taken for a .NET Core site on Sitecore XM and migrating it to XM Cloud.
+      <ul>
+        <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1">Migrating the Sitecore MVP site to XM Cloud – Part 1</Link></li>
+        <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-2">Migrating the Sitecore MVP site to XM Cloud – Part 2</Link></li>
+        <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-3">Migrating the Sitecore MVP site to XM Cloud – Part 3</Link></li>
+        <ConditionalResponse condition={outcomeConditions.securedPages.securityloginrequired}>
+          <li><Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-4">Migrating the Sitecore MVP site to XM Cloud – Part 4</Link></li>
+        </ConditionalResponse>
       </ul>
+      </ConditionalResponse>
     </ Text>
   );
 };
