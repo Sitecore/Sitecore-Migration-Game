@@ -20,3 +20,9 @@ query GetOutcomeByAnswersQuery($answers: [ID!]!) {
     }
   }
 }
+
+query GetOutcomeByIdQuery($id: String!) {
+  gameOutcome(id: $id) {
+    ...OutcomeDetails
+  }
+}
