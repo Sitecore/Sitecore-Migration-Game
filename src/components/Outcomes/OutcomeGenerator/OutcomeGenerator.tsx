@@ -148,9 +148,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
               </Link>
             </li>
           </ConditionalResponse>
-          <ConditionalResponse
-            condition={outcomeConditions.xpFeaturesUsed.exm && outcomeConditions.xpFeaturesUsed.marketingAutomation}
-          >
+          <ConditionalResponse condition={outcomeConditions.isMarketingAutomation()}>
             <li>
               <Link href="https://jasonstcyr.com/2023/03/09/sitecore-architects-guide-to-saas-migration-xp-marketing-automation/">
                 Sitecore Architect’s Guide to SaaS Migration – XP Marketing Automation
