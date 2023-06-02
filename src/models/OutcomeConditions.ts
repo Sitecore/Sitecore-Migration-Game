@@ -18,6 +18,7 @@ export interface IXCFeaturesUsed {
 export interface IXPFeaturesUsed {
   captureadditionalevents: boolean;
   exm: boolean;
+  externalDataSystems: boolean;
   forms: boolean;
   historicalPersonalization: boolean;
   identityResolution: boolean;
@@ -92,6 +93,7 @@ export class OutcomeConditions {
     this.xpFeaturesUsed = {
       captureadditionalevents: false,
       exm: false,
+      externalDataSystems: false,
       forms: false,
       historicalPersonalization: false,
       identityResolution: false,
@@ -192,6 +194,7 @@ export class OutcomeConditions {
     if (xpFeatures != undefined) {
       this.xpFeaturesUsed.captureadditionalevents = xpFeatures.value.includes('captureadditionalevents');
       this.xpFeaturesUsed.exm = xpFeatures.value.includes('exm');
+      this.xpFeaturesUsed.externalDataSystems = xpFeatures.value.includes('externaldatasystems');
       this.xpFeaturesUsed.forms = xpFeatures.value.includes('forms');
       this.xpFeaturesUsed.historicalPersonalization = xpFeatures.value.includes('historicalpersonalization');
       this.xpFeaturesUsed.identityResolution = xpFeatures.value.includes('identityresolution');
