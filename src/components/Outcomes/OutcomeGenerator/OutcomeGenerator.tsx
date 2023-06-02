@@ -15,10 +15,6 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
   return (
     <Text>
-      <p>
-        Based on what has been collected, we believe the following guides will be helpful in your Quest for SaaS! Good
-        luck on your adventure to migrating to a composable DXP stack.
-      </p>
       <p>In this video you can get an introduction to migrating to the Composable DXP, along with a few scenarios:</p>
       <iframe
         width="560"
@@ -29,6 +25,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       ></iframe>
+      <p>
+        Based on what information has been collected, we believe the following guides will be helpful in your Quest for
+        SaaS! Good luck on your adventure to migrating to a composable DXP stack.
+      </p>
       <ConditionalResponse condition={outcomeConditions.isXC}>
         <h2>Experience Commerce (XC) migration</h2>
       </ConditionalResponse>
