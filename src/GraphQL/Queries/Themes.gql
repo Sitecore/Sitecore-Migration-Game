@@ -18,7 +18,7 @@ query GetAllThemesQuery {
   }
 }
 
-query GetThemesByIdQuery($id: ID!) {
+query GetThemesByIdQuery($id: String!) {
   gameTheme(id: $id) {
     ...Theme
   }

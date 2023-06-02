@@ -1,7 +1,7 @@
-import { Badge, Grid, Group, Paper, Stack } from '@mantine/core';
+import { Paper, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt, PreviousAnswers } from 'components/Prompts';
-import { Loading, useGameInfoContext } from 'components/ui';
+import { InfoBar, Loading, useGameInfoContext } from 'components/ui';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models';
@@ -38,7 +38,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   };
 
   const preloadPrompts = async () => {
-    let data = await promptService.GetAllPromptsByThemePersona(gameInfoContext.theme, gameInfoContext.persona);
+    let data = await promptService.GetAllPromptsByThemePersona(gameInfoContext.theme!.id, gameInfoContext.persona!.id);
 
     if (data != null) {
       setPrompts(data.results);
@@ -91,7 +91,8 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
     if (prompts !== undefined && currentPrompt !== undefined) {
       // Get current prompts option prompt ids for only answers
       let optionsSelectedWithNextPrompts: IOption[] | undefined = currentPrompt.options?.results.filter(
-        (o) => answers.value.includes(o.value) && o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0
+        (o) =>
+          answers.value.includes(o.value) && o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0
       );
 
       if (optionsSelectedWithNextPrompts) {
@@ -132,21 +133,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   return (
     <Paper p="md" shadow="lg" withBorder>
       <Stack>
-        <Grid justify="flex-end">
-          <Grid.Col span={6}>
-            <Badge color="red">Remaining Questions: {questions.get().length + 1}</Badge>
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Group position="right" spacing="xs">
-              <Badge color="orange" variant="dot">
-                {gameInfoContext.theme}
-              </Badge>
-              <Badge color="orange" variant="dot">
-                {gameInfoContext.persona}
-              </Badge>
-            </Group>
-          </Grid.Col>
-        </Grid>
+        <InfoBar remainingQuestions={questions.get()} />
         {loading ? (
           <Loading message="Loading prompts..." />
         ) : (

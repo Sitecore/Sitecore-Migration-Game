@@ -1,6 +1,9 @@
+import { IImage, IResult } from 'models';
+
 export interface IPersona {
-  title: string;
+  name: string;
   image?: string;
   id: string;
   personalTypeId: string;
+  personaImage?: IResult<IImage[]>;
 }

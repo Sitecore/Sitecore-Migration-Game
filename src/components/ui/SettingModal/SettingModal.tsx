@@ -39,7 +39,7 @@ export const SettingModal: FC<SettingModalProps> = ({ isOpen }) => {
   //#region State/Props
   const gameInfoContext = useGameInfoContext();
   const { classes } = useStyles();
-  const [themes, setThemes] = useState<ITheme[] | undefined>(); //config?.theme || 'corporate'
+  const [themes, setThemes] = useState<ITheme[] | undefined>();
   const [loading, { toggle: toggleLoading }] = useDisclosure(true);
   let themeService = ThemeService();
   //#endregion
