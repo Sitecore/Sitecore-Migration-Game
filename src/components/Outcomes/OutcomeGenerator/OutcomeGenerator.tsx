@@ -15,11 +15,18 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
   return (
     <Text>
+      <h2>Your Product Bundle</h2>
       <p>
-        Based on what has been collected, we believe the following guides will be helpful in your Quest for SaaS! Good
-        luck on your adventure to migrating to a composable DXP stack.
+        To complete your quest for SaaS, the following product(s) are needed to create your Composable DXP that meets
+        your existing needs:
       </p>
-      <p>In this video you can get an introduction to migrating to the Composable DXP, along with a few scenarios:</p>
+      <blockquote>{outcomeConditions.requiredProducts().join(', ')}</blockquote>
+
+      <h2>Guide to SaaS Migration</h2>
+      <p>
+        In the following video you can get an introduction to migrating to the Composable DXP, along with a few
+        scenarios:
+      </p>
       <iframe
         width="560"
         height="315"
@@ -29,6 +36,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       ></iframe>
+      <p>
+        Based on what information has been collected, we believe the following guides will be helpful in your Quest for
+        SaaS! Good luck on your adventure to migrating to a composable DXP stack.
+      </p>
       <ConditionalResponse condition={outcomeConditions.isXC}>
         <h2>Experience Commerce (XC) migration</h2>
       </ConditionalResponse>
@@ -137,8 +148,8 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       <ConditionalResponse condition={outcomeConditions.isXP || outcomeConditions.isXC}>
         <h3>XP features</h3>
         <p>
-          For your XP features, you will first want to migrate this functionality over it's matching SaaS component:
-          Sitecore XM Cloud embedded personalization, Sitecore Personalize, Sitecore CDP, or Sitecore Send. Once XP
+          For your XP features, you will first want to migrate the functionality over to the matching SaaS component:
+          Sitecore XM Cloud with embedded personalization, Sitecore OrderCloud, Sitecore Personalize, and more! Once XP
           features and infrastructure are removed, you can then migrate your content management features. The following
           migration guides can help with the XP migration, based on the features you are using:
         </p>

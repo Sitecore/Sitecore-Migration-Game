@@ -57,6 +57,20 @@ export enum PromptMappings {
   xcFeatures = 'xcfeatures',
 }
 
+export enum TargetProduct {
+  cdp = 'CDP',
+  connect = 'Connect',
+  discover = 'Discover',
+  contentHubOps = 'Content Hub Ops',
+  contentHubDAM = 'Content Hub DAM',
+  contentHubONE = 'Content Hub ONE',
+  orderCloud = 'OrderCloud',
+  personalize = 'Personalize',
+  search = 'Search',
+  send = 'Send',
+  xmCloud = 'XM Cloud',
+}
+
 export class OutcomeConditions {
   isXC: boolean;
   isXP: boolean;
@@ -152,6 +166,39 @@ export class OutcomeConditions {
       !this.xpFeaturesUsed.identityResolution &&
       !this.xpFeaturesUsed.patternCards
     );
+  }
+
+  /**
+   * Returns a list of products that can be migrated to.
+   * NOTE: Several product options don't have Prompts yet that can help lead to a result, so are not included.
+   * @returns
+   */
+  requiredProducts(): TargetProduct[] {
+    //Instantiate return list
+    let products: TargetProduct[];
+    products = [];
+
+    //Right now, all paths suggest XM Cloud + Search. There are no prompts or articles yet for directing users to another content or search product.
+    products.push(TargetProduct.xmCloud);
+    products.push(TargetProduct.search);
+
+    //If the customer is using more functionality than what is supported by XM Cloud, they will need Personalize.
+    //NOTE: We don't have a prompt yet to distinguish if the customer needs CDP instead/in addition
+    if (this.isComplexPersonalization()) {
+      products.push(TargetProduct.personalize);
+    }
+
+    //If the customer is using marketing automation functionality, they will need Send
+    if (this.isMarketingAutomation()) {
+      products.push(TargetProduct.send);
+    }
+
+    //If they have XC, regardless of features selected, we direct the customer to OrderCloud
+    if (this.isXC) {
+      products.push(TargetProduct.orderCloud);
+    }
+
+    return products;
   }
 
   /**
