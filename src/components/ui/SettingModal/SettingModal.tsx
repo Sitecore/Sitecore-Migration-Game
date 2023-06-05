@@ -64,7 +64,7 @@ export const SettingModal: FC<SettingModalProps> = ({ isOpen }) => {
   };
 
   const handleSettingChange = async (newTheme: string) => {
-    gameInfoContext.updateTheme(newTheme);
+    await gameInfoContext.updateTheme(newTheme);
     //gameInfoContext.updatePersona(newPersona);
     router.push('/prompt');
   };

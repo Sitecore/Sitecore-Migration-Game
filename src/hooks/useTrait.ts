@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export const useTrait = <T>(initialValue: T) => {
-  const [trait, updateTrait] = useState<T>(initialValue);
+export const useTrait = <T>(initialValue?: T) => {
+  const [trait, updateTrait] = useState<T>(initialValue ?? ({} as T));
 
   let current = trait;
 

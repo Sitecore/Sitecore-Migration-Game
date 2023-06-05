@@ -2,7 +2,7 @@ import { useTrait } from 'hooks/useTrait';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
 import { IAnswer, IPersona, ITheme } from 'models';
-import React, { FC, createContext, useEffect, useState } from 'react';
+import React, { FC, createContext, useEffect } from 'react';
 
 export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfoContextType);
 
@@ -24,8 +24,8 @@ interface GameInfoProviderProps {
 
 export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
   const savedAnswers = useTrait<IAnswer[]>([]);
-  const [theme, setTheme] = useState<ITheme>();
-  const [persona, setPersona] = useState<IPersona>();
+  const themes = useTrait<ITheme>();
+  const personas = useTrait<IPersona>();
   //const [theme, setTheme] = useState<string>('-e_W0k2zO0uZPNBmYtorCQ');
   //const [persona, setPersona] = useState<string>('nMeJvakIB0Kvx29f5uVdiw');
 
@@ -33,7 +33,9 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
     const initialize = async () => {
       let persona = await PersonaService().GetPersonaById('nMeJvakIB0Kvx29f5uVdiw');
 
-      setPersona(persona);
+      if (persona) {
+        personas.set(persona);
+      }
     };
 
     initialize().catch((e) => console.error(e));
@@ -55,7 +57,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
     const result = await ThemeService().GetThemeById(id);
 
     if (result) {
-      setTheme(result);
+      themes.set(result);
     }
   };
 
@@ -63,23 +65,23 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
     const result = await PersonaService().GetPersonaById(id);
 
     if (result) {
-      setPersona(result);
+      personas.set(result);
     }
   };
 
   return (
     <GameInfoContext.Provider
       value={{
-        theme,
-        persona,
+        theme: themes.get(),
+        persona: personas.get(),
         answers: savedAnswers.get(),
         updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),
         resetAnswers: () => resetAnswers(),
-        updateTheme: (id: string) => {
-          handleThemeUpdate(id);
+        updateTheme: async (id: string) => {
+          await handleThemeUpdate(id);
         },
-        updatePersona: (id: string) => {
-          handlePersonaUpdate(id);
+        updatePersona: async (id: string) => {
+          await handlePersonaUpdate(id);
         },
       }}
     >
