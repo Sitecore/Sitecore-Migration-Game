@@ -2,7 +2,6 @@ import { Blockquote, SimpleGrid, Text, Title } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
 import { LinkCard, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions } from 'models/OutcomeConditions';
-import Link from 'next/link';
 import { FC } from 'react';
 import { FiActivity } from 'react-icons/fi';
 
@@ -136,43 +135,39 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           migration guides can help with the XP migration, based on the features you are using:
         </Text>
 
-        <ul>
+        <SimpleGrid cols={3} spacing="md">
           <ConditionalResponse condition={outcomeConditions.isSimplePersonalization()}>
-            <li>
-              <Link href="https://jasonstcyr.com/2023/05/31/sitecore-architects-guide-to-saas-migration-classic-xp-with-simple-personalization/">
-                Sitecore Architect’s Guide to SaaS Migration – Classic XP with Simple Personalization
-              </Link>
-            </li>
+            <LinkCard
+              link="https://jasonstcyr.com/2023/05/31/sitecore-architects-guide-to-saas-migration-classic-xp-with-simple-personalization/"
+              title="Sitecore Architect’s Guide to SaaS Migration – Classic XP with Simple Personalization"
+            />
           </ConditionalResponse>
           <ConditionalResponse
             condition={outcomeConditions.isComplexPersonalization() && !outcomeConditions.isMarketingAutomation()}
           >
-            <li>
-              <Link href="https://jasonstcyr.com/2022/07/25/sitecore-architects-guide-to-saas-migration-xp-global-brand-scenario/">
-                Sitecore Architect’s Guide to SaaS Migration – XP Global Brand scenario
-              </Link>
-            </li>
+            <LinkCard
+              link="https://jasonstcyr.com/2022/07/25/sitecore-architects-guide-to-saas-migration-xp-global-brand-scenario/"
+              title="Sitecore Architect’s Guide to SaaS Migration – XP Global Brand scenario"
+            />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.isMarketingAutomation()}>
-            <li>
-              <Link href="https://jasonstcyr.com/2023/03/09/sitecore-architects-guide-to-saas-migration-xp-marketing-automation/">
-                Sitecore Architect’s Guide to SaaS Migration – XP Marketing Automation
-              </Link>
-            </li>
+            <LinkCard
+              link="https://jasonstcyr.com/2023/03/09/sitecore-architects-guide-to-saas-migration-xp-marketing-automation/"
+              title="Sitecore Architect’s Guide to SaaS Migration – XP Marketing Automation"
+            />
           </ConditionalResponse>
-          <li>
-            <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=f1cc98af1b541590e55241dde54bcb0d">
-              Sitecore Platform DXP to Composable: CDP + Personalize Migration Strategies
-            </Link>
-          </li>
-        </ul>
+          <LinkCard
+            link="https://community.sitecore.com/community?id=community_blog&sys_id=f1cc98af1b541590e55241dde54bcb0d"
+            title="Sitecore Platform DXP to Composable: CDP + Personalize Migration Strategies"
+          />
+        </SimpleGrid>
       </ConditionalResponse>
       <Title order={3}>XM features</Title>
       <Text>
         Based on your selections, these are the guides that may help with the content management and delivery portions
         of your solution:
       </Text>
-      <ul>
+      <SimpleGrid cols={3} spacing="md">
         <ConditionalResponse
           condition={
             outcomeConditions.isXM &&
@@ -180,52 +175,46 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
               outcomeConditions.experienceEdge == ExperienceEdgeOption.some)
           }
         >
-          <li>
-            <Link href="https://jasonstcyr.com/2022/05/20/sitecore-architects-guide-to-saas-migration-xm-jamstack-scenario/">
-              Sitecore Architect’s Guide to SaaS Migration – XM Jamstack scenario
-            </Link>
-          </li>
+          <LinkCard
+            link="https://jasonstcyr.com/2022/05/20/sitecore-architects-guide-to-saas-migration-xm-jamstack-scenario/"
+            title="Sitecore Architect’s Guide to SaaS Migration – XM Jamstack scenario"
+          />
         </ConditionalResponse>
         <ConditionalResponse
           condition={outcomeConditions.desiredFrameworks.nextjs || outcomeConditions.desiredFrameworks.netcore}
         >
-          <li>
-            <Link href="https://github.com/sitecore/xm-cloud-introduction">
-              XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2
-            </Link>
-          </li>
+          <LinkCard
+            link="https://github.com/sitecore/xm-cloud-introduction"
+            title="XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2"
+          />
         </ConditionalResponse>
-      </ul>
+      </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
         <Title order={4}>Already on ASP.NET Core headless?</Title>
         <Text>
           There is a migration series by Rob Earlam discussing steps taken for a .NET Core site on Sitecore XM and
           migrating it to XM Cloud.
         </Text>
-        <ul>
-          <li>
-            <Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1">
-              Migrating the Sitecore MVP site to XM Cloud – Part 1
-            </Link>
-          </li>
-          <li>
-            <Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-2">
-              Migrating the Sitecore MVP site to XM Cloud – Part 2
-            </Link>
-          </li>
-          <li>
-            <Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-3">
-              Migrating the Sitecore MVP site to XM Cloud – Part 3
-            </Link>
-          </li>
+        <SimpleGrid cols={3} spacing="md">
+          <LinkCard
+            link="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1"
+            title="Migrating the Sitecore MVP site to XM Cloud – Part 1"
+          />
+          <LinkCard
+            link="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-2"
+            title="Migrating the Sitecore MVP site to XM Cloud – Part 2"
+          />
+          <LinkCard
+            link="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-3"
+            title="Migrating the Sitecore MVP site to XM Cloud – Part 3"
+          />
           <ConditionalResponse condition={outcomeConditions.securedPages.securityloginrequired}>
-            <li>
-              <Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-4">
-                Migrating the Sitecore MVP site to XM Cloud – Part 4
-              </Link>
-            </li>
+            <LinkCard
+              link="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-4"
+              title="Migrating the Sitecore MVP site to XM Cloud – Part 4"
+            />
           </ConditionalResponse>
-        </ul>
+        </SimpleGrid>
       </ConditionalResponse>
     </>
   );
