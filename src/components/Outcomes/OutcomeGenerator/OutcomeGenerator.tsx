@@ -1,6 +1,6 @@
 import { Text } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
-import { useGameInfoContext } from 'components/ui';
+import { YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions } from 'models/OutcomeConditions';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -27,15 +27,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         In the following video you can get an introduction to migrating to the Composable DXP, along with a few
         scenarios:
       </p>
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube-nocookie.com/embed/ZTjk5t9dfRQ"
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      ></iframe>
+      <YouTubeVideoDisplay videoId="ZTjk5t9dfRQ" />
       <p>
         Based on what information has been collected, we believe the following guides will be helpful in your Quest for
         SaaS! Good luck on your adventure to migrating to a composable DXP stack.

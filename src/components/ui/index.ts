@@ -6,3 +6,4 @@ export * from './Loading/Loading';
 export * from './Navigation/Navigation';
 export * from './RichTextOutput/RichTextOutput';
 export * from './SettingModal/SettingModal';
+export * from './YouTubeVideoDisplay/YouTubeVideoDisplay';

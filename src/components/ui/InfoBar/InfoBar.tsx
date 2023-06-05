@@ -13,7 +13,15 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions }) => {
   return (
     <Grid justify="flex-end">
       <Grid.Col span={6}>
-        <Badge color="red">Remaining Questions: {remainingQuestions.length + 1}</Badge>
+        {remainingQuestions.length === 0 ? (
+          <>
+            <Badge color="green">Solution</Badge>
+          </>
+        ) : (
+          <>
+            <Badge color="red">Remaining Questions: {remainingQuestions.length + 1}</Badge>
+          </>
+        )}
       </Grid.Col>
       <Grid.Col span={6}>
         <Group position="right" spacing="xs">
