@@ -20,7 +20,6 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions }) => {
           {gameInfoContext.theme?.characterImage?.results !== undefined && (
             <Group>
               <Avatar
-                size="md"
                 radius="xl"
                 src={gameInfoContext.theme.characterImage!.results[0].fileUrl}
                 alt={gameInfoContext.theme.characterImage!.results[0].fileName ?? ''}
@@ -35,7 +34,6 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions }) => {
           {gameInfoContext.persona?.personaImage?.results !== undefined && (
             <Group position="right" spacing="xs">
               <Avatar
-                size="lg"
                 radius="xl"
                 src={gameInfoContext.persona.personaImage!.results[0].fileUrl}
                 alt={gameInfoContext.persona.personaImage!.results[0].fileName ?? ''}
