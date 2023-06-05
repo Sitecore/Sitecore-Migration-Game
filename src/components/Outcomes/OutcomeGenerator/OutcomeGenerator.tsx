@@ -1,9 +1,10 @@
-import { Text } from '@mantine/core';
+import { Blockquote, SimpleGrid, Text, Title } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
-import { YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
+import { LinkCard, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions } from 'models/OutcomeConditions';
 import Link from 'next/link';
 import { FC } from 'react';
+import { FiActivity } from 'react-icons/fi';
 
 interface OutcomeGeneratorProps {}
 
@@ -14,88 +15,81 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   let outcomeConditions = new OutcomeConditions(gameInfoContext);
 
   return (
-    <Text>
-      <h2>Your Product Bundle</h2>
-      <p>
+    <>
+      <Title order={2}>Your Product Bundle</Title>
+      <Text>
         To complete your quest for SaaS, the following product(s) are needed to create your Composable DXP that meets
         your existing needs:
-      </p>
-      <blockquote>{outcomeConditions.requiredProducts().join(', ')}</blockquote>
+      </Text>
+      <Blockquote icon={<FiActivity />}>{outcomeConditions.requiredProducts().join(', ')}</Blockquote>
 
-      <h2>Guide to SaaS Migration</h2>
-      <p>
+      <Title order={2}>Guide to SaaS Migration</Title>
+      <Text>
         In the following video you can get an introduction to migrating to the Composable DXP, along with a few
         scenarios:
-      </p>
+      </Text>
       <YouTubeVideoDisplay videoId="ZTjk5t9dfRQ" />
-      <p>
+      <Text>
         Based on what information has been collected, we believe the following guides will be helpful in your Quest for
         SaaS! Good luck on your adventure to migrating to a composable DXP stack.
-      </p>
+      </Text>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <h2>Experience Commerce (XC) migration</h2>
+        <Title order={2}>Experience Commerce (XC) migration</Title>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP}>
-        <h2>Experience Platform (XP) migration</h2>
+        <Title order={2}>Experience Platform (XP) migration</Title>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXM}>
-        <h2>Experience Manager (XM) migration</h2>
+        <Title order={2}>Experience Manager (XM) migration</Title>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <h3>XC features</h3>
-        <p>
+        <Title order={3}>XC features</Title>
+        <Text>
           For your XC features, you will first want to migrate this functionality over to OrderCloud. Once XC is
           removed, you can then migrate your XP features and then finally your XM features. The following migration
           guides can help with the OrderCloud migration, based on the features you are using:
-        </p>
+        </Text>
 
-        <ul>
-          <li>
-            <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=89f8d1391b416154e55241dde54bcb88">
-              Transitioning from Sitecore XC to OrderCloud: API Access
-            </Link>
-          </li>
+        <SimpleGrid cols={3} spacing="md">
+          <LinkCard
+            link="https://community.sitecore.com/community?id=community_blog&sys_id=89f8d1391b416154e55241dde54bcb88"
+            title="Transitioning from Sitecore XC to OrderCloud: API Access"
+          />
           <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.carts}>
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=293153231b01a110e55241dde54bcba3">
-                Transitioning from Sitecore XC to OrderCloud: Carts to Unsubmitted Orders and Carts
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=293153231b01a110e55241dde54bcba3"
+              title="Transitioning from Sitecore XC to OrderCloud: Carts to Unsubmitted Orders and Carts"
+            />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.productCatalog}>
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=0e1c6adb1b416910e55241dde54bcb9e">
-                Transitioning from Sitecore XC to OrderCloud: Catalogs and Categories
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=0e1c6adb1b416910e55241dde54bcb9e"
+              title="Transitioning from Sitecore XC to OrderCloud: Catalogs and Categories"
+            />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.productCatalog}>
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=06a4f29f1b816910e55241dde54bcbb0">
-                Transitioning from Sitecore XC to OrderCloud: Sellable Items to Products
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=06a4f29f1b816910e55241dde54bcbb0"
+              title="Transitioning from Sitecore XC to OrderCloud: Sellable Items to Products"
+            />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.customerAccounts}>
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=0913197d1bcd2154e55241dde54bcb9f">
-                Transitioning from Sitecore XC to OrderCloud: Customer to Buyer Users
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=0913197d1bcd2154e55241dde54bcb9f"
+              title="Transitioning from Sitecore XC to OrderCloud: Customer to Buyer Users"
+            />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.fulfillments}>
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=3826e72f1b81a110e55241dde54bcb7b">
-                Transitioning from Sitecore XC to OrderCloud: Fulfillments to Shipping
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=3826e72f1b81a110e55241dde54bcb7b"
+              title="Transitioning from Sitecore XC to OrderCloud: Fulfillments to Shipping"
+            />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.inventory}>
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=c7fb76571b056910e55241dde54bcb63">
-                Transitioning from Sitecore XC to OrderCloud: Inventory and Pricing
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=c7fb76571b056910e55241dde54bcb63"
+              title="Transitioning from Sitecore XC to OrderCloud: Inventory and Pricing"
+            />
           </ConditionalResponse>
           <ConditionalResponse
             condition={
@@ -106,45 +100,41 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
               outcomeConditions.xcFeaturesUsed.rma
             }
           >
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=6925d18c1b5d6510e55241dde54bcbbf">
-                Transitioning from Sitecore XC to OrderCloud: Orders
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=6925d18c1b5d6510e55241dde54bcbbf"
+              title="Transitioning from Sitecore XC to OrderCloud: Orders"
+            />
           </ConditionalResponse>
           <ConditionalResponse
             condition={outcomeConditions.xcFeaturesUsed.orders || outcomeConditions.xcFeaturesUsed.payment}
           >
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=bc6e1dd41b192910e55241dde54bcbd3">
-                Transitioning from Sitecore XC to OrderCloud: Order Workflow and Minions
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=bc6e1dd41b192910e55241dde54bcbd3"
+              title="Transitioning from Sitecore XC to OrderCloud: Order Workflow and Minions"
+            />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.payment}>
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=c2bf81801b5d6510e55241dde54bcbd7">
-                Transitioning from Sitecore XC to OrderCloud: Tax and Payments
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=c2bf81801b5d6510e55241dde54bcbd7"
+              title="Transitioning from Sitecore XC to OrderCloud: Tax and Payments"
+            />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.xcFeaturesUsed.promotions}>
-            <li>
-              <Link href="https://community.sitecore.com/community?id=community_blog&sys_id=e3a389dd1b112910722d4042b24bcb93">
-                Transitioning from Sitecore XC to OrderCloud: Promotions
-              </Link>
-            </li>
+            <LinkCard
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=e3a389dd1b112910722d4042b24bcb93"
+              title="Transitioning from Sitecore XC to OrderCloud: Promotions"
+            />
           </ConditionalResponse>
-        </ul>
+        </SimpleGrid>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP || outcomeConditions.isXC}>
-        <h3>XP features</h3>
-        <p>
+        <Title order={3}>XP features</Title>
+        <Text>
           For your XP features, you will first want to migrate the functionality over to the matching SaaS component:
           Sitecore XM Cloud with embedded personalization, Sitecore OrderCloud, Sitecore Personalize, and more! Once XP
           features and infrastructure are removed, you can then migrate your content management features. The following
           migration guides can help with the XP migration, based on the features you are using:
-        </p>
+        </Text>
 
         <ul>
           <ConditionalResponse condition={outcomeConditions.isSimplePersonalization()}>
@@ -177,11 +167,11 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           </li>
         </ul>
       </ConditionalResponse>
-      <h3>XM features</h3>
-      <p>
+      <Title order={3}>XM features</Title>
+      <Text>
         Based on your selections, these are the guides that may help with the content management and delivery portions
         of your solution:
-      </p>
+      </Text>
       <ul>
         <ConditionalResponse
           condition={
@@ -207,9 +197,11 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </ConditionalResponse>
       </ul>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
-        <h4>Already on ASP.NET Core headless?</h4>
-        There is a migration series by Rob Earlam discussing steps taken for a .NET Core site on Sitecore XM and
-        migrating it to XM Cloud.
+        <Title order={4}>Already on ASP.NET Core headless?</Title>
+        <Text>
+          There is a migration series by Rob Earlam discussing steps taken for a .NET Core site on Sitecore XM and
+          migrating it to XM Cloud.
+        </Text>
         <ul>
           <li>
             <Link href="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1">
@@ -235,6 +227,6 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           </ConditionalResponse>
         </ul>
       </ConditionalResponse>
-    </Text>
+    </>
   );
 };
