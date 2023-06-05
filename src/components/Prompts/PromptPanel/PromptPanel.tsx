@@ -19,6 +19,15 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
   const promptService = PromptService();
 
+  if (process.browser) {
+    if (gameInfoContext.theme === undefined || !gameInfoContext.theme.id) {
+      if (!(typeof window === undefined)) {
+        window.history.pushState(null, '', '/');
+        window.location.reload();
+      }
+    }
+  }
+
   useEffect(() => {
     const initialize = async () => {
       await initializeStartPrompt();
