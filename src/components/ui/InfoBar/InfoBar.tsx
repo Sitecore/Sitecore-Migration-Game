@@ -5,15 +5,16 @@ import { useGameInfoContext } from '..';
 
 interface InfoBarProps {
   remainingQuestions: IPrompt[];
+  isSolution?: boolean;
 }
 
-export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions }) => {
+export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = false }) => {
   const gameInfoContext = useGameInfoContext();
 
   return (
     <Grid justify="flex-end">
       <Grid.Col span={6}>
-        {remainingQuestions.length === 0 ? (
+        {isSolution ? (
           <>
             <Badge color="green">Solution</Badge>
           </>

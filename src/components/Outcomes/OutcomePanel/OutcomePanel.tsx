@@ -24,7 +24,7 @@ export const OutcomePanel: FC<OutcomePanelProps> = () => {
   return (
     <Paper p="md" shadow="xs" withBorder>
       <Stack>
-        <InfoBar remainingQuestions={[]} />
+        <InfoBar remainingQuestions={[]} isSolution={true} />
         <OutcomeGenerator />
         <PreviousAnswers />
       </Stack>
