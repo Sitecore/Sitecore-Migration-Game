@@ -1,9 +1,8 @@
-import { IImage, IResult } from 'models';
+import { IImage, IResult, ITheme } from 'models';
 
 export interface IPersona {
   name: string;
-  image?: string;
   id: string;
-  personalTypeId: string;
+  theme: IResult<ITheme[]>;
   personaImage?: IResult<IImage[]>;
 }

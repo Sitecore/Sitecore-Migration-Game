@@ -8,9 +8,15 @@ import { MdRestartAlt } from 'react-icons/md';
 
 interface NavigationProps {
   saveTrigger?: () => void;
+  showSettingsButton?: boolean;
+  showRestartButton?: boolean;
 }
 
-export const Navigation: FC<NavigationProps> = ({ saveTrigger }) => {
+export const Navigation: FC<NavigationProps> = ({
+  saveTrigger,
+  showSettingsButton = true,
+  showRestartButton = true,
+}) => {
   const gameInfoContext = useContext(GameInfoContext);
 
   const handleAppReset = () => {
@@ -37,12 +43,12 @@ export const Navigation: FC<NavigationProps> = ({ saveTrigger }) => {
               </Button>
             </Tooltip>
             <Tooltip label="Change Theme and Restart Quest" multiline>
-              <Button variant="subtle" compact onClick={handleAppReset}>
+              <Button variant="subtle" compact onClick={handleAppReset} disabled={!showSettingsButton}>
                 <FiSettings size="24px" color="#000" />
               </Button>
             </Tooltip>
             <Tooltip label="Start Over">
-              <Button variant="subtle" compact onClick={handleStartOver}>
+              <Button variant="subtle" compact onClick={handleStartOver} disabled={!showRestartButton}>
                 <MdRestartAlt size="24px" color="#000" />
               </Button>
             </Tooltip>

@@ -30,3 +30,11 @@ query GetPersonaByIdQuery($id: String!) {
     ...PersonaFragment
   }
 }
+
+query GetPersonasByThemeIdQuery($id: ID!) {
+  allGamePersona(where: { theme: { gamePersona_ids: $id } }) {
+    results {
+      ...PersonaFragment
+    }
+  }
+}

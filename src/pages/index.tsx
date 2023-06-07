@@ -1,5 +1,5 @@
 import { Center, Container } from '@mantine/core';
-import { AuthModal, GameInfoContext, GameInfoContextType, Loading, SettingModal } from 'components/ui';
+import { AuthModal, GameInfoContext, GameInfoContextType, Loading, Navigation, Settings } from 'components/ui';
 import React, { useContext, useEffect } from 'react';
 
 const App = () => {
@@ -23,7 +23,10 @@ const App = () => {
       {!loading ? (
         <>
           <AuthModal isOpen={authModelOpen} onClose={() => setAuthModalOpen(false)}></AuthModal>
-          <SettingModal isOpen={settingModalOpen} />
+          <Container my="sm" size="sm" className="App">
+            <Navigation showRestartButton={false} showSettingsButton={false} />
+            <Settings />
+          </Container>
         </>
       ) : (
         <>
