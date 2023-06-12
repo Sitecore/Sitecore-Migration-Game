@@ -41,6 +41,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   const initializeStartPrompt = async () => {
     loadingActions.open();
     await preloadPrompts();
+    gameInfoContext;
 
     questions.set([]);
     loadingActions.close();

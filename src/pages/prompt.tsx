@@ -5,7 +5,7 @@ import { Navigation } from 'components/ui';
 const PromptPage = () => {
   return (
     <Container my="sm" size="sm" className="App">
-      <Navigation />
+      <Navigation showRestartButton={false} />
       <PromptPanel />
     </Container>
   );

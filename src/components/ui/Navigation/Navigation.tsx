@@ -1,10 +1,9 @@
 import { Button, Flex, Grid, Image, Tooltip } from '@mantine/core';
 import { GameInfoContext } from 'components/ui';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { FC, useContext } from 'react';
 import { BiSave } from 'react-icons/bi';
 import { FiSettings } from 'react-icons/fi';
-import { MdRestartAlt } from 'react-icons/md';
 
 interface NavigationProps {
   saveTrigger?: () => void;
@@ -18,15 +17,16 @@ export const Navigation: FC<NavigationProps> = ({
   showRestartButton = true,
 }) => {
   const gameInfoContext = useContext(GameInfoContext);
+  const router = useRouter();
 
   const handleAppReset = () => {
     gameInfoContext.resetAnswers();
-    Router.push('/');
+    router.push('/');
   };
 
   const handleStartOver = () => {
     gameInfoContext.resetAnswers();
-    Router.push('/prompt');
+    router.push('/prompt');
   };
 
   return (
@@ -47,11 +47,11 @@ export const Navigation: FC<NavigationProps> = ({
                 <FiSettings size="24px" color="#000" />
               </Button>
             </Tooltip>
-            <Tooltip label="Start Over">
+            {/* <Tooltip label="Start Over">
               <Button variant="subtle" compact onClick={handleStartOver} disabled={!showRestartButton}>
                 <MdRestartAlt size="24px" color="#000" />
               </Button>
-            </Tooltip>
+            </Tooltip> */}
           </Flex>
         </Grid.Col>
       </Grid>
