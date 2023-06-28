@@ -1,10 +1,14 @@
 import { JSONContent } from '@tiptap/core';
-import { IPrompt, IResult } from 'models';
+import { IResult, ITheme } from 'models';
 
 export interface IOutcome {
   id: string;
   name: string;
-  text: JSONContent;
-  sortOrder: number;
-  promptOptionsFilter: IResult<IPrompt[]>;
+  title: string;
+  productsIntro: JSONContent;
+  videoTitle: string;
+  videoIntro: JSONContent;
+  videoId: string;
+  guidesIntro: JSONContent;
+  themes: IResult<ITheme[]>;
 }
