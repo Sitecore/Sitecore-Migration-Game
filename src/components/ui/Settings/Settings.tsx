@@ -77,7 +77,6 @@ export const Settings: FC<SettingsProps> = () => {
       setPersonas(data.results);
     }
 
-    console.log('hi');
     setShowFantasy(true);
     handleLoading.close();
   };
