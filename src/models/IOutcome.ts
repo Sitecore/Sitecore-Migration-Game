@@ -10,5 +10,11 @@ export interface IOutcome {
   videoIntro: JSONContent;
   videoId: string;
   guidesIntro: JSONContent;
+  xcFeaturesTitle: string;
+  xcFeaturesIntro: JSONContent;
+  xpFeaturesTitle: string;
+  xpFeaturesIntro: JSONContent;
+  xmFeaturesTitle: string;
+  xmFeaturesIntro: JSONContent;
   themes: IResult<ITheme[]>;
 }
