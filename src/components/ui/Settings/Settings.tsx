@@ -1,9 +1,10 @@
 import { Center, Paper, createStyles, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Loading, PersonaList, ThemeList, useGameInfoContext } from 'components/ui';
+import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
-import { IPersona, ITheme } from 'models';
+import { IOutcome, IPersona, ITheme } from 'models';
 import router from 'next/router';
 import { FC, useEffect, useState } from 'react';
 
@@ -41,9 +42,11 @@ export const Settings: FC<SettingsProps> = () => {
   const [showFantasy, setShowFantasy] = useState<Boolean>(false);
   const [themes, setThemes] = useState<ITheme[] | undefined>();
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
+  const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>();
   const [loading, handleLoading] = useDisclosure(false);
   const themeService = ThemeService();
   const personaService = PersonaService();
+  const outcomeService = OutcomeService();
   //#endregion
 
   //#region useEffect
@@ -75,6 +78,12 @@ export const Settings: FC<SettingsProps> = () => {
 
     if (data?.results !== undefined) {
       setPersonas(data.results);
+    }
+
+    // Load Outcome content
+    const outcomeData = await outcomeService.GetOutcomeByTheme(newTheme);
+    if (outcomeData?.results !== undefined) {
+      setOutcomes(outcomeData.results);
     }
 
     setShowFantasy(true);
