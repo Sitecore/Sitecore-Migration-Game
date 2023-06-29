@@ -1,20 +1,30 @@
 fragment OutcomeDetails on GameOutcome {
   id
   name
-  text
-  sortOrder
-  promptOptionsFilter {
+  themes {
     results {
-      ... on PromptOption {
+      ... on GameTheme {
         id
-        value
+        name
       }
     }
   }
+  title
+  productsIntro
+  videoTitle
+  videoIntro
+  videoid
+  guidesIntro
+  xcFeaturesTitle
+  xcFeaturesIntro
+  xpFeaturesTitle
+  xpFeaturesIntro
+  xmFeaturesTitle
+  xmFeaturesIntro
 }
 
-query GetOutcomeByAnswersQuery($answers: [ID!]!) {
-  allGameOutcome(where: { promptOptionsFilter: { gameOutcome_ids: $answers } }) {
+query GetOutcomeByThemeIdQuery($id: ID!) {
+  allGameOutcome(where: { theme: { gameOutcome_ids: $id } }) {
     results {
       ...OutcomeDetails
     }
