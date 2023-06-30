@@ -15,7 +15,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
   return (
     <>
-      <Title order={2}>Your Product Bundle</Title>
+      <Title order={2}>{gameInfoContext.outcome?.title}</Title>
       <Text>
         To complete your quest for SaaS, the following product(s) are needed to create your Composable DXP that meets
         your existing needs:

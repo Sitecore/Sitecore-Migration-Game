@@ -1,7 +1,8 @@
 import { useTrait } from 'hooks/useTrait';
+import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
-import { IAnswer, IPersona, ITheme } from 'models';
+import { IAnswer, IOutcome, IPersona, ITheme } from 'models';
 import React, { FC, createContext, useEffect } from 'react';
 
 export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfoContextType);
@@ -10,6 +11,7 @@ export interface GameInfoContextType {
   theme: ITheme | undefined;
   persona: IPersona | undefined;
   answers?: IAnswer[] | undefined;
+  outcome?: IOutcome | undefined;
   updateAnswers: (answers: IAnswer[]) => void;
   updatePersona: (persona: string) => void;
   updateTheme: (theme: string) => void;
@@ -26,6 +28,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
   const savedAnswers = useTrait<IAnswer[]>([]);
   const themes = useTrait<ITheme>();
   const personas = useTrait<IPersona>();
+  const outcomes = useTrait<IOutcome>();
   //const [theme, setTheme] = useState<string>('-e_W0k2zO0uZPNBmYtorCQ');
   //const [persona, setPersona] = useState<string>('nMeJvakIB0Kvx29f5uVdiw');
 
@@ -59,6 +62,13 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
     if (result) {
       themes.set(result);
     }
+
+    //Get the outcome for the new theme. For now, we are using the first match even if multiple are returned.
+    const outcomeResult = await OutcomeService().GetOutcomeByTheme(id);
+    if (outcomeResult && outcomeResult.results.length > 0) {
+      let outcome = outcomeResult.results[0];
+      outcomes.set(outcome);
+    }
   };
 
   const handlePersonaUpdate = async (id: string) => {
@@ -75,6 +85,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
         theme: themes.get(),
         persona: personas.get(),
         answers: savedAnswers.get(),
+        outcome: outcomes.get(),
         updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),
         resetAnswers: () => resetAnswers(),
         updateTheme: async (id: string) => {
