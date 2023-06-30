@@ -188,10 +188,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </ConditionalResponse>
       </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
-        <Title order={4}>Already on ASP.NET Core headless?</Title>
+        <Title order={4}>{gameInfoContext.outcome.aspnetHeadlessTitle}</Title>
         <Text>
-          There is a migration series by Rob Earlam discussing steps taken for a .NET Core site on Sitecore XM and
-          migrating it to XM Cloud.
+          <RichTextOutput content={gameInfoContext.outcome.aspnetHeadlessIntro} />
         </Text>
         <SimpleGrid cols={3} spacing="md">
           <LinkCard

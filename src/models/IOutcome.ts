@@ -8,7 +8,7 @@ export interface IOutcome {
   productsIntro: JSONContent;
   videoTitle: string;
   videoIntro: JSONContent;
-  videoId: string;
+  videoid: string;
   guidesIntro: JSONContent;
   xcFeaturesTitle: string;
   xcFeaturesIntro: JSONContent;
@@ -16,5 +16,7 @@ export interface IOutcome {
   xpFeaturesIntro: JSONContent;
   xmFeaturesTitle: string;
   xmFeaturesIntro: JSONContent;
+  aspnetHeadlessTitle: string;
+  aspnetHeadlessIntro: JSONContent;
   themes: IResult<ITheme[]>;
 }

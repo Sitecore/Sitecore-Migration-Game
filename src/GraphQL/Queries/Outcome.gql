@@ -21,6 +21,8 @@ fragment OutcomeDetails on GameOutcome {
   xpFeaturesIntro
   xmFeaturesTitle
   xmFeaturesIntro
+  aspnetHeadlessTitle
+  aspnetHeadlessIntro
 }
 
 query GetOutcomeByThemeIdQuery($id: ID!) {
