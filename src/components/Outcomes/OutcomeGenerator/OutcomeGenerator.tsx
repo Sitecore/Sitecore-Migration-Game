@@ -11,10 +11,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
 
   //If there is no Outcome information in the Game Info Context, we cannot output this page
-  if (!gameInfoContext.outcome) {
+  if (!gameInfoContext.outcome || !gameInfoContext.outcome.productsIntro) {
     let errorMessage = 'Missing Outcome content for current theme: ' + gameInfoContext.theme;
     console.error(errorMessage);
-    throw new Error(errorMessage);
+    return <div>{errorMessage}</div>;
   }
 
   //Use the OutcomeConditions class for storing all the answers as the conditions we'll use in the logic.
