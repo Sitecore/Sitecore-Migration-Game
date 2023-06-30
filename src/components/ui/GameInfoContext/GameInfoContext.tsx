@@ -11,7 +11,7 @@ export interface GameInfoContextType {
   theme: ITheme | undefined;
   persona: IPersona | undefined;
   answers?: IAnswer[] | undefined;
-  outcome?: IOutcome | undefined;
+  outcome: IOutcome | undefined;
   updateAnswers: (answers: IAnswer[]) => void;
   updatePersona: (persona: string) => void;
   updateTheme: (theme: string) => void;

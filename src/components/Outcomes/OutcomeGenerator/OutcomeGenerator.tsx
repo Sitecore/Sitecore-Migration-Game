@@ -1,6 +1,6 @@
 import { Blockquote, SimpleGrid, Text, Title } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
-import { LinkCard, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
+import { LinkCard, RichTextOutput, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions } from 'models/OutcomeConditions';
 import { FC } from 'react';
 import { FiActivity } from 'react-icons/fi';
@@ -10,27 +10,31 @@ interface OutcomeGeneratorProps {}
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
 
+  //If there is no Outcome information in the Game Info Context, we cannot output this page
+  if (!gameInfoContext.outcome) {
+    let errorMessage = 'Missing Outcome content for current theme: ' + gameInfoContext.theme;
+    console.error(errorMessage);
+    throw new Error(errorMessage);
+  }
+
   //Use the OutcomeConditions class for storing all the answers as the conditions we'll use in the logic.
   let outcomeConditions = new OutcomeConditions(gameInfoContext);
 
   return (
     <>
-      <Title order={2}>{gameInfoContext.outcome?.title}</Title>
+      <Title order={2}>{gameInfoContext.outcome.title}</Title>
       <Text>
-        To complete your quest for SaaS, the following product(s) are needed to create your Composable DXP that meets
-        your existing needs:
+        <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
       </Text>
       <Blockquote icon={<FiActivity />}>{outcomeConditions.requiredProducts().join(', ')}</Blockquote>
 
-      <Title order={2}>Guide to SaaS Migration</Title>
+      <Title order={2}>{gameInfoContext.outcome.videoTitle}</Title>
       <Text>
-        In the following video you can get an introduction to migrating to the Composable DXP, along with a few
-        scenarios:
+        <RichTextOutput content={gameInfoContext.outcome.videoIntro} />
       </Text>
-      <YouTubeVideoDisplay videoId="ZTjk5t9dfRQ" />
+      <YouTubeVideoDisplay videoId={gameInfoContext.outcome.videoid} />
       <Text>
-        Based on what information has been collected, we believe the following guides will be helpful in your Quest for
-        SaaS! Good luck on your adventure to migrating to a composable DXP stack.
+        <RichTextOutput content={gameInfoContext.outcome.guidesIntro} />
       </Text>
       <ConditionalResponse condition={outcomeConditions.isXC}>
         <Title order={2}>Experience Commerce (XC) migration</Title>
@@ -42,11 +46,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <Title order={2}>Experience Manager (XM) migration</Title>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <Title order={3}>XC features</Title>
+        <Title order={3}>{gameInfoContext.outcome.xcFeaturesTitle}</Title>
         <Text>
-          For your XC features, you will first want to migrate this functionality over to OrderCloud. Once XC is
-          removed, you can then migrate your XP features and then finally your XM features. The following migration
-          guides can help with the OrderCloud migration, based on the features you are using:
+          <RichTextOutput content={gameInfoContext.outcome.xcFeaturesIntro} />
         </Text>
 
         <SimpleGrid cols={3} spacing="md">
@@ -127,12 +129,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </SimpleGrid>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP || outcomeConditions.isXC}>
-        <Title order={3}>XP features</Title>
+        <Title order={3}>{gameInfoContext.outcome.xpFeaturesTitle}</Title>
         <Text>
-          For your XP features, you will first want to migrate the functionality over to the matching SaaS component:
-          Sitecore XM Cloud with embedded personalization, Sitecore OrderCloud, Sitecore Personalize, and more! Once XP
-          features and infrastructure are removed, you can then migrate your content management features. The following
-          migration guides can help with the XP migration, based on the features you are using:
+          <RichTextOutput content={gameInfoContext.outcome.xpFeaturesIntro} />
         </Text>
 
         <SimpleGrid cols={3} spacing="md">
@@ -162,10 +161,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           />
         </SimpleGrid>
       </ConditionalResponse>
-      <Title order={3}>XM features</Title>
+      <Title order={3}>{gameInfoContext.outcome.xmFeaturesTitle}</Title>
       <Text>
-        Based on your selections, these are the guides that may help with the content management and delivery portions
-        of your solution:
+        <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
       </Text>
       <SimpleGrid cols={3} spacing="md">
         <ConditionalResponse
