@@ -20,7 +20,7 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = fal
           </>
         ) : (
           <>
-            <Badge color="red">Remaining Questions: {remainingQuestions.length + 1}</Badge>
+            <Badge color="sitecoreRed"><Text>Remaining Questions: {remainingQuestions.length + 1}</Text></Badge>
           </>
         )}
       </Grid.Col>
