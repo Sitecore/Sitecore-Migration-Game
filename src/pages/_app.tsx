@@ -6,11 +6,11 @@ import Head from 'next/head';
 const corporateTheme: MantineThemeOverride = {
   colorScheme: 'light',
   colors: {
-    sitecoreRed: ['#eb1f1f','#d41c1c','#bc1919','#a51616','#8d1313','#761010','#5e0c0c','#460909','#2f0606','#170303'],
-    sitecoreViolet: ['#5548d9','#4d41c3','#443aae','#3b3298','#332b82','#2b246d','#221d57','#191641','#110e2b','#080716'],
+    sitecoreRed: ['#F69A9A','#F37979','#F16262','#EE4141','#EF4C4C','#ED3535','#eb1f1f','#BC1919','#991414','#761010'],
+    sitecoreViolet: ['#C4BFF2','#B3ADEE','#A29AEA','#9188E6','#8076E3','#665ADD','#5548d9','#443AAE','#3B3298','#2B246D'],
   },
+  primaryShade: 6,
   primaryColor: 'sitecoreViolet',
-  primaryShade: 0,
   headings: {
     fontFamily: 'Avenir Next LT Pro, Roboto, sans-serif',
     fontWeight: 500,
