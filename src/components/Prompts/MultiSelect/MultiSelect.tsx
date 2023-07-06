@@ -27,7 +27,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
           ))}
         </Group>
       </Checkbox.Group>
-      {multiSelectSubmit && <Button onClick={() => multiSelectSubmit(selected)}>Next</Button>}
+      {multiSelectSubmit && <Button onClick={() => multiSelectSubmit(selected)} disabled={selected.length == 0}>Next</Button>}
     </>
   );
 };
