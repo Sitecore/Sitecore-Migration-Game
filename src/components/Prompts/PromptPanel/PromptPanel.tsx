@@ -1,7 +1,6 @@
 import { Avatar, Box, Button, Center, Flex, Grid, GridItem, Heading, Progress, SimpleGrid, Stack, VStack, Wrap } from '@chakra-ui/react';
 import { Paper, } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { mockGameInfoContextMultiSelect } from 'TestData/mockGameInfoContext';
 import { CurrentPrompt, PreviousAnswers } from 'components/Prompts';
 import { InfoBar, Loading, useGameInfoContext } from 'components/ui';
 import { useTrait } from 'hooks/useTrait';
