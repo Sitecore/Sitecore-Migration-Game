@@ -4,7 +4,6 @@ import { CurrentPrompt, PreviousAnswers } from 'components/Prompts';
 import { useGameInfoContext } from 'components/ui';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
-import { mockGameInfoContext } from 'mockData/mockGameInfoContext';
 import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
 import React, { FC, useEffect } from 'react';
@@ -19,7 +18,6 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   const questions = useTrait<IPrompt[]>([]);
 
   const promptService = PromptService();
-  gameInfoContext = mockGameInfoContext;
 
   if (process.browser) {
     if (gameInfoContext.theme === undefined || !gameInfoContext.theme.id) {
@@ -56,8 +54,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
       setPrompts(data.results);
 
       // Set Starting Prompt
-      // const currentPrompt = data.results.find((p: IPrompt) => p.start === true);
-      const currentPrompt = data.results[2];
+      const currentPrompt = data.results.find((p: IPrompt) => p.start === true);
 
       if (currentPrompt !== undefined) {
         setCurrentPrompt(currentPrompt);
