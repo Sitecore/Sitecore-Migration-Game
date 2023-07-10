@@ -1,5 +1,4 @@
-import { Button } from '@chakra-ui/react';
-import { SimpleGrid, Tooltip } from '@mantine/core';
+import { Button, SimpleGrid, Tooltip } from '@chakra-ui/react';
 import { IOption } from 'models';
 import { FC } from 'react';
 
@@ -13,7 +12,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
     <div>
       {options && (
         <>
-          <SimpleGrid cols={2}>
+          <SimpleGrid columns={3} spacing='2px'>
             {options?.map((o: IOption) => (
               <>
                 {o.tooltip ? (

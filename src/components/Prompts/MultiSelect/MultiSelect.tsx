@@ -1,5 +1,5 @@
-import { Box, Button, Center, Checkbox, CheckboxGroup } from '@chakra-ui/react';
-import { Group, Tooltip } from '@mantine/core';
+import { Box, Button, Center, Checkbox, CheckboxGroup, Tooltip, Wrap } from '@chakra-ui/react';
+import { Group } from '@mantine/core';
 import { IOption } from 'models';
 import { FC, useState } from 'react';
 
@@ -24,21 +24,21 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
 
   return (
     <>
-      <Box w="100%" mt={8} mb={4} p={4} bg='#C8C8C8' opacity='0.9' borderRadius='lg' display='flex' alignItems='center' flexDirection='column'>
+      <Box w="100%" mt={8} mb={4} p={4} bg='#C8C8C8' opacity='0.9' borderRadius='lg' display='flex' flexDirection='row' >
         <CheckboxGroup>
-          <Group mt="xs">
+          <Wrap>
             {options.map((option: IOption) => (
               <>
                 {option.tooltip ? (
                   <Tooltip key={option.id} label={option.tooltip}>
-                    <Checkbox value={option.value} onChange={() => handleCheckbox(option.label)}>{option.label}</Checkbox>
+                    <Checkbox m={1} value={option.value} onChange={() => handleCheckbox(option.label)}>{option.label}</Checkbox>
                   </Tooltip>
                 ) : (
-                  <Checkbox key={option.id} value={option.value} onChange={() => handleCheckbox(option.label)}>{option.label}</Checkbox>
+                  <Checkbox m={1} key={option.id} value={option.value} onChange={() => handleCheckbox(option.label)}>{option.label}</Checkbox>
                 )}
               </>
             ))}
-          </Group>
+          </Wrap>
         </CheckboxGroup>
       </Box>
       <Center>
