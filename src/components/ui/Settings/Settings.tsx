@@ -1,10 +1,10 @@
 import { Center, Paper, createStyles, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Loading, PersonaList, ThemeList, useGameInfoContext } from 'components/ui';
+import { AvatarGallery, Loading, PersonaList, ThemeList, useGameInfoContext } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
-import { IOutcome, IPersona, ITheme } from 'models';
+import { IImage, IOutcome, IPersona, ITheme } from 'models';
 import router from 'next/router';
 import { FC, useEffect, useState } from 'react';
 
@@ -43,6 +43,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [themes, setThemes] = useState<ITheme[] | undefined>();
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
   const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>();
+  const [avatars, setAvatars] = useState<IImage[] | undefined>();
   const [loading, handleLoading] = useDisclosure(false);
   const themeService = ThemeService();
   const personaService = PersonaService();
@@ -86,6 +87,12 @@ export const Settings: FC<SettingsProps> = () => {
       setOutcomes(outcomeData.results);
     }
 
+    //Load avatars
+    const themeData = await themeService.GetThemeById(newTheme);
+    if (themeData?.avatarGallery?.results != undefined) {
+      setAvatars(themeData.avatarGallery?.results);
+    }
+
     setShowFantasy(true);
     handleLoading.close();
   };
@@ -93,6 +100,13 @@ export const Settings: FC<SettingsProps> = () => {
   const handlePersonaChange = async (newPersona: string) => {
     handleLoading.open();
     await gameInfoContext.updatePersona(newPersona);
+    handleLoading.close();
+    router.push('/prompt');
+  };
+
+  const handleAvatarChange = async (newAvatar: IImage) => {
+    handleLoading.open();
+    await gameInfoContext.updateAvatar(newAvatar);
     handleLoading.close();
     router.push('/prompt');
   };
@@ -111,6 +125,7 @@ export const Settings: FC<SettingsProps> = () => {
           {showFantasy ? (
             <>
               <PersonaList personas={personas} handlePersonaChange={handlePersonaChange} classStyles={classes} />
+              <AvatarGallery avatars={avatars} handleAvatarChange={handleAvatarChange} classStyles={classes} />
             </>
           ) : (
             <>

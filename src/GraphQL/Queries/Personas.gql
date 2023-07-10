@@ -3,6 +3,7 @@ fragment PersonaFragment on GamePersona {
   name
   personaImage {
     results {
+      id
       fileUrl
       fileName
     }
