@@ -41,6 +41,10 @@ export interface ISecuredPages {
   securityloginrequired: boolean;
 }
 
+export interface ISiteSearchUsed {
+  indexSearch: boolean;
+}
+
 export enum ExperienceEdgeOption {
   yes = 'yesexperienceedge',
   no = 'noexperienceedge',
@@ -55,6 +59,7 @@ export enum PromptMappings {
   existingFramework = 'existingframeworks',
   experienceEdge = 'experienceedge',
   xcFeatures = 'xcfeatures',
+  siteSearchUsed = 'sitesearch',
 }
 
 export enum TargetProduct {
@@ -81,6 +86,7 @@ export class OutcomeConditions {
   existingFrameworks: IExistingFrameworks;
   securedPages: ISecuredPages;
   experienceEdge: ExperienceEdgeOption;
+  siteSearchUsed: ISiteSearchUsed;
 
   /**
    * Creates a new instance of OutcomeConditions.
@@ -121,6 +127,7 @@ export class OutcomeConditions {
     this.existingFrameworks = { netcore: false };
     this.securedPages = { securityloginrequired: false };
     this.experienceEdge = ExperienceEdgeOption.no;
+    this.siteSearchUsed = { indexSearch: false };
 
     //If a gameInfoContext was provided, initialize all data from the answers in the context
     if (gameInfoContext) {
@@ -180,7 +187,11 @@ export class OutcomeConditions {
 
     //Right now, all paths suggest XM Cloud + Search. There are no prompts or articles yet for directing users to another content or search product.
     products.push(TargetProduct.xmCloud);
-    products.push(TargetProduct.search);
+
+    //If the customer has a custom index search, they need to transition to Sitecore Search. All other options they can keep as is.
+    if (this.siteSearchUsed.indexSearch) {
+      products.push(TargetProduct.search);
+    }
 
     //If the customer is using more functionality than what is supported by XM Cloud, they will need Personalize.
     //NOTE: We don't have a prompt yet to distinguish if the customer needs CDP instead/in addition
@@ -235,6 +246,7 @@ export class OutcomeConditions {
     this.parseContext_DesiredFramework(gameInfoContext);
     this.parseContext_SecuredPages(gameInfoContext);
     this.parseContext_ExperienceEdge(gameInfoContext);
+    this.parseContext_SiteSearchUsed(gameInfoContext);
   }
 
   /**
@@ -336,6 +348,20 @@ export class OutcomeConditions {
       else if (experienceEdgeOptions.value.includes('someexperienceedge'))
         this.experienceEdge = ExperienceEdgeOption.some;
       else this.experienceEdge = ExperienceEdgeOption.no;
+    }
+  }
+
+  /**
+   * Check for what type of site search is in the solution.
+   * Only checking for the ones that have content conditions, extend as needed.
+   * @param gameInfoContext: This is the current context which contains the prompts and answers
+   */
+  parseContext_SiteSearchUsed(gameInfoContext: GameInfoContextType) {
+    var siteSearchUsedOptions = gameInfoContext.answers?.find(
+      (x: IAnswer) => x.promptQuestionId == PromptMappings.siteSearchUsed
+    );
+    if (siteSearchUsedOptions != undefined) {
+      this.siteSearchUsed.indexSearch = siteSearchUsedOptions.value.includes('search-index');
     }
   }
 }
