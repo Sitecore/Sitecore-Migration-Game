@@ -1,4 +1,4 @@
-import { Text } from '@mantine/core';
+import { Box, Text } from '@chakra-ui/react';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
 import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
@@ -45,12 +45,14 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      {prompt?.bodyText && (
-        <Text>
-          <RichTextOutput content={prompt.bodyText} />
-        </Text>
-      )}
-      <Text>{prompt?.text}</Text>
+      <Box w="100%" mt={8} mb={4} p={4} bg='#C8C8C8' opacity='0.9' borderRadius='lg' display='flex' alignItems='center' flexDirection='column'>
+        {prompt?.bodyText && (
+          <Text>
+            <RichTextOutput content={prompt.bodyText} />
+          </Text>
+        )}
+        <Text fontSize='2xl'>{prompt?.text}</Text>
+      </Box>
       {prompt?.options?.results != null && (
         <>
           {prompt?.optionType?.results[0].name === 'Checklist' && (

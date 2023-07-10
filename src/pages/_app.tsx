@@ -2,12 +2,14 @@ import { MantineProvider, MantineThemeOverride } from '@mantine/core';
 import { GameInfoProvider } from 'components/ui';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { ChakraProvider } from '@chakra-ui/react'
+import sitecoreTheme from "@sitecore-ui/chakra-theme";
 
 const corporateTheme: MantineThemeOverride = {
   colorScheme: 'light',
   colors: {
-    sitecoreRed: ['#F69A9A','#F37979','#F16262','#EE4141','#EF4C4C','#ED3535','#eb1f1f','#BC1919','#991414','#761010'],
-    sitecoreViolet: ['#C4BFF2','#B3ADEE','#A29AEA','#9188E6','#8076E3','#665ADD','#5548d9','#443AAE','#3B3298','#2B246D'],
+    sitecoreRed: ['#F69A9A', '#F37979', '#F16262', '#EE4141', '#EF4C4C', '#ED3535', '#eb1f1f', '#BC1919', '#991414', '#761010'],
+    sitecoreViolet: ['#C4BFF2', '#B3ADEE', '#A29AEA', '#9188E6', '#8076E3', '#665ADD', '#5548d9', '#443AAE', '#3B3298', '#2B246D'],
   },
   primaryShade: 6,
   primaryColor: 'sitecoreViolet',
@@ -28,7 +30,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <GameInfoProvider>
         <MantineProvider theme={corporateTheme}>
-          <Component {...pageProps} />
+          <ChakraProvider theme={sitecoreTheme}>
+            <Component {...pageProps} />
+          </ChakraProvider>
         </MantineProvider>
       </GameInfoProvider>
     </>
