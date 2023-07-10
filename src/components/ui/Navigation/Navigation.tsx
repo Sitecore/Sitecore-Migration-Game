@@ -1,60 +1,38 @@
-import { Button, Flex, Grid, Image, Tooltip } from '@mantine/core';
-import { GameInfoContext } from 'components/ui';
-import { useRouter } from 'next/navigation';
-import { FC, useContext } from 'react';
-import { BiSave } from 'react-icons/bi';
-import { FiSettings } from 'react-icons/fi';
+import {
+  Box,
+  Flex,
+  Button,
+  useColorModeValue,
+  Stack,
+  Icon,
+  Text} from '@chakra-ui/react';
+import Image from 'next/image';
+import { MdSave, MdSettings } from 'react-icons/md';
 
-interface NavigationProps {
-  saveTrigger?: () => void;
-  showSettingsButton?: boolean;
-  showRestartButton?: boolean;
-}
-
-export const Navigation: FC<NavigationProps> = ({
-  saveTrigger,
-  showSettingsButton = true,
-  showRestartButton = true,
-}) => {
-  const gameInfoContext = useContext(GameInfoContext);
-  const router = useRouter();
-
-  const handleAppReset = () => {
-    gameInfoContext.resetAnswers();
-    router.push('/');
-  };
-
-  const handleStartOver = () => {
-    gameInfoContext.resetAnswers();
-    router.push('/prompt');
-  };
-
+export default function Navigation() {
   return (
     <>
-      <Grid align="flex-end">
-        <Grid.Col span={8}>
-          <Image src="/logo.jpg" />
-        </Grid.Col>
-        <Grid.Col span={4}>
-          <Flex mih={50} bg="white" gap="xs" justify="flex-end" align="center" direction="row" wrap="nowrap">
-            <Tooltip label="Save your progress">
-              <Button variant="subtle" onClick={saveTrigger} compact>
-                <BiSave size="24px" color="#000" />
+      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={32}>
+        <Flex h={64} alignItems={'center'} justifyContent={'space-evenly'}>
+
+          <Box>
+            <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
+          </Box>
+          <Text>Progress Bar Here</Text>
+
+          <Flex alignItems={'center'}>
+            <Stack direction={'row'} spacing={7}>
+              <Button>
+                <Icon as={MdSave} boxSize={32} />
               </Button>
-            </Tooltip>
-            <Tooltip label="Change Theme and Restart Quest" multiline>
-              <Button variant="subtle" compact onClick={handleAppReset} disabled={!showSettingsButton}>
-                <FiSettings size="24px" color="#000" />
+              <Button>
+                <Icon as={MdSettings} boxSize={32} />
               </Button>
-            </Tooltip>
-            {/* <Tooltip label="Start Over">
-              <Button variant="subtle" compact onClick={handleStartOver} disabled={!showRestartButton}>
-                <MdRestartAlt size="24px" color="#000" />
-              </Button>
-            </Tooltip> */}
+
+            </Stack>
           </Flex>
-        </Grid.Col>
-      </Grid>
+        </Flex>
+      </Box>
     </>
   );
-};
+}

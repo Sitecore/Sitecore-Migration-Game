@@ -1,4 +1,5 @@
-import { Button, SimpleGrid, Tooltip } from '@mantine/core';
+import { Button } from '@chakra-ui/react';
+import { SimpleGrid, Tooltip } from '@mantine/core';
 import { IOption } from 'models';
 import { FC } from 'react';
 
