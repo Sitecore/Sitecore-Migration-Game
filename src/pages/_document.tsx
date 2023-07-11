@@ -1,3 +1,4 @@
+import Navigation from 'components/ui/Navigation/Navigation';
 import { Head, Html, Main, NextScript } from 'next/document';
 
 const Document = () => {
@@ -5,6 +6,7 @@ const Document = () => {
     <Html lang="en">
       <Head />
       <body>
+        <Navigation />
         <Main />
         <NextScript />
       </body>

@@ -1,13 +1,16 @@
-import { Container } from '@mantine/core';
+import { AbsoluteCenter, Box, Center, Container } from '@chakra-ui/react'
 import { PromptPanel } from 'components/Prompts';
-import { Navigation } from 'components/ui';
 
 const PromptPage = () => {
   return (
-    <Container my="sm" size="sm" className="App">
-      <Navigation showRestartButton={false} />
-      <PromptPanel />
-    </Container>
+    <Box position='relative' h='calc(100vh - 64px)' w='full' backgroundImage="/corporate/background.jpg" backgroundSize='cover'>
+      <Center>
+        <Container minW='container.lg'>
+          <PromptPanel />
+        </Container>
+      </Center>
+    </Box>
+
   );
 };
 

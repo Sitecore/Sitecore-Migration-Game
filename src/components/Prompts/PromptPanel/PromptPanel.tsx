@@ -1,17 +1,17 @@
-import { Paper, Stack } from '@mantine/core';
+import { Avatar, Box, Center, Flex, Grid, GridItem, Heading, SimpleGrid, Stack, VStack, Wrap } from '@chakra-ui/react';
 import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt, PreviousAnswers } from 'components/Prompts';
-import { InfoBar, Loading, useGameInfoContext } from 'components/ui';
+import { useGameInfoContext } from 'components/ui';
 import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
 import React, { FC, useEffect } from 'react';
 
-interface PromptPanelProps {}
+interface PromptPanelProps { }
 
 export const PromptPanel: FC<PromptPanelProps> = () => {
-  const gameInfoContext = useGameInfoContext();
+  let gameInfoContext = useGameInfoContext();
   const [loading, loadingActions] = useDisclosure(true);
   const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
@@ -141,18 +141,45 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   };
 
   return (
-    <Paper p="md" shadow="lg" withBorder>
-      <Stack>
-        <InfoBar remainingQuestions={questions.get()} />
-        {loading ? (
-          <Loading message="Loading prompts..." />
-        ) : (
-          <>
-            <CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />
-            <PreviousAnswers />
-          </>
-        )}
-      </Stack>
-    </Paper>
+    <Grid
+      h='100%'
+      w='100%'
+      templateColumns={{ base: "1fr", lg: "1fr 2fr" }}
+      gap={0}
+    >
+      <Flex justify='center' align='center'>
+        <GridItem>
+          <Center>
+            <Stack direction={{ base: "row", lg: "column" }}>
+              {gameInfoContext.persona?.personaImage?.results !== undefined && (
+                <VStack>
+                  <Avatar size='2xl' src={gameInfoContext?.persona.personaImage!.results[0].fileUrl} name={gameInfoContext.persona.personaImage!.results[0].fileName ?? ''} />
+                  <Heading size='lg'>
+                    {gameInfoContext?.persona.name}
+                  </Heading>
+                </VStack>
+
+              )}
+              <SimpleGrid columns={3} spacing='2px'>
+                <Box bg='lightgrey' height='50px' width='50px'>1</Box>
+                <Box bg='lightgrey' height='50px' width='50px'>2</Box>
+                <Box bg='lightgrey' height='50px' width='50px'>3</Box>
+                <Box bg='lightgrey' height='50px' width='50px'>4</Box>
+                <Box bg='lightgrey' height='50px' width='50px'>5</Box>
+                <Box bg='lightgrey' height='50px' width='50px'>6</Box>
+                <Box bg='lightgrey' height='50px' width='50px'>7</Box>
+                <Box bg='lightgrey' height='50px' width='50px'>8</Box>
+                <Box bg='lightgrey' height='50px' width='50px'>9</Box>
+              </SimpleGrid>
+            </Stack>
+          </Center>
+        </GridItem>
+      </Flex>
+      <Flex justify='center' align='center'>
+        <GridItem>
+          <CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />
+        </GridItem>
+      </Flex>
+    </Grid >
   );
 };
