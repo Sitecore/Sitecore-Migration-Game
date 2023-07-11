@@ -23,14 +23,17 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({
           {avatars?.map((avatar, i) => {
             const isToggled = avatar.id === toggledAvatarId;
             return (
-              <Card withBorder radius="md" p="md" className={classStyles.card} key={i} shadow={isToggled ? 'xl' : 'xs'}>
+              <Card
+                withBorder={isToggled ? true : false}
+                radius="md"
+                p="md"
+                className={classStyles.card}
+                key={i}
+                shadow={isToggled ? 'xl' : ''}
+              >
                 {avatar !== undefined && (
                   <Card.Section>
-                    <UnstyledButton
-                      key={avatar.id}
-                      onClick={() => handleAvatarChange(avatar)}
-                      color={isToggled ? 'red' : 'blue'}
-                    >
+                    <UnstyledButton key={avatar.id} onClick={() => handleAvatarChange(avatar)}>
                       <Image src={avatar.fileUrl} alt={avatar.fileName ?? ''} />
                     </UnstyledButton>
                   </Card.Section>
