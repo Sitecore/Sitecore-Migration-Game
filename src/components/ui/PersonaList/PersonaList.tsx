@@ -24,7 +24,7 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
                     key={p.id}
                     radius="md"
                     style={{ flex: 1 }}
-                    className={isToggled ? 'personaButton selected' : 'personaButton'}
+                    color={isToggled ? 'red' : 'blue'}
                     onClick={() => {
                       handlePersonaChange(p.id);
                     }}
