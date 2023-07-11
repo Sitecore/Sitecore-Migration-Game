@@ -3,7 +3,6 @@ import { GameInfoProvider } from 'components/ui';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ChakraProvider } from '@chakra-ui/react'
-import sitecoreTheme from "@sitecore-ui/chakra-theme";
 
 const corporateTheme: MantineThemeOverride = {
   colorScheme: 'light',
@@ -30,7 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <GameInfoProvider>
         <MantineProvider theme={corporateTheme}>
-          <ChakraProvider theme={sitecoreTheme}>
+          <ChakraProvider>
             <Component {...pageProps} />
           </ChakraProvider>
         </MantineProvider>
