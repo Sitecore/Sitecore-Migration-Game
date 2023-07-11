@@ -136,7 +136,12 @@ export const Settings: FC<SettingsProps> = () => {
                 handlePersonaChange={handlePersonaChange}
                 classStyles={classes}
               />
-              <AvatarGallery avatars={avatars} handleAvatarChange={handleAvatarChange} classStyles={classes} />
+              <AvatarGallery
+                avatars={avatars}
+                toggledAvatarId={toggledAvatarId}
+                handleAvatarChange={handleAvatarChange}
+                classStyles={classes}
+              />
               <Center>
                 <Button radius="md" style={{ flex: 1 }} onClick={() => handleStartGame()}>
                   Save Changes and Start Game
