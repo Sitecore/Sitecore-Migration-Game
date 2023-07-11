@@ -39,7 +39,7 @@ export const Settings: FC<SettingsProps> = () => {
   //#region State/Props
   const gameInfoContext = useGameInfoContext();
   const { classes } = useStyles();
-  const [showFantasy, setShowFantasy] = useState<Boolean>(false);
+  const [showCharacterOptions, setShowCharacterOptions] = useState<Boolean>(false);
   const [themes, setThemes] = useState<ITheme[] | undefined>();
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
   const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>();
@@ -93,7 +93,7 @@ export const Settings: FC<SettingsProps> = () => {
       setAvatars(themeData.avatarGallery?.results);
     }
 
-    setShowFantasy(true);
+    setShowCharacterOptions(true);
     handleLoading.close();
   };
 
@@ -110,6 +110,7 @@ export const Settings: FC<SettingsProps> = () => {
     handleLoading.close();
     router.push('/prompt');
   };
+
   //#endregion
 
   return (
@@ -122,7 +123,7 @@ export const Settings: FC<SettingsProps> = () => {
         </>
       ) : (
         <>
-          {showFantasy ? (
+          {showCharacterOptions ? (
             <>
               <PersonaList personas={personas} handlePersonaChange={handlePersonaChange} classStyles={classes} />
               <AvatarGallery avatars={avatars} handleAvatarChange={handleAvatarChange} classStyles={classes} />
