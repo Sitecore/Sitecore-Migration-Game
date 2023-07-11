@@ -126,11 +126,13 @@ export const Settings: FC<SettingsProps> = () => {
         <>
           {showCharacterOptions ? (
             <>
-              <Button radius="md" style={{ flex: 1 }} onClick={() => handleStartGame()}>
-                Save Changes
-              </Button>
               <PersonaList personas={personas} handlePersonaChange={handlePersonaChange} classStyles={classes} />
               <AvatarGallery avatars={avatars} handleAvatarChange={handleAvatarChange} classStyles={classes} />
+              <Center>
+                <Button radius="md" style={{ flex: 1 }} onClick={() => handleStartGame()}>
+                  Save Changes and Start Game
+                </Button>
+              </Center>
             </>
           ) : (
             <>
