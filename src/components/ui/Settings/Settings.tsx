@@ -44,6 +44,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
   const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>();
   const [avatars, setAvatars] = useState<IImage[] | undefined>();
+  const [toggledButtonId, setToggledButtonId] = useState<string>();
   const [loading, handleLoading] = useDisclosure(false);
   const themeService = ThemeService();
   const personaService = PersonaService();
@@ -99,6 +100,7 @@ export const Settings: FC<SettingsProps> = () => {
 
   const handlePersonaChange = async (newPersona: string) => {
     handleLoading.open();
+    setToggledButtonId(newPersona);
     await gameInfoContext.updatePersona(newPersona);
     handleLoading.close();
   };
@@ -126,7 +128,12 @@ export const Settings: FC<SettingsProps> = () => {
         <>
           {showCharacterOptions ? (
             <>
-              <PersonaList personas={personas} handlePersonaChange={handlePersonaChange} classStyles={classes} />
+              <PersonaList
+                personas={personas}
+                toggledButtonId={toggledButtonId}
+                handlePersonaChange={handlePersonaChange}
+                classStyles={classes}
+              />
               <AvatarGallery avatars={avatars} handleAvatarChange={handleAvatarChange} classStyles={classes} />
               <Center>
                 <Button radius="md" style={{ flex: 1 }} onClick={() => handleStartGame()}>
