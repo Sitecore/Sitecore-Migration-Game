@@ -1,4 +1,4 @@
-import { Box, Button, Card, Group, Image, SimpleGrid, Title } from '@mantine/core';
+import { Box, Card, Image, SimpleGrid, Title, UnstyledButton } from '@mantine/core';
 import { IImage } from 'models';
 import { FC } from 'react';
 
@@ -18,14 +18,11 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, handleAvatarCha
             <Card withBorder radius="md" p="md" className={classStyles.card} key={i}>
               {avatar !== undefined && (
                 <Card.Section>
-                  <Image src={avatar.fileUrl} alt={avatar.fileName ?? ''} />
+                  <UnstyledButton key={avatar.id} onClick={() => handleAvatarChange(avatar)}>
+                    <Image src={avatar.fileUrl} alt={avatar.fileName ?? ''} />
+                  </UnstyledButton>
                 </Card.Section>
               )}
-              <Group mt="xs">
-                <Button radius="md" style={{ flex: 1 }} onClick={() => handleAvatarChange(avatar)}>
-                  Select
-                </Button>
-              </Group>
             </Card>
           ))}
         </SimpleGrid>
