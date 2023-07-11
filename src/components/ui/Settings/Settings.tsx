@@ -45,6 +45,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>();
   const [avatars, setAvatars] = useState<IImage[] | undefined>();
   const [toggledButtonId, setToggledButtonId] = useState<string>();
+  const [toggledAvatarId, setToggledAvatarId] = useState<string>();
   const [loading, handleLoading] = useDisclosure(false);
   const themeService = ThemeService();
   const personaService = PersonaService();
@@ -107,6 +108,7 @@ export const Settings: FC<SettingsProps> = () => {
 
   const handleAvatarChange = async (newAvatar: IImage) => {
     handleLoading.open();
+    setToggledAvatarId(newAvatar.id);
     await gameInfoContext.updateAvatar(newAvatar);
     handleLoading.close();
   };
