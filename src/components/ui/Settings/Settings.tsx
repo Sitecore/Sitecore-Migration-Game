@@ -1,4 +1,4 @@
-import { Center, Paper, createStyles, rem } from '@mantine/core';
+import { Button, Center, Paper, createStyles, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { AvatarGallery, Loading, PersonaList, ThemeList, useGameInfoContext } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
@@ -101,16 +101,17 @@ export const Settings: FC<SettingsProps> = () => {
     handleLoading.open();
     await gameInfoContext.updatePersona(newPersona);
     handleLoading.close();
-    router.push('/prompt');
   };
 
   const handleAvatarChange = async (newAvatar: IImage) => {
     handleLoading.open();
     await gameInfoContext.updateAvatar(newAvatar);
     handleLoading.close();
-    router.push('/prompt');
   };
 
+  const handleStartGame = async () => {
+    router.push('/prompt');
+  };
   //#endregion
 
   return (
@@ -125,6 +126,9 @@ export const Settings: FC<SettingsProps> = () => {
         <>
           {showCharacterOptions ? (
             <>
+              <Button radius="md" style={{ flex: 1 }} onClick={() => handleStartGame()}>
+                Save Changes
+              </Button>
               <PersonaList personas={personas} handlePersonaChange={handlePersonaChange} classStyles={classes} />
               <AvatarGallery avatars={avatars} handleAvatarChange={handleAvatarChange} classStyles={classes} />
             </>
