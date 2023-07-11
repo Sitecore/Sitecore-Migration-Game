@@ -1,5 +1,5 @@
 import { TypographyStylesProvider } from '@mantine/core';
-import { Extensions, JSONContent, generateHTML } from '@tiptap/core';
+import { Extensions, JSONContent } from '@tiptap/core';
 import { Blockquote } from '@tiptap/extension-blockquote';
 import { Bold } from '@tiptap/extension-bold';
 import { BulletList } from '@tiptap/extension-bullet-list';
@@ -20,6 +20,7 @@ import { Paragraph } from '@tiptap/extension-paragraph';
 import { Strike } from '@tiptap/extension-strike';
 import { Text } from '@tiptap/extension-text';
 import { Underline } from '@tiptap/extension-underline';
+import { generateHTML } from '@tiptap/html';
 import { FC } from 'react';
 
 interface RichTextOutputProps {

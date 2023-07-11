@@ -64,6 +64,20 @@ query GetAllPromptsQuery {
   }
 }
 
+query GetAllIdPromptsQuery {
+  allPrompt {
+    results {
+      id
+    }
+  }
+}
+
+query GetPromptByIdQuery($promptId: String!) {
+  prompt(id: $promptId) {
+    ...PromptDetails
+  }
+}
+
 query GetPromptsByThemeAndPersonaQuery($themeId: ID!, $personaId: ID!) {
   allPrompt(where: { AND: [{ theme: { prompt_ids: $themeId } }, { persona: { prompt_ids: $personaId } }] }) {
     results {

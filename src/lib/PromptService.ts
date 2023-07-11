@@ -1,6 +1,11 @@
 import { chOneService } from 'lib/CHOneService';
 import { IPrompt, IResult } from 'models';
-import { GetAllPromptsQuery, GetPromptsByThemeAndPersonaQuery } from '../GraphQL/Queries/Prompts.gql';
+import {
+  GetAllIdPromptsQuery,
+  GetAllPromptsQuery,
+  GetPromptByIdQuery,
+  GetPromptsByThemeAndPersonaQuery,
+} from '../GraphQL/Queries/Prompts.gql';
 
 export const PromptService = () => {
   const GetAllPromptsByThemePersona = async (
@@ -36,5 +41,35 @@ export const PromptService = () => {
     return results;
   };
 
-  return { GetAllPrompts, GetAllPromptsByThemePersona };
+  const GetAllIdPrompts = async (): Promise<string[] | null> => {
+    const { error, data } = await chOneService().query({ query: GetAllIdPromptsQuery, fetchPolicy: 'no-cache' });
+
+    if (error) {
+      console.log(error);
+      return null;
+    }
+
+    const results: string[] = data?.allPrompt.results.map((prompt: IPrompt) => prompt.id);
+
+    return results;
+  };
+
+  const GetPromptById = async (id: string): Promise<IResult<IPrompt> | null> => {
+    const { error, data } = await chOneService().query({
+      query: GetPromptByIdQuery,
+      variables: { promptId: id },
+      fetchPolicy: 'no-cache',
+    });
+
+    if (error) {
+      console.log(error);
+      return null;
+    }
+
+    const results = data?.prompt as IResult<IPrompt>;
+
+    return results;
+  };
+
+  return { GetAllPrompts, GetAllIdPrompts, GetAllPromptsByThemePersona, GetPromptById };
 };
