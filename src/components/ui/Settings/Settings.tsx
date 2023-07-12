@@ -15,7 +15,10 @@ const useStyles = createStyles((theme) => ({
   card: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
   },
-
+  highlightCard: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+    boxShadow: "0 0 25px 5px #5548D9"
+  },
   section: {
     borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]}`,
     paddingLeft: theme.spacing.md,
@@ -44,8 +47,8 @@ export const Settings: FC<SettingsProps> = () => {
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
   const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>();
   const [avatars, setAvatars] = useState<IImage[] | undefined>();
-  const [toggledButtonId, setToggledButtonId] = useState<string>();
-  const [toggledAvatarId, setToggledAvatarId] = useState<string>();
+  const [toggledButton, setToggledButton] = useState<string>();
+  const [toggledAvatar, setToggledAvatar] = useState<IImage>();
   const [loading, handleLoading] = useDisclosure(false);
   const themeService = ThemeService();
   const personaService = PersonaService();
@@ -99,21 +102,18 @@ export const Settings: FC<SettingsProps> = () => {
     handleLoading.close();
   };
 
-  const handlePersonaChange = async (newPersona: string) => {
-    handleLoading.open();
-    setToggledButtonId(newPersona);
-    await gameInfoContext.updatePersona(newPersona);
-    handleLoading.close();
+  const handlePersonaChange = (newPersona: string) => {
+    setToggledButton(newPersona);
   };
 
-  const handleAvatarChange = async (newAvatar: IImage) => {
-    handleLoading.open();
-    setToggledAvatarId(newAvatar.id);
-    await gameInfoContext.updateAvatar(newAvatar);
-    handleLoading.close();
+  const handleAvatarChange = (newAvatar: IImage) => {
+    setToggledAvatar(newAvatar);
   };
 
   const handleStartGame = async () => {
+    await gameInfoContext.updatePersona(toggledButton as string);
+    await gameInfoContext.updateAvatar(toggledAvatar as IImage);
+
     router.push('/prompt');
   };
   //#endregion
@@ -132,18 +132,18 @@ export const Settings: FC<SettingsProps> = () => {
             <>
               <PersonaList
                 personas={personas}
-                toggledButtonId={toggledButtonId}
+                toggledButtonId={toggledButton}
                 handlePersonaChange={handlePersonaChange}
                 classStyles={classes}
               />
               <AvatarGallery
                 avatars={avatars}
-                toggledAvatarId={toggledAvatarId}
+                toggledAvatarId={toggledAvatar?.id}
                 handleAvatarChange={handleAvatarChange}
                 classStyles={classes}
               />
               <Center>
-                <Button radius="md" style={{ flex: 1 }} onClick={() => handleStartGame()}>
+                <Button radius="md" style={{ flex: 1 }} disabled={toggledAvatar == undefined || toggledButton == undefined} onClick={() => handleStartGame()}>
                   Save Changes and Start Game
                 </Button>
               </Center>
