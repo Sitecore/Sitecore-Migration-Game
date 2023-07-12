@@ -5,4 +5,5 @@ export interface ITheme {
   description: string;
   id: string;
   characterImage?: IResult<IImage[]>;
+  avatarGallery?: IResult<IImage[]>;
 }

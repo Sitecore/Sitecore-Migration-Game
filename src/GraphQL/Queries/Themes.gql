@@ -4,6 +4,14 @@ fragment Theme on GameTheme {
   description
   characterImage {
     results {
+      id
+      fileUrl
+      fileName
+    }
+  }
+  avatarGallery(first: 25) {
+    results {
+      id
       fileUrl
       fileName
     }

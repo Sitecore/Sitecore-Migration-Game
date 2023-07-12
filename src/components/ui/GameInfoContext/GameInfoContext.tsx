@@ -2,7 +2,7 @@ import { useTrait } from 'hooks/useTrait';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
-import { IAnswer, IOutcome, IPersona, ITheme } from 'models';
+import { IAnswer, IImage, IOutcome, IPersona, ITheme } from 'models';
 import React, { FC, createContext, useEffect } from 'react';
 
 export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfoContextType);
@@ -12,7 +12,9 @@ export interface GameInfoContextType {
   persona: IPersona | undefined;
   answers?: IAnswer[] | undefined;
   outcome: IOutcome | undefined;
+  avatar: IImage | undefined;
   updateAnswers: (answers: IAnswer[]) => void;
+  updateAvatar: (avatar: IImage) => void;
   updatePersona: (persona: string) => void;
   updateTheme: (theme: string) => void;
   resetAnswers: () => void;
@@ -29,6 +31,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
   const themes = useTrait<ITheme>();
   const personas = useTrait<IPersona>();
   const outcomes = useTrait<IOutcome>();
+  const avatars = useTrait<IImage>();
   //const [theme, setTheme] = useState<string>('-e_W0k2zO0uZPNBmYtorCQ');
   //const [persona, setPersona] = useState<string>('nMeJvakIB0Kvx29f5uVdiw');
 
@@ -79,6 +82,12 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
     }
   };
 
+  const handleAvatarUpdate = async (avatar: IImage) => {
+    if (avatar) {
+      avatars.set(avatar);
+    }
+  };
+
   return (
     <GameInfoContext.Provider
       value={{
@@ -86,6 +95,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
         persona: personas.get(),
         answers: savedAnswers.get(),
         outcome: outcomes.get(),
+        avatar: avatars.get(),
         updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),
         resetAnswers: () => resetAnswers(),
         updateTheme: async (id: string) => {
@@ -93,6 +103,9 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
         },
         updatePersona: async (id: string) => {
           await handlePersonaUpdate(id);
+        },
+        updateAvatar: async (avatar: IImage) => {
+          await handleAvatarUpdate(avatar);
         },
       }}
     >
