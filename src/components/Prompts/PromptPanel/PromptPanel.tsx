@@ -151,9 +151,9 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
         <GridItem>
           <Center>
             <Stack direction={{ base: "row", lg: "column" }}>
-              {gameInfoContext.persona?.personaImage?.results !== undefined && (
+              {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
                 <VStack>
-                  <Avatar size='2xl' src={gameInfoContext?.persona.personaImage!.results[0].fileUrl} name={gameInfoContext.persona.personaImage!.results[0].fileName ?? ''} />
+                  <Avatar size='2xl' src={gameInfoContext.avatar?.fileUrl} name="User Avatar" />
                   <Heading size='lg'>
                     {gameInfoContext?.persona.name}
                   </Heading>

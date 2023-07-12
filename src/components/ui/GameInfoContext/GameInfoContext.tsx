@@ -12,6 +12,7 @@ export interface GameInfoContextType {
   persona: IPersona | undefined;
   answers?: IAnswer[] | undefined;
   outcome: IOutcome | undefined;
+  avatar: IImage | undefined;
   updateAnswers: (answers: IAnswer[]) => void;
   updateAvatar: (avatar: IImage) => void;
   updatePersona: (persona: string) => void;
@@ -94,6 +95,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
         persona: personas.get(),
         answers: savedAnswers.get(),
         outcome: outcomes.get(),
+        avatar: avatars.get(),
         updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),
         resetAnswers: () => resetAnswers(),
         updateTheme: async (id: string) => {
