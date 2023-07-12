@@ -42,7 +42,7 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = fal
               </div>
             </Group>
           )}
-          {gameInfoContext.avatar !== undefined && (
+          {gameInfoContext.persona !== undefined && gameInfoContext.avatar !== undefined && (
             <Group position="right" spacing="xs">
               <Avatar radius="xl" src={gameInfoContext.avatar?.fileUrl} alt={gameInfoContext.avatar?.fileName ?? ''} />
               <div style={{ flex: 1 }}>
