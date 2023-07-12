@@ -24,10 +24,9 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({
             const isToggled = avatar.id === toggledAvatarId;
             return (
               <Card
-                withBorder={isToggled ? true : false}
                 radius="md"
                 p="md"
-                className={classStyles.card}
+                className={isToggled ? classStyles.highlightCard : classStyles.card }
                 key={i}
                 shadow={isToggled ? 'xl' : ''}
               >
