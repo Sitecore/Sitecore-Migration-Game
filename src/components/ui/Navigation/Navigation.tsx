@@ -1,37 +1,46 @@
-import {
-  Box,
-  Flex,
-  Button,
-  useColorModeValue,
-  Stack,
-  Icon,
-  Text} from '@chakra-ui/react';
+import { Box, Button, HStack, Icon, Progress, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
-import { MdSave, MdSettings } from 'react-icons/md';
+import { useRouter } from 'next/router';
+import { MdCached, MdSave } from 'react-icons/md';
+import { useGameInfoContext } from '..';
 
 export default function Navigation() {
+  const gameInfoContext = useGameInfoContext();
+  const router = useRouter();
+
+  const handleAppReset = () => {
+    gameInfoContext.resetAnswers();
+    router.push('/');
+  };
+
+  const handleStartOver = () => {
+    gameInfoContext.resetAnswers();
+    router.push('/prompt');
+  };
+
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={32}>
-        <Flex h={64} alignItems={'center'} justifyContent={'space-evenly'}>
-
-          <Box>
-            <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
-          </Box>
-          <Text>Progress Bar Here</Text>
-
-          <Flex alignItems={'center'}>
-            <Stack direction={'row'} spacing={7}>
-              <Button>
-                <Icon as={MdSave} boxSize={32} />
-              </Button>
-              <Button>
-                <Icon as={MdSettings} boxSize={32} />
-              </Button>
-
-            </Stack>
-          </Flex>
-        </Flex>
+      <Box as="section" bg={useColorModeValue('gray.100', 'gray.900')} py="6">
+        <Box maxW={{ base: 'xl', md: '5xl' }} mx="auto" px={{ base: '6', md: '8' }}>
+          <HStack justify="space-between">
+            <Box width="200px">
+              <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
+            </Box>
+            <Box width="300px">
+              <Progress hasStripe colorScheme="green" value={100} />
+            </Box>
+            <Box alignContent="right" width="100px">
+              <HStack spacing={2}>
+                <Button>
+                  <Icon as={MdSave} fontSize={24} />
+                </Button>
+                <Button onClick={handleAppReset}>
+                  <Icon as={MdCached} fontSize={24} />
+                </Button>
+              </HStack>
+            </Box>
+          </HStack>
+        </Box>
       </Box>
     </>
   );
