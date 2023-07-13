@@ -36,6 +36,13 @@ fragment PromptDetails on Prompt {
   }
   disabled
   start
+  background {
+    results {
+      id
+      fileUrl
+      fileName
+    }
+  }
   options {
     results {
       ... on PromptOption {

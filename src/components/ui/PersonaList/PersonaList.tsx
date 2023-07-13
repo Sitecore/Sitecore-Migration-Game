@@ -1,41 +1,41 @@
-import { Box, Button, Card, Group, Image, SimpleGrid, Text, Title } from '@mantine/core';
+import { Box, Button, Center, SimpleGrid, Title } from '@mantine/core';
 import { IPersona } from 'models';
 import { FC } from 'react';
 
 interface PersonaListProps {
   personas: IPersona[] | undefined;
+  toggledButtonId: string | undefined;
   handlePersonaChange: (personaId: string) => void;
   classStyles: any;
 }
 
-export const PersonaList: FC<PersonaListProps> = ({ personas, handlePersonaChange, classStyles }) => {
+export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, handlePersonaChange, classStyles }) => {
   return (
     <>
       <Box>
-        <Title order={3}>Select Your Character:</Title>
-        <SimpleGrid mt={10} cols={2} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
-          {personas?.map((p, i) => (
-            <Card withBorder radius="md" p="md" className={classStyles.card} key={i}>
-              {p.personaImage?.results !== undefined && (
-                <Card.Section>
-                  <Image src={p.personaImage!.results[0].fileUrl} alt={p.personaImage!.results[0].fileName ?? ''} />
-                </Card.Section>
-              )}
-              <Card.Section className={classStyles.section} mt="md">
-                <Group position="apart">
-                  <Text fz="lg" fw={500}>
+        <Title order={3}>Select Your Role:</Title>
+        <Center>
+          <Button.Group>
+            <SimpleGrid mt={10} cols={4} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
+              {personas?.map((p, i) => {
+                const isToggled = p.id === toggledButtonId;
+                return (
+                  <Button
+                    key={p.id}
+                    radius="md"
+                    style={{ flex: 1 }}
+                    color={isToggled ? '#333378' : 'blue'}
+                    onClick={() => {
+                      handlePersonaChange(p.id);
+                    }}
+                  >
                     {p.name}
-                  </Text>
-                </Group>
-              </Card.Section>
-              <Group mt="xs">
-                <Button radius="md" style={{ flex: 1 }} onClick={() => handlePersonaChange(p.id)}>
-                  Start Game
-                </Button>
-              </Group>
-            </Card>
-          ))}
-        </SimpleGrid>
+                  </Button>
+                );
+              })}
+            </SimpleGrid>
+          </Button.Group>
+        </Center>
       </Box>
     </>
   );

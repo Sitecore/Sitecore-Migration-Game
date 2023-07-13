@@ -20,7 +20,9 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = fal
           </>
         ) : (
           <>
-            <Badge color="sitecoreRed"><Text>Remaining Questions: {remainingQuestions.length + 1}</Text></Badge>
+            <Badge color="sitecoreRed">
+              <Text>Remaining Questions: {remainingQuestions.length + 1}</Text>
+            </Badge>
           </>
         )}
       </Grid.Col>
@@ -40,13 +42,9 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = fal
               </div>
             </Group>
           )}
-          {gameInfoContext.persona?.personaImage?.results !== undefined && (
+          {gameInfoContext.persona !== undefined && gameInfoContext.avatar !== undefined && (
             <Group position="right" spacing="xs">
-              <Avatar
-                radius="xl"
-                src={gameInfoContext.persona.personaImage!.results[0].fileUrl}
-                alt={gameInfoContext.persona.personaImage!.results[0].fileName ?? ''}
-              />
+              <Avatar radius="xl" src={gameInfoContext.avatar?.fileUrl} alt={gameInfoContext.avatar?.fileName ?? ''} />
               <div style={{ flex: 1 }}>
                 <Text size="sm" weight={500}>
                   {gameInfoContext.persona.name}

@@ -1,5 +1,5 @@
 import { JSONContent } from '@tiptap/core';
-import { IOption, IOptionType, IPersona, IResult, ITheme } from 'models';
+import { IImage, IOption, IOptionType, IPersona, IResult, ITheme } from 'models';
 
 export interface IPrompt {
   text: string;
@@ -11,6 +11,7 @@ export interface IPrompt {
   optionType: IResult<IOptionType[]>;
   nextPrompts?: IResult<IPrompt[]>; // If prompt requires additional prompts, this is the list of prompt ids
   start?: boolean; // If true, this is the first prompt
+  background: IResult<IImage[]>;
   theme: IResult<ITheme[]>;
   persona: IResult<IPersona[]>;
   disabled: boolean;
