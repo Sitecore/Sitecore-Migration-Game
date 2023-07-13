@@ -1,4 +1,4 @@
-import { Box, Center, Container } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { FC } from 'react';
 import Navigation from '../Navigation/Navigation';
 
@@ -11,11 +11,7 @@ export const Layout: FC<LayoutProps> = ({ children, backgroundImage = '/corporat
   return (
     <>
       <Navigation />
-      <Box position="relative" h="calc(100vh - 64px)" w="full" backgroundImage={backgroundImage} backgroundSize="cover">
-        <Center>
-          <Container minW="container.lg">{children}</Container>
-        </Center>
-      </Box>
+      <Box as="section">{children}</Box>
     </>
   );
 };
