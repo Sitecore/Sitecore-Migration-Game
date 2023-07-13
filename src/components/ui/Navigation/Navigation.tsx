@@ -1,8 +1,9 @@
-import { Box, Button, HStack, Icon, Progress, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, HStack, Icon, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { MdCached, MdSave } from 'react-icons/md';
 import { useGameInfoContext } from '..';
+import { ProgressTracker } from '../ProgressTracker/ProgressTracker';
 
 export default function Navigation() {
   const gameInfoContext = useGameInfoContext();
@@ -27,7 +28,7 @@ export default function Navigation() {
               <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
             </Box>
             <Box width="300px">
-              <Progress hasStripe colorScheme="green" value={100} />
+              <ProgressTracker />
             </Box>
             <Box alignContent="right" width="100px">
               <HStack spacing={2}>

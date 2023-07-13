@@ -2,6 +2,7 @@
 export * from './AuthModal/AuthModal';
 export * from './GameInfoContext/GameInfoContext';
 export * from './InfoBar/InfoBar';
+export * from './Layout/Layout';
 export * from './LinkCard/LinkCard';
 export * from './Loading/Loading';
 export * from './Navigation/Navigation';
