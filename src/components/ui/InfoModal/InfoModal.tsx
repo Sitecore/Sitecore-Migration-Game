@@ -56,6 +56,14 @@ export const InfoModal: FC<InfoModalProps> = () => {
                 </Text>
               </Box>
               <Box>
+                <Text>
+                  Source code for the application can be found at:{' '}
+                  <Link href="https://github.com/Sitecore/Sitecore-Migration-Game" isExternal>
+                    github.com/Sitecore/Sitecore-Migration-Game <ExternalLinkIcon mx="2px" />
+                  </Link>
+                </Text>
+              </Box>
+              <Box>
                 <Heading size="md">Credits</Heading>
               </Box>
               <Box>
