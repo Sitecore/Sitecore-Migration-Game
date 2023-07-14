@@ -30,7 +30,7 @@ const App = () => {
       ) : (
         <>
           <Center>
-            <Loading message="Loading Game Configuration..." />
+            <Loading message="Loading App Configuration..." />
           </Center>
         </>
       )}
