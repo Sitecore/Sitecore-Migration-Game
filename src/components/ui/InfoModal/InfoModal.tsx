@@ -1,5 +1,6 @@
 import {
   Button,
+  Icon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -10,6 +11,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { FC } from 'react';
+import { MdQuestionMark } from 'react-icons/md';
 
 interface InfoModalProps {}
 
@@ -18,7 +20,9 @@ export const InfoModal: FC<InfoModalProps> = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>❔</Button>
+      <Button onClick={onOpen}>
+        <Icon as={MdQuestionMark} fontSize={24} />
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
