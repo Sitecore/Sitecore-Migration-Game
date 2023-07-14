@@ -1,4 +1,4 @@
-import { Avatar, Box, Center, Grid, GridItem, Heading, Stack, VStack } from '@chakra-ui/react';
+import { AbsoluteCenter, Avatar, Box, Center, Grid, GridItem, Heading, Stack, VStack } from '@chakra-ui/react';
 import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt } from 'components/Prompts';
 import { useGameInfoContext } from 'components/ui';
@@ -157,7 +157,17 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
                 {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
                   <VStack mb={8}>
                     <Avatar width="200px" height="200px" src={gameInfoContext.avatar?.fileUrl} name="User Avatar" />
-                    <Heading size="lg">{gameInfoContext?.persona.name}</Heading>
+                    <Box
+                      backgroundColor="white"
+                      width="100%"
+                      height="40px"
+                      position="relative"
+                      boxShadow="0 8px 16px 0 rgba(84,88,89,.4)"
+                    >
+                      <AbsoluteCenter axis="both">
+                        <Heading size="md">{gameInfoContext?.persona.name}</Heading>
+                      </AbsoluteCenter>
+                    </Box>
                   </VStack>
                 )}
                 <HexagonCollection />

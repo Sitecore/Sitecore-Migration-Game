@@ -49,9 +49,9 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
         w="100%"
         mt={8}
         mb={4}
-        p={4}
+        p={8}
         bg="#C8C8C8"
-        opacity="0.9"
+        boxShadow="0 0 10px 0 rgba(0,0,0,.2), inset 0 0 200px hsla(0,0%,100%,.3)"
         borderRadius="lg"
         display="flex"
         alignItems="center"
