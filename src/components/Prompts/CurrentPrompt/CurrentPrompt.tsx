@@ -45,13 +45,24 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Box w="100%" mt={8} mb={4} p={4} bg='#C8C8C8' opacity='0.9' borderRadius='lg' display='flex' alignItems='center' flexDirection='column'>
+      <Box
+        w="100%"
+        mt={8}
+        mb={4}
+        p={4}
+        bg="#C8C8C8"
+        opacity="0.9"
+        borderRadius="lg"
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
+      >
         {prompt?.bodyText && (
           <Text>
             <RichTextOutput content={prompt.bodyText} />
           </Text>
         )}
-        <Text fontSize='2xl'>{prompt?.text}</Text>
+        <Text fontSize="2xl">{prompt?.text}</Text>
       </Box>
       {prompt?.options?.results != null && (
         <>
