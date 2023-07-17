@@ -1,8 +1,8 @@
-import { useTrait } from 'hooks/useTrait';
+import { ITrait, useTrait } from 'hooks/useTrait';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
-import { IAnswer, IImage, IOutcome, IPersona, ITheme } from 'models';
+import { IAnswer, IImage, IOutcome, IPersona, IPrompt, ITheme } from 'models';
 import React, { FC, createContext, useEffect } from 'react';
 
 export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfoContextType);
@@ -17,6 +17,7 @@ export interface GameInfoContextType {
   updateAvatar: (avatar: IImage) => void;
   updatePersona: (persona: string) => void;
   updateTheme: (theme: string) => void;
+  questionsBank: ITrait<IPrompt[] | undefined>;
   resetAnswers: () => void;
 }
 
@@ -32,6 +33,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
   const personas = useTrait<IPersona>();
   const outcomes = useTrait<IOutcome>();
   const avatars = useTrait<IImage>();
+  const questionTrait = useTrait<IPrompt[] | undefined>([]);
   //const [theme, setTheme] = useState<string>('-e_W0k2zO0uZPNBmYtorCQ');
   //const [persona, setPersona] = useState<string>('nMeJvakIB0Kvx29f5uVdiw');
 
@@ -94,6 +96,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
         theme: themes.get(),
         persona: personas.get(),
         answers: savedAnswers.get(),
+        questionsBank: questionTrait,
         outcome: outcomes.get(),
         avatar: avatars.get(),
         updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),

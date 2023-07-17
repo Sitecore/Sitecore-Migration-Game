@@ -1,8 +1,8 @@
-import { Avatar, Box, Center, Flex, Grid, GridItem, Heading, SimpleGrid, Stack, VStack } from '@chakra-ui/react';
+import { AbsoluteCenter, Avatar, Box, Center, Grid, GridItem, Heading, Stack, VStack } from '@chakra-ui/react';
 import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt } from 'components/Prompts';
 import { useGameInfoContext } from 'components/ui';
-import { useTrait } from 'hooks/useTrait';
+import { HexagonCollection } from 'components/ui/HexagonCollection/HexagonCollection';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
@@ -15,7 +15,6 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   const [loading, loadingActions] = useDisclosure(true);
   const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
-  const questions = useTrait<IPrompt[]>([]);
 
   const promptService = PromptService();
 
@@ -41,9 +40,8 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   const initializeStartPrompt = async () => {
     loadingActions.open();
     await preloadPrompts();
-    gameInfoContext;
 
-    questions.set([]);
+    gameInfoContext.questionsBank.set([]);
     loadingActions.close();
   };
 
@@ -69,16 +67,17 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
   const triggerNextPrompt = () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
-    if (questions) {
-      if (questions.get().length > 0) {
-        // May need to refactor
-        const nextPrompt = questions.get().shift();
+    console.log(gameInfoContext.questionsBank?.get());
+    if (gameInfoContext.questionsBank?.get() !== undefined) {
+      if (gameInfoContext.questionsBank.get()!.length > 0) {
+        const questionQueue = gameInfoContext.questionsBank.get();
+        const nextPrompt = questionQueue!.shift();
+        gameInfoContext.questionsBank.set(questionQueue);
+
         setCurrentPrompt(nextPrompt);
       } else {
         router.push('/outcome');
       }
-    } else {
-      // TODO: Show messaging if no prompts/start prompts are found
     }
   };
 
@@ -93,9 +92,10 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
     gameInfoContext.updateAnswers([promptAnswers]);
   };
 
-  const populateQuestions = (answers: IAnswer) => {
+  const populateQuestions = async (answers: IAnswer) => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
+    let newQuestions: IPrompt[] = [];
 
     // TODO: Move me please, I hate looking at it myself :-)
     if (prompts !== undefined && currentPrompt !== undefined) {
@@ -122,9 +122,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
           // Get prompts from prompt ids
           nextQuestions = prompts.filter((p) => promptIds.includes(p.id) && p.disabled != true);
 
-          const newQuestions = [...questions.get(), ...nextQuestions];
-
-          questions.set(newQuestions);
+          newQuestions = [...gameInfoContext.questionsBank.get()!, ...nextQuestions];
         }
       }
 
@@ -135,9 +133,11 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
         nextQuestions = prompts.filter((p) => nextPromptIds.includes(p.id) && p.disabled != true);
 
-        questions.set([...questions.get(), ...nextQuestions]);
+        newQuestions = [...gameInfoContext.questionsBank.get()!, ...nextQuestions, ...newQuestions];
       }
     }
+
+    await gameInfoContext.questionsBank.set(newQuestions);
   };
 
   return (
@@ -149,55 +149,33 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
       backgroundSize="cover"
     >
       <Center>
-        <Grid h="100%" w={{ base: '5xl' }} templateColumns={{ base: '1fr', lg: '1fr 2fr' }} gap={0}>
-          <Flex justify="center" align="center">
-            <GridItem>
-              <Center>
-                <Stack direction={{ base: 'row', lg: 'column' }}>
-                  {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
-                    <VStack>
-                      <Avatar size="2xl" src={gameInfoContext.avatar?.fileUrl} name="User Avatar" />
-                      <Heading size="lg">{gameInfoContext?.persona.name}</Heading>
-                    </VStack>
-                  )}
-                  <SimpleGrid columns={3} spacing="2px">
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      1
+        <Grid h="100%" w={{ base: '1200px' }} templateColumns={{ base: '1fr', lg: '1fr 2fr' }} gap={0} my={8} mx="auto">
+          <GridItem>
+            <Center>
+              <Stack direction={{ base: 'row', lg: 'column' }}>
+                {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
+                  <VStack mb={8}>
+                    <Avatar width="200px" height="200px" src={gameInfoContext.avatar?.fileUrl} name="User Avatar" />
+                    <Box
+                      backgroundColor="white"
+                      width="100%"
+                      height="40px"
+                      position="relative"
+                      boxShadow="0 8px 16px 0 rgba(84,88,89,.4)"
+                    >
+                      <AbsoluteCenter axis="both">
+                        <Heading size="md">{gameInfoContext?.persona.name}</Heading>
+                      </AbsoluteCenter>
                     </Box>
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      2
-                    </Box>
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      3
-                    </Box>
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      4
-                    </Box>
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      5
-                    </Box>
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      6
-                    </Box>
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      7
-                    </Box>
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      8
-                    </Box>
-                    <Box bg="lightgrey" height="50px" width="50px">
-                      9
-                    </Box>
-                  </SimpleGrid>
-                </Stack>
-              </Center>
-            </GridItem>
-          </Flex>
-          <Flex justify="center" align="center">
-            <GridItem>
-              <CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />
-            </GridItem>
-          </Flex>
+                  </VStack>
+                )}
+                <HexagonCollection />
+              </Stack>
+            </Center>
+          </GridItem>
+          <GridItem>
+            <CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />
+          </GridItem>
         </Grid>
       </Center>
     </Box>
