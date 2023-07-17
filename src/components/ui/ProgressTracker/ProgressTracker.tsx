@@ -8,7 +8,6 @@ export const ProgressTracker: FC<ProgressTrackerProps> = () => {
   const gameInfoContext = useGameInfoContext();
   const [progress, setProgress] = useState<number>(0);
 
-  //TODO: Get Questions in Queue
   const calculateProgress = useCallback(() => {
     let questionsRemaining = 0;
     let questionsAnswered = gameInfoContext.answers!.length;
@@ -16,8 +15,6 @@ export const ProgressTracker: FC<ProgressTrackerProps> = () => {
       questionsRemaining = gameInfoContext.questionsBank.get()!.length + 1;
     }
     let totalQuestions = questionsAnswered + questionsRemaining;
-
-    console.log(`Total Questions: ${totalQuestions}`, `Questions Remaining: ${questionsRemaining}`);
 
     if (totalQuestions == 1 && questionsRemaining == 1) {
       setProgress(5);
