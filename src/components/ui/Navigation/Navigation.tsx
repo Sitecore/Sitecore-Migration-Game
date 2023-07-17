@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { MdCached, MdSave } from 'react-icons/md';
 import { useGameInfoContext } from '..';
+import { InfoModal } from '../InfoModal/InfoModal';
 import { ProgressTracker } from '../ProgressTracker/ProgressTracker';
 
 export default function Navigation() {
@@ -38,6 +39,7 @@ export default function Navigation() {
                 <Button onClick={handleAppReset}>
                   <Icon as={MdCached} fontSize={24} />
                 </Button>
+                <InfoModal />
               </HStack>
             </Box>
           </HStack>
