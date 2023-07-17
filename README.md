@@ -1,5 +1,3 @@
-# Sitecore Migration Game
+# Sitecore Migration Adventure
 
-Web based Migration Game
-
-
+Web based Migration Adventure

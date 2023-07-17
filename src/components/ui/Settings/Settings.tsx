@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
   },
   highlightCard: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-    boxShadow: "0 0 25px 5px #5548D9"
+    boxShadow: '0 0 25px 5px #5548D9',
   },
   section: {
     borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]}`,
@@ -143,8 +143,13 @@ export const Settings: FC<SettingsProps> = () => {
                 classStyles={classes}
               />
               <Center>
-                <Button radius="md" style={{ flex: 1 }} disabled={toggledAvatar == undefined || toggledButton == undefined} onClick={() => handleStartGame()}>
-                  Save Changes and Start Game
+                <Button
+                  radius="md"
+                  style={{ flex: 1 }}
+                  disabled={toggledAvatar == undefined || toggledButton == undefined}
+                  onClick={() => handleStartGame()}
+                >
+                  Save Changes and Start Adventure
                 </Button>
               </Center>
             </>

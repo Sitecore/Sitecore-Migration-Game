@@ -45,7 +45,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Sitecore Migration Game</title>
+        <title>Sitecore Migration Adventure</title>
         <link rel="icon" href={`/favicon.png`} />
       </Head>
       <GameInfoProvider>
