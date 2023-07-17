@@ -9,7 +9,6 @@ interface HexagonItemProps {
 }
 
 export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, active = true }) => {
-  console.log(cloud);
   return (
     <chakra.div
       sx={{

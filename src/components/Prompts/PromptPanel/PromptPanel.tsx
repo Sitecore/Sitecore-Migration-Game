@@ -3,7 +3,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt } from 'components/Prompts';
 import { useGameInfoContext } from 'components/ui';
 import { HexagonCollection } from 'components/ui/HexagonCollection/HexagonCollection';
-import { useTrait } from 'hooks/useTrait';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
@@ -16,7 +15,6 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   const [loading, loadingActions] = useDisclosure(true);
   const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
-  const questions = useTrait<IPrompt[]>([]);
 
   const promptService = PromptService();
 
@@ -42,9 +40,8 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   const initializeStartPrompt = async () => {
     loadingActions.open();
     await preloadPrompts();
-    gameInfoContext;
 
-    questions.set([]);
+    gameInfoContext.questionsBank.set([]);
     loadingActions.close();
   };
 
@@ -70,16 +67,17 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
   const triggerNextPrompt = () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
-    if (questions) {
-      if (questions.get().length > 0) {
-        // May need to refactor
-        const nextPrompt = questions.get().shift();
+    console.log(gameInfoContext.questionsBank?.get());
+    if (gameInfoContext.questionsBank?.get() !== undefined) {
+      if (gameInfoContext.questionsBank.get()!.length > 0) {
+        const questionQueue = gameInfoContext.questionsBank.get();
+        const nextPrompt = questionQueue!.shift();
+        gameInfoContext.questionsBank.set(questionQueue);
+
         setCurrentPrompt(nextPrompt);
       } else {
         router.push('/outcome');
       }
-    } else {
-      // TODO: Show messaging if no prompts/start prompts are found
     }
   };
 
@@ -94,9 +92,10 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
     gameInfoContext.updateAnswers([promptAnswers]);
   };
 
-  const populateQuestions = (answers: IAnswer) => {
+  const populateQuestions = async (answers: IAnswer) => {
     // Populate FIFO Collection of Questions based on Answers
     let nextQuestions: IPrompt[] = [];
+    let newQuestions: IPrompt[] = [];
 
     // TODO: Move me please, I hate looking at it myself :-)
     if (prompts !== undefined && currentPrompt !== undefined) {
@@ -123,9 +122,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
           // Get prompts from prompt ids
           nextQuestions = prompts.filter((p) => promptIds.includes(p.id) && p.disabled != true);
 
-          const newQuestions = [...questions.get(), ...nextQuestions];
-
-          questions.set(newQuestions);
+          newQuestions = [...gameInfoContext.questionsBank.get()!, ...nextQuestions];
         }
       }
 
@@ -136,9 +133,11 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
         nextQuestions = prompts.filter((p) => nextPromptIds.includes(p.id) && p.disabled != true);
 
-        questions.set([...questions.get(), ...nextQuestions]);
+        newQuestions = [...gameInfoContext.questionsBank.get()!, ...nextQuestions, ...newQuestions];
       }
     }
+
+    await gameInfoContext.questionsBank.set(newQuestions);
   };
 
   return (

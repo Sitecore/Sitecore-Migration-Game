@@ -10,8 +10,23 @@ export const ProgressTracker: FC<ProgressTrackerProps> = () => {
 
   //TODO: Get Questions in Queue
   const calculateProgress = useCallback(() => {
-    setProgress(60);
-  }, [gameInfoContext.answers]);
+    let questionsRemaining = 0;
+    let questionsAnswered = gameInfoContext.answers!.length;
+    if (gameInfoContext.questionsBank?.get() !== undefined) {
+      questionsRemaining = gameInfoContext.questionsBank.get()!.length + 1;
+    }
+    let totalQuestions = questionsAnswered + questionsRemaining;
+
+    console.log(`Total Questions: ${totalQuestions}`, `Questions Remaining: ${questionsRemaining}`);
+
+    if (totalQuestions == 1 && questionsRemaining == 1) {
+      setProgress(5);
+    } else if (questionsRemaining == 0) {
+      setProgress(100);
+    } else {
+      setProgress(((totalQuestions - questionsRemaining) / totalQuestions) * 100);
+    }
+  }, [gameInfoContext.answers, gameInfoContext.questionsBank.get()]);
 
   useEffect(() => {
     calculateProgress();
