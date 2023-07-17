@@ -10,6 +10,7 @@ export * from './LinkCard/LinkCard';
 export * from './Loading/Loading';
 export * from './Navigation/Navigation';
 export * from './PersonaList/PersonaList';
+export * from './ProgressTracker/ProgressTracker';
 export * from './RichTextOutput/RichTextOutput';
 export * from './Settings/Settings';
 export * from './ThemeList/ThemeList';
