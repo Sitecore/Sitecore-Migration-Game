@@ -8,7 +8,7 @@ interface HexagonItemProps {
   active?: boolean;
 }
 
-export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, active = true }) => {
+export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, active = false }) => {
   return (
     <chakra.div
       sx={{
