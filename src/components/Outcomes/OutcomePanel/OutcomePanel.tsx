@@ -47,10 +47,23 @@ export const OutcomePanel: FC<OutcomePanelProps> = () => {
         </Center>
       }
       rightColumn={
-        <Stack>
-          <OutcomeGenerator />
-          <PreviousAnswers />
-        </Stack>
+        <Box
+          w="100%"
+          mt={8}
+          mb={4}
+          p={8}
+          bg="#C8C8C8"
+          boxShadow="0 0 10px 0 rgba(0,0,0,.2), inset 0 0 200px hsla(0,0%,100%,.3)"
+          borderRadius="lg"
+          display="flex"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <Stack>
+            <OutcomeGenerator />
+            <PreviousAnswers />
+          </Stack>
+        </Box>
       }
     ></TwoColumnLayout>
   );
