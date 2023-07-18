@@ -1,4 +1,4 @@
-import { Box, Button, Center, Checkbox, CheckboxGroup, Tooltip, Wrap } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Text, Tooltip, VStack } from '@chakra-ui/react';
 import { IOption } from 'models';
 import { FC, useState } from 'react';
 
@@ -10,7 +10,7 @@ interface MultiSelectProps {
 export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }) => {
   let [selected, setSelected] = useState<string[]>([]);
 
-  const handleCheckbox = (name: string) => {
+  const handleButtonClick = (name: string) => {
     const newCheckedArr = [...selected];
     const index = newCheckedArr.indexOf(name);
     if (index === -1) {
@@ -23,26 +23,45 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
 
   return (
     <>
-      <Box w="100%" mt={8} mb={4} p={4} bg="#C8C8C8" opacity="0.9" borderRadius="lg" display="flex" flexDirection="row">
-        <CheckboxGroup>
-          <Wrap>
+      <Box w="100%" mt={8} mb={4} p={4} bg="#C8C8C8" borderRadius="lg" display="flex" flexDirection="row">
+        <VStack>
+          <Text fontSize="2xl">Select all that apply:</Text>
+          <Flex direction={'row'} wrap={'wrap'} w='100%' justifyContent={'center'} > 
             {options.map((option: IOption) => (
               <>
+                { /* Center all the below elements */}
+
                 {option.tooltip ? (
                   <Tooltip key={option.id} label={option.tooltip}>
-                    <Checkbox m={1} value={option.value} onChange={() => handleCheckbox(option.label)}>
+                    <Button
+                      key={option.id}
+                      value={option.value}
+                      borderRadius={24}
+                      colorScheme="purple"
+                      m={1}
+                      opacity={selected.includes(option.label) ? 1 : 0.5}
+                      onClick={() => handleButtonClick(option.label)}
+                    >
                       {option.label}
-                    </Checkbox>
+                    </Button>
                   </Tooltip>
                 ) : (
-                  <Checkbox m={1} key={option.id} value={option.value} onChange={() => handleCheckbox(option.label)}>
+                  <Button
+                    key={option.id}
+                    value={option.value}
+                    borderRadius={24}
+                    colorScheme="purple"
+                    m={1}
+                    opacity={selected.includes(option.label) ? 1 : 0.5}
+                    onClick={() => handleButtonClick(option.label)}
+                  >
                     {option.label}
-                  </Checkbox>
+                  </Button>
                 )}
               </>
             ))}
-          </Wrap>
-        </CheckboxGroup>
+          </Flex>
+        </VStack>
       </Box>
       <Center>
         {multiSelectSubmit && (
