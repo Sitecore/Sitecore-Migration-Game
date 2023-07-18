@@ -16,7 +16,9 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
         <Title order={3}>Select Your Role:</Title>
         <Center>
           <Button.Group>
-            <SimpleGrid mt={10} cols={4} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
+            <SimpleGrid mt={10} cols={4} breakpoints={[
+              { maxWidth: '48rem', cols: 2, spacing: 'sm' },
+              { maxWidth: '36rem', cols: 1, spacing: 'sm' },]}>
               {personas?.map((p, i) => {
                 const isToggled = p.id === toggledButtonId;
                 return (

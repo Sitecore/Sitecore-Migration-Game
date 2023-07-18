@@ -20,7 +20,10 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({
     <>
       <Box mb="5px">
         <Title order={3}>Select Your Avatar:</Title>
-        <SimpleGrid mt={10} cols={5} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
+        <SimpleGrid mt={10} cols={5} breakpoints={[
+          { maxWidth: '56rem', cols: 5, spacing: 'sm' },
+          { maxWidth: '48rem', cols: 3, spacing: 'sm' },
+          { maxWidth: '36rem', cols: 2, spacing: 'sm' },]}>
           {avatars?.map((avatar, i) => {
             const isToggled = avatar.id === toggledAvatarId;
             return (
@@ -34,7 +37,7 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({
                 {avatar !== undefined && (
                   <Card.Section>
                     <UnstyledButton key={avatar.id} onClick={() => handleAvatarChange(avatar)}>
-                      <Image src={avatar.fileUrl} alt={avatar.fileName ?? ''} />
+                      <Image className={classStyles.avatarImage} src={avatar.fileUrl} alt={avatar.fileName ?? ''} />
                     </UnstyledButton>
                   </Card.Section>
                 )}

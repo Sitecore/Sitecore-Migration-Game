@@ -1,4 +1,4 @@
-import { Box, Image, chakra } from '@chakra-ui/react';
+import { Box, Image, Show, chakra } from '@chakra-ui/react';
 import { FC } from 'react';
 
 interface HexagonItemProps {
@@ -56,7 +56,7 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
           textAlign: 'center',
           transition: 'transform 0.3s ease-out',
         }}
-        //className="hex-grid__content"
+      //className="hex-grid__content"
       >
         <Image
           className="hex-grid__content__icon"
@@ -73,24 +73,27 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
           height={30}
         />
 
-        <chakra.h3
-          className="hex-grid__content__title"
-          sx={{
-            margin: '0 10px 10px 10px',
-            padding: '0 !important',
-            color: '#fff !important',
-            fontSize: '10px',
-            fontWeight: '500',
-            lineHeight: '1.4',
-            maxWidth: '65%',
-            webkitHyphens: 'auto',
-            msHyphens: 'auto',
-            hyphens: 'auto',
-            wordBreak: 'break-word',
-          }}
-        >
-          {productName}
-        </chakra.h3>
+        <Show above='991px'>
+          <chakra.h3
+            className="hex-grid__content__title"
+            sx={{
+              margin: '0 10px 10px 10px',
+              padding: '0 !important',
+              color: '#fff !important',
+              fontSize: '10px',
+              fontWeight: '500',
+              lineHeight: '1.4',
+              maxWidth: '65%',
+              webkitHyphens: 'auto',
+              msHyphens: 'auto',
+              hyphens: 'auto',
+              wordBreak: 'break-word',
+            }}
+          >
+            {productName}
+          </chakra.h3>
+        </Show>
+
       </Box>
     </chakra.div>
   );
