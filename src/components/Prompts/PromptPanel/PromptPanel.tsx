@@ -1,13 +1,14 @@
-import { AbsoluteCenter, Avatar, Box, Center, Heading, Stack, VStack } from '@chakra-ui/react';
+import { Center, Stack } from '@chakra-ui/react';
 import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt } from 'components/Prompts';
 import { HexagonCollection, TwoColumnLayout, useGameInfoContext } from 'components/ui';
+import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
 import React, { FC, useEffect } from 'react';
 
-interface PromptPanelProps {}
+interface PromptPanelProps { }
 
 export const PromptPanel: FC<PromptPanelProps> = () => {
   let gameInfoContext = useGameInfoContext();
@@ -145,20 +146,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
         <Center>
           <Stack direction={{ base: 'row', lg: 'column' }}>
             {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
-              <VStack mb={8}>
-                <Avatar width="200px" height="200px" src={gameInfoContext.avatar?.fileUrl} name="User Avatar" />
-                <Box
-                  backgroundColor="white"
-                  width="100%"
-                  height="40px"
-                  position="relative"
-                  boxShadow="0 8px 16px 0 rgba(84,88,89,.4)"
-                >
-                  <AbsoluteCenter axis="both">
-                    <Heading size="md">{gameInfoContext?.persona.name}</Heading>
-                  </AbsoluteCenter>
-                </Box>
-              </VStack>
+              <AvatarDisplay fileUrl={gameInfoContext.avatar?.fileUrl} name={gameInfoContext?.persona.name} />
             )}
             <HexagonCollection />
           </Stack>
