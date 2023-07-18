@@ -1,12 +1,12 @@
+import { useBoolean } from '@chakra-ui/react';
 import { Button, Center, Paper, createStyles, rem } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { AvatarGallery, Loading, PersonaList, ThemeList, useGameInfoContext } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
 import { IImage, IOutcome, IPersona, ITheme } from 'models';
 import router from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 interface SettingsProps {}
 
@@ -49,34 +49,30 @@ export const Settings: FC<SettingsProps> = () => {
   const [avatars, setAvatars] = useState<IImage[] | undefined>();
   const [toggledButton, setToggledButton] = useState<string>();
   const [toggledAvatar, setToggledAvatar] = useState<IImage>();
-  const [loading, handleLoading] = useDisclosure(false);
+  const [loading, setLoading] = useBoolean(false);
   const themeService = ThemeService();
   const personaService = PersonaService();
   const outcomeService = OutcomeService();
   //#endregion
 
-  //#region useEffect
-  useEffect(() => {
-    initializeSettings();
-
-    //eslint-disable-next-line
-  }, []);
-  //#endregion
-
-  //#region Functions
-  const initializeSettings = async () => {
-    handleLoading.open();
+  const initializeSettings = useCallback(async () => {
+    setLoading.on;
     const data = await themeService.GetAllThemes();
 
     if (data?.results !== undefined) {
       setThemes(data.results);
     }
 
-    handleLoading.close();
-  };
+    setLoading.off;
+  }, []);
 
+  useEffect(() => {
+    initializeSettings();
+  }, [initializeSettings]);
+
+  //#region Functions
   const handleSettingChange = async (newTheme: string) => {
-    handleLoading.open();
+    setLoading.on;
     await gameInfoContext.updateTheme(newTheme);
 
     // Load Personas
@@ -87,6 +83,7 @@ export const Settings: FC<SettingsProps> = () => {
     }
 
     // Load Outcome content
+    // TODO: I'm not sure this belongs at this point in the app, shouldn't this load when the outcome page loads?
     const outcomeData = await outcomeService.GetOutcomeByTheme(newTheme);
     if (outcomeData?.results !== undefined) {
       setOutcomes(outcomeData.results);
@@ -99,7 +96,7 @@ export const Settings: FC<SettingsProps> = () => {
     }
 
     setShowCharacterOptions(true);
-    handleLoading.close();
+    setLoading.off;
   };
 
   const handlePersonaChange = (newPersona: string) => {

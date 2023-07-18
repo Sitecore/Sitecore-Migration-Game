@@ -1,13 +1,13 @@
-import { Container } from '@mantine/core';
 import { OutcomePanel } from 'components/Outcomes';
+import { Layout } from 'components/ui';
 
 interface OutcomePageProps {}
 
 const OutcomePage: React.FC<OutcomePageProps> = () => {
   return (
-    <Container my="sm" size="sm" className="App">
+    <Layout showProgressBar={false} showSaveButton={false}>
       <OutcomePanel />
-    </Container>
+    </Layout>
   );
 };
 

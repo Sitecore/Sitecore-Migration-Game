@@ -1,4 +1,5 @@
-import { Box, Card, Image, SimpleGrid, Title, UnstyledButton } from '@mantine/core';
+import { Box } from '@chakra-ui/react';
+import { Card, Image, SimpleGrid, Title, UnstyledButton } from '@mantine/core';
 import { IImage } from 'models';
 import { FC } from 'react';
 
@@ -17,16 +18,16 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({
 }) => {
   return (
     <>
-      <Box>
+      <Box mb="5px">
         <Title order={3}>Select Your Avatar:</Title>
-        <SimpleGrid mt={10} cols={4} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
+        <SimpleGrid mt={10} cols={5} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
           {avatars?.map((avatar, i) => {
             const isToggled = avatar.id === toggledAvatarId;
             return (
               <Card
                 radius="md"
                 p="md"
-                className={isToggled ? classStyles.highlightCard : classStyles.card }
+                className={isToggled ? classStyles.highlightCard : classStyles.card}
                 key={i}
                 shadow={isToggled ? 'xl' : ''}
               >

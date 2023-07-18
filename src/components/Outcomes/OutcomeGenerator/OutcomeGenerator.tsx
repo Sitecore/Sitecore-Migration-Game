@@ -1,9 +1,8 @@
-import { Blockquote, SimpleGrid, Text, Title } from '@mantine/core';
+import { SimpleGrid, Text, Title } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
 import { LinkCard, RichTextOutput, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions } from 'models/OutcomeConditions';
 import { FC } from 'react';
-import { FiActivity } from 'react-icons/fi';
 
 interface OutcomeGeneratorProps {}
 
@@ -23,10 +22,6 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   return (
     <>
       <Title order={2}>{gameInfoContext.outcome.title}</Title>
-      <Text>
-        <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
-      </Text>
-      <Blockquote icon={<FiActivity />}>{outcomeConditions.requiredProducts().join(', ')}</Blockquote>
 
       <Title order={2}>{gameInfoContext.outcome.videoTitle}</Title>
       <Text>
