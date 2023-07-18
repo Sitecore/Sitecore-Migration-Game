@@ -1,12 +1,21 @@
 import { Box, Button, HStack, Icon, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 import { MdCached, MdSave } from 'react-icons/md';
-import { useGameInfoContext } from '..';
-import { InfoModal } from '../InfoModal/InfoModal';
-import { ProgressTracker } from '../ProgressTracker/ProgressTracker';
+import { InfoModal, ProgressTracker, useGameInfoContext } from '..';
 
-export default function Navigation() {
+interface NavigationProps {
+  showProgressBar?: boolean;
+  showResetButton?: boolean;
+  showSaveButton?: boolean;
+}
+
+export const Navigation: FC<NavigationProps> = ({
+  showProgressBar = true,
+  showResetButton = true,
+  showSaveButton = true,
+}) => {
   const gameInfoContext = useGameInfoContext();
   const router = useRouter();
 
@@ -28,17 +37,23 @@ export default function Navigation() {
             <Box width="200px">
               <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
             </Box>
-            <Box width="300px">
-              <ProgressTracker />
-            </Box>
+            {showProgressBar && (
+              <Box width="300px">
+                <ProgressTracker />
+              </Box>
+            )}
             <Box alignContent="right" width="100px">
               <HStack spacing={2}>
-                <Button>
-                  <Icon as={MdSave} fontSize={24} />
-                </Button>
-                <Button onClick={handleAppReset}>
-                  <Icon as={MdCached} fontSize={24} />
-                </Button>
+                {showSaveButton && (
+                  <Button>
+                    <Icon as={MdSave} fontSize={24} />
+                  </Button>
+                )}
+                {showResetButton && (
+                  <Button onClick={handleAppReset}>
+                    <Icon as={MdCached} fontSize={24} />
+                  </Button>
+                )}
                 <InfoModal />
               </HStack>
             </Box>
@@ -47,4 +62,4 @@ export default function Navigation() {
       </Box>
     </>
   );
-}
+};

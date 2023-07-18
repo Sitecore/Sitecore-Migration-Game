@@ -1,8 +1,7 @@
-import { AbsoluteCenter, Avatar, Box, Center, Grid, GridItem, Heading, Stack, VStack } from '@chakra-ui/react';
+import { AbsoluteCenter, Avatar, Box, Center, Heading, Stack, VStack } from '@chakra-ui/react';
 import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt } from 'components/Prompts';
-import { useGameInfoContext } from 'components/ui';
-import { HexagonCollection } from 'components/ui/HexagonCollection/HexagonCollection';
+import { HexagonCollection, TwoColumnLayout, useGameInfoContext } from 'components/ui';
 import { PromptService } from 'lib/PromptService';
 import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
@@ -141,43 +140,32 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   };
 
   return (
-    <Box
-      position="relative"
-      h="calc(100vh - 64px)"
-      w="full"
+    <TwoColumnLayout
+      leftColumn={
+        <Center>
+          <Stack direction={{ base: 'row', lg: 'column' }}>
+            {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
+              <VStack mb={8}>
+                <Avatar width="200px" height="200px" src={gameInfoContext.avatar?.fileUrl} name="User Avatar" />
+                <Box
+                  backgroundColor="white"
+                  width="100%"
+                  height="40px"
+                  position="relative"
+                  boxShadow="0 8px 16px 0 rgba(84,88,89,.4)"
+                >
+                  <AbsoluteCenter axis="both">
+                    <Heading size="md">{gameInfoContext?.persona.name}</Heading>
+                  </AbsoluteCenter>
+                </Box>
+              </VStack>
+            )}
+            <HexagonCollection />
+          </Stack>
+        </Center>
+      }
+      rightColumn={<CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />}
       backgroundImage={currentPrompt?.background?.results[0].fileUrl}
-      backgroundSize="cover"
-    >
-      <Center>
-        <Grid h="100%" w={{ base: '1200px' }} templateColumns={{ base: '1fr', lg: '1fr 2fr' }} gap={0} my={8} mx="auto">
-          <GridItem>
-            <Center>
-              <Stack direction={{ base: 'row', lg: 'column' }}>
-                {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
-                  <VStack mb={8}>
-                    <Avatar width="200px" height="200px" src={gameInfoContext.avatar?.fileUrl} name="User Avatar" />
-                    <Box
-                      backgroundColor="white"
-                      width="100%"
-                      height="40px"
-                      position="relative"
-                      boxShadow="0 8px 16px 0 rgba(84,88,89,.4)"
-                    >
-                      <AbsoluteCenter axis="both">
-                        <Heading size="md">{gameInfoContext?.persona.name}</Heading>
-                      </AbsoluteCenter>
-                    </Box>
-                  </VStack>
-                )}
-                <HexagonCollection />
-              </Stack>
-            </Center>
-          </GridItem>
-          <GridItem>
-            <CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />
-          </GridItem>
-        </Grid>
-      </Center>
-    </Box>
+    ></TwoColumnLayout>
   );
 };
