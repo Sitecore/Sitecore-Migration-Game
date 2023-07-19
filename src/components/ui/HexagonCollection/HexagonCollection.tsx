@@ -33,7 +33,8 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
       {loading ? (
         <Loading message="Loading Achievements..." />
       ) : (
-        <SimpleGrid columns={3} spacing="2px" gap="10px">
+        <SimpleGrid templateColumns={{ base: '1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr' }}
+          spacing="2px" gap="10px">
           <HexagonItem
             productName="XM Cloud"
             icon="0f7f9565544a42c19371f215bd57cc0d"

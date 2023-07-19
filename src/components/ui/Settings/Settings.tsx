@@ -30,6 +30,11 @@ const useStyles = createStyles((theme) => ({
     color: theme.colors.red[6],
   },
 
+  avatarImage: {
+    maxHeight: "315px",
+    maxWidth: "315px"
+  },
+
   label: {
     textTransform: 'uppercase',
     fontSize: theme.fontSizes.xs,

@@ -16,7 +16,7 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
   loading = false,
 }) => {
   return (
-    <Box position="relative" h="calc(100vh - 64px)" w="full" backgroundImage={backgroundImage} backgroundSize="cover">
+    <Box position="relative" h="screen" w="full" backgroundImage={backgroundImage} backgroundSize="cover">
       <Center>
         {loading ? (
           <Loading />
