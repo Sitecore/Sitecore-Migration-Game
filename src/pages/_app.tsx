@@ -3,6 +3,8 @@ import { MantineProvider, MantineThemeOverride } from '@mantine/core';
 import { GameInfoProvider } from 'components/ui';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/react';
+
 
 const corporateTheme: MantineThemeOverride = {
   colorScheme: 'light',
@@ -48,6 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <title>Sitecore Migration Adventure</title>
         <link rel="icon" href={`/favicon.png`} />
       </Head>
+      <Analytics />
       <GameInfoProvider>
         <MantineProvider theme={corporateTheme}>
           <ChakraProvider>
