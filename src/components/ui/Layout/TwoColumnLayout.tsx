@@ -19,7 +19,9 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
     <Box position="relative" h="screen" w="full" backgroundImage={backgroundImage} backgroundSize="cover">
       <Center>
         {loading ? (
-          <Loading />
+          <Box mt={10} mb={10}>
+            <Loading message="Loading Adventure Artifacts..." />
+          </Box>
         ) : (
           <Grid
             h="100%"

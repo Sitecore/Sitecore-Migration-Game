@@ -8,7 +8,7 @@ import { IAnswer, IOption, IPrompt } from 'models';
 import router from 'next/router';
 import React, { FC, useEffect } from 'react';
 
-interface PromptPanelProps { }
+interface PromptPanelProps {}
 
 export const PromptPanel: FC<PromptPanelProps> = () => {
   let gameInfoContext = useGameInfoContext();
@@ -41,6 +41,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
     loadingActions.open();
     await preloadPrompts();
 
+    gameInfoContext.resetAnswers();
     gameInfoContext.questionsBank.set([]);
     loadingActions.close();
   };
@@ -154,6 +155,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
       }
       rightColumn={<CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />}
       backgroundImage={currentPrompt?.background?.results[0].fileUrl}
+      loading={loading}
     ></TwoColumnLayout>
   );
 };
