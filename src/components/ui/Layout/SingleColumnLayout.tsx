@@ -15,7 +15,7 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
 }) => {
   return (
     <Box
-      h="calc(100vh - 88px)"
+      minH="calc(100vh - 88px)"
       w="full"
       backgroundImage={backgroundImage}
       backgroundAttachment="fixed"
