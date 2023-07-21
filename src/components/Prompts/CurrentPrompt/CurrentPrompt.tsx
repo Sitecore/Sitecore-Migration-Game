@@ -10,6 +10,7 @@ interface PromptProps {
 }
 
 export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
+  
   const optionSelected = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const option = prompt?.options?.results.find((o: IOption) => o.value === e.currentTarget.value);
     if (option === undefined) {
@@ -27,17 +28,13 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
     answerSelected(answer);
   };
 
-  const multiSelectSubmit = (selectedValues: string[]) => {
-    let optionLabels: string[] = [];
-    optionLabels =
-      prompt?.options?.results.filter((o: IOption) => selectedValues.includes(o.value)).map((o) => o.label) || [];
-
+  const multiSelectSubmit = (selectedOptions: IOption[]) => {
     let answer: IAnswer = {
       promptId: prompt!.id,
       promptQuestionId: prompt!.questionid,
       prompt: prompt!.text,
-      value: selectedValues,
-      valuePrettyText: optionLabels,
+      value: selectedOptions.map((o) => o.value),
+      valuePrettyText: selectedOptions.map((o) => o.label),
     };
 
     answerSelected(answer);
