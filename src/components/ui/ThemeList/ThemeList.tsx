@@ -21,6 +21,7 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
                   <Image
                     src={theme.characterImage!.results[0].fileUrl}
                     alt={theme.characterImage!.results[0].fileName ?? ''}
+                    height="250px"
                   />
                 </Card.Section>
               )}

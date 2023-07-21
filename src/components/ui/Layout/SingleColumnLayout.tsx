@@ -14,7 +14,14 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
   loading = false,
 }) => {
   return (
-    <Box position="relative" h="calc(100vh - 64px)" w="full" backgroundImage={backgroundImage} backgroundSize="cover">
+    <Box
+      minH="calc(100vh - 88px)"
+      w="full"
+      backgroundImage={backgroundImage}
+      backgroundAttachment="fixed"
+      backgroundSize="cover"
+      backgroundRepeat="no-repeat"
+    >
       <Center>
         {loading ? (
           <Loading message="Loading Application..." />

@@ -32,7 +32,7 @@ const useStyles = createStyles((theme) => ({
 
   avatarImage: {
     maxHeight: "315px",
-    maxWidth: "315px"
+    maxWidth: "315px",
   },
 
   label: {
