@@ -4,21 +4,21 @@ import { FC, useState } from 'react';
 
 interface MultiSelectProps {
   options: IOption[];
-  multiSelectSubmit?: (selected: string[]) => void;
+  multiSelectSubmit?: (selectedOptions: IOption[]) => void;
 }
 
 export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }) => {
-  let [selected, setSelected] = useState<string[]>([]);
+  let [selectedOptions, setSelectedOptions] = useState<IOption[]>([]);
 
-  const handleButtonClick = (name: string) => {
-    const newCheckedArr = [...selected];
-    const index = newCheckedArr.indexOf(name);
+  const handleOptionSelected = (option: IOption) => {
+    const newCheckedArr = [...selectedOptions];
+    const index = newCheckedArr.indexOf(option);
     if (index === -1) {
-      newCheckedArr.push(name);
+      newCheckedArr.push(option);
     } else {
       newCheckedArr.splice(index, 1);
     }
-    setSelected(newCheckedArr);
+    setSelectedOptions(newCheckedArr);
   };
 
   return (
@@ -39,8 +39,8 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                       borderRadius={24}
                       colorScheme="purple"
                       m={1}
-                      opacity={selected.includes(option.label) ? 1 : 0.5}
-                      onClick={() => handleButtonClick(option.label)}
+                      opacity={selectedOptions.includes(option) ? 1 : 0.5}
+                      onClick={() => handleOptionSelected(option)}
                     >
                       {option.label}
                     </Button>
@@ -52,8 +52,8 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                     borderRadius={24}
                     colorScheme="purple"
                     m={1}
-                    opacity={selected.includes(option.label) ? 1 : 0.5}
-                    onClick={() => handleButtonClick(option.label)}
+                    opacity={selectedOptions.includes(option) ? 1 : 0.5}
+                    onClick={() => handleOptionSelected(option)}
                   >
                     {option.label}
                   </Button>
@@ -69,8 +69,8 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
             mt={4}
             colorScheme="purple"
             borderRadius={24}
-            onClick={() => multiSelectSubmit(selected)}
-            isDisabled={selected.length == 0}
+            onClick={() => multiSelectSubmit(selectedOptions)}
+            isDisabled={selectedOptions.length == 0}
           >
             Submit
           </Button>
