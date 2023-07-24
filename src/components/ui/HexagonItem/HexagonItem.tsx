@@ -19,6 +19,7 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
         paddingBottom: '10px',
         transition: 'opacity 0.3s',
         pointerEvents: 'none',
+        minHeight: '100px',
       }}
     >
       <Box
@@ -56,7 +57,7 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
           textAlign: 'center',
           transition: 'transform 0.3s ease-out',
         }}
-      //className="hex-grid__content"
+        //className="hex-grid__content"
       >
         <Image
           className="hex-grid__content__icon"
@@ -73,7 +74,7 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
           height={30}
         />
 
-        <Show above='991px'>
+        <Show above="991px">
           <chakra.h3
             className="hex-grid__content__title"
             sx={{
@@ -93,7 +94,6 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
             {productName}
           </chakra.h3>
         </Show>
-
       </Box>
     </chakra.div>
   );
