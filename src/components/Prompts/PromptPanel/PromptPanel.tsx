@@ -3,8 +3,9 @@ import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt } from 'components/Prompts';
 import { HexagonCollection, TwoColumnLayout, useGameInfoContext } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
+import { GetNextPrompts } from 'lib/NextPrompts';
 import { PromptService } from 'lib/PromptService';
-import { IAnswer, IOption, IPrompt } from 'models';
+import { IAnswer, IPrompt } from 'models';
 import router from 'next/router';
 import React, { FC, useEffect } from 'react';
 
@@ -68,7 +69,6 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
   const triggerNextPrompt = () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
-    console.log(gameInfoContext.questionsBank?.get());
     if (gameInfoContext.questionsBank?.get() !== undefined) {
       if (gameInfoContext.questionsBank.get()!.length > 0) {
         const questionQueue = gameInfoContext.questionsBank.get();
@@ -94,51 +94,15 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   };
 
   const populateQuestions = async (answers: IAnswer) => {
-    // Populate FIFO Collection of Questions based on Answers
-    let nextQuestions: IPrompt[] = [];
-    let newQuestions: IPrompt[] = [];
-
-    // TODO: Move me please, I hate looking at it myself :-)
-    if (prompts !== undefined && currentPrompt !== undefined) {
-      // Get current prompts option prompt ids for only answers
-      let optionsSelectedWithNextPrompts: IOption[] | undefined = currentPrompt.options?.results.filter(
-        (o) =>
-          answers.value.includes(o.value) && o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0
-      );
-
-      if (optionsSelectedWithNextPrompts) {
-        // Get prompt ids from options
-        // Add filter for if question has already been answered
-        let promptIds = optionsSelectedWithNextPrompts
-          .map((o) => {
-            if (o.nextPrompts?.results !== undefined && o.nextPrompts.results.length > 0) {
-              return o.nextPrompts.results.map((p) => p.id);
-            }
-
-            return null;
-          })
-          .flat();
-
-        if (promptIds != null) {
-          // Get prompts from prompt ids
-          nextQuestions = prompts.filter((p) => promptIds.includes(p.id) && p.disabled != true);
-
-          newQuestions = [...gameInfoContext.questionsBank.get()!, ...nextQuestions];
-        }
-      }
-
-      // Handle Current Prompt next Ids
-      if (currentPrompt?.nextPrompts?.results !== undefined && currentPrompt.nextPrompts.results.length > 0) {
-        // Add filter for if question has already been answered
-        const nextPromptIds = currentPrompt.nextPrompts.results.map((p) => p.id);
-
-        nextQuestions = prompts.filter((p) => nextPromptIds.includes(p.id) && p.disabled != true);
-
-        newQuestions = [...gameInfoContext.questionsBank.get()!, ...nextQuestions, ...newQuestions];
-      }
-    }
-
-    await gameInfoContext.questionsBank.set(newQuestions);
+    await gameInfoContext.questionsBank.set(
+      await GetNextPrompts(
+        currentPrompt,
+        answers,
+        prompts,
+        gameInfoContext.questionsBank.get()!,
+        gameInfoContext.answers!
+      )
+    );
   };
 
   return (
