@@ -23,7 +23,10 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
       backgroundAttachment="fixed"
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
-    >      <Center>
+      paddingX={4}
+    >
+      {' '}
+      <Center>
         {loading ? (
           <Loading />
         ) : (
@@ -31,7 +34,7 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
             h="100%"
             w={{ base: '1200px' }}
             templateColumns={{ base: '1fr', lg: '1fr 2fr' }}
-            gap={0}
+            gap={{ base: 0, lg: 10 }}
             my={8}
             mx="auto"
           >
