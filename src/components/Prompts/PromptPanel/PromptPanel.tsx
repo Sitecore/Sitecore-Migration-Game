@@ -79,12 +79,14 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
       } else {
         router.push('/outcome');
       }
+    } else {
+      router.push('/outcome');
     }
   };
 
-  const answerSelected = (answer: IAnswer) => {
+  const answerSelected = async (answer: IAnswer) => {
     saveAnswers(answer);
-    populateQuestions(answer);
+    await populateQuestions(answer);
 
     triggerNextPrompt();
   };
@@ -94,15 +96,17 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   };
 
   const populateQuestions = async (answers: IAnswer) => {
-    await gameInfoContext.questionsBank.set(
-      await GetNextPrompts(
-        currentPrompt,
-        answers,
-        prompts,
-        gameInfoContext.questionsBank.get()!,
-        gameInfoContext.answers!
-      )
+    const nextPrompts = await GetNextPrompts(
+      currentPrompt,
+      answers,
+      prompts,
+      gameInfoContext.questionsBank.get()!,
+      gameInfoContext.answers!
     );
+
+    console.log(nextPrompts);
+
+    await gameInfoContext.questionsBank.set(nextPrompts);
   };
 
   return (
