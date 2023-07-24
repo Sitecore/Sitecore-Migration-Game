@@ -15,16 +15,12 @@ export const GetNextPrompts = async (
     promptIds.push(...(await getNextOptionsSelectedPromptIds(currentPrompt, currentPromptAnswer)));
     promptIds.push(...(await getNextPromptsFromCurrentPromptNextPrompts(currentPrompt)));
 
-    console.log(promptIds);
-
     const nextPrompts: IPrompt[] | undefined = await hydrateAndFilterOutNextPrompts(
       promptIds,
       allThemePrompts,
       questionsBank,
       answersBank
     );
-
-    console.log(nextPrompts);
 
     return nextPrompts;
   }

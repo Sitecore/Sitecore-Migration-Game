@@ -104,8 +104,6 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
       gameInfoContext.answers!
     );
 
-    console.log(nextPrompts);
-
     await gameInfoContext.questionsBank.set(nextPrompts);
   };
 
