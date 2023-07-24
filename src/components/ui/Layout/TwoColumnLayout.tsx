@@ -25,7 +25,9 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
       backgroundRepeat="no-repeat"
     >      <Center>
         {loading ? (
-          <Loading />
+          <Box mt={10} mb={10}>
+            <Loading message="Loading Adventure Artifacts..." />
+          </Box>
         ) : (
           <Grid
             h="100%"
