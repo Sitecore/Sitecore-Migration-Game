@@ -3,7 +3,7 @@ import { Layout } from 'components/ui';
 
 const PromptPage = () => {
   return (
-    <Layout>
+    <Layout showSaveButton={false}>
       <PromptPanel />
     </Layout>
   );

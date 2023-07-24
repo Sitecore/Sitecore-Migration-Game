@@ -10,7 +10,6 @@ interface PromptProps {
 }
 
 export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
-  
   const optionSelected = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const option = prompt?.options?.results.find((o: IOption) => o.value === e.currentTarget.value);
     if (option === undefined) {
