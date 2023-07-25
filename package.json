@@ -37,6 +37,7 @@
     "@tiptap/extension-text": "^2.0.3",
     "@tiptap/extension-underline": "^2.0.3",
     "@vercel/analytics": "^1.0.1",
+    "cypress": "^12.17.2",
     "framer-motion": "^10.12.18",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
