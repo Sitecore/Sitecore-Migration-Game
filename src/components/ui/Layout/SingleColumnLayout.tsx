@@ -21,6 +21,7 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
       backgroundAttachment="fixed"
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
+      paddingX={4}
     >
       <Center>
         {loading ? (
