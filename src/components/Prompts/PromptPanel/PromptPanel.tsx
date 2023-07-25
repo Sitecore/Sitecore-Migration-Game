@@ -111,7 +111,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
     <TwoColumnLayout
       leftColumn={
         <Center>
-          <Stack direction={{ base: 'row', lg: 'column' }}>
+          <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>
             {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
               <AvatarDisplay fileUrl={gameInfoContext.avatar?.fileUrl} name={gameInfoContext?.persona.name} />
             )}
