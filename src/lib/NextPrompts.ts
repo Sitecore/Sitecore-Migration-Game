@@ -100,7 +100,7 @@ const hydrateAndFilterOutNextPrompts = async (
     });
 
     if (nextValidatedPrompts != undefined && nextValidatedPrompts.length > 0) {
-      return [...nextValidatedPrompts, ...questionsBank];
+      return [...questionsBank, ...nextValidatedPrompts];
     }
   }
 
