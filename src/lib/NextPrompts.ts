@@ -71,7 +71,7 @@ const hydrateAndFilterOutNextPrompts = async (
   questionsBank: IPrompt[],
   answersBank: IAnswer[]
 ): Promise<IPrompt[] | undefined> => {
-  let nextValidatedPrompts: IPrompt[] | undefined = undefined;
+  let nextValidatedPrompts: IPrompt[] | undefined = [];
 
   if (promptIds && promptIds.length > 0) {
     // Get all prompts from prompt ids
@@ -104,5 +104,5 @@ const hydrateAndFilterOutNextPrompts = async (
     }
   }
 
-  return nextValidatedPrompts;
+  return questionsBank;
 };

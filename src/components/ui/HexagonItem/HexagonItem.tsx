@@ -16,10 +16,11 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
         webkitFilter:
           'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
         filter: 'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
-        paddingBottom: '10px',
         transition: 'opacity 0.3s',
         pointerEvents: 'none',
       }}
+      minH={{ base: '40px', lg: '100px' }}
+      paddingBottom="10px"
     >
       <Box
         sx={{
@@ -56,26 +57,22 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
           textAlign: 'center',
           transition: 'transform 0.3s ease-out',
         }}
-      //className="hex-grid__content"
       >
         <Image
           className="hex-grid__content__icon"
           sx={{
-            width: 'auto',
-            height: '24px',
-            margin: '.75rem 0 .25rem 0',
             webkitFilter: 'brightness(0) invert(1) opacity(0.9)',
             filter: 'brightness(0) invert(1) opacity(0.9)',
           }}
           src={`https://sitecorecontenthub.stylelabs.cloud/api/public/content/${icon}`}
           alt={productName}
-          width={30}
-          height={30}
+          width="auto"
+          height={{ base: '16px', lg: '24px' }}
+          margin={{ base: '.25rem 0 .25rem 0', lg: '.75rem 0 .25rem 0' }}
         />
 
-        <Show above='991px'>
+        <Show above="991px">
           <chakra.h3
-            className="hex-grid__content__title"
             sx={{
               margin: '0 10px 10px 10px',
               padding: '0 !important',
@@ -93,7 +90,6 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
             {productName}
           </chakra.h3>
         </Show>
-
       </Box>
     </chakra.div>
   );

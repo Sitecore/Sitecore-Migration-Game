@@ -33,8 +33,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
       {loading ? (
         <Loading message="Loading Achievements..." />
       ) : (
-        <SimpleGrid templateColumns={{ base: '1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr' }}
-          spacing="2px" gap="10px">
+        <SimpleGrid templateColumns={{ base: '1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr' }} spacing="2px" gap="10px">
           <HexagonItem
             productName="XM Cloud"
             icon="0f7f9565544a42c19371f215bd57cc0d"
@@ -43,7 +42,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
               requiredProducts != undefined && requiredProducts.find((x) => x == TargetProduct.xmCloud) ? true : false
             }
           />
-          <HexagonItem
+          {/* <HexagonItem
             productName="Content Operations"
             icon="d23e3e8b102746ed8b0a60758e2bd58c"
             cloud="Content"
@@ -52,7 +51,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
                 ? true
                 : false
             }
-          />
+          /> */}
           <HexagonItem
             productName="Sitecore Search"
             icon="7e75e5619d514d3893c4079d291e4776"
@@ -61,7 +60,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
               requiredProducts != undefined && requiredProducts.find((x) => x == TargetProduct.search) ? true : false
             }
           />
-          <HexagonItem
+          {/* <HexagonItem
             productName="Sitecore DAM"
             icon="d4460059f7f74238bb65b760a8fa6859"
             cloud="Content"
@@ -80,7 +79,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
                 ? true
                 : false
             }
-          />
+          /> */}
           <HexagonItem
             productName="Sitecore Send"
             icon="e021e8eba3cd42d295458bb7fb064d77"
@@ -107,7 +106,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
                 : false
             }
           />
-          <HexagonItem
+          {/* <HexagonItem
             productName="Sitecore Discover"
             icon="321e52cb1a654d6cbb4b741a36506548"
             cloud="Commerce"
@@ -122,7 +121,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
             active={
               requiredProducts != undefined && requiredProducts.find((x) => x == TargetProduct.connect) ? true : false
             }
-          />
+          /> */}
           <HexagonItem
             productName="Sitecore OrderCloud"
             icon="3eb03031027e456eb212d7c3ddf1295a"

@@ -6,7 +6,7 @@ import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import router from 'next/router';
 import { FC } from 'react';
 
-interface OutcomePanelProps { }
+interface OutcomePanelProps {}
 
 export const OutcomePanel: FC<OutcomePanelProps> = () => {
   const gameInfoContext = useGameInfoContext();
@@ -26,7 +26,7 @@ export const OutcomePanel: FC<OutcomePanelProps> = () => {
     <TwoColumnLayout
       leftColumn={
         <Center>
-          <Stack direction={{ base: 'row', lg: 'column' }}>
+          <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>
             {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
               <AvatarDisplay fileUrl={gameInfoContext.avatar?.fileUrl} name={gameInfoContext?.persona.name} />
             )}
