@@ -1,7 +1,7 @@
-import { SimpleGrid, Text, Title } from '@mantine/core';
+import { List, SimpleGrid, Text, Title } from '@mantine/core';
 import { ConditionalResponse } from 'components/Outcomes';
 import { LinkCard, RichTextOutput, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
-import { ExperienceEdgeOption, OutcomeConditions } from 'models/OutcomeConditions';
+import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { FC } from 'react';
 
 interface OutcomeGeneratorProps {}
@@ -19,9 +19,21 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   //Use the OutcomeConditions class for storing all the answers as the conditions we'll use in the logic.
   let outcomeConditions = new OutcomeConditions(gameInfoContext);
 
+  const requiredProducts: TargetProduct[] = outcomeConditions.requiredProducts();
+
   return (
     <>
       <Title order={2}>{gameInfoContext.outcome.title}</Title>
+      <Text>
+        <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
+      </Text>
+      {requiredProducts && requiredProducts.length > 0 && (
+        <List size="lg" withPadding pb="20px">
+          {requiredProducts.map((product: TargetProduct) => (
+            <List.Item>{product}</List.Item>
+          ))}
+        </List>
+      )}
 
       <Title order={2}>{gameInfoContext.outcome.videoTitle}</Title>
       <Text>
