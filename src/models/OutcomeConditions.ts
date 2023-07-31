@@ -28,6 +28,12 @@ export interface IXPFeaturesUsed {
   sessionPersonalization: boolean;
 }
 
+export interface IXPHistoricalPersonalization {
+  last30days: boolean;
+  last90days: boolean;
+  morethan90days: boolean;
+}
+
 export interface IDesiredFrameworks {
   netcore: boolean;
   nextjs: boolean;
@@ -60,6 +66,7 @@ export enum PromptMappings {
   experienceEdge = 'experienceedge',
   xcFeatures = 'xcfeatures',
   siteSearchUsed = 'sitesearch',
+  historicalPersonalization = 'historicalpersonalizationneeds',
 }
 
 export enum TargetProduct {
@@ -82,6 +89,7 @@ export class OutcomeConditions {
   isXM: boolean;
   xcFeaturesUsed: IXCFeaturesUsed;
   xpFeaturesUsed: IXPFeaturesUsed;
+  historicalPersonalization: IXPHistoricalPersonalization;
   desiredFrameworks: IDesiredFrameworks;
   existingFrameworks: IExistingFrameworks;
   securedPages: ISecuredPages;
@@ -123,6 +131,11 @@ export class OutcomeConditions {
       patternCards: false,
       sessionPersonalization: false,
     };
+    this.historicalPersonalization = {
+      last30days: true,
+      last90days: false,
+      morethan90days: false,
+    };
     this.desiredFrameworks = { netcore: false, nextjs: false };
     this.existingFrameworks = { netcore: false };
     this.securedPages = { securityloginrequired: false };
@@ -141,7 +154,7 @@ export class OutcomeConditions {
    */
   isComplexPersonalization(): boolean {
     return (
-      this.xpFeaturesUsed.historicalPersonalization ||
+      (this.xpFeaturesUsed.historicalPersonalization && this.historicalPersonalization.last90days) ||
       this.xpFeaturesUsed.customrules ||
       this.xpFeaturesUsed.captureadditionalevents ||
       this.xpFeaturesUsed.externalDataSystems ||
@@ -158,20 +171,16 @@ export class OutcomeConditions {
   }
 
   /**
-   * Analyzes current answers to determine if this is a 'simple' personalization that
-   * can be supported by XM Cloud
+   * Analyzes current answers to determine if this is a 'simple' personalization solution that
+   * can be supported by XM Cloud alone and does not need other products.
+   * XM Cloud can support session personalization or historical personalization up to 30 days.
+   * Any complex personalization or XP features requiring another product (like Send) do not qualify.
    */
   isSimplePersonalization(): boolean {
     return (
-      this.xpFeaturesUsed.sessionPersonalization &&
-      !this.xpFeaturesUsed.exm &&
-      !this.xpFeaturesUsed.marketingAutomation &&
-      !this.xpFeaturesUsed.historicalPersonalization &&
-      !this.xpFeaturesUsed.customrules &&
-      !this.xpFeaturesUsed.captureadditionalevents &&
-      !this.xpFeaturesUsed.externalDataSystems &&
-      !this.xpFeaturesUsed.identityResolution &&
-      !this.xpFeaturesUsed.patternCards
+      (this.xpFeaturesUsed.sessionPersonalization ||
+        (this.xpFeaturesUsed.historicalPersonalization && this.historicalPersonalization.last30days)) &&
+      !(this.isComplexPersonalization() || this.xpFeaturesUsed.exm || this.xpFeaturesUsed.marketingAutomation)
     );
   }
 
@@ -218,22 +227,31 @@ export class OutcomeConditions {
    * @param gameInfoContext: This is the current context which contains the prompts and answers
    */
   parseContext(gameInfoContext: GameInfoContextType) {
+    //Determine if the user selected XC as the product
     this.isXC =
       gameInfoContext.answers?.find(
         (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xc')
       ) != undefined;
 
+    //If XC was selected, parse the questions for the user's answers
     if (this.isXC) {
       this.parseContext_XCFeatures(gameInfoContext);
     }
 
-    //XC contains XP, so if the user answered XC, then they also have XP features
+    //Determine if the user selected XP as the product
     this.isXP =
       gameInfoContext.answers?.find(
         (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp')
       ) != undefined;
+
+    //XC contains XP, so if the user answered XC or XP, then check for XP features
     if (this.isXC || this.isXP) {
       this.parseContext_XPFeatures(gameInfoContext);
+
+      //If after parsing we determine that historical personalization is used, check for what historical personalization they need
+      if (this.xpFeaturesUsed.historicalPersonalization) {
+        this.parseContext_HistoricalPersonalization(gameInfoContext);
+      }
     }
 
     //NOTE: For now, all paths assume XM functionality is in use (XC > XP > XM). If there is a need to specifically test for XM selection, then this boolean is used.
@@ -287,6 +305,23 @@ export class OutcomeConditions {
       this.xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
       this.xpFeaturesUsed.patternCards = xpFeatures.value.includes('patterncards');
       this.xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
+    }
+  }
+
+  /**
+   * Check for what type of historical personalization data retention is required
+   * @param gameInfoContext: This is the current context which contains the prompts and answers
+   */
+  parseContext_HistoricalPersonalization(gameInfoContext: GameInfoContextType) {
+    var dataRetentionOptions = gameInfoContext.answers?.find(
+      (x: IAnswer) => x.promptQuestionId == PromptMappings.historicalPersonalization
+    );
+    if (dataRetentionOptions != undefined) {
+      this.historicalPersonalization.last30days = dataRetentionOptions.value.includes('historicalpersonalize30');
+      this.historicalPersonalization.last90days = dataRetentionOptions.value.includes('historicalpersonalize90');
+      this.historicalPersonalization.morethan90days = dataRetentionOptions.value.includes(
+        'historicalpersonalizemorethan90'
+      );
     }
   }
 
