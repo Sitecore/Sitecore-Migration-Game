@@ -1,7 +1,7 @@
-import { Theme, extendTheme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react';
 import { buttonTheme } from './button';
 
-const CorporateTheme: Theme = extendTheme({
+const CorporateTheme = extendTheme({
   baseStyle: {},
   components: { Button: buttonTheme },
 });

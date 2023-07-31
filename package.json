@@ -66,12 +66,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
