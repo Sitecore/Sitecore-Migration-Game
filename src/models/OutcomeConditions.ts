@@ -26,6 +26,8 @@ export interface IXPFeaturesUsed {
   marketingAutomation: boolean;
   patternCards: boolean;
   sessionPersonalization: boolean;
+  customXDBFacets: boolean;
+  customAnalyticsDashboard: boolean;
 }
 
 export interface IXPHistoricalPersonalization {
@@ -130,6 +132,8 @@ export class OutcomeConditions {
       marketingAutomation: false,
       patternCards: false,
       sessionPersonalization: false,
+      customXDBFacets: false,
+      customAnalyticsDashboard: false,
     };
     this.historicalPersonalization = {
       last30days: true,
@@ -305,6 +309,8 @@ export class OutcomeConditions {
       this.xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
       this.xpFeaturesUsed.patternCards = xpFeatures.value.includes('patterncards');
       this.xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
+      this.xpFeaturesUsed.customXDBFacets = xpFeatures.value.includes('customxdbfacets');
+      this.xpFeaturesUsed.customAnalyticsDashboard = xpFeatures.value.includes('customanalyticsdashboards');
     }
   }
 
