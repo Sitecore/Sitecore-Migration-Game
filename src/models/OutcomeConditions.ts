@@ -153,6 +153,14 @@ export class OutcomeConditions {
   }
 
   /**
+   * Checks current answers to determine if the selections mean that Sitecore CDP would be needed
+   * @returns True if the selections made mean that XP is being used like Sitecore CDP
+   */
+  isCDP(): boolean {
+    return this.xpFeaturesUsed.customXDBFacets || this.xpFeaturesUsed.customAnalyticsDashboard;
+  }
+
+  /**
    * Analyzes current answers to determine if this is a complex personalizations cenario
    * that would require Sitecore Personalize or CDP
    */
@@ -207,9 +215,13 @@ export class OutcomeConditions {
     }
 
     //If the customer is using more functionality than what is supported by XM Cloud, they will need Personalize.
-    //NOTE: We don't have a prompt yet to distinguish if the customer needs CDP instead/in addition
     if (this.isComplexPersonalization()) {
       products.push(TargetProduct.personalize);
+    }
+
+    //If the customer is using advanced XP features not supported by Personalize, then we need CDP
+    if (this.isCDP()) {
+      products.push(TargetProduct.cdp);
     }
 
     //If the customer is using marketing automation functionality, they will need Send
