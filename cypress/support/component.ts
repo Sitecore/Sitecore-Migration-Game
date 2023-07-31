@@ -14,9 +14,10 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+
 import { ChakraProvider } from '@chakra-ui/react';
 import { createElement } from 'react';
-import corporateTheme from '../src/chakra/theme/Corporate/Theme';
+import corporateTheme from '../../src/chakra/theme/Corporate/Theme';
 import './commands';
 
 // Alternatively you can use CommonJS syntax:
@@ -37,7 +38,7 @@ declare global {
 }
 
 Cypress.Commands.add('mount', (component, options) => {
-  const wrappedComponent = createElement(ChakraProvider, { corporateTheme }, component);
+  const wrappedComponent = createElement(ChakraProvider, { theme: corporateTheme }, component);
 
   return mount(wrappedComponent, options);
 });
