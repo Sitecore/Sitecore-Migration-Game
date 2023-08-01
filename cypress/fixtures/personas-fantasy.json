@@ -1,0 +1,22 @@
+[
+  {
+    "id": "0O2FkjD_9ke2L8zEuw4Quw",
+    "name": "Fighter",
+    "personaImage": {
+      "results": [
+        {
+          "id": "e7dWknnF9EeXG2LIzUcciA",
+          "fileUrl": "https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/9fe8749dd73c4b4d8b889711952944d0"
+        }
+      ]
+    },
+    "theme": {
+      "results": [
+        {
+          "id": "a5F4KpHzIkO1Re9iHmJjWA",
+          "name": "Fantasy Adventure"
+        }
+      ]
+    }
+  }
+]
