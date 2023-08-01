@@ -1,4 +1,4 @@
-import { TypographyStylesProvider } from '@mantine/core';
+import { Text as ChakraText } from '@chakra-ui/react';
 import { Extensions, JSONContent, generateHTML } from '@tiptap/core';
 import { Blockquote } from '@tiptap/extension-blockquote';
 import { Bold } from '@tiptap/extension-bold';
@@ -51,8 +51,8 @@ export const RichTextOutput: FC<RichTextOutputProps> = ({ content }) => {
   ];
 
   return (
-    <TypographyStylesProvider>
+    <ChakraText>
       <div dangerouslySetInnerHTML={{ __html: generateHTML(content, extensions) }} />
-    </TypographyStylesProvider>
+    </ChakraText>
   );
 };

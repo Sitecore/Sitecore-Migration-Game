@@ -1,0 +1,251 @@
+<svg
+        id="TextButton"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 226.4 38.24"
+      >
+        <defs>
+          <radialGradient
+            id="radial-gradient-hover"
+            cx="113.28"
+            cy="18.74"
+            fx="113.28"
+            fy="18.74"
+            r="77.31"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#127d3e" />
+            <stop offset=".03" stop-color="#117a3f" />
+            <stop offset=".37" stop-color="#07654b" />
+            <stop offset=".7" stop-color="#015852" />
+            <stop offset="1" stop-color="#005455" />
+          </radialGradient>
+          <radialGradient
+            id="radial-gradient"
+            cx="113.28"
+            cy="18.74"
+            fx="113.28"
+            fy="18.74"
+            r="77.31"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#20283b" />
+            <stop offset=".1" stop-color="#252f43" />
+            <stop offset=".41" stop-color="#324358" />
+            <stop offset=".72" stop-color="#3a4f65" />
+            <stop offset="1" stop-color="#3d546a" />
+          </radialGradient>
+          <linearGradient
+            id="New_Gradient_Swatch_126"
+            data-name="New Gradient Swatch 126"
+            x1="223.37"
+            y1="19.12"
+            x2="223.37"
+            y2="0"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#798795" />
+            <stop offset="1" stop-color="#9fb0c4" />
+          </linearGradient>
+          <linearGradient
+            id="linear-gradient"
+            x1="220.91"
+            y1="19.12"
+            x2="220.91"
+            y2="3.88"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#777b9a" />
+            <stop offset="1" stop-color="#454861" />
+          </linearGradient>
+          <radialGradient
+            id="radial-gradient-2"
+            cx="126.88"
+            cy="288.14"
+            fx="126.88"
+            fy="288.14"
+            r="61.56"
+            gradientTransform="translate(-112.96 -495.83) scale(1.78 1.73)"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#bcd1e6" />
+            <stop offset="1" stop-color="#798795" />
+          </radialGradient>
+          <radialGradient
+            id="radial-gradient-3"
+            cx="126.88"
+            cy="290.05"
+            fx="126.88"
+            fy="290.05"
+            r="42.5"
+            gradientTransform="translate(-112.96 -495.83) scale(1.78 1.73)"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#676c87" />
+            <stop offset="1" stop-color="#5c5a7e" />
+          </radialGradient>
+          <linearGradient id="linear-gradient-2" x1="5.49" x2="5.49" xlink:href="#linear-gradient" />
+          <linearGradient
+            id="New_Gradient_Swatch_126-2"
+            data-name="New Gradient Swatch 126"
+            x1="3.04"
+            x2="3.04"
+            xlink:href="#New_Gradient_Swatch_126"
+          />
+          <linearGradient
+            id="linear-gradient-3"
+            x1="223.37"
+            y1="38.24"
+            x2="223.37"
+            y2="19.12"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#676c87" />
+            <stop offset="1" stop-color="#5c5a7e" />
+          </linearGradient>
+          <linearGradient
+            id="linear-gradient-4"
+            x1="220.91"
+            y1="34.35"
+            x2="220.91"
+            y2="19.12"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#9fb0c4" />
+            <stop offset="1" stop-color="#798795" />
+          </linearGradient>
+          <radialGradient
+            id="New_Gradient_Swatch_121"
+            data-name="New Gradient Swatch 121"
+            cx="126.88"
+            cy="307.28"
+            fx="126.88"
+            fy="307.28"
+            r="43.26"
+            gradientTransform="translate(-112.96 -495.83) scale(1.78 1.73)"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0" stop-color="#4b4e61" />
+            <stop offset="1" stop-color="#47445e" />
+          </radialGradient>
+          <radialGradient
+            id="radial-gradient-4"
+            cx="126.88"
+            cy="305.37"
+            fx="126.88"
+            fy="305.37"
+            r="64.42"
+            xlink:href="#radial-gradient-2"
+          />
+          <linearGradient id="linear-gradient-5" x1="5.49" x2="5.49" xlink:href="#linear-gradient-4" />
+          <linearGradient id="linear-gradient-6" x1="3.04" x2="3.04" xlink:href="#linear-gradient-3" />
+        </defs>
+        <g id="Background" class="background">
+          <rect x="4.7" y="5.86" width="217.15" height="25.75" fill="url(#radial-gradient)" class="background" />
+        </g>
+        <g id="Button">
+          <g>
+            <path
+              d="m220.33,3.88c1.24,5.02,2.31,10.12,3.24,15.24h2.83c-.49-2.66-1-5.27-1.52-7.79-.22-1.04-1.26-1.47-1.21-2.5.1-1.78.04-2.81-.21-3.89-.41-1.72-.82-3.37-1.23-4.93l-1.9,3.88h0Z"
+              fill="url(#New_Gradient_Swatch_126)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m223.57,19.12c-.94-5.11-2-10.22-3.24-15.24l-2.07,3.38c.54,2.3,1.01,8.02,1.41,9.24.23.7.59,1.23,1.05,2.62h2.85Z"
+              fill="url(#linear-gradient)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m209.39,5.12c3.57,0,7.55,0,10.94-1.24l1.9-3.88c-3.52,1.82-5.07,2.4-12.84,2.4h-20.05c-1.09,0-1.68,1.25-2.77,1.25-1.35,0-3.21-1.37-4.55-1.25-2.58.23-6.95-.56-7.13-.34-.07.08-2.19,1.11-2.4,1.1-.48-.02-.88-.76-2.05-.76h-68.21c-1.17,0-1.75,1.2-2.92,1.2-.85,0-1.93-.47-2.96-.82-.62-.21-2.49-.85-2.78-.82-.67.07-.85.31-3.14.43-12.2.67-25,.67-36.31,0-2.67,1.12-5.68.78-8.22-.53-3.17.86-6.34.82-9.11.53-.94,0-.89.96-1.83.96-1.07,0-3.13-.96-4.21-.96h-13.73c-7.77,0-9.32-.58-12.84-2.4l1.9,3.88c3.39,1.24,7.36,1.24,10.94,1.24h192.37Z"
+              fill="url(#radial-gradient-2)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m220.33,3.88c-3.39,1.24-7.36,1.24-10.94,1.24H17.01c-3.57,0-7.55,0-10.94-1.24l2.07,3.38c2.64.55,5.3.59,8.87.59h192.37c3.57,0,6.23-.05,8.87-.59l2.07-3.38h0Z"
+              fill="url(#radial-gradient-3)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m5.68,19.12c.73-3.97,1.55-7.94,2.46-11.86l-2.07-3.38c-1.24,5.02-2.31,10.12-3.24,15.24h2.85Z"
+              fill="url(#linear-gradient-2)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m2.83,19.12c.94-5.11,2-10.22,3.24-15.24l-1.9-3.88c-.52,1.96-1.03,4.05-1.54,6.24.16,1.13.09,1.77.05,2.12,0,.11-.32.22-.59.26-.73,3.34-1.44,6.87-2.11,10.5h2.83Z"
+              fill="url(#New_Gradient_Swatch_126-2)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m18.38,4.64c-4.98-.03-9.6-.45-11.83-1.5l-1.85-2.07,1.37,2.81c3.39,1.24,7.36,1.24,10.94,1.24h90.3l-88.94-.48h0Z"
+              fill="#98d8e3"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m220.33,34.35c1.24-5.02,2.31-10.12,3.24-15.24h2.83c-.8,4.39-1.67,8.64-2.57,12.57-.07.31-1.04.39-1.11.7-.2.87.48,1.96.28,2.8-.26,1.05-.79,1.39-.78,3.05l-1.9-3.88h0Z"
+              fill="url(#linear-gradient-3)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m223.57,19.12c-.94,5.11-2,10.22-3.24,15.24l-2.07-3.38c.92-3.92,1.73-7.89,2.46-11.86h2.85Z"
+              fill="url(#linear-gradient-4)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m209.39,33.11c3.57,0,7.55,0,10.94,1.24l1.9,3.88c-3.52-1.82-5.07-2.4-12.84-2.4h-66.88c-.61,0-.73-1.01-1.34-1.01s-1.72,1.01-2.33,1.01h-49.64c-.72-.58-1.48-.64-1.79-.67-.34-.03-1.58.78-2.77.67-7.18-.67-15.79-.43-22.12,0-1,.07-1.38.51-1.81.47-.53-.05-2.24-.38-2.8-.47-1.63-.25-4.24-.86-5.89-.86-1.48,0-2.03.86-3.51.86h-31.51c-7.77,0-9.32.58-12.84,2.4l1.9-3.88c3.39-1.24,7.36-1.24,10.94-1.24h192.37Z"
+              fill="url(#New_Gradient_Swatch_121)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m220.33,34.35c-3.39-1.24-7.36-1.24-10.94-1.24h-95.59c-1.84.24-5.04,1.44-5.3,0h-5.94c-.59.91-1.62.88-3.07,0H17.01c-3.57,0-7.55,0-10.94,1.24l2.07-3.38c2.64-.55,5.3-.59,8.87-.59h192.37c3.57,0,6.23.05,8.87.59l2.07,3.38h0Z"
+              fill="url(#radial-gradient-4)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m5.68,19.12c.73,3.97,1.55,7.94,2.46,11.86l-2.07,3.38c-1.24-5.02-2.31-10.12-3.24-15.24h2.85Z"
+              fill="url(#linear-gradient-5)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m2.83,19.12c.94,5.11,2,10.22,3.24,15.24l-1.9,3.88c-.59-2.23-1.17-4.62-1.74-7.14-.54-2.4-.18-4.77-1.58-7.5.11-.78.28-2.38.28-2.95,0-.06-.57-.91-1.13-1.53h2.83Z"
+              fill="url(#linear-gradient-6)"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m208.02,4.64c4.98-.03,9.6-.45,11.83-1.5l1.85-2.07-1.37,2.81c-3.39,1.24-7.36,1.24-10.94,1.24h-90.3l88.94-.48h0Z"
+              fill="#98d8e3"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m19.67,32.42c-4.94-.06-9.93-.2-12.87.74l-.73,1.19c3.39-1.24,7.36-1.24,10.94-1.24h58.03c-17.69-.22-35.37-.44-53.06-.67-.29-.26-.66-.49-.85-.66-.08-.07-.87.21-1.46.63h0Z"
+              fill="#73bdc8"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m206.73,32.42c4.94-.06,9.93-.2,12.87.74l.73,1.19c-3.39-1.24-7.36-1.24-10.94-1.24h-58.03l55.37-.7h0Z"
+              fill="#73bdc8"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m2.41,17.93c-.27.87-1,1.19-1.73,1.19h2.15c.81-4.45,1.73-8.89,2.76-13.27-.96,2.82-2.54,9.97-3.19,12.08h0Z"
+              fill="#98d8e3"
+              fill-rule="evenodd"
+            />
+            <path
+              d="m223.99,17.93c.27.87,1,1.19,1.73,1.19h-2.15c-.81-4.45-1.73-8.89-2.76-13.27.96,2.82,2.54,9.97,3.19,12.08h0Z"
+              fill="#98d8e3"
+              fill-rule="evenodd"
+            />
+          </g>
+        </g>
+        <!-- <text
+          id="Text"
+          transform="translate(56.04 23.86) scale(.95 1)"
+          fill="#fff"
+          font-family="OpenSans-Regular, 'Open Sans'"
+          font-size="13"
+          style="display: inline"
+        >
+          <tspan x="0" y="0">Experience Platform</tspan>
+        </text>
+        -->
+      </svg>

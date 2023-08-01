@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Container, Text } from '@chakra-ui/react';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
 import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
@@ -41,25 +41,19 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Box
-        w="100%"
-        mt={8}
-        mb={4}
-        p={8}
-        bg="#C8C8C8"
-        boxShadow="0 0 10px 0 rgba(0,0,0,.2), inset 0 0 200px hsla(0,0%,100%,.3)"
-        borderRadius="lg"
-        display="flex"
-        alignItems="center"
-        flexDirection="column"
-      >
-        {prompt?.bodyText && (
-          <Text>
-            <RichTextOutput content={prompt.bodyText} />
-          </Text>
-        )}
-        <Text fontSize="2xl">{prompt?.text}</Text>
-      </Box>
+      <Container variant={'questionPanel'} maxW="100%" height="370px" margin={0} color={'white'} paddingTop={50}>
+        <Box height={220} overflowY={'scroll'} marginLeft={55} marginRight={55} position={'relative'} marginTop={5}>
+          {prompt?.bodyText && (
+            <Text>
+              <RichTextOutput content={prompt.bodyText} />
+            </Text>
+          )}
+        </Box>
+
+        <Text fontSize="2xl" textAlign={'center'}>
+          {prompt?.text}
+        </Text>
+      </Container>
       {prompt?.options?.results != null && (
         <>
           {prompt?.optionType?.results[0].name === 'Checklist' && (

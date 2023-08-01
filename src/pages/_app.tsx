@@ -1,12 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { MantineProvider, MantineThemeOverride } from '@mantine/core';
+import { Analytics } from '@vercel/analytics/react';
+import fantasyTheme from 'chakra/theme/fantasy/Theme';
 import { GameInfoProvider } from 'components/ui';
 import { AppProps } from 'next/app';
+import { Fondamento } from 'next/font/google';
 import Head from 'next/head';
-import { Analytics } from '@vercel/analytics/react';
 
-
-const corporateTheme: MantineThemeOverride = {
+const mantineCorporateTheme: MantineThemeOverride = {
   colorScheme: 'light',
   colors: {
     sitecoreRed: [
@@ -43,17 +44,26 @@ const corporateTheme: MantineThemeOverride = {
   fontFamily: 'Avenir Next LT Pro, Roboto, sans-serif',
 };
 
+const fondamento = Fondamento({ weight: '400', subsets: ['latin'] });
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
+      <style jsx global>
+        {`
+          :root {
+            --font-fondamento: ${fondamento.style.fontFamily};
+          }
+        `}
+      </style>
       <Head>
         <title>Sitecore Migration Adventure</title>
         <link rel="icon" href={`/favicon.png`} />
       </Head>
       <Analytics />
       <GameInfoProvider>
-        <MantineProvider theme={corporateTheme}>
-          <ChakraProvider>
+        <MantineProvider theme={mantineCorporateTheme}>
+          <ChakraProvider theme={fantasyTheme}>
             <Component {...pageProps} />
           </ChakraProvider>
         </MantineProvider>
