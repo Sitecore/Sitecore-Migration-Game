@@ -3,6 +3,7 @@ import { avatarTheme } from './avatar';
 import { buttonTheme } from './button';
 import { containerTheme } from './container';
 import { headingTheme } from './headings';
+import { textTheme } from './text';
 
 const config: ThemeConfig = {
   useSystemColorMode: false,
@@ -17,7 +18,13 @@ const fantasyTheme = extendTheme({
     heading: 'var(--font-fondamento)',
     body: 'var(--font-fondamento)',
   },
-  components: { Button: buttonTheme, Container: containerTheme, Avatar: avatarTheme, Heading: headingTheme },
+  components: {
+    Button: buttonTheme,
+    Container: containerTheme,
+    Avatar: avatarTheme,
+    Heading: headingTheme,
+    Text: textTheme,
+  },
 });
 
 export default fantasyTheme;

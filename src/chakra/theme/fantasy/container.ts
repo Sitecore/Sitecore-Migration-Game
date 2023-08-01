@@ -9,7 +9,7 @@ export const containerTheme = defineStyleConfig({
       background: 'none',
       backgroundImage: '/fantasy/panel.svg',
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
+      backgroundSize: 'contain',
     },
     userProfilePicture: {
       background: 'none',

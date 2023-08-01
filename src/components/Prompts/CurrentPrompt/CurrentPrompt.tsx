@@ -41,8 +41,15 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Container variant={'questionPanel'} maxW="100%" height="370px" margin={0} color={'white'} paddingTop={50}>
-        <Box height={220} overflowY={'scroll'} marginLeft={55} marginRight={55} position={'relative'} marginTop={5}>
+      <Container variant={'questionPanel'} maxW="100%" height="450px" margin={0} color={'white'} paddingTop={50}>
+        <Box
+          height={'250px'}
+          overflowY={'scroll'}
+          marginLeft="60px"
+          marginRight="60px"
+          position={'relative'}
+          marginTop={'25px'}
+        >
           {prompt?.bodyText && (
             <Text>
               <RichTextOutput content={prompt.bodyText} />

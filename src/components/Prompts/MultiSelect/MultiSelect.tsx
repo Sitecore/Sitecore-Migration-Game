@@ -25,7 +25,9 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
     <>
       <Box w="100%" mt={8} mb={4} p={4} borderRadius="lg" display="flex" flexDirection="row">
         <VStack>
-          <Text fontSize="2xl">Select all that apply:</Text>
+          <Text fontSize="2xl" variant={'answerInstruction'}>
+            Select all that apply:
+          </Text>
           <Flex direction={'row'} wrap={'wrap'} w="100%" justifyContent={'center'}>
             {options.map((option: IOption) => (
               <>
