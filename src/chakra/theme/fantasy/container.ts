@@ -10,6 +10,7 @@ export const containerTheme = defineStyleConfig({
       backgroundImage: '/fantasy/panel.svg',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'contain',
+      fontFamily: 'var(--font-fondamento)',
     },
     userProfilePicture: {
       background: 'none',
@@ -19,6 +20,7 @@ export const containerTheme = defineStyleConfig({
       width: '259px',
       textAlign: 'center',
       paddingTop: '15px',
+      fontFamily: 'var(--font-fondamento)',
     },
     progressBar: {
       background: 'none',
@@ -29,6 +31,7 @@ export const containerTheme = defineStyleConfig({
       paddingRight: '10px',
       paddingTop: '6px',
       paddingBottom: '10px',
+      fontFamily: 'var(--font-fondamento)',
     },
   },
 });

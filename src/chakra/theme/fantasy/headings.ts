@@ -9,6 +9,7 @@ export const headingTheme = defineStyleConfig({
       background: 'none',
       backgroundImage: '/fantasy/banner.svg',
       backgroundRepeat: 'no-repeat',
+      fontFamily: 'var(--font-fondamento)',
       width: '270px',
       height: '270px',
       position: 'relative',

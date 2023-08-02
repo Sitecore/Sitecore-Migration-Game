@@ -7,6 +7,11 @@ export const textTheme = defineStyleConfig({
   variants: {
     answerInstruction: {
       color: 'white',
+      fontFamily: 'var(--font-fondamento)',
+    },
+    achievements: {
+      color: 'white',
+      fontFamily: 'var(--font-fondamento)',
     },
   },
 });
