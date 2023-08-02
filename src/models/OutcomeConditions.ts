@@ -26,6 +26,8 @@ export interface IXPFeaturesUsed {
   marketingAutomation: boolean;
   patternCards: boolean;
   sessionPersonalization: boolean;
+  customXDBFacets: boolean;
+  customAnalyticsDashboard: boolean;
 }
 
 export interface IXPHistoricalPersonalization {
@@ -130,6 +132,8 @@ export class OutcomeConditions {
       marketingAutomation: false,
       patternCards: false,
       sessionPersonalization: false,
+      customXDBFacets: false,
+      customAnalyticsDashboard: false,
     };
     this.historicalPersonalization = {
       last30days: true,
@@ -146,6 +150,14 @@ export class OutcomeConditions {
     if (gameInfoContext) {
       this.parseContext(gameInfoContext);
     }
+  }
+
+  /**
+   * Checks current answers to determine if the selections mean that Sitecore CDP would be needed
+   * @returns True if the selections made mean that XP is being used like Sitecore CDP
+   */
+  isCDP(): boolean {
+    return this.xpFeaturesUsed.customXDBFacets || this.xpFeaturesUsed.customAnalyticsDashboard;
   }
 
   /**
@@ -203,9 +215,13 @@ export class OutcomeConditions {
     }
 
     //If the customer is using more functionality than what is supported by XM Cloud, they will need Personalize.
-    //NOTE: We don't have a prompt yet to distinguish if the customer needs CDP instead/in addition
     if (this.isComplexPersonalization()) {
       products.push(TargetProduct.personalize);
+    }
+
+    //If the customer is using advanced XP features not supported by Personalize, then we need CDP
+    if (this.isCDP()) {
+      products.push(TargetProduct.cdp);
     }
 
     //If the customer is using marketing automation functionality, they will need Send
@@ -305,6 +321,8 @@ export class OutcomeConditions {
       this.xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
       this.xpFeaturesUsed.patternCards = xpFeatures.value.includes('patterncards');
       this.xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
+      this.xpFeaturesUsed.customXDBFacets = xpFeatures.value.includes('customxdbfacets');
+      this.xpFeaturesUsed.customAnalyticsDashboard = xpFeatures.value.includes('customanalyticsdashboards');
     }
   }
 
