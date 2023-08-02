@@ -1,5 +1,5 @@
 import { GameInfoContextType } from 'components/ui';
-import { IAnswer } from 'models';
+import { GameContextParser } from 'lib/GameContextParser';
 
 export interface IXCFeaturesUsed {
   carts: boolean;
@@ -57,18 +57,6 @@ export enum ExperienceEdgeOption {
   yes = 'yesexperienceedge',
   no = 'noexperienceedge',
   some = 'someexperienceedge',
-}
-
-export enum PromptMappings {
-  platform = 'introduction',
-  xpFeatures = 'xpfeatures',
-  desiredFramework = 'desiredframeworks',
-  securePages = 'securedpages',
-  existingFramework = 'existingframeworks',
-  experienceEdge = 'experienceedge',
-  xcFeatures = 'xcfeatures',
-  siteSearchUsed = 'sitesearch',
-  historicalPersonalization = 'historicalpersonalizationneeds',
 }
 
 export enum TargetProduct {
@@ -148,7 +136,8 @@ export class OutcomeConditions {
 
     //If a gameInfoContext was provided, initialize all data from the answers in the context
     if (gameInfoContext) {
-      this.parseContext(gameInfoContext);
+      const parser = new GameContextParser();
+      parser.parseContext(gameInfoContext, this);
     }
   }
 
@@ -235,186 +224,5 @@ export class OutcomeConditions {
     }
 
     return products;
-  }
-
-  /**
-   * Reads all the data from a GameInfoContextType and fills in all the properties, based on the prompts and answers.
-   * The boolean checks are most easily written/understood as answers to single prompts, so for more complex checks you should break down the question into single prompts and then combine
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext(gameInfoContext: GameInfoContextType) {
-    //Determine if the user selected XC as the product
-    this.isXC =
-      gameInfoContext.answers?.find(
-        (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xc')
-      ) != undefined;
-
-    //If XC was selected, parse the questions for the user's answers
-    if (this.isXC) {
-      this.parseContext_XCFeatures(gameInfoContext);
-    }
-
-    //Determine if the user selected XP as the product
-    this.isXP =
-      gameInfoContext.answers?.find(
-        (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xp')
-      ) != undefined;
-
-    //XC contains XP, so if the user answered XC or XP, then check for XP features
-    if (this.isXC || this.isXP) {
-      this.parseContext_XPFeatures(gameInfoContext);
-
-      //If after parsing we determine that historical personalization is used, check for what historical personalization they need
-      if (this.xpFeaturesUsed.historicalPersonalization) {
-        this.parseContext_HistoricalPersonalization(gameInfoContext);
-      }
-    }
-
-    //NOTE: For now, all paths assume XM functionality is in use (XC > XP > XM). If there is a need to specifically test for XM selection, then this boolean is used.
-    this.isXM =
-      gameInfoContext.answers?.find(
-        (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xm')
-      ) != undefined;
-
-    this.parseContext_ExistingFramework(gameInfoContext);
-    this.parseContext_DesiredFramework(gameInfoContext);
-    this.parseContext_SecuredPages(gameInfoContext);
-    this.parseContext_ExperienceEdge(gameInfoContext);
-    this.parseContext_SiteSearchUsed(gameInfoContext);
-  }
-
-  /**
-   * Read the XC Features information from a GameInfoContextType
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext_XCFeatures(gameInfoContext: GameInfoContextType) {
-    var xcFeatures = gameInfoContext.answers?.find((x: IAnswer) => x.promptQuestionId == PromptMappings.xcFeatures);
-    if (xcFeatures != undefined) {
-      this.xcFeaturesUsed.carts = xcFeatures.value.includes('xccarts');
-      this.xcFeaturesUsed.customerAccounts = xcFeatures.value.includes('xccustomeraccounts');
-      this.xcFeaturesUsed.fulfillments = xcFeatures.value.includes('xcfulfillments');
-      this.xcFeaturesUsed.giftCards = xcFeatures.value.includes('xcgiftcards');
-      this.xcFeaturesUsed.inventory = xcFeatures.value.includes('xcinventory');
-      this.xcFeaturesUsed.orders = xcFeatures.value.includes('xcorders');
-      this.xcFeaturesUsed.payment = xcFeatures.value.includes('xcpayment');
-      this.xcFeaturesUsed.productCatalog = xcFeatures.value.includes('xcproductcatalog');
-      this.xcFeaturesUsed.promotions = xcFeatures.value.includes('xcpromotions');
-      this.xcFeaturesUsed.rma = xcFeatures.value.includes('xcrma');
-      this.xcFeaturesUsed.shipping = xcFeatures.value.includes('xcshipping');
-    }
-  }
-
-  /**
-   * Read the XP Features information from a GameInfoContextType
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext_XPFeatures(gameInfoContext: GameInfoContextType) {
-    var xpFeatures = gameInfoContext.answers?.find((x: IAnswer) => x.promptQuestionId == PromptMappings.xpFeatures);
-    if (xpFeatures != undefined) {
-      this.xpFeaturesUsed.captureadditionalevents = xpFeatures.value.includes('captureadditionalevents');
-      this.xpFeaturesUsed.customrules = xpFeatures.value.includes('customrules');
-      this.xpFeaturesUsed.exm = xpFeatures.value.includes('exm');
-      this.xpFeaturesUsed.externalDataSystems = xpFeatures.value.includes('externaldatasystems');
-      this.xpFeaturesUsed.forms = xpFeatures.value.includes('forms');
-      this.xpFeaturesUsed.historicalPersonalization = xpFeatures.value.includes('historicalpersonalization');
-      this.xpFeaturesUsed.identityResolution = xpFeatures.value.includes('identityresolution');
-      this.xpFeaturesUsed.marketingAutomation = xpFeatures.value.includes('marketingautomation');
-      this.xpFeaturesUsed.patternCards = xpFeatures.value.includes('patterncards');
-      this.xpFeaturesUsed.sessionPersonalization = xpFeatures.value.includes('sessionpersonalization');
-      this.xpFeaturesUsed.customXDBFacets = xpFeatures.value.includes('customxdbfacets');
-      this.xpFeaturesUsed.customAnalyticsDashboard = xpFeatures.value.includes('customanalyticsdashboards');
-    }
-  }
-
-  /**
-   * Check for what type of historical personalization data retention is required
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext_HistoricalPersonalization(gameInfoContext: GameInfoContextType) {
-    var dataRetentionOptions = gameInfoContext.answers?.find(
-      (x: IAnswer) => x.promptQuestionId == PromptMappings.historicalPersonalization
-    );
-    if (dataRetentionOptions != undefined) {
-      this.historicalPersonalization.last30days = dataRetentionOptions.value.includes('historicalpersonalize30');
-      this.historicalPersonalization.last90days = dataRetentionOptions.value.includes('historicalpersonalize90');
-      this.historicalPersonalization.morethan90days = dataRetentionOptions.value.includes(
-        'historicalpersonalizemorethan90'
-      );
-    }
-  }
-
-  /**
-   * Determine which frameworks they have in their solution.
-   * Only checking for the ones that have content conditions, extend as needed.
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext_ExistingFramework(gameInfoContext: GameInfoContextType) {
-    var existingFrameworkOptions = gameInfoContext.answers?.find(
-      (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework
-    );
-    if (existingFrameworkOptions != undefined) {
-      this.existingFrameworks.netcore = existingFrameworkOptions.value.includes('netcore');
-    }
-  }
-
-  /**
-   * If they are on an outdated framework, determine which frameworks they want to move to.
-   * Only checking for the ones that have content conditions, extend as needed.
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext_DesiredFramework(gameInfoContext: GameInfoContextType) {
-    var desiredFrameworkOptions = gameInfoContext.answers?.find(
-      (x: IAnswer) => x.promptQuestionId == PromptMappings.desiredFramework
-    );
-    if (desiredFrameworkOptions != undefined) {
-      this.desiredFrameworks.netcore = desiredFrameworkOptions.value.includes('netcore');
-      this.desiredFrameworks.nextjs = desiredFrameworkOptions.value.includes('nextjs');
-    }
-  }
-
-  /**
-   * Check for what type of authentication/authorization is in the solution.
-   * Only checking for the ones that have content conditions, extend as needed.
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext_SecuredPages(gameInfoContext: GameInfoContextType) {
-    var securedPagesOptions = gameInfoContext.answers?.find(
-      (x: IAnswer) => x.promptQuestionId == PromptMappings.securePages
-    );
-    if (securedPagesOptions != undefined) {
-      this.securedPages.securityloginrequired = securedPagesOptions.value.includes('securityloginrequired');
-    }
-  }
-
-  /**
-   * Check if Experience Edge was implemented in the current solution.
-   * Defaults to 'no'.
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext_ExperienceEdge(gameInfoContext: GameInfoContextType) {
-    var experienceEdgeOptions = gameInfoContext.answers?.find(
-      (x: IAnswer) => x.promptQuestionId == PromptMappings.experienceEdge
-    );
-    if (experienceEdgeOptions != undefined) {
-      //Determine which value was selected. Default to 'no' if not matching to Yes or Some
-      if (experienceEdgeOptions.value.includes('yesexperienceedge')) this.experienceEdge = ExperienceEdgeOption.yes;
-      else if (experienceEdgeOptions.value.includes('someexperienceedge'))
-        this.experienceEdge = ExperienceEdgeOption.some;
-      else this.experienceEdge = ExperienceEdgeOption.no;
-    }
-  }
-
-  /**
-   * Check for what type of site search is in the solution.
-   * Only checking for the ones that have content conditions, extend as needed.
-   * @param gameInfoContext: This is the current context which contains the prompts and answers
-   */
-  parseContext_SiteSearchUsed(gameInfoContext: GameInfoContextType) {
-    var siteSearchUsedOptions = gameInfoContext.answers?.find(
-      (x: IAnswer) => x.promptQuestionId == PromptMappings.siteSearchUsed
-    );
-    if (siteSearchUsedOptions != undefined) {
-      this.siteSearchUsed.indexSearch = siteSearchUsedOptions.value.includes('search-index');
-    }
   }
 }
