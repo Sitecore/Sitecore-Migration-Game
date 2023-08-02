@@ -35,14 +35,14 @@ export const Navigation: FC<NavigationProps> = ({
               <HStack spacing={2}>
                 {showSaveButton && (
                   <Tooltip label="Save Your Result" aria-label="Save Your Result">
-                    <Button>
+                    <Button variant={'iconButton'}>
                       <Icon as={MdSave} fontSize={24} />
                     </Button>
                   </Tooltip>
                 )}
                 {showResetButton && (
                   <Tooltip label="Start Over" aria-label="Start Over">
-                    <Button onClick={() => Router.push('/')}>
+                    <Button onClick={() => Router.push('/')} variant={'iconButton'}>
                       <Icon as={MdCached} fontSize={24} />
                     </Button>
                   </Tooltip>

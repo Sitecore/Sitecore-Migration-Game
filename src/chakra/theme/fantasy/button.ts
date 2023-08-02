@@ -58,5 +58,19 @@ export const buttonTheme = defineStyleConfig({
       display: 'inline-block',
       color: 'white',
     },
+    iconButton: {
+      background: 'none',
+      backgroundImage: '/fantasy/icon-button-default.svg',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      verticalAlign: 'middle',
+      textAlign: 'center',
+      position: 'relative',
+      color: 'white',
+      _hover: {
+        backgroundImage: '/fantasy/icon-button-active.svg',
+      },
+    },
   },
 });
