@@ -44,9 +44,9 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
       <Container variant={'questionPanel'} maxW="100%" height="450px" margin={0} color={'white'} paddingTop={50}>
         <Box
           height={'250px'}
-          overflowY={'scroll'}
-          marginLeft="60px"
-          marginRight="60px"
+          overflowY={'auto'}
+          marginLeft="70px"
+          marginRight="70px"
           position={'relative'}
           marginTop={'25px'}
         >
@@ -57,7 +57,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
           )}
         </Box>
 
-        <Text fontSize="2xl" textAlign={'center'}>
+        <Text fontSize="2xl" textAlign={'center'} paddingLeft={'50px'} paddingRight={'50px'}>
           {prompt?.text}
         </Text>
       </Container>
