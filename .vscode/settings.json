@@ -3,6 +3,9 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#a2decb",
         "activityBar.background": "#a2decb",
@@ -23,4 +26,9 @@
         "titleBar.inactiveForeground": "#15202b99"
     },
     "peacock.color": "7dd0b6",
+    "cSpell.words": [
+        "Avenir",
+        "mantine",
+        "Mantine"
+    ],
 }

@@ -1,6 +1,7 @@
 fragment PromptDetails on Prompt {
   id
   name
+  questionid
   text
   bodyText
   theme {
@@ -35,7 +36,14 @@ fragment PromptDetails on Prompt {
   }
   disabled
   start
-  options {
+  background {
+    results {
+      id
+      fileUrl
+      fileName
+    }
+  }
+  options(first: 25) {
     results {
       ... on PromptOption {
         id

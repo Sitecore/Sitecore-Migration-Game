@@ -1,0 +1,41 @@
+fragment PersonaFragment on GamePersona {
+  id
+  name
+  personaImage {
+    results {
+      id
+      fileUrl
+      fileName
+    }
+  }
+  theme {
+    results {
+      ... on GameTheme {
+        id
+        name
+      }
+    }
+  }
+}
+
+query GetAllPersonasQuery {
+  allGamePersona {
+    results {
+      ...PersonaFragment
+    }
+  }
+}
+
+query GetPersonaByIdQuery($id: String!) {
+  gamePersona(id: $id) {
+    ...PersonaFragment
+  }
+}
+
+query GetPersonasByThemeIdQuery($id: ID!) {
+  allGamePersona(where: { theme: { gamePersona_ids: $id } }) {
+    results {
+      ...PersonaFragment
+    }
+  }
+}

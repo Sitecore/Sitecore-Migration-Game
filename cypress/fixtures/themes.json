@@ -1,0 +1,25 @@
+[
+  {
+    "id": "a5F4KpHzIkO1Re9iHmJjWA",
+    "name": "Fantasy Adventure",
+    "description": "Migrations can be fun! Take a journey through the fantasy world of the 5th Age. You will be guided through a maze of challenges that will help you find the scroll of Sitecore migration that will guide you and your party to saving the realm!",
+    "characterImage": {
+      "results": [
+        {
+          "id": "vMw9EsLFnkuUk7bATvTOJQ",
+          "fileUrl": "https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/7fd5f888bae34cc29cbf5c0e755dbeb1",
+          "fileName": ""
+        }
+      ]
+    },
+    "avatarGallery": {
+      "results": [
+        {
+          "id": "",
+          "fileUrl": "",
+          "fileName": ""
+        }
+      ]
+    }
+  }
+]

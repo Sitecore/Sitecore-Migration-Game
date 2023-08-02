@@ -4,9 +4,14 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.7.14",
-    "@emotion/react": "^11.10.6",
+    "@chakra-ui/icons": "^2.0.19",
+    "@chakra-ui/next-js": "^2.1.4",
+    "@chakra-ui/react": "^2.7.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@mantine/core": "^6.0.4",
     "@mantine/hooks": "^6.0.4",
+    "@mdx-js/react": "^2.3.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -31,6 +36,9 @@
     "@tiptap/extension-strike": "^2.0.3",
     "@tiptap/extension-text": "^2.0.3",
     "@tiptap/extension-underline": "^2.0.3",
+    "@vercel/analytics": "^1.0.1",
+    "cypress": "^12.17.2",
+    "framer-motion": "^10.12.18",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "graphql.macro": "^1.4.2",
@@ -39,6 +47,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "4.8.0",
+    "react-lite-youtube-embed": "^2.3.52",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -46,19 +55,16 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.16",
     "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11"
+    "@types/react-dom": "^18.0.11",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.41.0"
   },
   "scripts": {
     "dev": "next dev",
+    "cypress": "concurrently --kill-others \"npm run dev\" \"npx cypress open\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [

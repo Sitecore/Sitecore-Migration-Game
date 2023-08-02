@@ -1,20 +1,34 @@
 import { IOutcome, IResult } from 'models';
+import { GetOutcomeByIdQuery, GetOutcomeByThemeIdQuery } from '../GraphQL/Queries/Outcome.gql';
 import { chOneService } from './CHOneService';
-import { GetOutcomeByAnswersQuery } from '../GraphQL/Queries/Outcome.gql';
 
 export const OutcomeService = () => {
-  const GetOutcomeByOptionFilter = async (answers: string[]) => {
-    // Add default option to answers array
-    answers.push('OaQrNE9ZZ0aqnmxmHd_nrw');
-
-    const { data, error } = await chOneService().query({
-      query: GetOutcomeByAnswersQuery,
-      variables: { answers: answers },
+  const GetOutcomeById = async (gameOutcomeId: string): Promise<IOutcome | undefined> => {
+    const { error, data } = await chOneService().query({
+      query: GetOutcomeByIdQuery,
+      variables: { id: gameOutcomeId },
     });
 
     if (error) {
       console.log(error);
-      return null;
+      return undefined;
+    }
+
+    const results = data?.gameOutcome as IOutcome;
+
+    return results;
+  };
+
+  const GetOutcomeByTheme = async (themeId: string): Promise<IResult<IOutcome[]> | undefined> => {
+    const { error, data } = await chOneService().query({
+      query: GetOutcomeByThemeIdQuery,
+      variables: { id: themeId },
+    });
+
+    if (error) {
+      console.log(error);
+
+      return undefined;
     }
 
     const results = data?.allGameOutcome as IResult<IOutcome[]>;
@@ -22,5 +36,5 @@ export const OutcomeService = () => {
     return results;
   };
 
-  return { GetOutcomeByOptionFilter };
+  return { GetOutcomeById, GetOutcomeByTheme };
 };

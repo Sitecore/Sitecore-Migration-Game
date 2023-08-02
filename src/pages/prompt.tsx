@@ -1,13 +1,11 @@
-import { Container } from '@mantine/core';
-import { Navigation } from 'components/Navigation/Navigation';
-import { PromptPanel } from 'components/Panels/PromptPanel';
+import { PromptPanel } from 'components/Prompts';
+import { Layout } from 'components/ui';
 
 const PromptPage = () => {
   return (
-    <Container my="sm" size="sm" className="App">
-      <Navigation />
+    <Layout showSaveButton={false}>
       <PromptPanel />
-    </Container>
+    </Layout>
   );
 };
 

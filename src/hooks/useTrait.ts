@@ -1,7 +1,12 @@
 import { useState } from 'react';
 
-export const useTrait = <T>(initialValue: T) => {
-  const [trait, updateTrait] = useState<T>(initialValue);
+export interface ITrait<T> {
+  get: () => T;
+  set: (value: T) => T;
+}
+
+export const useTrait = <T>(initialValue?: T) => {
+  const [trait, updateTrait] = useState<T>(initialValue ?? ({} as T));
 
   let current = trait;
 
