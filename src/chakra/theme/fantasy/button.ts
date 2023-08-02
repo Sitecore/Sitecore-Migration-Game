@@ -14,7 +14,7 @@ export const buttonTheme = defineStyleConfig({
       verticalAlign: 'middle',
       textAlign: 'center',
       width: '300px',
-      fontSize: '18px',
+      fontSize: '16px',
       paddingTop: '2px',
       marginBottom: '10px',
       display: 'inline-block',
