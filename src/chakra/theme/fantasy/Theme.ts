@@ -5,6 +5,7 @@ import { containerTheme } from './container';
 import { headingTheme } from './headings';
 import { progressTheme } from './progress';
 import { textTheme } from './text';
+import { tooltipTheme } from './tooltip';
 
 const config: ThemeConfig = {
   useSystemColorMode: false,
@@ -17,7 +18,7 @@ const fantasyTheme = extendTheme({
   baseStyle: {},
   fonts: {
     heading: 'var(--font-fondamento)',
-    body: 'var(--font-fondamento)',
+    //body: 'var(--font-fondamento)',
   },
   components: {
     Button: buttonTheme,
@@ -26,6 +27,7 @@ const fantasyTheme = extendTheme({
     Heading: headingTheme,
     Text: textTheme,
     Progress: progressTheme,
+    Tooltip: tooltipTheme,
   },
 });
 
