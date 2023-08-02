@@ -5,7 +5,6 @@ import { ExperienceEdgeOption, OutcomeConditions } from 'models/OutcomeCondition
 export class GameContextParser {
   /**
    * Reads all the data from a GameInfoContextType and fills in all the properties onto the outcome conditions, based on the prompts and answers.
-   * The boolean checks are most easily written/understood as answers to single prompts, so for more complex checks you should break down the question into single prompts and then combine
    * @param gameInfoContext: This is the current context which contains the prompts and answers
    * @param outcomeConditions: This is where the results should be stored
    */
@@ -16,7 +15,7 @@ export class GameContextParser {
         (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xc')
       ) != undefined;
 
-    //If XC was selected, parse the questions for the user's answers
+    //If XC was selected, parse the XC questions for the user's answers
     if (outcomeConditions.isXC) {
       this.parseContext_XCFeatures(gameInfoContext, outcomeConditions);
     }
@@ -37,7 +36,7 @@ export class GameContextParser {
       }
     }
 
-    //NOTE: For now, all paths assume XM functionality is in use (XC > XP > XM). If there is a need to specifically test for XM selection, then this boolean is used.
+    //NOTE: For now, all paths assume XM functionality is in use (XC > XP > XM). If there is a need to specifically test that the user selected XM, then this boolean is used.
     outcomeConditions.isXM =
       gameInfoContext.answers?.find(
         (x: IAnswer) => x.promptQuestionId == PromptMappings.platform && x.value.includes('xm')
