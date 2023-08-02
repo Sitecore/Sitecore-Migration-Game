@@ -41,7 +41,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Container variant={'questionPanel'} maxW="100%" height="450px" margin={0} color={'white'} paddingTop={50}>
+      <Container variant={'questionPanel'} maxW="100%" height="450px" margin={0} paddingTop={50}>
         <Box
           height={'250px'}
           overflowY={'auto'}
