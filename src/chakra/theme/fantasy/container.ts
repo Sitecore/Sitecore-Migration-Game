@@ -20,5 +20,15 @@ export const containerTheme = defineStyleConfig({
       textAlign: 'center',
       paddingTop: '15px',
     },
+    progressBar: {
+      background: 'none',
+      backgroundImage: '/fantasy/progress.svg',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      paddingLeft: '10px',
+      paddingRight: '10px',
+      paddingTop: '6px',
+      paddingBottom: '10px',
+    },
   },
 });

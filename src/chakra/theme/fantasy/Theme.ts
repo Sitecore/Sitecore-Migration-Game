@@ -3,6 +3,7 @@ import { avatarTheme } from './avatar';
 import { buttonTheme } from './button';
 import { containerTheme } from './container';
 import { headingTheme } from './headings';
+import { progressTheme } from './progress';
 import { textTheme } from './text';
 
 const config: ThemeConfig = {
@@ -24,6 +25,7 @@ const fantasyTheme = extendTheme({
     Avatar: avatarTheme,
     Heading: headingTheme,
     Text: textTheme,
+    Progress: progressTheme,
   },
 });
 
