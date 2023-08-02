@@ -11,6 +11,7 @@ export const containerTheme = defineStyleConfig({
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'contain',
       fontFamily: 'var(--font-fondamento)',
+      color: 'white',
     },
     userProfilePicture: {
       background: 'none',
@@ -31,7 +32,6 @@ export const containerTheme = defineStyleConfig({
       paddingRight: '10px',
       paddingTop: '6px',
       paddingBottom: '10px',
-      fontFamily: 'var(--font-fondamento)',
     },
   },
 });
