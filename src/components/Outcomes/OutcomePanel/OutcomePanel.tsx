@@ -1,7 +1,8 @@
 import { Box, Center, Stack } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { OutcomeGenerator } from 'components/Outcomes';
 import { PreviousAnswers } from 'components/Prompts';
-import { HexagonCollection, TwoColumnLayout, useGameInfoContext } from 'components/ui';
+import { HexagonCollection, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import router from 'next/router';
 import { FC } from 'react';

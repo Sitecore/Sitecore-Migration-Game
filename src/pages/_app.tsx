@@ -1,10 +1,9 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { MantineProvider, MantineThemeOverride } from '@mantine/core';
-import { GameInfoProvider } from 'components/ui';
+import { Analytics } from '@vercel/analytics/react';
+import { EngageTrackerProvider, GameInfoProvider } from 'components/Contexts';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Analytics } from '@vercel/analytics/react';
-
 
 const corporateTheme: MantineThemeOverride = {
   colorScheme: 'light',
@@ -51,13 +50,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" href={`/favicon.png`} />
       </Head>
       <Analytics />
-      <GameInfoProvider>
-        <MantineProvider theme={corporateTheme}>
-          <ChakraProvider>
-            <Component {...pageProps} />
-          </ChakraProvider>
-        </MantineProvider>
-      </GameInfoProvider>
+      <EngageTrackerProvider>
+        <GameInfoProvider>
+          <MantineProvider theme={corporateTheme}>
+            <ChakraProvider>
+              <Component {...pageProps} />
+            </ChakraProvider>
+          </MantineProvider>
+        </GameInfoProvider>
+      </EngageTrackerProvider>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { Box, Button, Collapse, Divider, Group, List, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { useGameInfoContext } from 'components/ui';
+import { useGameInfoContext } from 'components/Contexts';
 import { IAnswer } from 'models';
 import { FC } from 'react';
 

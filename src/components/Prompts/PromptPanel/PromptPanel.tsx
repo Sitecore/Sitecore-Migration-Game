@@ -1,7 +1,8 @@
 import { Center, Stack } from '@chakra-ui/react';
 import { useDisclosure } from '@mantine/hooks';
+import { useGameInfoContext } from 'components/Contexts';
 import { CurrentPrompt } from 'components/Prompts';
-import { HexagonCollection, TwoColumnLayout, useGameInfoContext } from 'components/ui';
+import { HexagonCollection, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { GetNextPrompts } from 'lib/NextPrompts';
 import { PromptService } from 'lib/PromptService';

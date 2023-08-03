@@ -1,6 +1,8 @@
 import { useBoolean } from '@chakra-ui/react';
 import { Button, Center, Paper, createStyles, rem } from '@mantine/core';
-import { AvatarGallery, Loading, PersonaList, ThemeList, useGameInfoContext } from 'components/ui';
+import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
+
+import { AvatarGallery, Loading, PersonaList, ThemeList } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
@@ -31,8 +33,8 @@ const useStyles = createStyles((theme) => ({
   },
 
   avatarImage: {
-    maxHeight: "315px",
-    maxWidth: "315px",
+    maxHeight: '315px',
+    maxWidth: '315px',
   },
 
   label: {
@@ -46,6 +48,7 @@ const useStyles = createStyles((theme) => ({
 export const Settings: FC<SettingsProps> = () => {
   //#region State/Props
   const gameInfoContext = useGameInfoContext();
+  const tracker = useEngageTracker();
   const { classes } = useStyles();
   const [showCharacterOptions, setShowCharacterOptions] = useState<Boolean>(false);
   const [themes, setThemes] = useState<ITheme[] | undefined>();
@@ -67,6 +70,8 @@ export const Settings: FC<SettingsProps> = () => {
     if (data?.results !== undefined) {
       setThemes(data.results);
     }
+
+    tracker.TrackPageView('hello');
 
     setLoading.off;
   }, []);

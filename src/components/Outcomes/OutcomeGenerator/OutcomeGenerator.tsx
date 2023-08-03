@@ -1,6 +1,7 @@
 import { List, SimpleGrid, Text, Title } from '@mantine/core';
+import { useGameInfoContext } from 'components/Contexts';
 import { ConditionalResponse } from 'components/Outcomes';
-import { LinkCard, RichTextOutput, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
+import { LinkCard, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { FC } from 'react';
 
