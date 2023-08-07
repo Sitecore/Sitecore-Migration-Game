@@ -17,7 +17,7 @@ const fantasyTheme = extendTheme({
   config,
   baseStyle: {},
   fonts: {
-    heading: 'var(--font-fondamento)',
+    //heading: 'var(--font-fondamento)',
     //body: 'var(--font-fondamento)',
   },
   components: {

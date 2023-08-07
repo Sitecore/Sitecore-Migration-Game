@@ -76,5 +76,45 @@ export const buttonTheme = defineStyleConfig({
         backgroundImage: '/fantasy/icon-button-active.svg',
       },
     },
+    avatar: {
+      _hover: {
+        boxShadow: '0 0 25px 5px #5548D9',
+      },
+    },
+    avatarSelected: {
+      backgroundColor: 'transparent',
+      boxShadow: '0 0 25px 5px #5548D9',
+      //border: '5px solid red',
+    },
+    role: {
+      background: '#5548D9',
+      color: '#ffffff',
+      _hover: {
+        boxShadow: '0 0 5px 5px #5548D9',
+      },
+    },
+    roleSelected: {
+      backgroundColor: 'transparent',
+      boxShadow: '0 0 25px 5px #5548D9',
+      //border: '5px solid red',
+    },
+    continue: {
+      transition: 'all .4s ease-in-out',
+      MozTransition: 'all .4s ease-in-out',
+      WebkitTransition: 'all .4s ease-in-out',
+      OTransition: 'all .4s ease-in-out',
+      backgroundImage: 'linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376)',
+      backgroundSize: '300% 100%',
+      boxShadow: '0 4px 15px 0 rgba(45, 54, 65, 0.75)',
+      color: '#ffffff',
+      borderRadius: '5px',
+      _hover: {
+        backgroundPosition: '100% 0',
+        transition: 'all .4s ease-in-out',
+        MozTransition: 'all .4s ease-in-out',
+        WebkitTransition: 'all .4s ease-in-out',
+        OTransition: 'all .4s ease-in-out',
+      },
+    },
   },
 });

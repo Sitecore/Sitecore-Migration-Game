@@ -1,21 +1,21 @@
 import { Center, Stack } from '@chakra-ui/react';
-import { useDisclosure } from '@mantine/hooks';
 import { CurrentPrompt } from 'components/Prompts';
-import { HexagonCollection, TwoColumnLayout, useGameInfoContext } from 'components/ui';
+import { HexagonCollection, LayoutProps, TwoColumnLayout, useGameInfoContext } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { GetNextPrompts } from 'lib/NextPrompts';
 import { PromptService } from 'lib/PromptService';
+
 import { IAnswer, IPrompt } from 'models';
 import router from 'next/router';
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-interface PromptPanelProps {}
+interface PromptPanelProps extends LayoutProps {}
 
-export const PromptPanel: FC<PromptPanelProps> = () => {
+export const PromptPanel: FC<PromptPanelProps> = (props) => {
   let gameInfoContext = useGameInfoContext();
-  const [loading, loadingActions] = useDisclosure(true);
-  const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
-  const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
+  const [loading, setLoading] = useState(true);
+  const [prompts, setPrompts] = useState<IPrompt[]>([]);
+  const [currentPrompt, setCurrentPrompt] = useState<IPrompt | undefined>();
 
   const promptService = PromptService();
 
@@ -39,12 +39,12 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   }, []);
 
   const initializeStartPrompt = async () => {
-    loadingActions.open();
+    setLoading(true);
     await preloadPrompts();
 
     gameInfoContext.resetAnswers();
     gameInfoContext.questionsBank.set([]);
-    loadingActions.close();
+    setLoading(false);
   };
 
   const preloadPrompts = async () => {
@@ -109,6 +109,9 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
   return (
     <TwoColumnLayout
+      showProgressBar={props.showProgressBar}
+      showResetButton={props.showResetButton}
+      showSaveButton={props.showSaveButton}
       leftColumn={
         <Center>
           <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>

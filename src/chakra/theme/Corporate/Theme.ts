@@ -1,6 +1,7 @@
 import { ThemeConfig, extendTheme } from '@chakra-ui/react';
 import { buttonTheme } from './button';
 import { containerTheme } from './container';
+import { headingTheme } from './headings';
 import { progressTheme } from './progress';
 import { textTheme } from './text';
 
@@ -173,7 +174,13 @@ const corporateTheme = extendTheme({
   config,
   baseStyle: {},
   colors,
-  components: { Button: buttonTheme, Container: containerTheme, Text: textTheme, Progress: progressTheme },
+  components: {
+    Button: buttonTheme,
+    Container: containerTheme,
+    Text: textTheme,
+    Progress: progressTheme,
+    Heading: headingTheme,
+  },
 });
 
 export default corporateTheme;

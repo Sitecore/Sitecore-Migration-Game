@@ -1,4 +1,4 @@
-import { Avatar, Badge, Grid, Group, Text } from '@mantine/core';
+import { Avatar, AvatarGroup, Badge, Grid, GridItem, Text } from '@chakra-ui/react';
 import { IPrompt } from 'models';
 import { FC } from 'react';
 import { useGameInfoContext } from '..';
@@ -12,8 +12,8 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = fal
   const gameInfoContext = useGameInfoContext();
 
   return (
-    <Grid justify="flex-end">
-      <Grid.Col span={6}>
+    <Grid>
+      <GridItem colSpan={6}>
         {isSolution ? (
           <>
             <Badge color="green">Solution</Badge>
@@ -25,35 +25,32 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = fal
             </Badge>
           </>
         )}
-      </Grid.Col>
-      <Grid.Col span={6}>
-        <Group position="right" spacing="xs">
+      </GridItem>
+      <GridItem colSpan={6}>
+        
           {gameInfoContext.theme?.characterImage?.results !== undefined && (
-            <Group>
-              <Avatar
-                radius="xl"
+          <AvatarGroup spacing="xs">
+            <Avatar
+                size={'xl'}
                 src={gameInfoContext.theme.characterImage!.results[0].fileUrl}
-                alt={gameInfoContext.theme.characterImage!.results[0].fileName ?? ''}
+                title={gameInfoContext.theme.characterImage!.results[0].fileName ?? ''}
               />
               <div style={{ flex: 1 }}>
-                <Text size="sm" weight={500}>
-                  {gameInfoContext.theme.name}
-                </Text>
-              </div>
-            </Group>
+                <Text>{gameInfoContext.theme.name}</Text>
+            </div>
+            </AvatarGroup>
           )}
           {gameInfoContext.persona !== undefined && gameInfoContext.avatar !== undefined && (
-            <Group position="right" spacing="xs">
-              <Avatar radius="xl" src={gameInfoContext.avatar?.fileUrl} alt={gameInfoContext.avatar?.fileName ?? ''} />
+            <AvatarGroup spacing="xs">
+              <Avatar size="xl" src={gameInfoContext.avatar?.fileUrl} title={gameInfoContext.avatar?.fileName ?? ''} />
               <div style={{ flex: 1 }}>
-                <Text size="sm" weight={500}>
+                <Text size="sm" fontWeight={500}>
                   {gameInfoContext.persona.name}
                 </Text>
               </div>
-            </Group>
+              </AvatarGroup>
           )}
-        </Group>
-      </Grid.Col>
+      </GridItem>
     </Grid>
   );
 };

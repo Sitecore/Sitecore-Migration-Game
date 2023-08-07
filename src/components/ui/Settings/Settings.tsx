@@ -1,5 +1,4 @@
-import { useBoolean } from '@chakra-ui/react';
-import { Button, Center, Paper, createStyles, rem } from '@mantine/core';
+import { Button, Center, Container, useBoolean } from '@chakra-ui/react';
 import { AvatarGallery, Loading, PersonaList, ThemeList, useGameInfoContext } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
@@ -10,43 +9,11 @@ import { FC, useCallback, useEffect, useState } from 'react';
 
 interface SettingsProps {}
 
-//#region Styles
-const useStyles = createStyles((theme) => ({
-  card: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-  },
-  highlightCard: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-    boxShadow: '0 0 25px 5px #5548D9',
-  },
-  section: {
-    borderBottom: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]}`,
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-    paddingBottom: theme.spacing.md,
-  },
-
-  like: {
-    color: theme.colors.red[6],
-  },
-
-  avatarImage: {
-    maxHeight: "315px",
-    maxWidth: "315px",
-  },
-
-  label: {
-    textTransform: 'uppercase',
-    fontSize: theme.fontSizes.xs,
-    fontWeight: 700,
-  },
-}));
 //#endregion
 
 export const Settings: FC<SettingsProps> = () => {
   //#region State/Props
   const gameInfoContext = useGameInfoContext();
-  const { classes } = useStyles();
   const [showCharacterOptions, setShowCharacterOptions] = useState<Boolean>(false);
   const [themes, setThemes] = useState<ITheme[] | undefined>();
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
@@ -121,7 +88,7 @@ export const Settings: FC<SettingsProps> = () => {
   //#endregion
 
   return (
-    <Paper p="md" shadow="lg" withBorder>
+    <Container variant={'settingsPanel'} w="100%" maxWidth={'1136px'} rounded={'lg'} padding={10}>
       {loading ? (
         <>
           <Center>
@@ -136,18 +103,18 @@ export const Settings: FC<SettingsProps> = () => {
                 personas={personas}
                 toggledButtonId={toggledButton}
                 handlePersonaChange={handlePersonaChange}
-                classStyles={classes}
+                classStyles={null}
               />
               <AvatarGallery
                 avatars={avatars}
                 toggledAvatarId={toggledAvatar?.id}
                 handleAvatarChange={handleAvatarChange}
-                classStyles={classes}
+                classStyles={null}
               />
               <Center>
                 <Button
-                  radius="md"
-                  style={{ flex: 1 }}
+                  margin={10}
+                  variant={'continue'}
                   disabled={toggledAvatar == undefined || toggledButton == undefined}
                   onClick={() => handleStartGame()}
                 >
@@ -157,11 +124,11 @@ export const Settings: FC<SettingsProps> = () => {
             </>
           ) : (
             <>
-              <ThemeList themes={themes} handleThemeChange={handleSettingChange} classStyles={classes} />
+              <ThemeList themes={themes} handleThemeChange={handleSettingChange} classStyles={null} />
             </>
           )}
         </>
       )}
-    </Paper>
+    </Container>
   );
 };

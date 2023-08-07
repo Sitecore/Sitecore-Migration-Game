@@ -1,5 +1,4 @@
-import { Box } from '@chakra-ui/react';
-import { Card, Image, SimpleGrid, Title, UnstyledButton } from '@mantine/core';
+import { Box, Button, Center, Heading, SimpleGrid } from '@chakra-ui/react';
 import { IImage } from 'models';
 import { FC } from 'react';
 
@@ -10,38 +9,32 @@ interface AvatarGalleryProps {
   classStyles: any;
 }
 
-export const AvatarGallery: FC<AvatarGalleryProps> = ({
-  avatars,
-  toggledAvatarId,
-  handleAvatarChange,
-  classStyles,
-}) => {
+export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId, handleAvatarChange }) => {
   return (
     <>
-      <Box mb="5px">
-        <Title order={3}>Select Your Avatar:</Title>
-        <SimpleGrid mt={10} cols={5} breakpoints={[
-          { maxWidth: '56rem', cols: 5, spacing: 'sm' },
-          { maxWidth: '48rem', cols: 3, spacing: 'sm' },
-          { maxWidth: '36rem', cols: 2, spacing: 'sm' },]}>
+      <Box margin={10}>
+        <Center>
+          <Heading variant={'gameTitle'} order={3}>
+            Select Your Avatar:
+          </Heading>
+        </Center>
+        <SimpleGrid mt={10} minChildWidth="120px" spacing="20px">
           {avatars?.map((avatar, i) => {
             const isToggled = avatar.id === toggledAvatarId;
             return (
-              <Card
-                radius="md"
-                p="md"
-                className={isToggled ? classStyles.highlightCard : classStyles.card}
-                key={i}
-                shadow={isToggled ? 'xl' : ''}
-              >
+              <Box>
                 {avatar !== undefined && (
-                  <Card.Section>
-                    <UnstyledButton key={avatar.id} onClick={() => handleAvatarChange(avatar)}>
-                      <Image className={classStyles.avatarImage} src={avatar.fileUrl} alt={avatar.fileName ?? ''} />
-                    </UnstyledButton>
-                  </Card.Section>
+                  <Button
+                    key={avatar.id}
+                    onClick={() => handleAvatarChange(avatar)}
+                    backgroundImage={avatar.fileUrl}
+                    backgroundSize={'contain'}
+                    width={100}
+                    height={100}
+                    variant={isToggled ? 'avatarSelected' : 'avatar'}
+                  ></Button>
                 )}
-              </Card>
+              </Box>
             );
           })}
         </SimpleGrid>

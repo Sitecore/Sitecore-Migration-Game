@@ -1,4 +1,4 @@
-import { List, SimpleGrid, Text, Title } from '@mantine/core';
+import { Heading, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
 import { ConditionalResponse } from 'components/Outcomes';
 import { LinkCard, RichTextOutput, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
@@ -23,19 +23,19 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
   return (
     <>
-      <Title order={2}>{gameInfoContext.outcome.title}</Title>
+      <Heading>{gameInfoContext.outcome.title}</Heading>
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
       </Text>
       {requiredProducts && requiredProducts.length > 0 && (
-        <List size="lg" withPadding pb="20px">
+        <List size="lg" pb="20px">
           {requiredProducts.map((product: TargetProduct) => (
-            <List.Item>{product}</List.Item>
+            <ListItem>{product}</ListItem>
           ))}
         </List>
       )}
 
-      <Title order={2}>{gameInfoContext.outcome.videoTitle}</Title>
+      <Heading>{gameInfoContext.outcome.videoTitle}</Heading>
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.videoIntro} />
       </Text>
@@ -44,21 +44,21 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <RichTextOutput content={gameInfoContext.outcome.guidesIntro} />
       </Text>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <Title order={2}>Experience Commerce (XC) migration</Title>
+        <Heading>Experience Commerce (XC) migration</Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP}>
-        <Title order={2}>Experience Platform (XP) migration</Title>
+        <Heading>Experience Platform (XP) migration</Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXM}>
-        <Title order={2}>Experience Manager (XM) migration</Title>
+        <Heading>Experience Manager (XM) migration</Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <Title order={3}>{gameInfoContext.outcome.xcFeaturesTitle}</Title>
+        <Heading>{gameInfoContext.outcome.xcFeaturesTitle}</Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.xcFeaturesIntro} />
         </Text>
 
-        <SimpleGrid cols={3} spacing="md">
+        <SimpleGrid columns={3} spacing="md">
           <LinkCard
             link="https://community.sitecore.com/community?id=community_blog&sys_id=89f8d1391b416154e55241dde54bcb88"
             title="Transitioning from Sitecore XC to OrderCloud: API Access"
@@ -136,12 +136,12 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </SimpleGrid>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP || outcomeConditions.isXC}>
-        <Title order={3}>{gameInfoContext.outcome.xpFeaturesTitle}</Title>
+        <Heading>{gameInfoContext.outcome.xpFeaturesTitle}</Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.xpFeaturesIntro} />
         </Text>
 
-        <SimpleGrid cols={3} spacing="md">
+        <SimpleGrid columns={3} spacing="md">
           <ConditionalResponse condition={outcomeConditions.isSimplePersonalization()}>
             <LinkCard
               link="https://jasonstcyr.com/2023/05/31/sitecore-architects-guide-to-saas-migration-classic-xp-with-simple-personalization/"
@@ -168,11 +168,11 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           />
         </SimpleGrid>
       </ConditionalResponse>
-      <Title order={3}>{gameInfoContext.outcome.xmFeaturesTitle}</Title>
+      <Heading>{gameInfoContext.outcome.xmFeaturesTitle}</Heading>
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
       </Text>
-      <SimpleGrid cols={3} spacing="md">
+      <SimpleGrid columns={3} spacing="md">
         <ConditionalResponse
           condition={
             outcomeConditions.isXM &&
@@ -195,11 +195,11 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </ConditionalResponse>
       </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
-        <Title order={4}>{gameInfoContext.outcome.aspnetHeadlessTitle}</Title>
+        <Heading>{gameInfoContext.outcome.aspnetHeadlessTitle}</Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.aspnetHeadlessIntro} />
         </Text>
-        <SimpleGrid cols={3} spacing="md">
+        <SimpleGrid columns={3} spacing="md">
           <LinkCard
             link="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1"
             title="Migrating the Sitecore MVP site to XM Cloud – Part 1"

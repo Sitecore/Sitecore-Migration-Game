@@ -1,12 +1,16 @@
 import { Box, Center, Grid, GridItem } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Loading } from '../Loading/Loading';
+import { Navigation } from '../Navigation/Navigation';
 
 interface TwoColumnLayoutProps {
   leftColumn: React.ReactNode;
   rightColumn: React.ReactNode;
   backgroundImage?: string;
   loading?: boolean;
+  showProgressBar?: boolean;
+  showResetButton?: boolean;
+  showSaveButton?: boolean;
 }
 
 export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
@@ -14,10 +18,13 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
   rightColumn,
   backgroundImage = '/corporate/background.jpg',
   loading = false,
+  showProgressBar = true,
+  showResetButton = true,
+  showSaveButton = true,
 }) => {
   return (
     <Box
-      minH="calc(100vh - 88px)"
+      minH="100vh"
       w="full"
       backgroundImage={backgroundImage}
       backgroundAttachment="fixed"
@@ -25,7 +32,7 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
       backgroundRepeat="no-repeat"
       paddingX={4}
     >
-      {' '}
+      <Navigation showProgressBar={showProgressBar} showSaveButton={showSaveButton} showResetButton={showResetButton} />{' '}
       <Center>
         {loading ? (
           <Box mt={10} mb={10}>

@@ -1,4 +1,4 @@
-import { Box, Button, Center, SimpleGrid, Title } from '@mantine/core';
+import { Box, Button, ButtonGroup, Center, Heading, SimpleGrid } from '@chakra-ui/react';
 import { IPersona } from 'models';
 import { FC } from 'react';
 
@@ -13,30 +13,29 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
   return (
     <>
       <Box>
-        <Title order={3}>Select Your Role:</Title>
         <Center>
-          <Button.Group>
-            <SimpleGrid mt={10} cols={4} breakpoints={[
-              { maxWidth: '48rem', cols: 2, spacing: 'sm' },
-              { maxWidth: '36rem', cols: 1, spacing: 'sm' },]}>
+          <Heading variant={'gameTitle'}>Select Your Role:</Heading>
+        </Center>
+        <Center>
+          <SimpleGrid mt={10}>
+            <ButtonGroup variant="outline" spacing="6">
               {personas?.map((p, i) => {
                 const isToggled = p.id === toggledButtonId;
                 return (
                   <Button
                     key={p.id}
-                    radius="md"
                     style={{ flex: 1 }}
-                    color={isToggled ? '#333378' : 'blue'}
                     onClick={() => {
                       handlePersonaChange(p.id);
                     }}
+                    variant={isToggled ? 'roleSelected' : 'role'}
                   >
                     {p.name}
                   </Button>
                 );
               })}
-            </SimpleGrid>
-          </Button.Group>
+            </ButtonGroup>
+          </SimpleGrid>
         </Center>
       </Box>
     </>
