@@ -22,7 +22,6 @@ export const EngageTrackerProvider: FC<EngageTrackerProviderProps> = ({ children
       pointOfSale: process.env.SITECORE_CDP_POS || '',
       cookieExpiryDays: 365,
       forceServerCookieMode: false,
-      webPersonalization: true,
     });
 
     engageTracker.current = tracker;

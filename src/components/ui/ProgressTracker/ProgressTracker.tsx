@@ -1,6 +1,6 @@
 import { Box, Progress } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { FC, useCallback, useEffect, useState } from 'react';
-import { useGameInfoContext } from '..';
 
 interface ProgressTrackerProps {}
 
