@@ -2,6 +2,7 @@ fragment Theme on GameTheme {
   id
   name
   description
+  chakraTheme
   characterImage {
     results {
       id
