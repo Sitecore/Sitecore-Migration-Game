@@ -87,6 +87,9 @@ export const Settings: FC<SettingsProps> = () => {
   };
   //#endregion
 
+  console.log('avatar: ' + toggledAvatar);
+  console.log('button: ' + toggledButton);
+
   return (
     <Container variant={'settingsPanel'} w="100%" maxWidth={'1136px'} rounded={'lg'} padding={10}>
       {loading ? (
@@ -114,8 +117,8 @@ export const Settings: FC<SettingsProps> = () => {
               <Center>
                 <Button
                   margin={10}
-                  variant={'continue'}
-                  disabled={toggledAvatar == undefined || toggledButton == undefined}
+                  variant={'continue2'}
+                  hidden={toggledAvatar == undefined || toggledButton == undefined}
                   onClick={() => handleStartGame()}
                 >
                   Save Changes and Start Adventure
