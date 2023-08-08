@@ -19,8 +19,12 @@ export const headingTheme = defineStyleConfig({
       color: 'white',
     },
     gameTitle: {
-      fontWeight: 400,
-      marginBottom: 5,
+      fontWeight: 600,
+      marginTop: 10,
+      letterSpacing: '0.25em',
+      textTransform: 'uppercase',
+      textShadow: '1px 1px 0px #fff, 2px 2px 0px rgba(0, 0, 0, 0.5)',
+      color: '#2c2c2c',
     },
   },
 });

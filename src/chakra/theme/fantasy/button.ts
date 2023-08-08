@@ -82,13 +82,14 @@ export const buttonTheme = defineStyleConfig({
       },
     },
     avatar: {
+      boxShadow: '0 0 2px 2px rgba(0,0,0,0.5)',
       _hover: {
-        boxShadow: '0 0 25px 5px #5548D9',
+        boxShadow: '0 0 2px 2px #5548D9',
       },
     },
     avatarSelected: {
       backgroundColor: 'transparent',
-      boxShadow: '0 0 25px 5px #5548D9',
+      boxShadow: '0 0 5px 5px #5548D9',
       //border: '5px solid red',
     },
     role: {
@@ -107,6 +108,7 @@ export const buttonTheme = defineStyleConfig({
         MozTransition: 'all .4s ease-in-out',
         WebkitTransition: 'all .4s ease-in-out',
         OTransition: 'all .4s ease-in-out',
+        boxShadow: '0 4px 15px 0 #5548D9',
       },
     },
     roleSelected: {
@@ -116,7 +118,7 @@ export const buttonTheme = defineStyleConfig({
       OTransition: 'all .4s ease-in-out',
       backgroundImage: 'linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376)',
       backgroundSize: '300% 100%',
-      boxShadow: '0 4px 15px 0 #5548D9',
+      boxShadow: '0 0 5px 5px #5548D9',
       color: '#ffffff',
       borderRadius: '5px',
       backgroundPosition: '100% 0',
@@ -143,7 +145,6 @@ export const buttonTheme = defineStyleConfig({
     continue2: {
       backgroundImage: 'linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376)',
       backgroundSize: '300% 100%',
-      border: '1px solid #5548D9',
       overflow: 'hidden',
       color: '#ffffff',
       position: 'relative',

@@ -91,7 +91,7 @@ export const Settings: FC<SettingsProps> = () => {
   console.log('button: ' + toggledButton);
 
   return (
-    <Container variant={'settingsPanel'} w="100%" maxWidth={'1136px'} rounded={'lg'} padding={10}>
+    <Container w="100%" maxWidth={'1136px'} rounded={'lg'} padding={10}>
       {loading ? (
         <>
           <Center>

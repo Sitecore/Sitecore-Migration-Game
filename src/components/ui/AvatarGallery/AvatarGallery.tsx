@@ -27,7 +27,7 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId
                   <Button
                     key={avatar.id}
                     onClick={() => handleAvatarChange(avatar)}
-                    backgroundImage={avatar.fileUrl}
+                    backgroundImage={`${avatar.fileUrl}?transform=true&width=100&height=100&fit=crop&gravity=auto`}
                     backgroundSize={'contain'}
                     width={100}
                     height={100}

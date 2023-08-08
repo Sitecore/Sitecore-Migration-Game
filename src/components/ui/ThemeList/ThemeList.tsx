@@ -32,6 +32,7 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
         alignContent={'center'}
         justifyContent={'center'}
         paddingBottom={20}
+        marginTop={20}
       >
         {themes?.map((theme, i) => (
           <ScaleFade initialScale={0.9} in={true}>
@@ -39,8 +40,8 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
               <Box
                 maxWidth={'80%'}
                 bg={useColorModeValue('white', 'gray.800')}
-                boxShadow={'2xl'}
-                rounded={'md'}
+                boxShadow={'10px 25px 50px 25px rgba(0, 0, 0, 0.25)'}
+                rounded={'lg'}
                 overflow={'hidden'}
                 key={i}
               >
@@ -50,7 +51,6 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
                       src={theme.characterImage!.results[0].fileUrl}
                       alt={theme.characterImage!.results[0].fileName ?? ''}
                       maxHeight={'300px'}
-                      roundedTop="lg"
                       fit={'cover'}
                     />
                   )}
