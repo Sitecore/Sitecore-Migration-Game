@@ -23,7 +23,6 @@ export const useEngageTracker = () => {
       currency: 'USD',
       pointOfSale: process.env.SITECORE_CDP_POS || '',
       language: 'EN',
-      page: '/', // TODO: Move this elsewhere
     };
 
     await context.engageTracker?.event(eventName, eventData, extensionData);
