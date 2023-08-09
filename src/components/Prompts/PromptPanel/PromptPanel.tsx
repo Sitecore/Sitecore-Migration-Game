@@ -1,6 +1,6 @@
 import { Center, Stack } from '@chakra-ui/react';
 import { useDisclosure } from '@mantine/hooks';
-import { useGameInfoContext } from 'components/Contexts';
+import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { CurrentPrompt } from 'components/Prompts';
 import { HexagonCollection, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
@@ -13,7 +13,8 @@ import React, { FC, useEffect } from 'react';
 interface PromptPanelProps {}
 
 export const PromptPanel: FC<PromptPanelProps> = () => {
-  let gameInfoContext = useGameInfoContext();
+  const gameInfoContext = useGameInfoContext();
+  const tracker = useEngageTracker();
   const [loading, loadingActions] = useDisclosure(true);
   const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
@@ -59,6 +60,11 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
       if (currentPrompt !== undefined) {
         setCurrentPrompt(currentPrompt);
+
+        await tracker.TrackPageView(
+          { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
+          { prompt: currentPrompt?.id }
+        );
       } else {
         // TODO: Show messaging if no prompts/start prompts are found
         //setShowError(true);
@@ -68,7 +74,7 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
     }
   };
 
-  const triggerNextPrompt = () => {
+  const triggerNextPrompt = async () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
     if (gameInfoContext.questionsBank?.get() !== undefined) {
       if (gameInfoContext.questionsBank.get()!.length > 0) {
@@ -77,6 +83,11 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
         gameInfoContext.questionsBank.set(questionQueue);
 
         setCurrentPrompt(nextPrompt);
+
+        await tracker.TrackPageView(
+          { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
+          { prompt: currentPrompt?.id }
+        );
       } else {
         router.push('/outcome');
       }

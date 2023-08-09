@@ -1,7 +1,8 @@
 import { Box, SimpleGrid, Text } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { FC, useCallback, useEffect, useState } from 'react';
-import { HexagonItem, Loading, useGameInfoContext } from '..';
+import { HexagonItem, Loading } from '..';
 
 interface HexagonCollectionProps {
   classStyles?: any;
