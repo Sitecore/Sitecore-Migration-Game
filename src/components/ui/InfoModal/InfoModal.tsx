@@ -29,7 +29,7 @@ export const InfoModal: FC<InfoModalProps> = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>
+      <Button onClick={onOpen} variant="iconButton">
         <Icon as={MdQuestionMark} fontSize={24} />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

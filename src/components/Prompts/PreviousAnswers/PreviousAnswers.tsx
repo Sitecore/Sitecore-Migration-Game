@@ -1,5 +1,4 @@
-import { Box, Button, Collapse, Divider, Group, List, Text } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Box, Button, Divider, ListItem, Text, UnorderedList, useDisclosure } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { IAnswer } from 'models';
 import { FC } from 'react';
@@ -8,7 +7,7 @@ interface PreviousAnswersProps {}
 
 export const PreviousAnswers: FC<PreviousAnswersProps> = () => {
   const gameInfoContext = useGameInfoContext();
-  const [opened, { toggle }] = useDisclosure(false);
+  const { getDisclosureProps, getButtonProps } = useDisclosure();
 
   return (
     <>
@@ -16,13 +15,11 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = () => {
         <>
           <Divider my="sm" />
           <Box>
-            <Group mb={5}>
-              <Button variant="light" onClick={toggle}>
-                Previous Answers
-              </Button>
-            </Group>
+            <Button variant="solid" {...getButtonProps()}>
+              Previous Answers
+            </Button>
 
-            <Collapse in={opened}>
+            <Box {...getDisclosureProps()}>
               {gameInfoContext.answers.length > 0 && (
                 <ul>
                   {gameInfoContext.answers
@@ -31,16 +28,16 @@ export const PreviousAnswers: FC<PreviousAnswersProps> = () => {
                     .map((answer: IAnswer) => (
                       <Box mt={12} key={answer.promptId}>
                         <Text>{answer.prompt}</Text>
-                        <List>
+                        <UnorderedList>
                           {answer.valuePrettyText.map((text, i) => (
-                            <List.Item key={answer.promptId + i}>{text}</List.Item>
+                            <ListItem key={answer.promptId + i}>{text}</ListItem>
                           ))}
-                        </List>
+                        </UnorderedList>
                       </Box>
                     ))}
                 </ul>
               )}
-            </Collapse>
+            </Box>
           </Box>
         </>
       )}

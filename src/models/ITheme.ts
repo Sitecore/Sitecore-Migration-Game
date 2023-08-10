@@ -6,4 +6,5 @@ export interface ITheme {
   id: string;
   characterImage?: IResult<IImage[]>;
   avatarGallery?: IResult<IImage[]>;
+  chakraTheme: string;
 }

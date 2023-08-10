@@ -23,24 +23,25 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
 
   return (
     <>
-      <Box w="100%" mt={8} mb={4} p={4} bg="#C8C8C8" borderRadius="lg" display="flex" flexDirection="row">
+      <Box w="100%" mt={8} mb={4} p={4} borderRadius="lg" display="flex" flexDirection="row">
         <VStack>
-          <Text fontSize="2xl">Select all that apply:</Text>
-          <Flex direction={'row'} wrap={'wrap'} w='100%' justifyContent={'center'} > 
+          <Text fontSize="2xl" variant={'answerInstruction'}>
+            Select all that apply:
+          </Text>
+          <Flex direction={'row'} wrap={'wrap'} w="100%" justifyContent={'center'}>
             {options.map((option: IOption) => (
               <>
-                { /* Center all the below elements */}
+                {/* Center all the below elements */}
 
                 {option.tooltip ? (
                   <Tooltip key={option.id} label={option.tooltip}>
                     <Button
                       key={option.id}
                       value={option.value}
-                      borderRadius={24}
-                      colorScheme="purple"
                       m={1}
                       opacity={selectedOptions.includes(option) ? 1 : 0.5}
                       onClick={() => handleOptionSelected(option)}
+                      variant={'answer2'}
                     >
                       {option.label}
                     </Button>
@@ -49,11 +50,10 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                   <Button
                     key={option.id}
                     value={option.value}
-                    borderRadius={24}
-                    colorScheme="purple"
                     m={1}
                     opacity={selectedOptions.includes(option) ? 1 : 0.5}
                     onClick={() => handleOptionSelected(option)}
+                    variant={'answer2'}
                   >
                     {option.label}
                   </Button>
@@ -67,10 +67,9 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
         {multiSelectSubmit && (
           <Button
             mt={4}
-            colorScheme="purple"
-            borderRadius={24}
             onClick={() => multiSelectSubmit(selectedOptions)}
             isDisabled={selectedOptions.length == 0}
+            variant={'submit'}
           >
             Submit
           </Button>

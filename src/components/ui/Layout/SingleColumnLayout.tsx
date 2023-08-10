@@ -1,21 +1,28 @@
 import { Box, Center, Grid, GridItem } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Loading } from '../Loading/Loading';
+import { Navigation } from '../Navigation/Navigation';
 
 interface SingleColumnLayoutProps {
   children: React.ReactNode;
   backgroundImage?: string;
   loading?: boolean;
+  showProgressBar?: boolean;
+  showResetButton?: boolean;
+  showSaveButton?: boolean;
 }
 
 export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
   children,
   backgroundImage = '/corporate/background.jpg',
   loading = false,
+  showProgressBar = true,
+  showResetButton = true,
+  showSaveButton = true,
 }) => {
   return (
     <Box
-      minH="calc(100vh - 88px)"
+      minH="100vh"
       w="full"
       backgroundImage={backgroundImage}
       backgroundAttachment="fixed"
@@ -23,6 +30,8 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
       backgroundRepeat="no-repeat"
       paddingX={4}
     >
+      <Navigation showProgressBar={showProgressBar} showSaveButton={showSaveButton} showResetButton={showResetButton} />
+
       <Center>
         {loading ? (
           <Loading message="Loading Application..." />

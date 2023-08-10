@@ -1,23 +1,22 @@
 import { Center, Stack } from '@chakra-ui/react';
-import { useDisclosure } from '@mantine/hooks';
-import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
+import { useGameInfoContext } from 'components/Contexts';
 import { CurrentPrompt } from 'components/Prompts';
-import { HexagonCollection, TwoColumnLayout } from 'components/ui';
+import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { GetNextPrompts } from 'lib/NextPrompts';
 import { PromptService } from 'lib/PromptService';
+
 import { IAnswer, IPrompt } from 'models';
 import router from 'next/router';
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-interface PromptPanelProps {}
+interface PromptPanelProps extends LayoutProps {}
 
-export const PromptPanel: FC<PromptPanelProps> = () => {
-  const gameInfoContext = useGameInfoContext();
-  const tracker = useEngageTracker();
-  const [loading, loadingActions] = useDisclosure(true);
-  const [prompts, setPrompts] = React.useState<IPrompt[]>([]);
-  const [currentPrompt, setCurrentPrompt] = React.useState<IPrompt | undefined>();
+export const PromptPanel: FC<PromptPanelProps> = (props) => {
+  let gameInfoContext = useGameInfoContext();
+  const [loading, setLoading] = useState(true);
+  const [prompts, setPrompts] = useState<IPrompt[]>([]);
+  const [currentPrompt, setCurrentPrompt] = useState<IPrompt | undefined>();
 
   const promptService = PromptService();
 
@@ -41,12 +40,12 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
   }, []);
 
   const initializeStartPrompt = async () => {
-    loadingActions.open();
+    setLoading(true);
     await preloadPrompts();
 
     gameInfoContext.resetAnswers();
     gameInfoContext.questionsBank.set([]);
-    loadingActions.close();
+    setLoading(false);
   };
 
   const preloadPrompts = async () => {
@@ -121,6 +120,9 @@ export const PromptPanel: FC<PromptPanelProps> = () => {
 
   return (
     <TwoColumnLayout
+      showProgressBar={props.showProgressBar}
+      showResetButton={props.showResetButton}
+      showSaveButton={props.showSaveButton}
       leftColumn={
         <Center>
           <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>

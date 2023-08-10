@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Icon, Tooltip, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, HStack, Icon, Tooltip } from '@chakra-ui/react';
 import Image from 'next/image';
 import Router from 'next/router';
 import { FC } from 'react';
@@ -20,7 +20,7 @@ export const Navigation: FC<NavigationProps> = ({
 }) => {
   return (
     <>
-      <Box as="section" bg={useColorModeValue('gray.100', 'gray.900')} py="6">
+      <Box as="section" py="6" background={'transparent'}>
         <Box maxW={{ base: '1200px' }} mx="auto" px={{ base: '6', md: '8' }}>
           <HStack justify="space-between">
             <Box width="200px">
@@ -35,14 +35,14 @@ export const Navigation: FC<NavigationProps> = ({
               <HStack spacing={2}>
                 {showSaveButton && (
                   <Tooltip label="Save Your Result" aria-label="Save Your Result">
-                    <Button>
+                    <Button variant={'iconButton'}>
                       <Icon as={MdSave} fontSize={24} />
                     </Button>
                   </Tooltip>
                 )}
                 {showResetButton && (
                   <Tooltip label="Start Over" aria-label="Start Over">
-                    <Button onClick={() => Router.push('/')}>
+                    <Button onClick={() => Router.push('/')} variant={'iconButton'}>
                       <Icon as={MdCached} fontSize={24} />
                     </Button>
                   </Tooltip>

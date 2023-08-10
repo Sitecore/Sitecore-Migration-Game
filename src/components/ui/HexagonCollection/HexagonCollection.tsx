@@ -28,7 +28,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
 
   return (
     <Box>
-      <Text fontSize="2xl" fontWeight="bold" textAlign="center" mb={10}>
+      <Text fontSize="2xl" fontWeight="bold" textAlign="center" mb={10} variant={'achievements'}>
         Achievements
       </Text>
       {loading ? (

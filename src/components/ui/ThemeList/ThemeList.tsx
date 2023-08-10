@@ -1,4 +1,15 @@
-import { Box, Button, Card, Group, Image, SimpleGrid, Text, Title } from '@mantine/core';
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  Image,
+  ScaleFade,
+  SimpleGrid,
+  Stack,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { ITheme } from 'models';
 import { FC } from 'react';
 
@@ -8,42 +19,61 @@ interface ThemeListProps {
   classStyles: any;
 }
 
-export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, classStyles }) => {
-  return (
-    <>
-      <Box>
-        <Title order={3}>Select Your Theme:</Title>
-        <SimpleGrid mt={10} cols={2} breakpoints={[{ maxWidth: '56rem', cols: 1, spacing: 'sm' }]}>
-          {themes?.map((theme, i) => (
-            <Card withBorder radius="md" p="md" className={classStyles.card} key={i}>
-              {theme.characterImage?.results !== undefined && (
-                <Card.Section>
-                  <Image
-                    src={theme.characterImage!.results[0].fileUrl}
-                    alt={theme.characterImage!.results[0].fileName ?? ''}
-                    height="250px"
-                  />
-                </Card.Section>
-              )}
-              <Card.Section className={classStyles.section} mt="md">
-                <Group position="apart">
-                  <Text fz="lg" fw={500}>
-                    {theme.name}
-                  </Text>
-                </Group>
-                <Text fz="sm" mt="xs">
-                  {theme.description}
-                </Text>
-              </Card.Section>
-              <Group mt="xs">
-                <Button radius="md" style={{ flex: 1 }} onClick={() => handleThemeChange(theme.id)}>
-                  Continue
-                </Button>
-              </Group>
-            </Card>
-          ))}
-        </SimpleGrid>
-      </Box>
-    </>
-  );
-};
+export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, classStyles }) => (
+  <>
+    <Box>
+      <Center>
+        <Heading variant={'gameTitle'}>Select Your Theme:</Heading>
+      </Center>
+      <SimpleGrid
+        columns={2}
+        spacingX="40px"
+        spacingY="20px"
+        alignContent={'center'}
+        justifyContent={'center'}
+        paddingBottom={20}
+        marginTop={20}
+      >
+        {themes?.map((theme, i) => (
+          <ScaleFade initialScale={0.9} in={true}>
+            <Center>
+              <Box
+                maxWidth={'80%'}
+                bg={useColorModeValue('white', 'gray.800')}
+                boxShadow={'10px 25px 50px 25px rgba(0, 0, 0, 0.25)'}
+                rounded={'lg'}
+                overflow={'hidden'}
+                key={i}
+              >
+                <Stack textAlign={'center'} bg={useColorModeValue('white', 'gray.800')}>
+                  {theme.characterImage?.results !== undefined && (
+                    <Image
+                      src={theme.characterImage!.results[0].fileUrl}
+                      alt={theme.characterImage!.results[0].fileName ?? ''}
+                      maxHeight={'300px'}
+                      fit={'cover'}
+                    />
+                  )}
+                  <Box p={6}>
+                    <Center>
+                      <Heading as="h3" size="md" marginBottom={5}>
+                        {theme.name}
+                      </Heading>
+                    </Center>
+
+                    <Text fontSize="md" height={'150px'}>
+                      {theme.description}
+                    </Text>
+                    <Button variant={'continue'} onClick={() => handleThemeChange(theme.id)} margin={5} paddingX={10}>
+                      Continue
+                    </Button>
+                  </Box>
+                </Stack>
+              </Box>
+            </Center>
+          </ScaleFade>
+        ))}
+      </SimpleGrid>
+    </Box>
+  </>
+);

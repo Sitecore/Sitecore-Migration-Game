@@ -6,4 +6,6 @@ export enum PromptMappings {
   existingFramework = 'existingframeworks',
   experienceEdge = 'experienceedge',
   xcFeatures = 'xcfeatures',
+  siteSearchUsed = 'sitesearch',
+  historicalPersonalization = 'historicalpersonalizationneeds',
 }
