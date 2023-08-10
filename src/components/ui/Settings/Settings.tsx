@@ -66,10 +66,7 @@ export const Settings: FC<SettingsProps> = () => {
   const initializeSettings = useCallback(async () => {
     setLoading.on;
 
-    await tracker.TrackPageView(
-      { page: '/', channel: 'WEB', currency: 'USD', language: 'EN' },
-      { title: 'Settings Start' }
-    );
+    await tracker.TrackPageView({ page: '/', channel: 'WEB', currency: 'USD', language: 'EN' });
 
     const data = await themeService.GetAllThemes();
 
@@ -90,10 +87,6 @@ export const Settings: FC<SettingsProps> = () => {
     await gameInfoContext.updateTheme(newTheme);
 
     await tracker.TrackEvent('THEME_CHANGE', { theme: newTheme });
-    await tracker.TrackPageView(
-      { page: '/', channel: 'WEB', currency: 'USD', language: 'EN' },
-      { title: 'Persona/Avatar Selector' }
-    );
 
     // Load Personas
     const data = await personaService.GetPersonasByTheme(newTheme);
