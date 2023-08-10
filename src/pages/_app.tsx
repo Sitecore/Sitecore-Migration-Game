@@ -1,6 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
-import { GameInfoProvider } from 'components/ui';
-import { ThemeSwitcher } from 'components/ui/ThemeSwitcher/ThemeSwitcher';
+import { GameInfoProvider, ThemeSwitcher } from 'components/ui';
 import { AppProps } from 'next/app';
 import { Fondamento } from 'next/font/google';
 import Head from 'next/head';
