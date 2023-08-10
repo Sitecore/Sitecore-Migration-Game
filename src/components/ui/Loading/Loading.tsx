@@ -1,4 +1,4 @@
-import { Loader, Stack, Text } from '@mantine/core';
+import { Center, Spinner, Stack, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 
 interface LoadingProps {
@@ -8,10 +8,10 @@ interface LoadingProps {
 export const Loading: FC<LoadingProps> = ({ message }) => {
   return (
     <Stack style={{ margin: 'auto' }}>
-      <Loader size="lg" style={{ margin: 'auto' }} />
-      <Text fz="md" fw={500}>
-        {message}
-      </Text>
+      <Spinner size="lg" style={{ margin: 'auto' }} />
+      <Center>
+        <Text w={500}>{message}</Text>
+      </Center>
     </Stack>
   );
 };

@@ -13,24 +13,17 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
     <div>
       {options && (
         <>
-          <SimpleGrid templateColumns={{ base: '1fr', sm: '1fr 1fr', lg: '1fr 1fr 1fr' }}
-            spacing="5px">
+          <SimpleGrid templateColumns={{ base: '1fr', sm: '1fr 1fr', lg: '1fr 1fr 1fr' }} spacing="5px">
             {options?.map((o: IOption) => (
               <>
                 {o.tooltip ? (
                   <Tooltip key={o.id} label={o.tooltip}>
-                    <Button
-                      key={o.id}
-                      value={o.value}
-                      borderRadius={24}
-                      colorScheme="purple"
-                      onClick={optionSelectEvent}
-                    >
+                    <Button key={o.id} value={o.value} onClick={optionSelectEvent} variant="answer">
                       {o.label}
                     </Button>
                   </Tooltip>
                 ) : (
-                  <Button key={o.id} value={o.value} borderRadius={24} colorScheme="purple" onClick={optionSelectEvent}>
+                  <Button key={o.id} value={o.value} onClick={optionSelectEvent} variant="answer">
                     {o.label}
                   </Button>
                 )}

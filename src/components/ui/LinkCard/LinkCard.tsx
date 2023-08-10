@@ -1,4 +1,5 @@
-import { Button, Flex, Paper, Text } from '@mantine/core';
+import { Box, Button, Center, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import { FC } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 
@@ -10,23 +11,26 @@ interface LinkCardProps {
 
 export const LinkCard: FC<LinkCardProps> = ({ ...props }) => {
   return (
-    <Paper withBorder radius="sm" shadow="sm" p="md">
-      <Flex justify="flex-end" align="flex-start" direction="column" gap="md">
-        <Text weight={500}>{props.title}</Text>
-        {props.description && <Text>{props.description}</Text>}
-
+    <Box borderRadius="sm" shadow="sm" mr={3} mb={3} p="5" border={1} background={'white'} rounded={'xl'}>
+      <Text fontWeight={500} height={'100px'}>
+        {props.title}
+      </Text>
+      {props.description && <Text>{props.description}</Text>}
+      <Center>
         <Button
           leftIcon={<FiExternalLink />}
-          component="a"
-          href={props.link}
-          variant="light"
-          target="_blank"
-          rel="noopener noreferrer"
-          fullWidth
+          variant={'solid'}
+          width={'100%'}
+          margin={3}
+          position={'relative'}
+          top={'auto'}
+          bottom={'2px'}
         >
-          Learn More
+          <Link href={props.link} target="_blank" rel="noopener noreferrer">
+            Learn More
+          </Link>
         </Button>
-      </Flex>
-    </Paper>
+      </Center>
+    </Box>
   );
 };

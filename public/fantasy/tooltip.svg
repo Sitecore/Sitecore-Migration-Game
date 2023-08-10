@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 317.12 72.49" preserveAspectRatio="none">
+  <defs>
+    <radialGradient id="radial-gradient" cx="158.56" cy="-121.3" fx="158.56" fy="-121.3" r="213.65" gradientTransform="translate(0 95.5) scale(1 .49)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#313a46"/>
+      <stop offset="1" stop-color="#272c3d"/>
+    </radialGradient>
+    <radialGradient id="New_Gradient_Swatch_121" data-name="New Gradient Swatch 121" cx="158.56" cy="71.5" fx="158.56" fy="71.5" r="109.29" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4c4f61"/>
+      <stop offset="1" stop-color="#48465e"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="158.56" cy="69.53" fx="158.56" fy="69.53" r="108.72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c1cfe4"/>
+      <stop offset="1" stop-color="#7d8693"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1=".05" y1="2.36" x2="4.68" y2="2.36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#565e7b"/>
+      <stop offset="1" stop-color="#9ca7c6"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="2" y1="3.74" x2="5.5" y2="3.74" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#48465e"/>
+      <stop offset="1" stop-color="#4c4f61"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient-3" cx="154.7" cy=".98" fx="154.7" fy=".98" r="110.9" gradientTransform="translate(5.98) scale(.99 1)" xlink:href="#radial-gradient-2"/>
+    <linearGradient id="linear-gradient-3" x1="312.43" y1="2.36" x2="317.07" y2="2.36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9ca7c6"/>
+      <stop offset="1" stop-color="#565e7b"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="311.62" y1="3.74" x2="315.11" y2="3.74" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4c4f61"/>
+      <stop offset="1" stop-color="#48465e"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient-4" cx="154.7" cy="2.95" fx="154.7" fy="2.95" r="110.32" gradientTransform="translate(5.98) scale(.99 1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#696c84"/>
+      <stop offset="1" stop-color="#5c5a7c"/>
+    </radialGradient>
+    <linearGradient id="New_Gradient_Swatch_126" data-name="New Gradient Swatch 126" x1="314.13" y1="67.71" x2="314.13" y2="4.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7d8693"/>
+      <stop offset="1" stop-color="#a3afc2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-5" x1="316.08" y1="68.53" x2="316.08" y2="3.94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#696c84"/>
+      <stop offset="1" stop-color="#5c5a7c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-6" x1="311.51" y1="68.7" x2="315.16" y2="68.7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a3afc2"/>
+      <stop offset="1" stop-color="#7d8693"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-7" x1="312.31" y1="70.1" x2="317.12" y2="70.1" xlink:href="#linear-gradient-2"/>
+    <linearGradient id="linear-gradient-8" x1="0" y1="70.1" x2="4.8" y2="70.1" xlink:href="#linear-gradient-2"/>
+    <linearGradient id="New_Gradient_Swatch_126-2" data-name="New Gradient Swatch 126" x1="1.95" y1="68.7" x2="5.61" y2="68.7" xlink:href="#New_Gradient_Swatch_126"/>
+    <linearGradient id="New_Gradient_Swatch_126-3" data-name="New Gradient Swatch 126" x1="-5.14" y1="86.15" x2="-5.14" y2="21.58" gradientTransform="translate(8.28 -17.34) rotate(2.3)" xlink:href="#New_Gradient_Swatch_126"/>
+    <linearGradient id="linear-gradient-9" x1="-3.19" y1="100.02" x2="-3.19" y2="44.84" gradientTransform="translate(9.44 -46.16) rotate(2.3) scale(1 1.14)" xlink:href="#linear-gradient-5"/>
+  </defs>
+  <polygon points="3.37 2.44 1.81 3.22 3.91 68.56 5.61 69.38 311.51 69.38 313.21 68.56 315.31 3.22 313.75 2.44 3.37 2.44 3.37 2.44" fill="url(#radial-gradient)" fill-rule="evenodd"/>
+  <polygon points="312.31 70.52 4.8 70.52 4 72.49 313.12 72.49 312.31 70.52 312.31 70.52" fill="url(#New_Gradient_Swatch_121)" fill-rule="evenodd"/>
+  <polygon points="5.61 68.55 4.8 70.52 312.31 70.52 311.51 68.55 5.61 68.55 5.61 68.55" fill="url(#radial-gradient-2)" fill-rule="evenodd"/>
+  <polygon points="2 4.73 4.68 1.97 3.87 0 .05 3.93 2 4.73 2 4.73" fill="url(#linear-gradient)" fill-rule="evenodd"/>
+  <polygon points="4.68 1.97 2 4.73 3.96 5.52 5.5 3.94 4.68 1.97 4.68 1.97" fill="url(#linear-gradient-2)" fill-rule="evenodd"/>
+  <polygon points="4.68 1.97 312.43 1.97 313.25 0 3.87 0 4.68 1.97 4.68 1.97" fill="url(#radial-gradient-3)" fill-rule="evenodd"/>
+  <polygon points="312.43 1.97 315.11 4.73 317.07 3.93 313.25 0 312.43 1.97 312.43 1.97" fill="url(#linear-gradient-3)" fill-rule="evenodd"/>
+  <polygon points="315.11 4.73 312.43 1.97 311.62 3.94 313.16 5.52 315.11 4.73 315.11 4.73" fill="url(#linear-gradient-4)" fill-rule="evenodd"/>
+  <polygon points="311.62 3.94 312.43 1.97 4.68 1.97 5.5 3.94 311.62 3.94 311.62 3.94" fill="url(#radial-gradient-4)" fill-rule="evenodd"/>
+  <polygon points="313.11 4.67 313.21 66.88 315.16 67.71 315.09 4.3 313.11 4.67 313.11 4.67" fill="url(#New_Gradient_Swatch_126)" fill-rule="evenodd"/>
+  <polygon points="315.09 4.3 315.16 67.71 317.07 68.53 317.07 3.94 315.09 4.3 315.09 4.3" fill="url(#linear-gradient-5)" fill-rule="evenodd"/>
+  <polygon points="313.21 66.88 311.51 68.55 312.31 70.52 315.16 67.71 313.21 66.88 313.21 66.88" fill="url(#linear-gradient-6)" fill-rule="evenodd"/>
+  <polygon points="315.16 67.71 312.31 70.52 313.12 72.49 317.12 68.55 315.16 67.71 315.16 67.71" fill="url(#linear-gradient-7)" fill-rule="evenodd"/>
+  <polygon points="4.8 70.52 1.95 67.71 0 68.55 4 72.49 4.8 70.52 4.8 70.52" fill="url(#linear-gradient-8)" fill-rule="evenodd"/>
+  <polygon points="1.95 67.71 4.8 70.52 5.61 68.55 3.91 66.88 1.95 67.71 1.95 67.71" fill="url(#New_Gradient_Swatch_126-2)" fill-rule="evenodd"/>
+  <polygon points="1.95 67.71 2 4.73 .05 3.93 0 68.55 1.95 67.71 1.95 67.71" fill="url(#New_Gradient_Swatch_126-3)" fill-rule="evenodd"/>
+  <polygon points="2 4.73 1.95 67.71 3.91 66.88 3.96 5.52 2 4.73 2 4.73" fill="url(#linear-gradient-9)" fill-rule="evenodd"/>
+</svg>

@@ -1,64 +1,84 @@
 import { defineStyle, defineStyleConfig } from '@chakra-ui/styled-system';
+import { keyframes } from '@emotion/react';
 
 const baseStyle = defineStyle({});
+
+const pulse = keyframes`
+  0% { box-shadow: 0 0 0 0 var(--hover)
+  `;
 
 export const buttonTheme = defineStyleConfig({
   baseStyle,
   variants: {
     answer: {
-      background: 'primary.500',
+      background: 'none',
+      backgroundImage: '/fantasy/button-default.svg',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'auto auto',
+      backgroundPosition: 'center center',
       verticalAlign: 'middle',
       textAlign: 'center',
+      width: '300px',
+      fontFamily: 'var(--font-fondamento)',
       fontSize: '16px',
-      borderRadius: 'full',
+      paddingTop: '2px',
       marginBottom: '10px',
       display: 'inline-block',
       position: 'relative',
       color: 'white',
       _hover: {
-        background: 'primary.900',
+        backgroundImage: '/fantasy/button-active.svg',
       },
     },
     answer2: {
-      background: 'primary.500',
+      background: 'none',
+      backgroundImage: '/fantasy/button-default.svg',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
       verticalAlign: 'middle',
       textAlign: 'center',
       width: '250px',
       height: '40px',
+      fontFamily: 'var(--font-fondamento)',
       fontSize: '14px',
-      borderRadius: 'full',
+      paddingTop: '2px',
       marginBottom: '10px',
       display: 'inline-block',
       position: 'relative',
       color: 'white',
       _hover: {
-        background: 'primary.900',
+        backgroundImage: '/fantasy/button-active.svg',
       },
     },
     submit: {
-      background: 'success.500',
+      background: 'none',
+      backgroundImage: '/fantasy/submit-button-default.svg',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
       verticalAlign: 'middle',
       textAlign: 'center',
-
-      borderRadius: 'full',
-      paddingLeft: '16px',
-      paddingRight: '16px',
-      fontSize: '14px',
+      height: '60px',
+      width: '180px',
+      paddingTop: '2px',
+      fontFamily: 'var(--font-fondamento)',
+      fontSize: '18px',
       display: 'inline-block',
       color: 'white',
-      _hover: {
-        background: 'success.900',
-      },
     },
     iconButton: {
-      background: 'primary.500',
+      background: 'none',
+      backgroundImage: '/fantasy/icon-button-default.svg',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      backgroundPosition: 'center center',
       verticalAlign: 'middle',
       textAlign: 'center',
       position: 'relative',
-      borderRadius: 'full',
       color: 'white',
+      fontFamily: 'var(--font-fondamento)',
       _hover: {
-        background: 'primary.900',
+        backgroundImage: '/fantasy/icon-button-active.svg',
       },
     },
     avatar: {

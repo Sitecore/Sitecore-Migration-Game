@@ -1,23 +1,16 @@
 import { Box } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Navigation } from '..';
 
-interface LayoutProps {
+export interface LayoutProps {
   children: React.ReactNode;
   showProgressBar?: boolean;
   showResetButton?: boolean;
   showSaveButton?: boolean;
 }
 
-export const Layout: FC<LayoutProps> = ({
-  children,
-  showProgressBar = true,
-  showResetButton = true,
-  showSaveButton = true,
-}) => {
+export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <Navigation showProgressBar={showProgressBar} showSaveButton={showSaveButton} showResetButton={showResetButton} />
       <Box as="section">{children}</Box>
     </>
   );
