@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import corporateTheme from 'chakra/theme/Corporate/Theme';
-import fantasyTheme from 'chakra/theme/Fantasy/Theme';
+import corporateTheme from 'chakra/theme/corporate/theme';
+import fantasyTheme from 'chakra/theme/fantasy/theme';
 import { FC, useEffect, useState } from 'react';
 import { useGameInfoContext } from '..';
 
