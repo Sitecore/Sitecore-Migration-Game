@@ -13,7 +13,6 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ children }) => {
   const [theme, setTheme] = useState(corporateTheme);
 
   useEffect(() => {
-    console.log(gameInfoContext?.theme?.id);
     if (gameInfoContext?.theme?.id == 'a5F4KpHzIkO1Re9iHmJjWA') {
       setTheme(fantasyTheme);
     } else if (gameInfoContext?.theme?.id == '-e_W0k2zO0uZPNBmYtorCQ') {
