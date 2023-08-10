@@ -87,9 +87,6 @@ export const Settings: FC<SettingsProps> = () => {
   };
   //#endregion
 
-  console.log('avatar: ' + toggledAvatar);
-  console.log('button: ' + toggledButton);
-
   return (
     <Container w="100%" maxWidth={'1136px'} rounded={'lg'} padding={10}>
       {loading ? (
