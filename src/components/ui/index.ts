@@ -15,4 +15,5 @@ export * from './ProgressTracker/ProgressTracker';
 export * from './RichTextOutput/RichTextOutput';
 export * from './Settings/Settings';
 export * from './ThemeList/ThemeList';
+export * from './ThemeSwitcher/ThemeSwitcher';
 export * from './YouTubeVideoDisplay/YouTubeVideoDisplay';
