@@ -17,7 +17,7 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
           <Heading variant={'gameTitle'}>Select Your Role:</Heading>
         </Center>
         <Center>
-          <Stack direction={['column', 'column', 'row']} spacing="6" mt={10}  >
+          <Stack direction={{ base: 'column', md: 'row' }} spacing="6" mt={10}  >
             {personas?.map((p, i) => {
               const isToggled = p.id === toggledButtonId;
               return (
