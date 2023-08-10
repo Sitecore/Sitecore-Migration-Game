@@ -45,8 +45,8 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
         <Box
           height={'250px'}
           overflowY={'auto'}
-          marginLeft="70px"
-          marginRight="70px"
+          marginLeft={{ base: '25px', md: '50px' }}
+          marginRight={{ base: '25px', md: '50px' }}
           position={'relative'}
           marginTop={'25px'}
         >
@@ -57,7 +57,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
           )}
         </Box>
 
-        <Text fontSize="2xl" textAlign={'center'} paddingLeft={'50px'} paddingRight={'50px'}>
+        <Text fontSize="2xl" textAlign={'center'} paddingLeft={{ base: '25px', lg: '50px' }} paddingRight={{ base: '25px', lg: '50px' }}>
           {prompt?.text}
         </Text>
       </Container>

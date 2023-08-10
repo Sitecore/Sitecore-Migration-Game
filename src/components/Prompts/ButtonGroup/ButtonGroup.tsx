@@ -13,7 +13,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
     <div>
       {options && (
         <>
-          <SimpleGrid templateColumns={{ base: '1fr', sm: '1fr 1fr', lg: '1fr 1fr 1fr' }} spacing="5px">
+          <SimpleGrid templateColumns={{ base: '1fr', sm: '1fr 1fr', lg: '1fr 1fr 1fr' }} spacing="5px" paddingTop={5}>
             {options?.map((o: IOption) => (
               <>
                 {o.tooltip ? (
