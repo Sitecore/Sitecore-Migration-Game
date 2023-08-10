@@ -11,8 +11,20 @@ interface LinkCardProps {
 
 export const LinkCard: FC<LinkCardProps> = ({ ...props }) => {
   return (
-    <Box borderRadius="sm" shadow="sm" mr={3} mb={3} p="5" border={1} background={'white'} rounded={'xl'}>
-      <Text fontWeight={500} height={'100px'}>
+    <Box
+      borderRadius="sm"
+      shadow="sm"
+      mr={3}
+      mb={3}
+      p="5"
+      border={1}
+      background={'white'}
+      rounded={'xl'}
+      display={'flex'}
+      flexDirection={'column'}
+      w={'250px'}
+      justifyContent={'space-between'}>
+      <Text fontWeight={500}>
         {props.title}
       </Text>
       {props.description && <Text>{props.description}</Text>}
@@ -22,7 +34,6 @@ export const LinkCard: FC<LinkCardProps> = ({ ...props }) => {
           variant={'solid'}
           width={'100%'}
           margin={3}
-          position={'relative'}
           top={'auto'}
           bottom={'2px'}
         >

@@ -58,7 +58,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           <RichTextOutput content={gameInfoContext.outcome.xcFeaturesIntro} />
         </Text>
 
-        <SimpleGrid columns={3} spacing="md">
+        <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
           <LinkCard
             link="https://community.sitecore.com/community?id=community_blog&sys_id=89f8d1391b416154e55241dde54bcb88"
             title="Transitioning from Sitecore XC to OrderCloud: API Access"
@@ -141,7 +141,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           <RichTextOutput content={gameInfoContext.outcome.xpFeaturesIntro} />
         </Text>
 
-        <SimpleGrid columns={3} spacing="md">
+        <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
           <ConditionalResponse condition={outcomeConditions.isSimplePersonalization()}>
             <LinkCard
               link="https://jasonstcyr.com/2023/05/31/sitecore-architects-guide-to-saas-migration-classic-xp-with-simple-personalization/"
@@ -172,7 +172,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
       </Text>
-      <SimpleGrid columns={3} spacing="md">
+      <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
         <ConditionalResponse
           condition={
             outcomeConditions.isXM &&
@@ -199,7 +199,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.aspnetHeadlessIntro} />
         </Text>
-        <SimpleGrid columns={3} spacing="md">
+        <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
           <LinkCard
             link="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1"
             title="Migrating the Sitecore MVP site to XM Cloud – Part 1"
