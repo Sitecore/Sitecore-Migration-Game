@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { Analytics } from '@vercel/analytics/react';
 import fantasyTheme from 'chakra/theme/fantasy/Theme';
-import { GameInfoProvider } from 'components/Contexts';
+import { EngageTrackerProvider, GameInfoProvider } from 'components/Contexts';
 import { AppProps } from 'next/app';
 import { Fondamento } from 'next/font/google';
 import Head from 'next/head';
@@ -23,11 +23,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" href={`/favicon.png`} />
       </Head>
       <Analytics />
-      <GameInfoProvider>
-        <ChakraProvider theme={fantasyTheme}>
-          <Component {...pageProps} />
-        </ChakraProvider>
-      </GameInfoProvider>
+      <EngageTrackerProvider>
+        <GameInfoProvider>
+          <ChakraProvider theme={fantasyTheme}>
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </GameInfoProvider>
+      </EngageTrackerProvider>
     </>
   );
 };

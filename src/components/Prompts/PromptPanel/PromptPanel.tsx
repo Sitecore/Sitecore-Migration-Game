@@ -1,5 +1,5 @@
 import { Center, Stack } from '@chakra-ui/react';
-import { useGameInfoContext } from 'components/Contexts';
+import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { CurrentPrompt } from 'components/Prompts';
 import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
@@ -13,7 +13,8 @@ import { FC, useEffect, useState } from 'react';
 interface PromptPanelProps extends LayoutProps {}
 
 export const PromptPanel: FC<PromptPanelProps> = (props) => {
-  let gameInfoContext = useGameInfoContext();
+  const gameInfoContext = useGameInfoContext();
+  const tracker = useEngageTracker();
   const [loading, setLoading] = useState(true);
   const [prompts, setPrompts] = useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = useState<IPrompt | undefined>();
