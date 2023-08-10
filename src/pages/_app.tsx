@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
-import { GameInfoProvider } from 'components/Contexts';
+import { EngageTrackerProvider, GameInfoProvider } from 'components/Contexts';
 import { ThemeSwitcher } from 'components/ui';
 import { AppProps } from 'next/app';
 import { Fondamento } from 'next/font/google';
@@ -22,11 +22,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" href={`/favicon.png`} />
       </Head>
       <Analytics />
-      <GameInfoProvider>
-        <ThemeSwitcher>
-          <Component {...pageProps} />
-        </ThemeSwitcher>
-      </GameInfoProvider>
+      <EngageTrackerProvider>
+        <GameInfoProvider>
+          <ThemeSwitcher>
+            <Component {...pageProps} />
+          </ThemeSwitcher>
+        </GameInfoProvider>
+      </EngageTrackerProvider>
     </>
   );
 };
