@@ -117,8 +117,9 @@ export const Settings: FC<SettingsProps> = () => {
               <Center>
                 <Button
                   margin={10}
-                  variant={'continue2'}
-                  hidden={toggledAvatar == undefined || toggledButton == undefined}
+                  variant={'solid'}
+                  size={'lg'}
+                  isDisabled={toggledAvatar == undefined || toggledButton == undefined}
                   onClick={() => handleStartGame()}
                 >
                   Save Changes and Start Adventure

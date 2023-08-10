@@ -56,7 +56,7 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
                   )}
                   <Box p={6}>
                     <Center>
-                      <Heading as="h3" size="md" marginBottom={5}>
+                      <Heading as="h3" size="xl" marginBottom={5}>
                         {theme.name}
                       </Heading>
                     </Center>
@@ -64,7 +64,13 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
                     <Text fontSize="md" height={'150px'}>
                       {theme.description}
                     </Text>
-                    <Button variant={'continue'} onClick={() => handleThemeChange(theme.id)} margin={5} paddingX={10}>
+                    <Button
+                      variant={'solid'}
+                      size="lg"
+                      onClick={() => handleThemeChange(theme.id)}
+                      margin={5}
+                      paddingX={10}
+                    >
                       Continue
                     </Button>
                   </Box>

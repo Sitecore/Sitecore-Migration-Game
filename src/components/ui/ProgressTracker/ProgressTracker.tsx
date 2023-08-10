@@ -32,15 +32,7 @@ export const ProgressTracker: FC<ProgressTrackerProps> = () => {
   return (
     <>
       <Container variant="progressBar">
-        <Progress
-          value={progress}
-          width="100%"
-          border="0px"
-          height={'13px'}
-          size="lg"
-          variant={'progressBar'}
-          background="none"
-        />
+        <Progress value={progress} width="100%" height={'13px'} size="lg" variant={'progressBar'} />
       </Container>
     </>
   );

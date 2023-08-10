@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Heading,
-  Icon,
+  IconButton,
   Link,
   List,
   ListItem,
@@ -17,6 +17,7 @@ import {
   Stack,
   StackDivider,
   Text,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
 import { FC } from 'react';
@@ -29,9 +30,17 @@ export const InfoModal: FC<InfoModalProps> = () => {
 
   return (
     <>
-      <Button onClick={onOpen} variant="iconButton">
-        <Icon as={MdQuestionMark} fontSize={24} />
-      </Button>
+      <Tooltip label="About" aria-label="About the application">
+        <IconButton
+          onClick={onOpen}
+          variant={'iconOnly'}
+          size={'lg'}
+          colorScheme="neutral"
+          aria-label={'About'}
+          icon={<MdQuestionMark size={24} />}
+        ></IconButton>
+      </Tooltip>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

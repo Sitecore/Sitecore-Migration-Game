@@ -1,6 +1,7 @@
 import { ThemeConfig, extendTheme } from '@chakra-ui/react';
 import { avatarTheme } from './avatar';
 import { buttonTheme } from './button';
+import { cardTheme } from './card';
 import { containerTheme } from './container';
 import { headingTheme } from './headings';
 import { progressTheme } from './progress';
@@ -36,13 +37,14 @@ const fantasyTheme = extendTheme({
   },
 
   components: {
-    Button: buttonTheme,
     Container: containerTheme,
     Avatar: avatarTheme,
     Heading: headingTheme,
     Text: textTheme,
     Progress: progressTheme,
     Tooltip: tooltipTheme,
+    Card: cardTheme,
+    Button: buttonTheme,
   },
 });
 

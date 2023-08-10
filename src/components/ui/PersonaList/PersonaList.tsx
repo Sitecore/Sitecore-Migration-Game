@@ -14,7 +14,9 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
     <>
       <Box>
         <Center>
-          <Heading variant={'gameTitle'}>Select Your Role:</Heading>
+          <Heading size="xl" variant={'gameTitle'}>
+            Select Your Role:
+          </Heading>
         </Center>
         <Center>
           <SimpleGrid mt={10}>
@@ -23,12 +25,14 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
                 const isToggled = p.id === toggledButtonId;
                 return (
                   <Button
+                    isActive={isToggled}
                     key={p.id}
                     style={{ flex: 1 }}
                     onClick={() => {
                       handlePersonaChange(p.id);
                     }}
-                    variant={isToggled ? 'roleSelected' : 'role'}
+                    variant={'outline'}
+                    size={'lg'}
                   >
                     {p.name}
                   </Button>
