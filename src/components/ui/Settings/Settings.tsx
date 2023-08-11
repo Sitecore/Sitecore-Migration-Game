@@ -33,8 +33,6 @@ export const Settings: FC<SettingsProps> = () => {
   const initializeSettings = useCallback(async () => {
     setLoading.on;
 
-    await tracker.TrackPageView({ page: '/', channel: 'WEB', currency: 'USD', language: 'EN' });
-
     const data = await themeService.GetAllThemes();
 
     if (data?.results !== undefined) {
@@ -46,6 +44,8 @@ export const Settings: FC<SettingsProps> = () => {
 
   useEffect(() => {
     initializeSettings();
+
+    tracker.TrackPageView({ page: '/settings', channel: 'WEB', currency: 'USD', language: 'EN' });
   }, [initializeSettings]);
 
   //#region Functions

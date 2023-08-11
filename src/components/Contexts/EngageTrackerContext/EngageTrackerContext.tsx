@@ -1,5 +1,6 @@
 import { Engage, init } from '@sitecore/engage';
-import { FC, createContext, useCallback, useEffect, useRef } from 'react';
+import { Loading } from 'components/ui';
+import { FC, createContext, useCallback, useEffect, useState } from 'react';
 
 export const EngageTrackerContext = createContext<EngageTrackerContextType>({} as EngageTrackerContextType);
 
@@ -12,9 +13,11 @@ interface EngageTrackerProviderProps {
 }
 
 export const EngageTrackerProvider: FC<EngageTrackerProviderProps> = ({ children }) => {
-  const engageTracker = useRef<Engage>();
+  const [engageTracker, setEngageTracker] = useState<Engage | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const loadEngageTracker = useCallback(async () => {
+    setLoading(true);
     const tracker: Engage = await init({
       clientKey: process.env.SITECORE_CDP_CLIENT_KEY || '',
       targetURL: process.env.SITECORE_CDP_TARGET_URL || '',
@@ -24,7 +27,8 @@ export const EngageTrackerProvider: FC<EngageTrackerProviderProps> = ({ children
       forceServerCookieMode: false,
     });
 
-    engageTracker.current = tracker;
+    setEngageTracker(tracker);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -32,8 +36,16 @@ export const EngageTrackerProvider: FC<EngageTrackerProviderProps> = ({ children
   }, [loadEngageTracker]);
 
   return (
-    <EngageTrackerContext.Provider value={{ engageTracker: engageTracker.current }}>
-      {children}
-    </EngageTrackerContext.Provider>
+    <>
+      {loading ? (
+        <Loading message="Loading" />
+      ) : (
+        <>
+          <EngageTrackerContext.Provider value={{ engageTracker: engageTracker }}>
+            {children}
+          </EngageTrackerContext.Provider>
+        </>
+      )}
+    </>
   );
 };

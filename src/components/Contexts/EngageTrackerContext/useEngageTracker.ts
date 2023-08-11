@@ -8,6 +8,8 @@ export const useEngageTracker = () => {
 
   const TrackPageView = async (pageViewData: IPageViewEventInput, extensionData?: INestedObject | undefined) => {
     console.log({ pageViewData, extensionData });
+
+    console.log(context);
     await context.engageTracker?.pageView(pageViewData, extensionData);
   };
 
