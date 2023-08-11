@@ -1,4 +1,4 @@
-import { GameInfoContextType } from 'components/ui';
+import { GameInfoContextType } from 'components/Contexts';
 import { IAnswer, PromptMappings } from 'models';
 import { ExperienceEdgeOption, OutcomeConditions } from 'models/OutcomeConditions';
 
