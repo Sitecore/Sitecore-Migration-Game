@@ -56,14 +56,14 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       setPrompts(data.results);
 
       // Set Starting Prompt
-      const currentPrompt = data.results.find((p: IPrompt) => p.start === true);
+      const nextPrompt = data.results.find((p: IPrompt) => p.start === true);
 
-      if (currentPrompt !== undefined) {
-        setCurrentPrompt(currentPrompt);
+      if (nextPrompt !== undefined) {
+        setCurrentPrompt(nextPrompt);
 
         await tracker.TrackPageView(
           { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
-          { prompt: currentPrompt?.id }
+          { prompt: nextPrompt?.id }
         );
       } else {
         // TODO: Show messaging if no prompts/start prompts are found
