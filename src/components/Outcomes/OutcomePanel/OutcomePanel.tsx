@@ -1,14 +1,14 @@
 import { Box, Center, Stack } from '@chakra-ui/react';
 import { OutcomeGenerator } from 'components/Outcomes';
 import { PreviousAnswers } from 'components/Prompts';
-import { HexagonCollection, TwoColumnLayout, useGameInfoContext } from 'components/ui';
+import { HexagonCollection, LayoutProps, TwoColumnLayout, useGameInfoContext } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import router from 'next/router';
 import { FC } from 'react';
 
-interface OutcomePanelProps {}
+interface OutcomePanelProps extends LayoutProps {}
 
-export const OutcomePanel: FC<OutcomePanelProps> = () => {
+export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
   const gameInfoContext = useGameInfoContext();
 
   if (process.browser) {
@@ -24,6 +24,9 @@ export const OutcomePanel: FC<OutcomePanelProps> = () => {
 
   return (
     <TwoColumnLayout
+      showProgressBar={props.showProgressBar}
+      showResetButton={props.showResetButton}
+      showSaveButton={props.showSaveButton}
       leftColumn={
         <Center>
           <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>

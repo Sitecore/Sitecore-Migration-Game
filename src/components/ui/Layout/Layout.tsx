@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { FC } from 'react';
 
 export interface LayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   showProgressBar?: boolean;
   showResetButton?: boolean;
   showSaveButton?: boolean;

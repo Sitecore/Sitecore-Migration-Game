@@ -5,8 +5,8 @@ interface OutcomePageProps {}
 
 const OutcomePage: React.FC<OutcomePageProps> = () => {
   return (
-    <Layout showProgressBar={false} showSaveButton={false}>
-      <OutcomePanel />
+    <Layout>
+      <OutcomePanel showProgressBar={false} showSaveButton={false} />
     </Layout>
   );
 };
