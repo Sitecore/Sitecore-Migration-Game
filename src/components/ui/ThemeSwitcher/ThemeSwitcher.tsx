@@ -1,4 +1,4 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, ChakraTheme } from '@chakra-ui/react';
 import sitecoreTheme from '@sitecore/blok-theme';
 import fantasyTheme from 'chakra/theme/fantasy/theme';
 import { FC, useEffect, useState } from 'react';
@@ -10,7 +10,7 @@ interface ThemeSwitcherProps {
 
 export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ children }) => {
   const gameInfoContext = useGameInfoContext();
-  const [theme, setTheme] = useState(sitecoreTheme);
+  const [theme, setTheme] = useState<ChakraTheme | Record<string, any>>(sitecoreTheme);
 
   useEffect(() => {
     if (gameInfoContext?.theme?.chakraTheme == 'fantasy') {
