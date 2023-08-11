@@ -1,6 +1,7 @@
 import { Box, Button, ButtonGroup, Center, Heading, SimpleGrid } from '@chakra-ui/react';
 import { IPersona } from 'models';
 import { FC } from 'react';
+import { useGameInfoContext } from '../GameInfoContext/GameInfoContext';
 
 interface PersonaListProps {
   personas: IPersona[] | undefined;
@@ -10,6 +11,8 @@ interface PersonaListProps {
 }
 
 export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, handlePersonaChange, classStyles }) => {
+  const gameInfoContext = useGameInfoContext();
+
   return (
     <>
       <Box>
@@ -31,7 +34,7 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
                     onClick={() => {
                       handlePersonaChange(p.id);
                     }}
-                    variant={'outline'}
+                    variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'outline' : 'solid'}
                     size={'lg'}
                   >
                     {p.name}

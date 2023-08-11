@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Router from 'next/router';
 import { FC } from 'react';
 import { MdCached, MdSave } from 'react-icons/md';
-import { InfoModal, ProgressTracker } from '..';
+import { InfoModal, ProgressTracker, useGameInfoContext } from '..';
 
 interface NavigationProps {
   showProgressBar?: boolean;
@@ -18,6 +18,8 @@ export const Navigation: FC<NavigationProps> = ({
   showSaveButton = true,
   showSettingsButton = true,
 }) => {
+  const gameInfoContext = useGameInfoContext();
+
   return (
     <>
       <Box as="section" py="6" background={'transparent'}>
@@ -36,9 +38,10 @@ export const Navigation: FC<NavigationProps> = ({
                 {showSaveButton && (
                   <Tooltip label="Save Your Result" aria-label="Save Your Result">
                     <IconButton
-                      variant={['solid', 'iconOnly']}
+                      variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
                       size={'lg'}
                       colorScheme="neutral"
+                      data-type="icon"
                       aria-label={'Start over'}
                       icon={<MdSave size={24} />}
                     ></IconButton>
@@ -48,7 +51,7 @@ export const Navigation: FC<NavigationProps> = ({
                   <Tooltip label="Start Over" aria-label="Start Over">
                     <IconButton
                       onClick={() => Router.push('/')}
-                      variant={['solid', 'iconOnly']}
+                      variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
                       size={'lg'}
                       colorScheme="neutral"
                       aria-label={'Start over'}

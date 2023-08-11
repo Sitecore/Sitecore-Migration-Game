@@ -22,20 +22,24 @@ import {
 } from '@chakra-ui/react';
 import { FC } from 'react';
 import { MdQuestionMark } from 'react-icons/md';
+import { useGameInfoContext } from '../GameInfoContext/GameInfoContext';
 
 interface InfoModalProps {}
 
 export const InfoModal: FC<InfoModalProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const gameInfoContext = useGameInfoContext();
 
   return (
     <>
       <Tooltip label="About" aria-label="About the application">
         <IconButton
           onClick={onOpen}
-          variant={'iconOnly'}
+          variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
           size={'lg'}
+          button-type="icon"
           colorScheme="neutral"
+          data-type="icon"
           aria-label={'About'}
           icon={<MdQuestionMark size={24} />}
         ></IconButton>

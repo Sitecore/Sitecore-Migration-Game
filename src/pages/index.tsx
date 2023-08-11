@@ -6,7 +6,7 @@ const App = () => {
 
   return (
     <>
-      <AuthModal isOpen={authModelOpen} onClose={() => setAuthModalOpen(false)}></AuthModal>
+      <AuthModal isOpen={false} onClose={() => setAuthModalOpen(false)}></AuthModal>
       <SingleColumnLayout showProgressBar={false} showSaveButton={false} showResetButton={false}>
         <Settings />
       </SingleColumnLayout>

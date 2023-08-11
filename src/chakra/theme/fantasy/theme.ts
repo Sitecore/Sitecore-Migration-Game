@@ -1,4 +1,5 @@
 import { ThemeConfig, extendTheme } from '@chakra-ui/react';
+import { ChakraTheme } from '@chakra-ui/theme';
 import { avatarTheme } from './avatar';
 import { buttonTheme } from './button';
 import { cardTheme } from './card';
@@ -28,14 +29,13 @@ const shadows = {
   'dark-lg': 'rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px',
 };
 
-const fantasyTheme = extendTheme({
-  config,
+const fantasyTheme: ChakraTheme = extendTheme({
+  config: config,
   baseStyle: {},
   fonts: {
     //heading: 'var(--font-fondamento)',
     //body: 'var(--font-fondamento)',
   },
-
   components: {
     Container: containerTheme,
     Avatar: avatarTheme,
