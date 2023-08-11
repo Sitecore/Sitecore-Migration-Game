@@ -86,7 +86,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
 
         await tracker.TrackPageView(
           { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
-          { prompt: currentPrompt?.id }
+          { prompt: nextPrompt?.id }
         );
       } else {
         router.push('/outcome');
