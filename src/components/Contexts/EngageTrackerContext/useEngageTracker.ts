@@ -7,9 +7,11 @@ export const useEngageTracker = () => {
   const context = useContext(EngageTrackerContext);
 
   const TrackPageView = async (pageViewData: IPageViewEventInput, extensionData?: INestedObject | undefined) => {
-    console.log({ pageViewData, extensionData });
+    if (!context.isTrackerEnabled) {
+      console.log('Tracker is not enabled');
+      return;
+    }
 
-    console.log(context);
     await context.engageTracker?.pageView(pageViewData, extensionData);
   };
 
@@ -18,7 +20,10 @@ export const useEngageTracker = () => {
   };
 
   const TrackEvent = async (eventName: string, extensionData?: INestedObject | undefined) => {
-    console.log({ eventName, extensionData });
+    if (!context.isTrackerEnabled) {
+      console.log('Tracker is not enabled');
+      return;
+    }
 
     const eventData: ICustomEventInput = {
       channel: 'WEB',
