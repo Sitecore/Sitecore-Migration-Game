@@ -2,7 +2,7 @@ import { Box, Center, Stack } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { OutcomeGenerator } from 'components/Outcomes';
 import { PreviousAnswers } from 'components/Prompts';
-import { HexagonCollection, TwoColumnLayout } from 'components/ui';
+import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import router from 'next/router';
 import { FC, useEffect } from 'react';

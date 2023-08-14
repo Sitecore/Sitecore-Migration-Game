@@ -1,4 +1,5 @@
-import { AuthModal, Settings, SingleColumnLayout, useGameInfoContext } from 'components/ui';
+import { useGameInfoContext } from 'components/Contexts';
+import { AuthModal, Settings, SingleColumnLayout } from 'components/ui';
 import React from 'react';
 
 const App = () => {
