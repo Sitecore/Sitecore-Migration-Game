@@ -7,9 +7,12 @@ export const containerTheme = defineStyleConfig({
   variants: {
     questionPanel: {
       background: 'none',
-      backgroundImage: '/fantasy/panel.svg',
+      backgroundImage: {base: '', xl: '/fantasy/panel.svg'},
+      backgroundColor: {base: '#313a46', xl: 'transparent'},
+      borderRadius: 'lg',
+      opacity: {base: '.8', xl: '1'},
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
+      backgroundSize: 'cover',
       fontFamily: 'var(--font-fondamento)',
       color: 'white',
     },
