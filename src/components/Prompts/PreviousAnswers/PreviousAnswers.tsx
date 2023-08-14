@@ -1,5 +1,5 @@
 import { Box, Button, Divider, ListItem, Text, UnorderedList, useDisclosure } from '@chakra-ui/react';
-import { useGameInfoContext } from 'components/ui';
+import { useGameInfoContext } from 'components/Contexts';
 import { IAnswer } from 'models';
 import { FC } from 'react';
 

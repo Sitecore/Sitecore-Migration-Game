@@ -1,8 +1,8 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import corporateTheme from 'chakra/theme/corporate/theme';
 import fantasyTheme from 'chakra/theme/fantasy/theme';
+import { useGameInfoContext } from 'components/Contexts';
 import { FC, useEffect, useState } from 'react';
-import { useGameInfoContext } from '..';
 
 interface ThemeSwitcherProps {
   children: React.ReactNode;

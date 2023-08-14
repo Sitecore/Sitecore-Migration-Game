@@ -1,5 +1,6 @@
 import { Button, Center, Container, useBoolean } from '@chakra-ui/react';
-import { AvatarGallery, Loading, PersonaList, ThemeList, useGameInfoContext } from 'components/ui';
+import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
+import { AvatarGallery, Loading, PersonaList, ThemeList } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
@@ -14,6 +15,8 @@ interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
   //#region State/Props
   const gameInfoContext = useGameInfoContext();
+  const tracker = useEngageTracker();
+
   const [showCharacterOptions, setShowCharacterOptions] = useState<Boolean>(false);
   const [themes, setThemes] = useState<ITheme[] | undefined>();
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
@@ -29,6 +32,7 @@ export const Settings: FC<SettingsProps> = () => {
 
   const initializeSettings = useCallback(async () => {
     setLoading.on;
+
     const data = await themeService.GetAllThemes();
 
     if (data?.results !== undefined) {
@@ -40,12 +44,16 @@ export const Settings: FC<SettingsProps> = () => {
 
   useEffect(() => {
     initializeSettings();
+
+    tracker.TrackPageView({ page: '/settings', channel: 'WEB', currency: 'USD', language: 'EN' });
   }, [initializeSettings]);
 
   //#region Functions
   const handleSettingChange = async (newTheme: string) => {
     setLoading.on;
     await gameInfoContext.updateTheme(newTheme);
+
+    await tracker.TrackEvent('THEME_CHANGE', { theme: newTheme });
 
     // Load Personas
     const data = await personaService.GetPersonasByTheme(newTheme);
@@ -71,11 +79,14 @@ export const Settings: FC<SettingsProps> = () => {
     setLoading.off;
   };
 
-  const handlePersonaChange = (newPersona: string) => {
+  const handlePersonaChange = async (newPersona: string) => {
+    await tracker.TrackEvent('PERSONA_CHANGE', { persona: newPersona });
+
     setToggledButton(newPersona);
   };
 
-  const handleAvatarChange = (newAvatar: IImage) => {
+  const handleAvatarChange = async (newAvatar: IImage) => {
+    await tracker.TrackEvent('AVATAR_CHANGE', { avatar: newAvatar.id });
     setToggledAvatar(newAvatar);
   };
 
@@ -87,8 +98,8 @@ export const Settings: FC<SettingsProps> = () => {
   };
   //#endregion
 
-  console.log('avatar: ' + toggledAvatar);
-  console.log('button: ' + toggledButton);
+  // console.log('avatar: ' + toggledAvatar);
+  // console.log('button: ' + toggledButton);
 
   return (
     <Container w="100%" maxWidth={'1136px'} rounded={'lg'} padding={10}>
