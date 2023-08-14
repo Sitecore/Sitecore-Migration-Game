@@ -7,4 +7,5 @@ export interface ITheme {
   characterImage?: IResult<IImage[]>;
   avatarGallery?: IResult<IImage[]>;
   chakraTheme: string;
+  startButtonText: string;
 }

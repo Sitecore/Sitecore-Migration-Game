@@ -98,9 +98,6 @@ export const Settings: FC<SettingsProps> = () => {
   };
   //#endregion
 
-  // console.log('avatar: ' + toggledAvatar);
-  // console.log('button: ' + toggledButton);
-
   return (
     <Container w="100%" maxWidth={'1136px'} rounded={'lg'} padding={10}>
       {loading ? (
@@ -132,7 +129,7 @@ export const Settings: FC<SettingsProps> = () => {
                   hidden={toggledAvatar == undefined || toggledButton == undefined}
                   onClick={() => handleStartGame()}
                 >
-                  Save Changes and Start Adventure
+                  {gameInfoContext.theme?.startButtonText ?? 'Save Changes and Start Adventure uh oh'}
                 </Button>
               </Center>
             </>
