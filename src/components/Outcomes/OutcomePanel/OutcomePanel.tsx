@@ -1,15 +1,17 @@
 import { Card, Center, Stack } from '@chakra-ui/react';
+import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { OutcomeGenerator } from 'components/Outcomes';
 import { PreviousAnswers } from 'components/Prompts';
-import { HexagonCollection, TwoColumnLayout, useGameInfoContext } from 'components/ui';
+import { HexagonCollection, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import router from 'next/router';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 interface OutcomePanelProps {}
 
 export const OutcomePanel: FC<OutcomePanelProps> = () => {
   const gameInfoContext = useGameInfoContext();
+  const tracker = useEngageTracker();
 
   if (process.browser) {
     if (gameInfoContext.answers === undefined || gameInfoContext.answers.length === 0) {
@@ -21,6 +23,10 @@ export const OutcomePanel: FC<OutcomePanelProps> = () => {
       }
     }
   }
+
+  useEffect(() => {
+    tracker.TrackPageView({ page: '/outcome', channel: 'WEB', language: 'EN', currency: 'USD' });
+  }, []);
 
   return (
     <TwoColumnLayout

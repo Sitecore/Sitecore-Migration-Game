@@ -1,8 +1,8 @@
 import { ChakraProvider, ChakraTheme } from '@chakra-ui/react';
 import sitecoreTheme from '@sitecore/blok-theme';
 import fantasyTheme from 'chakra/theme/fantasy/theme';
+import { useGameInfoContext } from 'components/Contexts';
 import { FC, useEffect, useState } from 'react';
-import { useGameInfoContext } from '..';
 
 interface ThemeSwitcherProps {
   children: React.ReactNode;
