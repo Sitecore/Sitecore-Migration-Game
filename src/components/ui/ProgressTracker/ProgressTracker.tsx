@@ -1,6 +1,6 @@
 import { Container, Progress } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { FC, useCallback, useEffect, useState } from 'react';
-import { useGameInfoContext } from '..';
 
 interface ProgressTrackerProps {}
 
@@ -35,11 +35,10 @@ export const ProgressTracker: FC<ProgressTrackerProps> = () => {
         <Progress
           value={progress}
           width="100%"
-          border="0px"
           height={'13px'}
           size="lg"
           variant={'progressBar'}
-          background="none"
+          background={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'transparent' : 'white'}
         />
       </Container>
     </>

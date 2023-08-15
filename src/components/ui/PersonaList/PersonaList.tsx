@@ -1,4 +1,5 @@
-import { Box, Button, ButtonGroup, Center, Heading, SimpleGrid, Stack } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Center, Heading, SimpleGrid } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { IPersona } from 'models';
 import { FC } from 'react';
 
@@ -10,31 +11,38 @@ interface PersonaListProps {
 }
 
 export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, handlePersonaChange, classStyles }) => {
+  const gameInfoContext = useGameInfoContext();
+
   return (
     <>
       <Box>
         <Center>
-          <Heading variant={'gameTitle'}>Select Your Role:</Heading>
+          <Heading size="xl" variant={'gameTitle'}>
+            Select Your Role:
+          </Heading>
         </Center>
         <Center>
-          <Stack direction={{ base: 'column', md: 'row' }} spacing="6" mt={10}  >
-            {personas?.map((p, i) => {
-              const isToggled = p.id === toggledButtonId;
-              return (
-                <Button
-                  key={p.id}
-                  style={{ flex: 1 }}
-                  minH={'35px'}
-                  onClick={() => {
-                    handlePersonaChange(p.id);
-                  }}
-                  variant={isToggled ? 'roleSelected' : 'role'}
-                >
-                  {p.name}
-                </Button>
-              );
-            })}
-          </Stack>
+          <SimpleGrid mt={10}>
+            <ButtonGroup variant="outline" spacing="6">
+              {personas?.map((p, i) => {
+                const isToggled = p.id === toggledButtonId;
+                return (
+                  <Button
+                    isActive={isToggled}
+                    key={p.id}
+                    style={{ flex: 1 }}
+                    onClick={() => {
+                      handlePersonaChange(p.id);
+                    }}
+                    variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'outline' : 'solid'}
+                    size={'lg'}
+                  >
+                    {p.name}
+                  </Button>
+                );
+              })}
+            </ButtonGroup>
+          </SimpleGrid>
         </Center>
       </Box>
     </>

@@ -1,4 +1,4 @@
-import { Box, Container, Text } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
 import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
@@ -41,40 +41,42 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Container variant={'questionPanel'} maxW="100%" minH={{ base: '25px', xl: '435px' }} margin={0} paddingTop={50}>
-        <Box
-          height={'250px'}
-          overflowY={'auto'}
-          marginLeft={{ base: '25px', md: '50px' }}
-          marginRight={{ base: '25px', md: '50px' }}
-          position={'relative'}
-          marginTop={'25px'}
-        >
-          {prompt?.bodyText && (
-            <Text>
-              <RichTextOutput content={prompt.bodyText} />
-            </Text>
-          )}
-        </Box>
+      <Card variant={['elevated', 'questionCard']} size={'lg'} maxW="100%" height="450px" margin={0} paddingTop={50}>
+        <CardBody>
+          <Box
+            height={'250px'}
+            overflowY={'auto'}
+            marginLeft="70px"
+            marginRight="70px"
+            position={'relative'}
+            marginTop={'25px'}
+          >
+            {prompt?.bodyText && (
+              <Text>
+                <RichTextOutput content={prompt.bodyText} />
+              </Text>
+            )}
+          </Box>
 
-        <Text fontSize="2xl" textAlign={'center'} paddingLeft={{ base: '25px', md: '40px', lg: '50px' }} paddingRight={{ base: '25px', lg: '50px' }}>
-          {prompt?.text}
-        </Text>
-      </Container>
-      {prompt?.options?.results != null && (
-        <>
-          {prompt?.optionType?.results[0].name === 'Checklist' && (
+          <Text fontSize="2xl" textAlign={'center'} paddingLeft={'50px'} paddingRight={'50px'}>
+            {prompt?.text}
+          </Text>
+        </CardBody>
+        <CardFooter>
+          {prompt?.options?.results != null && (
             <>
-              <MultiSelect multiSelectSubmit={multiSelectSubmit} options={prompt.options.results}></MultiSelect>
+              {prompt?.optionType?.results[0].name === 'Checklist' && (
+                <MultiSelect multiSelectSubmit={multiSelectSubmit} options={prompt.options.results}></MultiSelect>
+              )}
+              {prompt?.optionType?.results[0].name === 'Buttons' && (
+                <>
+                  <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options.results}></ButtonGroup>
+                </>
+              )}
             </>
           )}
-          {prompt?.optionType?.results[0].name === 'Buttons' && (
-            <>
-              <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options.results}></ButtonGroup>
-            </>
-          )}
-        </>
-      )}
+        </CardFooter>
+      </Card>
     </>
   );
 };

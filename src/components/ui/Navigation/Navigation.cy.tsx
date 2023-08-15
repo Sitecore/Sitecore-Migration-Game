@@ -1,4 +1,4 @@
-import { GameInfoProvider } from '../GameInfoContext/GameInfoContext';
+import { GameInfoProvider } from '../../Contexts/GameInfoContext/GameInfoContext';
 import { Navigation } from './Navigation';
 
 describe('<Navigation />', () => {

@@ -1,7 +1,7 @@
 import { Avatar, AvatarGroup, Badge, Grid, GridItem, Text } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { IPrompt } from 'models';
 import { FC } from 'react';
-import { useGameInfoContext } from '..';
 
 interface InfoBarProps {
   remainingQuestions: IPrompt[];
@@ -27,29 +27,28 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = fal
         )}
       </GridItem>
       <GridItem colSpan={6}>
-        
-          {gameInfoContext.theme?.characterImage?.results !== undefined && (
+        {gameInfoContext.theme?.characterImage?.results !== undefined && (
           <AvatarGroup spacing="xs">
             <Avatar
-                size={'xl'}
-                src={gameInfoContext.theme.characterImage!.results[0].fileUrl}
-                title={gameInfoContext.theme.characterImage!.results[0].fileName ?? ''}
-              />
-              <div style={{ flex: 1 }}>
-                <Text>{gameInfoContext.theme.name}</Text>
+              size={'xl'}
+              src={gameInfoContext.theme.characterImage!.results[0].fileUrl}
+              title={gameInfoContext.theme.characterImage!.results[0].fileName ?? ''}
+            />
+            <div style={{ flex: 1 }}>
+              <Text>{gameInfoContext.theme.name}</Text>
             </div>
-            </AvatarGroup>
-          )}
-          {gameInfoContext.persona !== undefined && gameInfoContext.avatar !== undefined && (
-            <AvatarGroup spacing="xs">
-              <Avatar size="xl" src={gameInfoContext.avatar?.fileUrl} title={gameInfoContext.avatar?.fileName ?? ''} />
-              <div style={{ flex: 1 }}>
-                <Text size="sm" fontWeight={500}>
-                  {gameInfoContext.persona.name}
-                </Text>
-              </div>
-              </AvatarGroup>
-          )}
+          </AvatarGroup>
+        )}
+        {gameInfoContext.persona !== undefined && gameInfoContext.avatar !== undefined && (
+          <AvatarGroup spacing="xs">
+            <Avatar size="xl" src={gameInfoContext.avatar?.fileUrl} title={gameInfoContext.avatar?.fileName ?? ''} />
+            <div style={{ flex: 1 }}>
+              <Text size="sm" fontWeight={500}>
+                {gameInfoContext.persona.name}
+              </Text>
+            </div>
+          </AvatarGroup>
+        )}
       </GridItem>
     </Grid>
   );

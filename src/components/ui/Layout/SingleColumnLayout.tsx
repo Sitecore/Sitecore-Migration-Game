@@ -36,7 +36,7 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
         {loading ? (
           <Loading message="Loading Application..." />
         ) : (
-          <Grid h="100%" w={{ base: '1200px' }} gap={0} my={8} mx="auto">
+          <Grid h="100%" w={{ base: '1200px' }} gap={0} my={{ sm: 0, md: 8 }} mx="auto">
             <GridItem>{children}</GridItem>
           </Grid>
         )}

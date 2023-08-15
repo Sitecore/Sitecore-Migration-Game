@@ -7,6 +7,7 @@ import {
   NormalizedCacheObject,
   concat,
 } from '@apollo/client';
+import { AppConfig } from 'models/Config';
 
 const clients: Record<string, ApolloClient<any>> = {};
 
@@ -46,13 +47,11 @@ export const createApolloClient = (options: {
 };
 
 export const chOneService = () => {
-  //console.log(process.env.SITECORE_CH1_ENDPOINT_URL);
-
   return createApolloClient({
-    uri: process.env.SITECORE_CH1_ENDPOINT_URL ?? 'http://localhost:3000',
+    uri: AppConfig.SitecoreChOneEndpointUrl ?? 'http://localhost:3000',
     headers: {
       'Content-Type': 'application/json',
-      'X-GQL-Token': process.env.SITECORE_CH1_CLIENT_KEY ?? '',
+      'X-GQL-Token': AppConfig.SitecoreChOneClientKey ?? '',
     },
   });
 };

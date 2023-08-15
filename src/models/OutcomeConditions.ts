@@ -1,4 +1,4 @@
-import { GameInfoContextType } from 'components/ui';
+import { GameInfoContextType } from 'components/Contexts';
 import { GameContextParser } from 'lib/GameContextParser';
 
 export interface IXCFeaturesUsed {

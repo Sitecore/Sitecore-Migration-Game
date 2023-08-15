@@ -29,10 +29,13 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId
                     onClick={() => handleAvatarChange(avatar)}
                     backgroundImage={`${avatar.fileUrl}?transform=true&width=100&height=100&fit=crop&gravity=auto`}
                     backgroundSize={'contain'}
+                    border={isToggled ? `3px solid #4a28d9` : 'none'}
+                    shadow={'md'}
                     width={100}
                     height={100}
+                    isActive={isToggled}
                     variant={isToggled ? 'avatarSelected' : 'avatar'}
-                  ></Button>
+                  />
                 )}
               </Box>
             );

@@ -1,6 +1,7 @@
 import { Center, Stack } from '@chakra-ui/react';
+import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { CurrentPrompt } from 'components/Prompts';
-import { HexagonCollection, LayoutProps, TwoColumnLayout, useGameInfoContext } from 'components/ui';
+import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { GetNextPrompts } from 'lib/NextPrompts';
 import { PromptService } from 'lib/PromptService';
@@ -12,7 +13,8 @@ import { FC, useEffect, useState } from 'react';
 interface PromptPanelProps extends LayoutProps {}
 
 export const PromptPanel: FC<PromptPanelProps> = (props) => {
-  let gameInfoContext = useGameInfoContext();
+  const gameInfoContext = useGameInfoContext();
+  const tracker = useEngageTracker();
   const [loading, setLoading] = useState(true);
   const [prompts, setPrompts] = useState<IPrompt[]>([]);
   const [currentPrompt, setCurrentPrompt] = useState<IPrompt | undefined>();
@@ -54,10 +56,15 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       setPrompts(data.results);
 
       // Set Starting Prompt
-      const currentPrompt = data.results.find((p: IPrompt) => p.start === true);
+      const nextPrompt = data.results.find((p: IPrompt) => p.start === true);
 
-      if (currentPrompt !== undefined) {
-        setCurrentPrompt(currentPrompt);
+      if (nextPrompt !== undefined) {
+        setCurrentPrompt(nextPrompt);
+
+        await tracker.TrackPageView(
+          { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
+          { prompt: nextPrompt?.id }
+        );
       } else {
         // TODO: Show messaging if no prompts/start prompts are found
         //setShowError(true);
@@ -67,7 +74,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
     }
   };
 
-  const triggerNextPrompt = () => {
+  const triggerNextPrompt = async () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
     if (gameInfoContext.questionsBank?.get() !== undefined) {
       if (gameInfoContext.questionsBank.get()!.length > 0) {
@@ -76,6 +83,11 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
         gameInfoContext.questionsBank.set(questionQueue);
 
         setCurrentPrompt(nextPrompt);
+
+        await tracker.TrackPageView(
+          { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
+          { prompt: nextPrompt?.id }
+        );
       } else {
         router.push('/outcome');
       }

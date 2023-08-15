@@ -1,6 +1,7 @@
 import { Heading, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { ConditionalResponse } from 'components/Outcomes';
-import { LinkCard, RichTextOutput, YouTubeVideoDisplay, useGameInfoContext } from 'components/ui';
+import { LinkCard, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { FC } from 'react';
 
@@ -23,7 +24,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
   return (
     <>
-      <Heading>{gameInfoContext.outcome.title}</Heading>
+      <Heading size="lg" mb={2}>
+        {gameInfoContext.outcome.title}
+      </Heading>
+
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
       </Text>
@@ -35,25 +39,35 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </List>
       )}
 
-      <Heading>{gameInfoContext.outcome.videoTitle}</Heading>
+      <Heading size="lg" mb={2}>
+        {gameInfoContext.outcome.videoTitle}
+      </Heading>
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.videoIntro} />
       </Text>
       <YouTubeVideoDisplay videoId={gameInfoContext.outcome.videoid} />
-      <Text>
+      <Text className="pt-4">
         <RichTextOutput content={gameInfoContext.outcome.guidesIntro} />
       </Text>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <Heading>Experience Commerce (XC) migration</Heading>
+        <Heading size="lg" mb={2}>
+          Experience Commerce (XC) migration
+        </Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP}>
-        <Heading>Experience Platform (XP) migration</Heading>
+        <Heading size="lg" mb={2}>
+          Experience Platform (XP) migration
+        </Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXM}>
-        <Heading>Experience Manager (XM) migration</Heading>
+        <Heading size="lg" mb={2}>
+          Experience Manager (XM) migration
+        </Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <Heading>{gameInfoContext.outcome.xcFeaturesTitle}</Heading>
+        <Heading size="lg" mb={2}>
+          {gameInfoContext.outcome.xcFeaturesTitle}
+        </Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.xcFeaturesIntro} />
         </Text>
@@ -136,7 +150,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </SimpleGrid>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP || outcomeConditions.isXC}>
-        <Heading>{gameInfoContext.outcome.xpFeaturesTitle}</Heading>
+        <Heading size="lg" mb={2}>
+          {gameInfoContext.outcome.xpFeaturesTitle}
+        </Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.xpFeaturesIntro} />
         </Text>
@@ -168,7 +184,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           />
         </SimpleGrid>
       </ConditionalResponse>
-      <Heading>{gameInfoContext.outcome.xmFeaturesTitle}</Heading>
+      <Heading size="lg" mb={2}>
+        {gameInfoContext.outcome.xmFeaturesTitle}
+      </Heading>
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
       </Text>
@@ -195,7 +213,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </ConditionalResponse>
       </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
-        <Heading>{gameInfoContext.outcome.aspnetHeadlessTitle}</Heading>
+        <Heading size="lg" mb={2}>
+          {gameInfoContext.outcome.aspnetHeadlessTitle}
+        </Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.aspnetHeadlessIntro} />
         </Text>
