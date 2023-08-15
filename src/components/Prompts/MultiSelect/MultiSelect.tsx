@@ -1,5 +1,6 @@
-import { Button, Card, SimpleGrid, Text, Tooltip, VStack } from '@chakra-ui/react';
+import { Button, Card, Center, SimpleGrid, Text, Tooltip, VStack } from '@chakra-ui/react';
 import { IOption } from 'models';
+import { M_PLUS_1 } from 'next/font/google';
 import { FC, useState } from 'react';
 
 interface MultiSelectProps {
@@ -28,11 +29,10 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
           <Text fontSize="2xl" variant={'answerInstruction'}>
             Select all that apply:
           </Text>
-          <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="md" columnGap={10}>
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing="md" columnGap={10}>
             {options.map((option: IOption) => (
               <>
                 {/* Center all the below elements */}
-
                 {option.tooltip ? (
                   <Tooltip key={option.id} label={option.tooltip}>
                     <Button
@@ -42,6 +42,8 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                       isActive={selectedOptions.includes(option) ? true : false}
                       onClick={() => handleOptionSelected(option)}
                       variant={'solid'}
+                      whiteSpace={'normal'}
+                      flexWrap={'wrap'}
                     >
                       {option.label}
                     </Button>
@@ -58,9 +60,11 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                     {option.label}
                   </Button>
                 )}
+
               </>
             ))}
           </SimpleGrid>
+
         </VStack>
 
         {multiSelectSubmit && (

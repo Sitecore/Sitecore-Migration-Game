@@ -46,10 +46,11 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
           <Box
             height={'250px'}
             overflowY={'auto'}
-            marginLeft="70px"
-            marginRight="70px"
+            marginLeft={{base: '15px', md: '50px'}}
+            marginRight={{base: '15px', md: '50px'}}
             position={'relative'}
-            marginTop={'25px'}
+            marginTop={{base: '10px', md: '25px'}}
+            marginBottom={{base: '15px', md: '50px'}}
           >
             {prompt?.bodyText && (
               <Text>
@@ -58,7 +59,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
             )}
           </Box>
 
-          <Text fontSize="2xl" textAlign={'center'} paddingLeft={'50px'} paddingRight={'50px'}>
+          <Text fontSize="2xl" textAlign={'center'} paddingLeft={{base: '15px', md: '50px'}} paddingRight={{base: '15px', md: '50px'}}>
             {prompt?.text}
           </Text>
         </CardBody>

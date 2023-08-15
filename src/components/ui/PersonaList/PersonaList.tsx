@@ -22,8 +22,7 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
           </Heading>
         </Center>
         <Center>
-          <SimpleGrid mt={10}>
-            <ButtonGroup variant="outline" spacing="6">
+          <SimpleGrid mt={10} columns={{base: 1, sm: 2, md: 4}} spacing={6}>
               {personas?.map((p, i) => {
                 const isToggled = p.id === toggledButtonId;
                 return (
@@ -41,7 +40,6 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
                   </Button>
                 );
               })}
-            </ButtonGroup>
           </SimpleGrid>
         </Center>
       </Box>

@@ -22,22 +22,24 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId
           {avatars?.map((avatar, i) => {
             const isToggled = avatar.id === toggledAvatarId;
             return (
-              <Box>
-                {avatar !== undefined && (
-                  <Button
-                    key={avatar.id}
-                    onClick={() => handleAvatarChange(avatar)}
-                    backgroundImage={`${avatar.fileUrl}?transform=true&width=100&height=100&fit=crop&gravity=auto`}
-                    backgroundSize={'contain'}
-                    border={isToggled ? `3px solid #4a28d9` : 'none'}
-                    shadow={'md'}
-                    width={100}
-                    height={100}
-                    isActive={isToggled}
-                    variant={isToggled ? 'avatarSelected' : 'avatar'}
-                  />
-                )}
-              </Box>
+              <Center>
+                <Box>
+                  {avatar !== undefined && (
+                    <Button
+                      key={avatar.id}
+                      onClick={() => handleAvatarChange(avatar)}
+                      backgroundImage={`${avatar.fileUrl}?transform=true&width=100&height=100&fit=crop&gravity=auto`}
+                      backgroundSize={'contain'}
+                      border={isToggled ? `3px solid #4a28d9` : 'none'}
+                      shadow={'md'}
+                      width={100}
+                      height={100}
+                      isActive={isToggled}
+                      variant={isToggled ? 'avatarSelected' : 'avatar'}
+                    />
+                  )}
+                </Box>
+              </Center>
             );
           })}
         </SimpleGrid>
