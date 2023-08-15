@@ -10,7 +10,7 @@ const pulse = keyframes`
 export const buttonTheme = defineStyleConfig({
   baseStyle,
   variants: {
-    answer: {
+    solid: {
       background: 'none',
       backgroundImage: '/fantasy/button-default.svg',
       backgroundRepeat: 'no-repeat',
@@ -18,7 +18,7 @@ export const buttonTheme = defineStyleConfig({
       backgroundPosition: 'center center',
       verticalAlign: 'middle',
       textAlign: 'center',
-      width: '300px',
+      minWidth: '250px',
       fontFamily: 'var(--font-fondamento)',
       fontSize: '16px',
       paddingTop: '2px',
@@ -26,8 +26,34 @@ export const buttonTheme = defineStyleConfig({
       display: 'inline-block',
       position: 'relative',
       color: 'white',
-      _hover: {
+      _active: {
+        background: 'none',
         backgroundImage: '/fantasy/button-active.svg',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'auto auto',
+        backgroundPosition: 'center center',
+      },
+      _hover: {
+        background: 'none',
+        backgroundImage: '/fantasy/button-active.svg',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'auto auto',
+        backgroundPosition: 'center center',
+      },
+    },
+    iconOnly: {
+      background: 'none',
+      backgroundImage: '/fantasy/icon-button-default.svg',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      backgroundPosition: 'center center',
+      verticalAlign: 'middle',
+      textAlign: 'center',
+      position: 'relative',
+      color: 'white',
+      fontFamily: 'var(--font-fondamento)',
+      _hover: {
+        backgroundImage: '/fantasy/icon-button-active.svg',
       },
     },
     answer2: {
@@ -124,25 +150,35 @@ export const buttonTheme = defineStyleConfig({
       backgroundPosition: '100% 0',
       //border: '5px solid red',
     },
-    continue: {
+    solid1: {
       transition: 'all .4s ease-in-out',
       MozTransition: 'all .4s ease-in-out',
       WebkitTransition: 'all .4s ease-in-out',
       OTransition: 'all .4s ease-in-out',
+      overflow: 'hidden',
       backgroundImage: 'linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376)',
       backgroundSize: '300% 100%',
       boxShadow: '0 4px 15px 0 rgba(45, 54, 65, 0.75)',
       color: '#ffffff',
       borderRadius: '5px',
       _hover: {
-        backgroundPosition: '100% 0',
-        transition: 'all .4s ease-in-out',
-        MozTransition: 'all .4s ease-in-out',
-        WebkitTransition: 'all .4s ease-in-out',
-        OTransition: 'all .4s ease-in-out',
+        boxShadow: '1px 1px 25px 10px rgba(146, 148, 248, 0.4)',
+        _before: {
+          left: '100%',
+        },
+      },
+      _before: {
+        content: `''`,
+        position: 'absolute',
+        top: 0,
+        left: '-100%',
+        width: '100%',
+        height: '100%',
+        background: 'linear-gradient(120deg,transparent,rgba(146, 148, 248, 0.4),transparent)',
+        transition: 'all 650ms',
       },
     },
-    continue2: {
+    solid2: {
       backgroundImage: 'linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376)',
       backgroundSize: '300% 100%',
       overflow: 'hidden',

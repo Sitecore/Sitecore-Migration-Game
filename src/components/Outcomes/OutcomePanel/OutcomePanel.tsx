@@ -1,4 +1,4 @@
-import { Box, Center, Stack } from '@chakra-ui/react';
+import { Card, Center, Stack } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { OutcomeGenerator } from 'components/Outcomes';
 import { PreviousAnswers } from 'components/Prompts';
@@ -49,23 +49,12 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
         </Center>
       }
       rightColumn={
-        <Box
-          w="100%"
-          mt={8}
-          mb={4}
-          p={8}
-          bg="#C8C8C8"
-          boxShadow="0 0 10px 0 rgba(0,0,0,.2), inset 0 0 200px hsla(0,0%,100%,.3)"
-          borderRadius="lg"
-          display="flex"
-          alignItems="center"
-          flexDirection="column"
-        >
+        <Card w="100%" mt={8} mb={4} p={8} display="flex" alignItems="center" flexDirection="column">
           <Stack>
             <OutcomeGenerator />
             <PreviousAnswers />
           </Stack>
-        </Box>
+        </Card>
       }
     ></TwoColumnLayout>
   );

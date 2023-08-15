@@ -24,7 +24,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
   return (
     <>
-      <Heading>{gameInfoContext.outcome.title}</Heading>
+      <Heading size="lg" mb={2}>
+        {gameInfoContext.outcome.title}
+      </Heading>
+
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
       </Text>
@@ -36,30 +39,40 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </List>
       )}
 
-      <Heading>{gameInfoContext.outcome.videoTitle}</Heading>
+      <Heading size="lg" mb={2}>
+        {gameInfoContext.outcome.videoTitle}
+      </Heading>
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.videoIntro} />
       </Text>
       <YouTubeVideoDisplay videoId={gameInfoContext.outcome.videoid} />
-      <Text>
+      <Text className="pt-4">
         <RichTextOutput content={gameInfoContext.outcome.guidesIntro} />
       </Text>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <Heading>Experience Commerce (XC) migration</Heading>
+        <Heading size="lg" mb={2}>
+          Experience Commerce (XC) migration
+        </Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP}>
-        <Heading>Experience Platform (XP) migration</Heading>
+        <Heading size="lg" mb={2}>
+          Experience Platform (XP) migration
+        </Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXM}>
-        <Heading>Experience Manager (XM) migration</Heading>
+        <Heading size="lg" mb={2}>
+          Experience Manager (XM) migration
+        </Heading>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXC}>
-        <Heading>{gameInfoContext.outcome.xcFeaturesTitle}</Heading>
+        <Heading size="lg" mb={2}>
+          {gameInfoContext.outcome.xcFeaturesTitle}
+        </Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.xcFeaturesIntro} />
         </Text>
 
-        <SimpleGrid columns={3} spacing="md">
+        <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="md">
           <LinkCard
             link="https://community.sitecore.com/community?id=community_blog&sys_id=89f8d1391b416154e55241dde54bcb88"
             title="Transitioning from Sitecore XC to OrderCloud: API Access"
@@ -137,12 +150,14 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </SimpleGrid>
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP || outcomeConditions.isXC}>
-        <Heading>{gameInfoContext.outcome.xpFeaturesTitle}</Heading>
+        <Heading size="lg" mb={2}>
+          {gameInfoContext.outcome.xpFeaturesTitle}
+        </Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.xpFeaturesIntro} />
         </Text>
 
-        <SimpleGrid columns={3} spacing="md">
+        <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="md">
           <ConditionalResponse condition={outcomeConditions.isSimplePersonalization()}>
             <LinkCard
               link="https://jasonstcyr.com/2023/05/31/sitecore-architects-guide-to-saas-migration-classic-xp-with-simple-personalization/"
@@ -169,11 +184,13 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           />
         </SimpleGrid>
       </ConditionalResponse>
-      <Heading>{gameInfoContext.outcome.xmFeaturesTitle}</Heading>
+      <Heading size="lg" mb={2}>
+        {gameInfoContext.outcome.xmFeaturesTitle}
+      </Heading>
       <Text>
         <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
       </Text>
-      <SimpleGrid columns={3} spacing="md">
+      <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="md">
         <ConditionalResponse
           condition={
             outcomeConditions.isXM &&
@@ -196,11 +213,13 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </ConditionalResponse>
       </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
-        <Heading>{gameInfoContext.outcome.aspnetHeadlessTitle}</Heading>
+        <Heading size="lg" mb={2}>
+          {gameInfoContext.outcome.aspnetHeadlessTitle}
+        </Heading>
         <Text>
           <RichTextOutput content={gameInfoContext.outcome.aspnetHeadlessIntro} />
         </Text>
-        <SimpleGrid columns={3} spacing="md">
+        <SimpleGrid columns={{ sm: 2, md: 3 }} spacing="md">
           <LinkCard
             link="https://robearlam.com/blog/migrating-the-sitecore-mvp-site-to-xm-cloud-part-1"
             title="Migrating the Sitecore MVP site to XM Cloud – Part 1"
