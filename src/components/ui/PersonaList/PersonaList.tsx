@@ -1,4 +1,5 @@
 import { Box, Button, ButtonGroup, Center, Heading, SimpleGrid } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { IPersona } from 'models';
 import { FC } from 'react';
 
@@ -10,11 +11,15 @@ interface PersonaListProps {
 }
 
 export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, handlePersonaChange, classStyles }) => {
+  const gameInfoContext = useGameInfoContext();
+
   return (
     <>
       <Box>
         <Center>
-          <Heading variant={'gameTitle'}>Select Your Role:</Heading>
+          <Heading size="xl" variant={'gameTitle'}>
+            Select Your Role:
+          </Heading>
         </Center>
         <Center>
           <SimpleGrid mt={10}>
@@ -23,12 +28,14 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
                 const isToggled = p.id === toggledButtonId;
                 return (
                   <Button
+                    isActive={isToggled}
                     key={p.id}
                     style={{ flex: 1 }}
                     onClick={() => {
                       handlePersonaChange(p.id);
                     }}
-                    variant={isToggled ? 'roleSelected' : 'role'}
+                    variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'outline' : 'solid'}
+                    size={'lg'}
                   >
                     {p.name}
                   </Button>

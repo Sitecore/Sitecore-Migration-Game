@@ -6,7 +6,6 @@ const baseStyle = defineStyle({
   fontWeight: 'medium',
   fontSize: 'sm',
   boxShadow: 'md',
-
   zIndex: 'tooltip',
   fontFamily: 'var(--font-fondamento)',
   background: 'none',
