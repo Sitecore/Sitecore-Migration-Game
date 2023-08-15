@@ -1,9 +1,11 @@
 import { Box, HStack, IconButton, Tooltip } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import Image from 'next/image';
 import Router from 'next/router';
 import { FC } from 'react';
 import { MdCached, MdSave } from 'react-icons/md';
-import { InfoModal, ProgressTracker, useGameInfoContext } from '..';
+import { InfoModal } from '../InfoModal/InfoModal';
+import { ProgressTracker } from '../ProgressTracker/ProgressTracker';
 
 interface NavigationProps {
   showProgressBar?: boolean;

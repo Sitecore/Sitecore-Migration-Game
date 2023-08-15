@@ -26,19 +26,19 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
         <Heading variant={'gameTitle'}>Select Your Theme:</Heading>
       </Center>
       <SimpleGrid
-        columns={2}
-        spacingX="40px"
+        columns={{ sm: 2, md: 2 }}
+        spacingX="10px"
         spacingY="20px"
         alignContent={'center'}
         justifyContent={'center'}
         paddingBottom={20}
-        marginTop={20}
+        marginTop={[2, 20]}
       >
         {themes?.map((theme, i) => (
           <ScaleFade initialScale={0.9} in={true}>
             <Center>
               <Box
-                maxWidth={'80%'}
+                maxWidth={['100%', '80%']}
                 bg={useColorModeValue('white', 'gray.800')}
                 boxShadow={'10px 25px 50px 25px rgba(0, 0, 0, 0.25)'}
                 rounded={'lg'}
@@ -50,7 +50,7 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
                     <Image
                       src={theme.characterImage!.results[0].fileUrl}
                       alt={theme.characterImage!.results[0].fileName ?? ''}
-                      maxHeight={'300px'}
+                      maxHeight={['0px', '200px']}
                       fit={'cover'}
                     />
                   )}

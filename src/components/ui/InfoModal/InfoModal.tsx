@@ -20,9 +20,9 @@ import {
   Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { FC } from 'react';
 import { MdQuestionMark } from 'react-icons/md';
-import { useGameInfoContext } from '../GameInfoContext/GameInfoContext';
 
 interface InfoModalProps {}
 

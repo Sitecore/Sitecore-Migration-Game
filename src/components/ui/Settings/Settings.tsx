@@ -99,7 +99,7 @@ export const Settings: FC<SettingsProps> = () => {
   //#endregion
 
   return (
-    <Container w="100%" maxWidth={'1136px'} rounded={'lg'} padding={10}>
+    <Container w="100%" maxWidth={'1136px'} rounded={'lg'} padding={{ sm: 0, md: 10 }}>
       {loading ? (
         <>
           <Center>

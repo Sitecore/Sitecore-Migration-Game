@@ -1,7 +1,7 @@
 import { Box, Button, ButtonGroup, Center, Heading, SimpleGrid } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { IPersona } from 'models';
 import { FC } from 'react';
-import { useGameInfoContext } from '../GameInfoContext/GameInfoContext';
 
 interface PersonaListProps {
   personas: IPersona[] | undefined;
