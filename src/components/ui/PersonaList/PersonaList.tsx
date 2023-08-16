@@ -1,5 +1,4 @@
-import { Box, Button, ButtonGroup, Center, Heading, SimpleGrid } from '@chakra-ui/react';
-import { useGameInfoContext } from 'components/Contexts';
+import { Box, Button, Center, Heading, SimpleGrid } from '@chakra-ui/react';
 import { IPersona } from 'models';
 import { FC } from 'react';
 
@@ -11,8 +10,6 @@ interface PersonaListProps {
 }
 
 export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, handlePersonaChange, classStyles }) => {
-  const gameInfoContext = useGameInfoContext();
-
   return (
     <>
       <Box>
@@ -22,24 +19,24 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
           </Heading>
         </Center>
         <Center>
-          <SimpleGrid mt={10} columns={{base: 1, sm: 2, md: 4}} spacing={6}>
-              {personas?.map((p, i) => {
-                const isToggled = p.id === toggledButtonId;
-                return (
-                  <Button
-                    isActive={isToggled}
-                    key={p.id}
-                    style={{ flex: 1 }}
-                    onClick={() => {
-                      handlePersonaChange(p.id);
-                    }}
-                    variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'outline' : 'solid'}
-                    size={'lg'}
-                  >
-                    {p.name}
-                  </Button>
-                );
-              })}
+          <SimpleGrid mt={10} columns={{ base: 2, sm: 2, md: 4 }} spacing={6}>
+            {personas?.map((p, i) => {
+              const isToggled = p.id === toggledButtonId;
+              return (
+                <Button
+                  isActive={isToggled}
+                  key={p.id}
+                  style={{ flex: 1 }}
+                  onClick={() => {
+                    handlePersonaChange(p.id);
+                  }}
+                  variant={'solid'}
+                  size={'lg'}
+                >
+                  {p.name}
+                </Button>
+              );
+            })}
           </SimpleGrid>
         </Center>
       </Box>
