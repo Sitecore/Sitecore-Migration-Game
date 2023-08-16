@@ -6,7 +6,6 @@ interface AvatarGalleryProps {
   avatars: IImage[] | undefined;
   toggledAvatarId: string | undefined;
   handleAvatarChange: (avatar: IImage) => void;
-  classStyles: any;
 }
 
 export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId, handleAvatarChange }) => {
