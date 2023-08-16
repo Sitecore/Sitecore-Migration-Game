@@ -1,6 +1,5 @@
-import { Button, Card, Center, SimpleGrid, Text, Tooltip, VStack } from '@chakra-ui/react';
+import { Button, Center, Container, SimpleGrid, Text, Tooltip, VStack } from '@chakra-ui/react';
 import { IOption } from 'models';
-import { M_PLUS_1 } from 'next/font/google';
 import { FC, useState } from 'react';
 
 interface MultiSelectProps {
@@ -24,7 +23,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
 
   return (
     <>
-      <Card mt={8} mb={4} p={4} size={'sm'} variant={''} background={'transparent'}>
+      <Container mt={8} maxWidth={'100%'}>
         <VStack>
           <Text fontSize="2xl" variant={'answerInstruction'}>
             Select all that apply:
@@ -41,7 +40,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                       m={1}
                       isActive={selectedOptions.includes(option) ? true : false}
                       onClick={() => handleOptionSelected(option)}
-                      variant={'solid'}
+                      variant={{ base: 'outline', md: 'solid' }}
                       whiteSpace={'normal'}
                       flexWrap={'wrap'}
                     >
@@ -55,31 +54,31 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                     m={1}
                     isActive={selectedOptions.includes(option) ? true : false}
                     onClick={() => handleOptionSelected(option)}
-                    variant={'solid'}
+                    variant={{ base: 'outline', md: 'solid' }}
                   >
                     {option.label}
                   </Button>
                 )}
-
               </>
             ))}
           </SimpleGrid>
-
         </VStack>
 
         {multiSelectSubmit && (
-          <Button
-            mt={4}
-            mx={4}
-            onClick={() => multiSelectSubmit(selectedOptions)}
-            isDisabled={selectedOptions.length == 0}
-            variant={'solid'}
-            size={'lg'}
-          >
-            Submit
-          </Button>
+          <Center>
+            <Button
+              mt={4}
+              mx={4}
+              onClick={() => multiSelectSubmit(selectedOptions)}
+              isDisabled={selectedOptions.length == 0}
+              variant={'solid'}
+              size={'lg'}
+            >
+              Submit
+            </Button>
+          </Center>
         )}
-      </Card>
+      </Container>
     </>
   );
 };

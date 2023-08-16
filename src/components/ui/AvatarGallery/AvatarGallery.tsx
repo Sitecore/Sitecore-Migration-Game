@@ -14,7 +14,7 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId
     <>
       <Box marginTop={[10]} marginX={[0, 20]}>
         <Center>
-          <Heading variant={'gameTitle'} order={3}>
+          <Heading variant={'gameTitle'} size={{ base: 'md', xl: 'xl' }} order={3}>
             Select Your Avatar:
           </Heading>
         </Center>
@@ -22,24 +22,22 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId
           {avatars?.map((avatar, i) => {
             const isToggled = avatar.id === toggledAvatarId;
             return (
-              <Center>
-                <Box>
-                  {avatar !== undefined && (
-                    <Button
-                      key={avatar.id}
-                      onClick={() => handleAvatarChange(avatar)}
-                      backgroundImage={`${avatar.fileUrl}?transform=true&width=100&height=100&fit=crop&gravity=auto`}
-                      backgroundSize={'contain'}
-                      border={isToggled ? `3px solid #4a28d9` : 'none'}
-                      shadow={'md'}
-                      width={['80px', '80px', '100px']}
-                      height={['80px', '80px', '100px']}
-                      isActive={isToggled}
-                      variant={isToggled ? 'avatarSelected' : 'avatar'}
-                    />
-                  )}
-                </Box>
-              </Center>
+              <Box width={['80px', '80px', '100px']}>
+                {avatar !== undefined && (
+                  <Button
+                    key={avatar.id}
+                    onClick={() => handleAvatarChange(avatar)}
+                    backgroundImage={`${avatar.fileUrl}?transform=true&width=80&height=80&fit=crop&gravity=auto`}
+                    backgroundSize={'cover'}
+                    shadow={'md'}
+                    width={['60px', '80px', '100px']}
+                    height={['60px', '80px', '100px']}
+                    boxShadow={isToggled ? '0 0 5px 5px #5548D9' : '0 4px 15px 0 rgba(45, 54, 65, 0.5)'}
+                    isActive={avatar.id === toggledAvatarId}
+                    variant={'avatar'}
+                  />
+                )}
+              </Box>
             );
           })}
         </SimpleGrid>

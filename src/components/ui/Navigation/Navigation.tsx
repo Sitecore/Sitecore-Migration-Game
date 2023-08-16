@@ -24,8 +24,8 @@ export const Navigation: FC<NavigationProps> = ({
 
   return (
     <>
-      <Box as="section" py="6" background={'transparent'}>
-        <Box maxW={{ base: '1200px' }} mx="auto" px={{ base: '6', md: '8' }}>
+      <Box as="section" py={['2', '6']} background={'transparent'}>
+        <Box maxW={{ base: '1200px' }} mx="auto" px={{ base: '1', md: '8' }}>
           <HStack justify="space-between">
             <Box width="200px">
               <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
@@ -41,7 +41,7 @@ export const Navigation: FC<NavigationProps> = ({
                   <Tooltip label="Save Your Result" aria-label="Save Your Result">
                     <IconButton
                       variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
-                      size={'lg'}
+                      size={['md']}
                       colorScheme="neutral"
                       data-type="icon"
                       aria-label={'Start over'}
@@ -54,7 +54,7 @@ export const Navigation: FC<NavigationProps> = ({
                     <IconButton
                       onClick={() => Router.push('/')}
                       variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
-                      size={'lg'}
+                      size={['md']}
                       colorScheme="neutral"
                       aria-label={'Start over'}
                       icon={<MdCached size={24} />}

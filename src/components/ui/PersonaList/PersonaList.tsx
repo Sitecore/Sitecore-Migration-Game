@@ -14,12 +14,12 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
     <>
       <Box>
         <Center>
-          <Heading size="xl" variant={'gameTitle'}>
+          <Heading size={{ base: 'md', xl: 'xl' }} variant={'gameTitle'}>
             Select Your Role:
           </Heading>
         </Center>
         <Center>
-          <SimpleGrid mt={10} columns={{ base: 2, sm: 2, md: 4 }} spacing={6}>
+          <SimpleGrid mt={10} columns={{ base: 1, sm: 2, md: 4 }} spacing={6}>
             {personas?.map((p, i) => {
               const isToggled = p.id === toggledButtonId;
               return (
@@ -31,7 +31,6 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
                     handlePersonaChange(p.id);
                   }}
                   variant={'solid'}
-                  size={'lg'}
                 >
                   {p.name}
                 </Button>

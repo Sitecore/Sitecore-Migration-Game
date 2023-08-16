@@ -41,16 +41,25 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Card variant={['elevated', 'questionCard']} size={'lg'} maxW="100%" height="450px" margin={0} paddingTop={50}>
+      <Card
+        variant="elevated"
+        maxW={['100%', '90%']}
+        height={['auto', 'auto', '400px']}
+        margin={0}
+        shadow={'none'}
+        paddingTop={[0, 5]}
+        alignItems={'center'}
+      >
         <CardBody>
           <Box
-            height={'250px'}
+            id="Box"
+            height={{ base: '250px', md: '150px', lg: '250px' }}
             overflowY={'auto'}
-            marginLeft={{base: '15px', md: '50px'}}
-            marginRight={{base: '15px', md: '50px'}}
+            marginLeft={{ base: '15px', md: '50px' }}
+            marginRight={{ base: '15px', md: '50px' }}
             position={'relative'}
-            marginTop={{base: '10px', md: '25px'}}
-            marginBottom={{base: '15px', md: '50px'}}
+            marginTop={{ base: '10px', md: '25px' }}
+            marginBottom={{ base: '15px', md: '0px' }}
           >
             {prompt?.bodyText && (
               <Text>
@@ -59,7 +68,12 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
             )}
           </Box>
 
-          <Text fontSize="2xl" textAlign={'center'} paddingLeft={{base: '15px', md: '50px'}} paddingRight={{base: '15px', md: '50px'}}>
+          <Text
+            fontSize={['lg', '2xl']}
+            textAlign={'center'}
+            paddingLeft={{ base: '15px', md: '50px' }}
+            paddingRight={{ base: '15px', md: '50px' }}
+          >
             {prompt?.text}
           </Text>
         </CardBody>
