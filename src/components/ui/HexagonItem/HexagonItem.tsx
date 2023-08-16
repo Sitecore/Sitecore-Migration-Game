@@ -20,6 +20,7 @@ export const HexagonItem: FC<HexagonItemProps> = ({ productName, icon, cloud, ac
         pointerEvents: 'none',
       }}
       minH={{ base: '40px', lg: '100px' }}
+      minW={{ base: '40px', lg: '100px' }}
       paddingBottom="10px"
     >
       <Box

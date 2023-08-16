@@ -36,7 +36,7 @@ export const InfoModal: FC<InfoModalProps> = () => {
         <IconButton
           onClick={onOpen}
           variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
-          size={'lg'}
+          size={'md'}
           button-type="icon"
           colorScheme="neutral"
           data-type="icon"

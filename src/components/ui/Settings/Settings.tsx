@@ -120,7 +120,6 @@ export const Settings: FC<SettingsProps> = () => {
                 avatars={avatars}
                 toggledAvatarId={toggledAvatar?.id}
                 handleAvatarChange={handleAvatarChange}
-                classStyles={null}
               />
               <Center>
                 <Button

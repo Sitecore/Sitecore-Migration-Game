@@ -11,7 +11,6 @@ describe('<AvatarGallery />', () => {
         handleAvatarChange={function (avatar: IImage): void {
           throw new Error('Function not implemented.');
         }}
-        classStyles={undefined}
       />
     );
   });

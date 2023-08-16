@@ -28,13 +28,17 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
 
   return (
     <Box>
-      <Text fontSize="2xl" fontWeight="bold" textAlign="center" mb={10} variant={'achievements'}>
+      <Text fontSize={['lg', '2xl']} fontWeight="bold" textAlign="center" mb={[2, 10]} variant={'achievements'}>
         Achievements
       </Text>
       {loading ? (
         <Loading message="Loading Achievements..." />
       ) : (
-        <SimpleGrid templateColumns={{ base: '1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr' }} spacing="2px" gap="10px">
+        <SimpleGrid
+          templateColumns={{ base: '1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr' }}
+          spacing="2px"
+          gap={['5px', '10px']}
+        >
           <HexagonItem
             productName="XM Cloud"
             icon="0f7f9565544a42c19371f215bd57cc0d"
