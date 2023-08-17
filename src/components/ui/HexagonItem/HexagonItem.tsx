@@ -123,7 +123,7 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
           </Box>
         </Button>
       </PopoverTrigger>
-      <PopoverContent p="4">
+      <PopoverContent p="4" mx="4">
         <PopoverArrow bg="white" />
         <PopoverCloseButton />
         <PopoverBody>
