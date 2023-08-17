@@ -129,7 +129,7 @@ export const Settings: FC<SettingsProps> = () => {
                   isDisabled={toggledAvatar == undefined || toggledButton == undefined}
                   onClick={() => handleStartGame()}
                 >
-                  Save Changes and Start Adventure
+                  {gameInfoContext.theme?.startButtonText ?? 'Save Changes and Start Adventure'}
                 </Button>
               </Center>
             </>
