@@ -37,7 +37,6 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
       <PopoverTrigger>
         <Button
           variant="unstyled"
-          height="100%"
           onClick={() => setIsOpen(!isOpen)}
           sx={{
             opacity: active ? 1 : 0.25,
