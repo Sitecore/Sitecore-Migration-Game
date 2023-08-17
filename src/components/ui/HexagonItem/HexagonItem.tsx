@@ -1,6 +1,22 @@
-import { Box, Image, Popover, PopoverTrigger, Show, chakra } from '@chakra-ui/react';
-import { Products, TargetProduct } from 'models/OutcomeConditions';
-import { FC } from 'react';
+import {
+  Box,
+  Button,
+  Heading,
+  Image,
+  Link,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+  Show,
+  Text,
+  chakra,
+} from '@chakra-ui/react';
+import { Products } from 'models/Config';
+import { TargetProduct } from 'models/OutcomeConditions';
+import { FC, useState } from 'react';
 
 interface HexagonItemProps {
   product: TargetProduct;
@@ -8,6 +24,8 @@ interface HexagonItemProps {
 }
 
 export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const productDetail = Products.find((p) => p.product === product);
 
   if (!productDetail) {
@@ -15,9 +33,12 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
   }
 
   return (
-    <Popover closeOnBlur={true}>
+    <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <PopoverTrigger>
-        <chakra.div
+        <Button
+          variant="unstyled"
+          height="100%"
+          onClick={() => setIsOpen(!isOpen)}
           sx={{
             opacity: active ? 1 : 0.25,
             webkitFilter:
@@ -25,7 +46,7 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
             filter:
               'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
             transition: 'opacity 0.3s',
-            pointerEvents: 'none',
+            pointerEvents: active ? 'auto' : 'none',
           }}
           minH={{ base: '40px', lg: '100px' }}
           paddingBottom="10px"
@@ -99,8 +120,23 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
               </chakra.h3>
             </Show>
           </Box>
-        </chakra.div>
+        </Button>
       </PopoverTrigger>
+      <PopoverContent p="4">
+        <PopoverArrow bg="white" />
+        <PopoverCloseButton />
+        <PopoverBody>
+          <Heading as="h3" size="lg">
+            {productDetail.name}
+          </Heading>
+          <Text fontSize="md">{productDetail.description}</Text>
+          <Link href={productDetail.url} isExternal>
+            <Button colorScheme="primary" variant="solid" mt="5">
+              Learn More
+            </Button>
+          </Link>
+        </PopoverBody>
+      </PopoverContent>
     </Popover>
   );
 };
