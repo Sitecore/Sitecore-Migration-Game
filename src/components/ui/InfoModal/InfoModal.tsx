@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Heading,
-  Icon,
+  IconButton,
   Link,
   List,
   ListItem,
@@ -17,8 +17,10 @@ import {
   Stack,
   StackDivider,
   Text,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { FC } from 'react';
 import { MdQuestionMark } from 'react-icons/md';
 
@@ -26,12 +28,23 @@ interface InfoModalProps {}
 
 export const InfoModal: FC<InfoModalProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const gameInfoContext = useGameInfoContext();
 
   return (
     <>
-      <Button onClick={onOpen} variant="iconButton">
-        <Icon as={MdQuestionMark} fontSize={24} />
-      </Button>
+      <Tooltip label="About" aria-label="About the application">
+        <IconButton
+          onClick={onOpen}
+          variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
+          size={'md'}
+          button-type="icon"
+          colorScheme="neutral"
+          data-type="icon"
+          aria-label={'About'}
+          icon={<MdQuestionMark size={24} />}
+        ></IconButton>
+      </Tooltip>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

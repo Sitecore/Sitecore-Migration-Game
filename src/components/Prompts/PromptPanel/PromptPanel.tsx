@@ -126,7 +126,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       showSaveButton={props.showSaveButton}
       leftColumn={
         <Center>
-          <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>
+          <Stack direction={{ base: 'row', md: 'column' }} gap={{ base: 10, md: 0 }} marginBottom={[2, 'auto']}>
             {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
               <AvatarDisplay fileUrl={gameInfoContext.avatar?.fileUrl} name={gameInfoContext?.persona.name} />
             )}

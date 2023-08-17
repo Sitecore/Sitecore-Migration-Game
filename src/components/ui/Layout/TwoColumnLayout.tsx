@@ -42,9 +42,9 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
           <Grid
             h="100%"
             w={{ base: '1200px' }}
-            templateColumns={{ base: '1fr', lg: '1fr 3fr' }}
+            templateColumns={{ base: '1fr', md: '1fr 3fr' }}
             gap={{ base: 0, lg: 5 }}
-            my={8}
+            my={[2, 8]}
             mx="auto"
           >
             <GridItem>{leftColumn}</GridItem>

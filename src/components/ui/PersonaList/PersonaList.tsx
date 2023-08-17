@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Center, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Box, Button, Center, Heading, SimpleGrid } from '@chakra-ui/react';
 import { IPersona } from 'models';
 import { FC } from 'react';
 
@@ -14,27 +14,28 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
     <>
       <Box>
         <Center>
-          <Heading variant={'gameTitle'}>Select Your Role:</Heading>
+          <Heading size={{ base: 'md', xl: 'xl' }} variant={'gameTitle'}>
+            Select Your Role:
+          </Heading>
         </Center>
         <Center>
-          <SimpleGrid mt={10}>
-            <ButtonGroup variant="outline" spacing="6">
-              {personas?.map((p, i) => {
-                const isToggled = p.id === toggledButtonId;
-                return (
-                  <Button
-                    key={p.id}
-                    style={{ flex: 1 }}
-                    onClick={() => {
-                      handlePersonaChange(p.id);
-                    }}
-                    variant={isToggled ? 'roleSelected' : 'role'}
-                  >
-                    {p.name}
-                  </Button>
-                );
-              })}
-            </ButtonGroup>
+          <SimpleGrid mt={10} columns={{ base: 1, sm: 2, md: 4 }} spacing={6}>
+            {personas?.map((p, i) => {
+              const isToggled = p.id === toggledButtonId;
+              return (
+                <Button
+                  isActive={isToggled}
+                  key={p.id}
+                  style={{ flex: 1 }}
+                  onClick={() => {
+                    handlePersonaChange(p.id);
+                  }}
+                  variant={'solid'}
+                >
+                  {p.name}
+                </Button>
+              );
+            })}
           </SimpleGrid>
         </Center>
       </Box>

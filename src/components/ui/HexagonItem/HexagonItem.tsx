@@ -48,6 +48,7 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
             pointerEvents: active ? 'auto' : 'none',
           }}
           minH={{ base: '40px', lg: '100px' }}
+          minW={{ base: '40px', lg: '100px' }}
           paddingBottom="10px"
         >
           <Box

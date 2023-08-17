@@ -3,8 +3,8 @@ import { Layout } from 'components/ui';
 
 const PromptPage = () => {
   return (
-    <Layout showSaveButton={false}>
-      <PromptPanel showSaveButton={false} children={undefined} />
+    <Layout>
+      <PromptPanel showSaveButton={false} />
     </Layout>
   );
 };

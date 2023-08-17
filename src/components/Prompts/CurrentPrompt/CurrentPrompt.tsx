@@ -1,4 +1,4 @@
-import { Box, Container, Text } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
 import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
@@ -41,40 +41,57 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Container variant={'questionPanel'} maxW="100%" height="450px" margin={0} paddingTop={50}>
-        <Box
-          height={'250px'}
-          overflowY={'auto'}
-          marginLeft="70px"
-          marginRight="70px"
-          position={'relative'}
-          marginTop={'25px'}
-        >
-          {prompt?.bodyText && (
-            <Text>
-              <RichTextOutput content={prompt.bodyText} />
-            </Text>
-          )}
-        </Box>
+      <Card
+        variant="elevated"
+        maxW={['100%', '90%']}
+        height={['auto', 'auto', '400px']}
+        margin={0}
+        shadow={'none'}
+        paddingTop={[0, 5]}
+        alignItems={'center'}
+      >
+        <CardBody>
+          <Box
+            id="Box"
+            height={{ base: '250px', md: '150px', lg: '250px' }}
+            overflowY={'auto'}
+            marginLeft={{ base: '15px', md: '50px' }}
+            marginRight={{ base: '15px', md: '50px' }}
+            position={'relative'}
+            marginTop={{ base: '10px', md: '25px' }}
+            marginBottom={{ base: '15px', md: '0px' }}
+          >
+            {prompt?.bodyText && (
+              <Text>
+                <RichTextOutput content={prompt.bodyText} />
+              </Text>
+            )}
+          </Box>
 
-        <Text fontSize="2xl" textAlign={'center'} paddingLeft={'50px'} paddingRight={'50px'}>
-          {prompt?.text}
-        </Text>
-      </Container>
-      {prompt?.options?.results != null && (
-        <>
-          {prompt?.optionType?.results[0].name === 'Checklist' && (
+          <Text
+            fontSize={['lg', '2xl']}
+            textAlign={'center'}
+            paddingLeft={{ base: '15px', md: '50px' }}
+            paddingRight={{ base: '15px', md: '50px' }}
+          >
+            {prompt?.text}
+          </Text>
+        </CardBody>
+        <CardFooter>
+          {prompt?.options?.results != null && (
             <>
-              <MultiSelect multiSelectSubmit={multiSelectSubmit} options={prompt.options.results}></MultiSelect>
+              {prompt?.optionType?.results[0].name === 'Checklist' && (
+                <MultiSelect multiSelectSubmit={multiSelectSubmit} options={prompt.options.results}></MultiSelect>
+              )}
+              {prompt?.optionType?.results[0].name === 'Buttons' && (
+                <>
+                  <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options.results}></ButtonGroup>
+                </>
+              )}
             </>
           )}
-          {prompt?.optionType?.results[0].name === 'Buttons' && (
-            <>
-              <ButtonGroup optionSelectEvent={optionSelected} options={prompt.options.results}></ButtonGroup>
-            </>
-          )}
-        </>
-      )}
+        </CardFooter>
+      </Card>
     </>
   );
 };
