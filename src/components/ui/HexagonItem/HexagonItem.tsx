@@ -109,7 +109,8 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
                   fontSize: '10px',
                   fontWeight: '500',
                   lineHeight: '1.4',
-                  maxWidth: '65%',
+                  maxWidth: '68px',
+                  whiteSpace: 'normal !important',
                   webkitHyphens: 'auto',
                   msHyphens: 'auto',
                   hyphens: 'auto',
@@ -129,7 +130,9 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
           <Heading as="h3" size="lg">
             {productDetail.name}
           </Heading>
-          <Text fontSize="md">{productDetail.description}</Text>
+          <Text fontSize="md" pt="2">
+            {productDetail.description}
+          </Text>
           <Link href={productDetail.url} isExternal>
             <Button colorScheme="primary" variant="solid" mt="5">
               Learn More
