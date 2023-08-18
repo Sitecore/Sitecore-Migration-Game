@@ -5,11 +5,12 @@ import { AppProps } from 'next/app';
 import { Fondamento } from 'next/font/google';
 import Head from 'next/head';
 import Script from 'next/script';
+import { useRef } from 'react';
 
 const fondamento = Fondamento({ weight: '400', subsets: ['latin'] });
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const GaMeasurementId = useRef<string | undefined>(process.env.NEXT_PUBLIC_MEASUREMENT_ID);
 
   return (
     <>
@@ -23,17 +24,24 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Head>
         <title>Sitecore Migration Adventure</title>
         <link rel="icon" href={`/favicon.png`} />
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
+      </Head>
+      {GaMeasurementId.current && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GaMeasurementId.current}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
         
-            gtag('config', '${GA_MEASUREMENT_ID}', {
+            gtag('config', '${GaMeasurementId.current}', {
               page_path: window.location.pathname,
             });`}
-        </Script>
-      </Head>
+          </Script>
+        </>
+      )}
       <Analytics />
       <EngageTrackerProvider>
         <GameInfoProvider>
