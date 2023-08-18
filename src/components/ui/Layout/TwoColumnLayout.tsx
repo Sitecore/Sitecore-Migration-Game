@@ -35,9 +35,7 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
       <Navigation showProgressBar={showProgressBar} showSaveButton={showSaveButton} showResetButton={showResetButton} />{' '}
       <Center>
         {loading ? (
-          <Box mt={10} mb={10}>
-            <Loading message="Loading Adventure Artifacts..." />
-          </Box>
+          <Loading message="Loading Adventure Artifacts..." />
         ) : (
           <Grid
             h="100%"
