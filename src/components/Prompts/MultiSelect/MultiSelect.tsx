@@ -28,7 +28,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
           <Text fontSize="2xl" variant={'answerInstruction'}>
             Select all that apply:
           </Text>
-          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing="md" columnGap={10}>
+          <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} spacing="md" columnGap={10}>
             {options.map((option: IOption) => (
               <>
                 {/* Center all the below elements */}
