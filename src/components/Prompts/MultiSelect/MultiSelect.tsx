@@ -23,7 +23,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
 
   return (
     <>
-      <Container mt={8} maxWidth={'100%'}>
+      <Container maxWidth={'100%'}>
         <VStack>
           <Text fontSize="2xl" variant={'answerInstruction'}>
             Select all that apply:

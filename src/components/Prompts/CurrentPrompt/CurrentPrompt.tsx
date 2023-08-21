@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
+import { Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
 import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
@@ -41,43 +41,25 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Card
-        variant="elevated"
-        maxW={['100%', '90%']}
-        height={['auto', 'auto', '400px']}
-        margin={0}
-        shadow={'none'}
-        paddingTop={[0, 5]}
-        alignItems={'center'}
-      >
+      <Card variant="elevated" margin={0} padding={[0, 5]} alignItems={'center'}>
         <CardBody>
-          <Box
-            id="Box"
-            height={{ base: '250px', md: '150px', lg: '250px' }}
-            overflowY={'auto'}
-            marginLeft={{ base: '15px', md: '50px' }}
-            marginRight={{ base: '15px', md: '50px' }}
-            position={'relative'}
-            marginTop={{ base: '10px', md: '25px' }}
-            marginBottom={{ base: '15px', md: '0px' }}
-          >
-            {prompt?.bodyText && (
-              <Text>
-                <RichTextOutput content={prompt.bodyText} />
-              </Text>
-            )}
-          </Box>
+          {prompt?.bodyText && (
+            <Text textAlign={'center'} marginBottom={'15px'} minH={{ base: 0, xl: '350' }}>
+              <RichTextOutput content={prompt.bodyText} />
+            </Text>
+          )}
 
           <Text
             fontSize={['lg', '2xl']}
+            fontWeight={'bold'}
             textAlign={'center'}
-            paddingLeft={{ base: '15px', md: '50px' }}
-            paddingRight={{ base: '15px', md: '50px' }}
+            paddingLeft={{ base: '15px', md: '15px' }}
+            paddingRight={{ base: '15px', md: '15px' }}
           >
             {prompt?.text}
           </Text>
         </CardBody>
-        <CardFooter>
+        <CardFooter padding={'15px'}>
           {prompt?.options?.results != null && (
             <>
               {prompt?.optionType?.results[0].name === 'Checklist' && (
