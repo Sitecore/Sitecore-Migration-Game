@@ -48,7 +48,10 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
         margin={0}
         padding={[0, 5]}
         alignItems={'center'}
-        backgroundColor={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'whiteAlpha.700' : ''}
+        backgroundColor={{
+          base: gameInfoContext.theme?.chakraTheme == 'corporate' ? 'whiteAlpha.700' : 'blackAlpha.500',
+          md: gameInfoContext.theme?.chakraTheme == 'corporate' ? 'white' : 'blackAlpha.500',
+        }}
       >
         <CardBody>
           {prompt?.bodyText && (
