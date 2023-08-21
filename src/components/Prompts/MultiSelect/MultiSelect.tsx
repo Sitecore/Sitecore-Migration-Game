@@ -40,7 +40,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                       m={1}
                       isActive={selectedOptions.includes(option) ? true : false}
                       onClick={() => handleOptionSelected(option)}
-                      variant={{ base: 'outline', md: 'solid' }}
+                      variant={{ base: 'solid' }}
                       whiteSpace={'normal'}
                       flexWrap={'wrap'}
                     >
@@ -54,7 +54,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                     m={1}
                     isActive={selectedOptions.includes(option) ? true : false}
                     onClick={() => handleOptionSelected(option)}
-                    variant={{ base: 'outline', md: 'solid' }}
+                    variant={{ base: 'solid' }}
                   >
                     {option.label}
                   </Button>
