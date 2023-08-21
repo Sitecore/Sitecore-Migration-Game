@@ -1,4 +1,5 @@
 import { Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
 import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
@@ -10,6 +11,7 @@ interface PromptProps {
 }
 
 export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
+  const gameInfoContext = useGameInfoContext();
   const optionSelected = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const option = prompt?.options?.results.find((o: IOption) => o.value === e.currentTarget.value);
     if (option === undefined) {
@@ -41,7 +43,13 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
   return (
     <>
-      <Card variant="elevated" margin={0} padding={[0, 5]} alignItems={'center'}>
+      <Card
+        variant="elevated"
+        margin={0}
+        padding={[0, 5]}
+        alignItems={'center'}
+        backgroundColor={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'whiteAlpha.700' : ''}
+      >
         <CardBody>
           {prompt?.bodyText && (
             <Text textAlign={'center'} marginBottom={'15px'} minH={{ base: 0, xl: '350' }}>
