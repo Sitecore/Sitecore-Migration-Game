@@ -55,7 +55,7 @@ export const Settings: FC<SettingsProps> = () => {
     await gameInfoContext.updateTheme(newTheme);
 
     await tracker.TrackEvent('THEME_CHANGE', { theme: newTheme });
-    GTag.event('THEME_CHANGE', 'screen_view', 'Theme', newTheme);
+    GTag.event('theme_change', 'Theme', newTheme);
 
     // Load Personas
     const data = await personaService.GetPersonasByTheme(newTheme);
@@ -83,14 +83,14 @@ export const Settings: FC<SettingsProps> = () => {
 
   const handlePersonaChange = async (newPersona: string) => {
     await tracker.TrackEvent('PERSONA_CHANGE', { persona: newPersona });
-    GTag.event('PERSONA_CHANGE', 'screen_view', 'Persona', newPersona);
+    GTag.event('persona_change', 'Persona', newPersona);
 
     setToggledButton(newPersona);
   };
 
   const handleAvatarChange = async (newAvatar: IImage) => {
     await tracker.TrackEvent('AVATAR_CHANGE', { avatar: newAvatar.id });
-    GTag.event('AVATAR_CHANGE', 'screen_view', 'Avatar', newAvatar.id);
+    GTag.event('avatar_change', 'Avatar', newAvatar.id);
 
     setToggledAvatar(newAvatar);
   };

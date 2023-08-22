@@ -11,18 +11,21 @@ export const pageView = (url: string) => {
     return;
   }
 
-  window.gtag('config', process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
+  console.log('pageView', url);
+
+  window.gtag('config', `${AppConfig.GaMeasurementId}`, {
     page_page: url,
   });
 };
 
-export const event = (action: string, category: string, label: string, value: string) => {
+export const event = (action: string, label: string, value: string) => {
   if (AppConfig.GaMeasurementId === '') {
     return;
   }
 
+  console.log('event', action, label, value);
+
   window.gtag('event', action, {
-    event_category: category,
     event_label: label,
     value: value,
   });

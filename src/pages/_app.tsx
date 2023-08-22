@@ -8,12 +8,11 @@ import { Fondamento } from 'next/font/google';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 const fondamento = Fondamento({ weight: '400', subsets: ['latin'] });
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const GaMeasurementId = useRef<string | undefined>(AppConfig.GaMeasurementId);
   const router = useRouter();
 
   useEffect(() => {
@@ -41,10 +40,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <title>Sitecore Migration Adventure</title>
         <link rel="icon" href={`/favicon.png`} />
       </Head>
-      {GaMeasurementId.current && (
+      {AppConfig.GaMeasurementId && (
         <>
           <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GaMeasurementId.current}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${AppConfig.GaMeasurementId}`}
             strategy="afterInteractive"
           />
           <Script id="google-analytics" strategy="afterInteractive">
@@ -52,7 +51,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
         
-            gtag('config', '${GaMeasurementId.current}', {
+            gtag('config', '${AppConfig.GaMeasurementId}', {
               page_path: window.location.pathname,
             });`}
           </Script>
