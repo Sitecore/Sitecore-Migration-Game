@@ -1,10 +1,11 @@
 interface IAppConfig {
-  SitecoreCdpClientKey?: string | undefined;
-  SitecoreCdpPos?: string | undefined;
-  SitecoreCdpCookieDomain?: string | undefined;
-  SitecoreCdpTargetUrl?: string | undefined;
-  SitecoreChOneClientKey: string | undefined;
-  SitecoreChOneEndpointUrl: string | undefined;
+  SitecoreCdpClientKey?: string;
+  SitecoreCdpPos?: string;
+  SitecoreCdpCookieDomain?: string;
+  SitecoreCdpTargetUrl?: string;
+  SitecoreChOneClientKey: string;
+  SitecoreChOneEndpointUrl: string;
+  GaMeasurementId: string;
 }
 
 export const AppConfig: IAppConfig = {
@@ -14,4 +15,5 @@ export const AppConfig: IAppConfig = {
   SitecoreCdpTargetUrl: process.env.SITECORE_CDP_TARGET_URL || '',
   SitecoreChOneClientKey: process.env.SITECORE_CH1_CLIENT_KEY || '',
   SitecoreChOneEndpointUrl: process.env.SITECORE_CH1_ENDPOINT_URL || '',
+  GaMeasurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID || '',
 };

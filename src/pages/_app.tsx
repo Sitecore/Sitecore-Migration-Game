@@ -1,16 +1,32 @@
 import { Analytics } from '@vercel/analytics/react';
 import { EngageTrackerProvider, GameInfoProvider } from 'components/Contexts';
 import { ThemeSwitcher } from 'components/ui';
+import * as GTag from 'lib/GTag';
+import { AppConfig } from 'models/Config';
 import { AppProps } from 'next/app';
 import { Fondamento } from 'next/font/google';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const fondamento = Fondamento({ weight: '400', subsets: ['latin'] });
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const GaMeasurementId = useRef<string | undefined>(process.env.NEXT_PUBLIC_MEASUREMENT_ID);
+  const GaMeasurementId = useRef<string | undefined>(AppConfig.GaMeasurementId);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      GTag.pageView(url);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <>
