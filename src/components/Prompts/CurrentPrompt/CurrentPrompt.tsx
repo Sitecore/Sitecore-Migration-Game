@@ -55,7 +55,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
       >
         <CardBody>
           {prompt?.bodyText && (
-            <Text textAlign={'center'} marginBottom={'15px'} minH={{ base: 0, xl: '350' }}>
+            <Text textAlign={'center'} marginBottom={'15px'}>
               <RichTextOutput content={prompt.bodyText} />
             </Text>
           )}
