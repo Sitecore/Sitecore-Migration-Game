@@ -21,6 +21,11 @@ const filledStyle = defineStyle((props) => {
 
 const baseStyleTrack = defineStyle((props) => {
   return {
+    background: 'none',
+    backgroundImage: '/fantasy/progress.svg',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'contain',
+    height: '40px',
     bg: mode('gray.100', 'whiteAlpha.300')(props),
   };
 });

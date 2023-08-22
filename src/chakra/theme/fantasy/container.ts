@@ -29,14 +29,10 @@ export const containerTheme = defineStyleConfig({
       fontFamily: 'var(--font-fondamento)',
     },
     progressBar: {
-      background: 'none',
-      backgroundImage: '/fantasy/progress.svg',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
-      paddingLeft: '10px',
-      paddingRight: '10px',
-      paddingTop: { base: '0px', xl: '6px' },
-      paddingBottom: '0px',
+      paddingLeft: '5px',
+      //paddingRight: '10px',
+      //paddingTop: { base: '0px', md: '6px' },
+      //paddingBottom: '0px',
     },
     settingsPanel: {
       bg: 'white',
