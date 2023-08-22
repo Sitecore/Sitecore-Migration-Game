@@ -1,4 +1,5 @@
 import { Text as ChakraText } from '@chakra-ui/react';
+import { Prose } from '@nikolovlazar/chakra-ui-prose';
 import { Extensions, JSONContent, generateHTML } from '@tiptap/core';
 import { Blockquote } from '@tiptap/extension-blockquote';
 import { Bold } from '@tiptap/extension-bold';
@@ -20,6 +21,7 @@ import { Paragraph } from '@tiptap/extension-paragraph';
 import { Strike } from '@tiptap/extension-strike';
 import { Text } from '@tiptap/extension-text';
 import { Underline } from '@tiptap/extension-underline';
+import DOMPurify from 'dompurify';
 import { FC } from 'react';
 
 interface RichTextOutputProps {
@@ -51,8 +53,10 @@ export const RichTextOutput: FC<RichTextOutputProps> = ({ content }) => {
   ];
 
   return (
-    <ChakraText>
-      <div dangerouslySetInnerHTML={{ __html: generateHTML(content, extensions) }} />
-    </ChakraText>
+    <Prose>
+      <ChakraText variant={'customFont'} textAlign={'center'}>
+        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(generateHTML(content, extensions)) }} />
+      </ChakraText>
+    </Prose>
   );
 };
