@@ -1,4 +1,5 @@
-import { Box, Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
+import { Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
 import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
@@ -10,6 +11,7 @@ interface PromptProps {
 }
 
 export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
+  const gameInfoContext = useGameInfoContext();
   const optionSelected = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const option = prompt?.options?.results.find((o: IOption) => o.value === e.currentTarget.value);
     if (option === undefined) {
@@ -43,41 +45,32 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
     <>
       <Card
         variant="elevated"
-        maxW={['100%', '90%']}
-        height={['auto', 'auto', '400px']}
         margin={0}
-        shadow={'none'}
-        paddingTop={[0, 5]}
+        padding={[0, 5]}
         alignItems={'center'}
+        backgroundColor={{
+          base: gameInfoContext.theme?.chakraTheme == 'corporate' ? 'whiteAlpha.700' : 'blackAlpha.500',
+          md: gameInfoContext.theme?.chakraTheme == 'corporate' ? 'white' : 'blackAlpha.500',
+        }}
       >
         <CardBody>
-          <Box
-            id="Box"
-            height={{ base: '250px', md: '150px', lg: '250px' }}
-            overflowY={'auto'}
-            marginLeft={{ base: '15px', md: '50px' }}
-            marginRight={{ base: '15px', md: '50px' }}
-            position={'relative'}
-            marginTop={{ base: '10px', md: '25px' }}
-            marginBottom={{ base: '15px', md: '0px' }}
-          >
-            {prompt?.bodyText && (
-              <Text>
-                <RichTextOutput content={prompt.bodyText} />
-              </Text>
-            )}
-          </Box>
+          {prompt?.bodyText && (
+            <Text textAlign={'center'} marginBottom={'15px'}>
+              <RichTextOutput content={prompt.bodyText} />
+            </Text>
+          )}
 
           <Text
             fontSize={['lg', '2xl']}
+            fontWeight={'bold'}
             textAlign={'center'}
-            paddingLeft={{ base: '15px', md: '50px' }}
-            paddingRight={{ base: '15px', md: '50px' }}
+            paddingLeft={{ base: '15px', md: '15px' }}
+            paddingRight={{ base: '15px', md: '15px' }}
           >
             {prompt?.text}
           </Text>
         </CardBody>
-        <CardFooter>
+        <CardFooter padding={'15px'}>
           {prompt?.options?.results != null && (
             <>
               {prompt?.optionType?.results[0].name === 'Checklist' && (

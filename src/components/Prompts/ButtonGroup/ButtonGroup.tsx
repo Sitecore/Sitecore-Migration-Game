@@ -10,10 +10,10 @@ interface IButtonGroupProps {
 export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent }) => {
   const theme = useTheme();
   return (
-    <Container mt={8} maxWidth={'100%'}>
+    <Container maxWidth={'100%'}>
       {options && (
         <>
-          <SimpleGrid templateColumns={{ base: '1fr', sm: '1fr 1fr', lg: '1fr 1fr 1fr' }} spacing={2}>
+          <SimpleGrid templateColumns={{ base: '1fr', md: '1fr 1fr', xl: '1fr 1fr 1fr' }} spacing={2}>
             {options?.map((o: IOption) => (
               <>
                 {o.tooltip ? (
