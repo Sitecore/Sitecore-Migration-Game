@@ -54,7 +54,7 @@ export const RichTextOutput: FC<RichTextOutputProps> = ({ content }) => {
 
   return (
     <Prose>
-      <ChakraText variant={'customFont'} textAlign={'center'}>
+      <ChakraText variant={'customFont'}>
         <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(generateHTML(content, extensions)) }} />
       </ChakraText>
     </Prose>
