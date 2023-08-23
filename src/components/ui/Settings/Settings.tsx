@@ -1,6 +1,7 @@
-import { Button, Center, Container, useBoolean } from '@chakra-ui/react';
+import { Button, Center, Container } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { AvatarGallery, Loading, PersonaList, ThemeList } from 'components/ui';
+import * as GTag from 'lib/GTag';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
@@ -24,14 +25,14 @@ export const Settings: FC<SettingsProps> = () => {
   const [avatars, setAvatars] = useState<IImage[] | undefined>();
   const [toggledButton, setToggledButton] = useState<string>();
   const [toggledAvatar, setToggledAvatar] = useState<IImage>();
-  const [loading, setLoading] = useBoolean(false);
+  const [loading, setLoading] = useState<Boolean>(false);
   const themeService = ThemeService();
   const personaService = PersonaService();
   const outcomeService = OutcomeService();
   //#endregion
 
   const initializeSettings = useCallback(async () => {
-    setLoading.on;
+    setLoading(true);
 
     const data = await themeService.GetAllThemes();
 
@@ -39,7 +40,7 @@ export const Settings: FC<SettingsProps> = () => {
       setThemes(data.results);
     }
 
-    setLoading.off;
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -50,10 +51,11 @@ export const Settings: FC<SettingsProps> = () => {
 
   //#region Functions
   const handleSettingChange = async (newTheme: string) => {
-    setLoading.on;
+    setLoading(true);
     await gameInfoContext.updateTheme(newTheme);
 
     await tracker.TrackEvent('THEME_CHANGE', { theme: newTheme });
+    GTag.event('theme_change', 'Theme', newTheme);
 
     // Load Personas
     const data = await personaService.GetPersonasByTheme(newTheme);
@@ -76,17 +78,20 @@ export const Settings: FC<SettingsProps> = () => {
     }
 
     setShowCharacterOptions(true);
-    setLoading.off;
+    setLoading(false);
   };
 
   const handlePersonaChange = async (newPersona: string) => {
     await tracker.TrackEvent('PERSONA_CHANGE', { persona: newPersona });
+    GTag.event('persona_change', 'Persona', newPersona);
 
     setToggledButton(newPersona);
   };
 
   const handleAvatarChange = async (newAvatar: IImage) => {
     await tracker.TrackEvent('AVATAR_CHANGE', { avatar: newAvatar.id });
+    GTag.event('avatar_change', 'Avatar', newAvatar.id);
+
     setToggledAvatar(newAvatar);
   };
 
@@ -100,11 +105,9 @@ export const Settings: FC<SettingsProps> = () => {
 
   return (
     <Container w="100%" maxWidth={'1136px'} rounded={'lg'} padding={{ sm: 0, md: 10 }}>
-      {loading ? (
+      {loading == true ? (
         <>
-          <Center>
-            <Loading message="Loading settings..." />
-          </Center>
+          <Loading message="Loading settings..." />
         </>
       ) : (
         <>

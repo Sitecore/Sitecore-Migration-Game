@@ -3,6 +3,7 @@ import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { CurrentPrompt } from 'components/Prompts';
 import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
+import * as GTag from 'lib/GTag';
 import { GetNextPrompts } from 'lib/NextPrompts';
 import { PromptService } from 'lib/PromptService';
 
@@ -61,10 +62,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       if (nextPrompt !== undefined) {
         setCurrentPrompt(nextPrompt);
 
-        await tracker.TrackPageView(
-          { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
-          { prompt: nextPrompt?.id }
-        );
+        await trackPromptPageView(nextPrompt);
       } else {
         // TODO: Show messaging if no prompts/start prompts are found
         //setShowError(true);
@@ -84,10 +82,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
 
         setCurrentPrompt(nextPrompt);
 
-        await tracker.TrackPageView(
-          { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
-          { prompt: nextPrompt?.id }
-        );
+        await trackPromptPageView(nextPrompt);
       } else {
         router.push('/outcome');
       }
@@ -117,6 +112,18 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
     );
 
     await gameInfoContext.questionsBank.set(nextPrompts);
+  };
+
+  const trackPromptPageView = async (prompt: IPrompt | undefined) => {
+    if (prompt === undefined) {
+      return;
+    }
+
+    await tracker.TrackPageView(
+      { page: '/prompts', channel: 'WEB', language: 'EN', currency: 'USD' },
+      { prompt: prompt?.id }
+    );
+    GTag.pageView(`/prompts/${prompt?.id}`);
   };
 
   return (

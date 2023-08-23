@@ -7,7 +7,6 @@ export const containerTheme = defineStyleConfig({
   variants: {
     questionPanel: {
       background: 'none',
-      backgroundImage: { base: '', md: '/fantasy/panel.svg' },
       backgroundColor: { base: '#313a46', md: 'transparent' },
       borderRadius: 'lg',
       opacity: { base: '0.8', xl: '1' },
@@ -29,14 +28,10 @@ export const containerTheme = defineStyleConfig({
       fontFamily: 'var(--font-fondamento)',
     },
     progressBar: {
-      background: 'none',
-      backgroundImage: '/fantasy/progress.svg',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
-      paddingLeft: '10px',
-      paddingRight: '10px',
-      paddingTop: { base: '0px', xl: '6px' },
-      paddingBottom: '0px',
+      paddingLeft: '5px',
+      //paddingRight: '10px',
+      //paddingTop: { base: '0px', md: '6px' },
+      //paddingBottom: '0px',
     },
     settingsPanel: {
       bg: 'white',
