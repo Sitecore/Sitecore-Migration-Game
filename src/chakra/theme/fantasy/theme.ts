@@ -10,10 +10,14 @@ import { tooltipTheme } from './tooltip';
 const config: ThemeConfig = {
   useSystemColorMode: false,
   initialColorMode: 'light',
-  cssVarPrefix: 'fantasy',
 };
 
 const fantasyTheme = extendTheme({
+  semanticTokens: {
+    fonts: {
+      heading: 'var(--font-fondamento)',
+    },
+  },
   config: config,
   components: {
     Container: containerTheme,

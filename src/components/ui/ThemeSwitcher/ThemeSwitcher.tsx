@@ -1,4 +1,5 @@
-import { ChakraProvider, ChakraTheme } from '@chakra-ui/react';
+import { ChakraProvider, ChakraTheme, extendTheme } from '@chakra-ui/react';
+import { withProse } from '@nikolovlazar/chakra-ui-prose';
 import sitecoreTheme from '@sitecore/blok-theme';
 import fantasyTheme from 'chakra/theme/fantasy/theme';
 import { useGameInfoContext } from 'components/Contexts';
@@ -14,9 +15,20 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ children }) => {
 
   useEffect(() => {
     if (gameInfoContext?.theme?.chakraTheme == 'fantasy') {
-      setTheme(fantasyTheme);
+      setTheme(
+        extendTheme(
+          fantasyTheme,
+          withProse({
+            baseStyle: {
+              p: {
+                fontFamily: 'inherit',
+              },
+            },
+          })
+        )
+      );
     } else if (gameInfoContext?.theme?.chakraTheme == 'corporate') {
-      setTheme(sitecoreTheme);
+      setTheme(extendTheme(sitecoreTheme, withProse()));
     }
   }, [gameInfoContext?.theme]);
 

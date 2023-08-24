@@ -5,7 +5,7 @@ const baseStyle = defineStyle({});
 export const textTheme = defineStyleConfig({
   baseStyle,
   variants: {
-    answerInstruction: {
+    customFont: {
       color: 'white',
       fontFamily: 'var(--font-fondamento)',
     },
