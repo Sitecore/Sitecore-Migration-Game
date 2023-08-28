@@ -4,7 +4,7 @@ import { Layout } from 'components/ui';
 const PromptPage = () => {
   return (
     <Layout>
-      <PromptPanel showSaveButton={false} />
+      <PromptPanel showSaveButton={false} showFeedbackButton={true} />
     </Layout>
   );
 };

@@ -12,13 +12,14 @@ interface NavigationProps {
   showResetButton?: boolean;
   showSaveButton?: boolean;
   showSettingsButton?: boolean;
+  showFeedbackButton?: boolean;
 }
 
 export const Navigation: FC<NavigationProps> = ({
   showProgressBar = true,
   showResetButton = true,
   showSaveButton = true,
-  showSettingsButton = true,
+  showFeedbackButton = true,
 }) => {
   const gameInfoContext = useGameInfoContext();
 
@@ -37,20 +38,23 @@ export const Navigation: FC<NavigationProps> = ({
             )}
             <Box alignContent="right">
               <HStack>
-                <Show above={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'lg' : 'md'}>
-                  <Tooltip label="Leave Feedback" aria-label="Leave Feedback">
-                    <Link href="https://forms.office.com/e/Mc6wczVqgh" isExternal>
-                      <Button
-                        rightIcon={<MdOutlineMarkChatRead size={24} />}
-                        colorScheme="neutral"
-                        variant="solid"
-                        aria-label={''}
-                      >
-                        Give Feedback
-                      </Button>
-                    </Link>
-                  </Tooltip>
-                </Show>
+                {showFeedbackButton && (
+                  <Show above={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'lg' : 'md'}>
+                    <Tooltip label="Leave Feedback" aria-label="Leave Feedback">
+                      <Link href="https://forms.office.com/e/Mc6wczVqgh" isExternal>
+                        <Button
+                          rightIcon={<MdOutlineMarkChatRead size={24} />}
+                          colorScheme="neutral"
+                          variant="solid"
+                          aria-label={''}
+                        >
+                          Give Feedback
+                        </Button>
+                      </Link>
+                    </Tooltip>
+                  </Show>
+                )}
+
                 {showSaveButton && (
                   <Tooltip label="Save Your Result" aria-label="Save Your Result">
                     <IconButton

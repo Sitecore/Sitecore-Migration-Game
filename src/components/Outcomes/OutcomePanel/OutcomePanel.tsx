@@ -33,6 +33,7 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
       showProgressBar={props.showProgressBar}
       showResetButton={props.showResetButton}
       showSaveButton={props.showSaveButton}
+      showFeedbackButton={props.showFeedbackButton}
       backgroundImage={
         gameInfoContext.theme?.chakraTheme == 'fantasy'
           ? 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4'

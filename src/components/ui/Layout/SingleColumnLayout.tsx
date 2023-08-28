@@ -10,6 +10,7 @@ interface SingleColumnLayoutProps {
   showProgressBar?: boolean;
   showResetButton?: boolean;
   showSaveButton?: boolean;
+  showFeedbackButton?: boolean;
 }
 
 export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
@@ -19,6 +20,7 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
   showProgressBar = true,
   showResetButton = true,
   showSaveButton = true,
+  showFeedbackButton = true,
 }) => {
   return (
     <Box
@@ -30,7 +32,12 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
       backgroundRepeat="no-repeat"
       paddingX={4}
     >
-      <Navigation showProgressBar={showProgressBar} showSaveButton={showSaveButton} showResetButton={showResetButton} />
+      <Navigation
+        showProgressBar={showProgressBar}
+        showSaveButton={showSaveButton}
+        showResetButton={showResetButton}
+        showFeedbackButton={showFeedbackButton}
+      />
 
       <Center>
         {loading ? (

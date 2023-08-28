@@ -11,6 +11,7 @@ interface TwoColumnLayoutProps {
   showProgressBar?: boolean;
   showResetButton?: boolean;
   showSaveButton?: boolean;
+  showFeedbackButton?: boolean;
 }
 
 export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
@@ -21,6 +22,7 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
   showProgressBar = true,
   showResetButton = true,
   showSaveButton = true,
+  showFeedbackButton = true,
 }) => {
   return (
     <>
@@ -40,6 +42,7 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
             showProgressBar={showProgressBar}
             showSaveButton={showSaveButton}
             showResetButton={showResetButton}
+            showFeedbackButton={showFeedbackButton}
           />
           <Center>
             <Grid
