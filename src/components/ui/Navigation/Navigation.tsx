@@ -39,7 +39,17 @@ export const Navigation: FC<NavigationProps> = ({
             <Box alignContent="right">
               <HStack>
                 {showFeedbackButton && (
-                  <Show above={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'lg' : 'md'}>
+                  <Show
+                    above={
+                      gameInfoContext.theme?.chakraTheme == 'fantasy'
+                        ? showProgressBar && showResetButton
+                          ? 'lg'
+                          : 'sm'
+                        : showProgressBar && showResetButton
+                        ? 'md'
+                        : 'sm'
+                    }
+                  >
                     <Tooltip label="Leave Feedback" aria-label="Leave Feedback">
                       <Link href="https://forms.office.com/e/Mc6wczVqgh" isExternal>
                         <Button
