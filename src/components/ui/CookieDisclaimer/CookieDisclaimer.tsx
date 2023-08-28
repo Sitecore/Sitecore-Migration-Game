@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Text } from '@chakra-ui/react';
+import { Box, Container, Link, Stack, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 
 interface CookieDisclaimerProps {}
@@ -18,9 +18,9 @@ export const CookieDisclaimer: FC<CookieDisclaimerProps> = (props) => {
             <Text color="fg.muted">
               We use cookies to provide functionality, to analyze our traffic and to enable social media functionality.
               By using this website, you agree to the terms of our{' '}
-              <a href="https://www.sitecore.com/trust/cookie-policy" target="_blank">
+              <Link href="https://www.sitecore.com/trust/privacy-policy" color="primary" isExternal>
                 Cookie Policy
-              </a>
+              </Link>
               .
             </Text>
           </Box>
