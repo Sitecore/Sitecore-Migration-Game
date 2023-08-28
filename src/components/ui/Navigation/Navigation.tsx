@@ -1,9 +1,9 @@
-import { Box, HStack, IconButton, Tooltip } from '@chakra-ui/react';
+import { Box, Button, HStack, IconButton, Link, Show, Tooltip } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import Image from 'next/image';
 import Router from 'next/router';
 import { FC } from 'react';
-import { MdCached, MdSave } from 'react-icons/md';
+import { MdCached, MdOutlineMarkChatRead, MdSave } from 'react-icons/md';
 import { InfoModal } from '../InfoModal/InfoModal';
 import { ProgressTracker } from '../ProgressTracker/ProgressTracker';
 
@@ -31,12 +31,26 @@ export const Navigation: FC<NavigationProps> = ({
               <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
             </Box>
             {showProgressBar && (
-              <Box width="300px">
+              <Box width="300px" px="4">
                 <ProgressTracker />
               </Box>
             )}
-            <Box alignContent="right" width="100px">
-              <HStack spacing={2}>
+            <Box alignContent="right">
+              <HStack>
+                <Show above={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'lg' : 'md'}>
+                  <Tooltip label="Leave Feedback" aria-label="Leave Feedback">
+                    <Link href="https://forms.office.com/e/Mc6wczVqgh" isExternal>
+                      <Button
+                        rightIcon={<MdOutlineMarkChatRead size={24} />}
+                        colorScheme="neutral"
+                        variant="solid"
+                        aria-label={''}
+                      >
+                        Give Feedback
+                      </Button>
+                    </Link>
+                  </Tooltip>
+                </Show>
                 {showSaveButton && (
                   <Tooltip label="Save Your Result" aria-label="Save Your Result">
                     <IconButton
@@ -61,6 +75,7 @@ export const Navigation: FC<NavigationProps> = ({
                     ></IconButton>
                   </Tooltip>
                 )}
+
                 <InfoModal />
               </HStack>
             </Box>
