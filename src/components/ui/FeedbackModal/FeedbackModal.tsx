@@ -28,7 +28,7 @@ export const FeedbackModal: FC<FeedbackModalProps> = () => {
   const onClose = () => setIsOpen(false);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="lg">
+    <Modal isOpen={isOpen} onClose={onClose} size={{ base: 'xs', md: 'md' }}>
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(5px)" />
       <ModalContent>
         <ModalHeader>Feedback Request</ModalHeader>
