@@ -5,7 +5,7 @@ interface CookieDisclaimerProps {}
 
 export const CookieDisclaimer: FC<CookieDisclaimerProps> = (props) => {
   return (
-    <Box borderTopWidth="1px" bgColor="#fff" position="fixed" bottom="0" width="100%" padding="0">
+    <Box borderTopWidth="1px" bgColor="#fff" position="fixed" bottom="0" width="100%">
       <Container py={{ base: '4', md: '3.5' }} px={4} width="100%" minWidth="full">
         <Stack
           direction="row"
