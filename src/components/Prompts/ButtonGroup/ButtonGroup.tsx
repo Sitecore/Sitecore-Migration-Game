@@ -46,7 +46,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                         <Button key={o.id} value={o.value} mx={5} onClick={optionSelectEvent} variant="solid" size="lg">
                           {o.label}
                         </Button>
-                        <Popover placement="left">
+                        <Popover placement="left" closeOnBlur>
                           <PopoverTrigger>
                             <IconButton
                               variant={'iconButton'}
