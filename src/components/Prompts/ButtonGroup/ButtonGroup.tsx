@@ -32,7 +32,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
           <SimpleGrid templateColumns={{ base: '1fr', md: '1fr 1fr', xl: '1fr 1fr 1fr' }} spacing={2}>
             {options?.map((o: IOption) => (
               <>
-                {o.tooltip ? (
+                {o.tooltip && gameInfoContext.theme?.chakraTheme == 'fantasy' ? (
                   <>
                     <Show above="xl">
                       <Tooltip key={o.id} label={o.tooltip}>
@@ -49,7 +49,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                         <Popover placement="left">
                           <PopoverTrigger>
                             <IconButton
-                              variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
+                              variant={'iconButton'}
                               size={['md']}
                               colorScheme="neutral"
                               data-type="icon"

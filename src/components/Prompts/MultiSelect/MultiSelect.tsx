@@ -55,12 +55,12 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
             spacing="md"
             columnGap={10}
             alignItems={'left'}
-            marginLeft={'32px'}
+            marginLeft={gameInfoContext.theme?.chakraTheme == 'fantasy' ? '32px' : '1'}
           >
             {options.map((option: IOption) => (
               <>
                 {/* Center all the below elements */}
-                {option.tooltip ? (
+                {option.tooltip && gameInfoContext.theme?.chakraTheme == 'fantasy' ? (
                   <>
                     <Show above="xl">
                       <Tooltip key={option.id} label={option.tooltip}>
@@ -95,7 +95,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                         <Popover placement="left">
                           <PopoverTrigger>
                             <IconButton
-                              variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
+                              variant={'iconButton'}
                               size={['sm']}
                               colorScheme="neutral"
                               data-type="icon"
@@ -103,12 +103,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                               icon={<FaInfo size={14} />}
                             ></IconButton>
                           </PopoverTrigger>
-                          <PopoverContent
-                            backgroundImage={
-                              gameInfoContext.theme?.chakraTheme == 'fantasy' ? '/fantasy/tooltip.svg' : ''
-                            }
-                            background={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'transparent' : 'white'}
-                          >
+                          <PopoverContent backgroundImage={'/fantasy/tooltip.svg'} background={'transparent'}>
                             <PopoverArrow />
                             <PopoverBody>{option.tooltip}</PopoverBody>
                           </PopoverContent>
