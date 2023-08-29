@@ -6,6 +6,7 @@ export interface LayoutProps {
   showProgressBar?: boolean;
   showResetButton?: boolean;
   showSaveButton?: boolean;
+  showFeedbackButton?: boolean;
 }
 
 export const Layout: FC<LayoutProps> = ({ children }) => {

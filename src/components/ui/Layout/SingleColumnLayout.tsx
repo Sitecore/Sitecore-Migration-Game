@@ -11,6 +11,7 @@ interface SingleColumnLayoutProps {
   showProgressBar?: boolean;
   showResetButton?: boolean;
   showSaveButton?: boolean;
+  showFeedbackButton?: boolean;
 }
 
 export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
@@ -20,6 +21,7 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
   showProgressBar = true,
   showResetButton = true,
   showSaveButton = true,
+  showFeedbackButton = true,
 }) => {
   return (
     <>
@@ -37,8 +39,8 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
           showProgressBar={showProgressBar}
           showSaveButton={showSaveButton}
           showResetButton={showResetButton}
+          showFeedbackButton={showFeedbackButton}
         />
-
         <Center>
           {loading ? (
             <Loading message="Loading Application..." />

@@ -4,6 +4,7 @@ import { OutcomeGenerator } from 'components/Outcomes';
 import { PreviousAnswers } from 'components/Prompts';
 import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
+import { FeedbackModal } from 'components/ui/FeedbackModal/FeedbackModal';
 import router from 'next/router';
 import { FC, useEffect } from 'react';
 
@@ -29,33 +30,37 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
   }, []);
 
   return (
-    <TwoColumnLayout
-      showProgressBar={props.showProgressBar}
-      showResetButton={props.showResetButton}
-      showSaveButton={props.showSaveButton}
-      backgroundImage={
-        gameInfoContext.theme?.chakraTheme == 'fantasy'
-          ? 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4'
-          : '/corporate/background.jpg'
-      }
-      leftColumn={
-        <Center>
-          <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>
-            {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
-              <AvatarDisplay fileUrl={gameInfoContext.avatar?.fileUrl} name={gameInfoContext?.persona.name} />
-            )}
-            <HexagonCollection />
-          </Stack>
-        </Center>
-      }
-      rightColumn={
-        <Card w="100%" mt={8} mb={4} p={8} display="flex" alignItems="center" flexDirection="column">
-          <Stack>
-            <OutcomeGenerator />
-            <PreviousAnswers />
-          </Stack>
-        </Card>
-      }
-    ></TwoColumnLayout>
+    <>
+      <FeedbackModal />
+      <TwoColumnLayout
+        showProgressBar={props.showProgressBar}
+        showResetButton={props.showResetButton}
+        showSaveButton={props.showSaveButton}
+        showFeedbackButton={props.showFeedbackButton}
+        backgroundImage={
+          gameInfoContext.theme?.chakraTheme == 'fantasy'
+            ? 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4'
+            : '/corporate/background.jpg'
+        }
+        leftColumn={
+          <Center>
+            <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>
+              {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
+                <AvatarDisplay fileUrl={gameInfoContext.avatar?.fileUrl} name={gameInfoContext?.persona.name} />
+              )}
+              <HexagonCollection />
+            </Stack>
+          </Center>
+        }
+        rightColumn={
+          <Card w="100%" mt={8} mb={4} p={8} display="flex" alignItems="center" flexDirection="column">
+            <Stack>
+              <OutcomeGenerator />
+              <PreviousAnswers />
+            </Stack>
+          </Card>
+        }
+      ></TwoColumnLayout>
+    </>
   );
 };
