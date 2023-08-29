@@ -12,7 +12,11 @@ export const buttonTheme = defineStyleConfig({
   variants: {
     solid: {
       background: 'none',
-      backgroundImage: '/fantasy/button-default.svg',
+      backgroundImage: {
+        base: '/fantasy/button/button-wide-300.svg',
+        md: '/fantasy/button-default.svg',
+        xl: '/fantasy/button/button-wide-300.svg',
+      },
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'auto auto',
       backgroundPosition: 'center center',
@@ -28,14 +32,22 @@ export const buttonTheme = defineStyleConfig({
 
       _active: {
         background: 'none',
-        backgroundImage: '/fantasy/button-active.svg',
+        backgroundImage: {
+          base: '/fantasy/button/button-wide-300-active.svg',
+          md: '/fantasy/button-active.svg',
+          xl: '/fantasy/button/button-wide-300-active.svg',
+        },
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'auto auto',
         backgroundPosition: 'center center',
       },
       _hover: {
         background: 'none',
-        backgroundImage: '/fantasy/button-active.svg',
+        backgroundImage: {
+          base: '/fantasy/button/button-wide-300-active.svg',
+          md: '/fantasy/button-active.svg',
+          xl: '/fantasy/button/button-wide-300-active.svg',
+        },
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'auto auto',
         backgroundPosition: 'center center',
