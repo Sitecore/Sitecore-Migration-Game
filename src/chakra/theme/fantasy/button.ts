@@ -157,6 +157,9 @@ export const buttonTheme = defineStyleConfig({
       _hover: {
         backgroundImage: '/fantasy/icon-button-active.svg',
       },
+      _active: {
+        backgroundImage: '/fantasy/icon-button-active.svg',
+      },
     },
     avatar: {
       boxShadow: '0 0 2px 2px rgba(0,0,0,0.5)',
