@@ -41,7 +41,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
     setSelectedOptions(newCheckedArr);
   };
 
-  const buttonWidth = '90%'
+  const buttonWidth = '90%';
 
   return (
     <>
@@ -55,7 +55,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
             spacing="md"
             columnGap={10}
             alignItems={'left'}
-            marginLeft={gameInfoContext.theme?.chakraTheme == 'fantasy' ? '32px' : '1'}
+            marginLeft={{ base: gameInfoContext.theme?.chakraTheme == 'fantasy' ? '8px' : '0', sm: 0, md: 5, lg: -5 }}
           >
             {options.map((option: IOption) => (
               <>
@@ -78,7 +78,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                     </Show>
                     <Hide above="xl">
                       <HStack spacing={0} width={'100%'} justifyContent={'space-between'}>
-                        <Container width={buttonWidth} marginLeft={0}>
+                        <Container width={{ base: buttonWidth, md: '100%' }}>
                           <Button
                             key={option.id}
                             value={option.value}
@@ -92,7 +92,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                           </Button>
                         </Container>
 
-                        <Popover placement="left">
+                        <Popover placement="top-start">
                           <PopoverTrigger>
                             <IconButton
                               variant={'iconButton'}
@@ -117,7 +117,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                       key={option.id}
                       value={option.value}
                       m={1}
-                      width={{ base: buttonWidth }}
+                      width={{ base: buttonWidth, md: '100%' }}
                       isActive={selectedOptions.includes(option) ? true : false}
                       onClick={() => handleOptionSelected(option)}
                       variant={{ base: 'solid' }}
