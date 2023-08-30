@@ -7,7 +7,6 @@ export const containerTheme = defineStyleConfig({
   variants: {
     questionPanel: {
       background: 'none',
-      backgroundImage: { base: '', md: '/fantasy/panel.svg' },
       backgroundColor: { base: '#313a46', md: 'transparent' },
       borderRadius: 'lg',
       opacity: { base: '0.8', xl: '1' },

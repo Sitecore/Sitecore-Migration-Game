@@ -23,12 +23,12 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
 
   return (
     <>
-      <Container mt={8} maxWidth={'100%'}>
+      <Container maxWidth={'100%'}>
         <VStack>
           <Text fontSize="2xl" variant={'answerInstruction'}>
             Select all that apply:
           </Text>
-          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing="md" columnGap={10}>
+          <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} spacing="md" columnGap={10}>
             {options.map((option: IOption) => (
               <>
                 {/* Center all the below elements */}
@@ -40,7 +40,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                       m={1}
                       isActive={selectedOptions.includes(option) ? true : false}
                       onClick={() => handleOptionSelected(option)}
-                      variant={{ base: 'outline', md: 'solid' }}
+                      variant={{ base: 'solid' }}
                       whiteSpace={'normal'}
                       flexWrap={'wrap'}
                     >
@@ -54,7 +54,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }
                     m={1}
                     isActive={selectedOptions.includes(option) ? true : false}
                     onClick={() => handleOptionSelected(option)}
-                    variant={{ base: 'outline', md: 'solid' }}
+                    variant={{ base: 'solid' }}
                   >
                     {option.label}
                   </Button>
