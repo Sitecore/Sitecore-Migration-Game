@@ -44,7 +44,7 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
         }
         leftColumn={
           <Center>
-            <Stack direction={{ base: 'row', lg: 'column' }} gap={{ base: 20, lg: 0 }}>
+            <Stack direction={{ base: 'row', md: 'column' }} gap={{ base: 20, lg: 0 }}>
               {gameInfoContext.avatar?.fileUrl !== undefined && gameInfoContext?.persona !== undefined && (
                 <AvatarDisplay fileUrl={gameInfoContext.avatar?.fileUrl} name={gameInfoContext?.persona.name} />
               )}
