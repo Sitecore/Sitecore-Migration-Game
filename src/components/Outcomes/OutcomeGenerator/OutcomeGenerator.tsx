@@ -5,7 +5,7 @@ import { LinkCard, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { FC } from 'react';
 
-interface OutcomeGeneratorProps { }
+interface OutcomeGeneratorProps {}
 
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
@@ -211,16 +211,17 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
             title="XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2"
           />
         </ConditionalResponse>
-        <ConditionalResponse
-          condition={outcomeConditions.desiredFrameworks.nextjs}
-        >
+        <ConditionalResponse condition={outcomeConditions.desiredFrameworks.nextjs}>
           <LinkCard
             link="https://thetombomb.com/posts/nextjs-hosting-alternatives"
-          title="Beyond Vercel: Hosting Alternatives for Next.js"
+            title="Beyond Vercel: Hosting Alternatives for Next.js"
+          />
+        </ConditionalResponse>
+        <LinkCard
+          link="https://jackspektor.medium.com/estimating-sitecore-xp-to-xm-cloud-upgrade-what-challenges-lies-ahead-226d1c36b8e"
+          title="Estimating Sitecore XP to XM Cloud upgrade — what challenges lies ahead? (Jack Spektor)"
         />
-      </ConditionalResponse>
-
-    </SimpleGrid >
+      </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
         <Heading size="lg" mb={2}>
           {gameInfoContext.outcome.aspnetHeadlessTitle}
