@@ -5,6 +5,7 @@ import { PreviousAnswers } from 'components/Prompts';
 import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { FeedbackModal } from 'components/ui/FeedbackModal/FeedbackModal';
+import * as GTag from 'lib/GTag';
 import router from 'next/router';
 import { FC, useEffect } from 'react';
 
@@ -26,7 +27,14 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
   }
 
   useEffect(() => {
-    tracker.TrackPageView({ page: '/outcome', channel: 'WEB', language: 'EN', currency: 'USD' });
+    tracker.TrackPageView(
+      { page: '/outcome', channel: 'WEB', language: 'EN', currency: 'USD' },
+      {
+        answers: JSON.stringify(gameInfoContext.answers),
+      }
+    );
+
+    GTag.event('outcome_answers', 'Answers', JSON.stringify(gameInfoContext.answers));
   }, []);
 
   return (

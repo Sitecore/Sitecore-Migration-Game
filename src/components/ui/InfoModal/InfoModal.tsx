@@ -53,7 +53,10 @@ export const InfoModal: FC<InfoModalProps> = () => {
           <ModalBody>
             <Stack divider={<StackDivider />} spacing="4">
               <Box>
-                <Text>This application is powered by Sitecore Content Hub ONE to store media and content.</Text>
+                <Text>
+                  This application is powered by Sitecore Content Hub ONE to store media and content. The application is
+                  powered by Sitecore CDP and Personalize for capturing user interactions and events.
+                </Text>
               </Box>
               <Box>
                 <Text>
