@@ -221,6 +221,12 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           link="https://jackspektor.medium.com/estimating-sitecore-xp-to-xm-cloud-upgrade-what-challenges-lies-ahead-226d1c36b8e"
           title="Estimating Sitecore XP to XM Cloud upgrade — what challenges lies ahead? (Jack Spektor)"
         />
+        <ConditionalResponse condition={!outcomeConditions.isFullyHeadless()}>
+          <LinkCard
+            link="https://blogs.perficient.com/2022/11/28/a-practical-roadmap-for-existing-sitecore-customers-to-move-to-xm-cloud/"
+            title="A Practical Roadmap for Existing Sitecore Customers to Move To XM Cloud (David San Filippo)"
+          />
+        </ConditionalResponse>
       </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
         <Heading size="lg" mb={2}>

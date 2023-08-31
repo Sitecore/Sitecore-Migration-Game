@@ -42,7 +42,15 @@ export interface IDesiredFrameworks {
 }
 
 export interface IExistingFrameworks {
+  angular: boolean;
+  mvc: boolean;
   netcore: boolean;
+  nextjs: boolean;
+  react: boolean;
+  sxa: boolean;
+  vue: boolean;
+  webforms: boolean;
+  xslt: boolean;
 }
 
 export interface ISecuredPages {
@@ -129,7 +137,17 @@ export class OutcomeConditions {
       morethan90days: false,
     };
     this.desiredFrameworks = { netcore: false, nextjs: false };
-    this.existingFrameworks = { netcore: false };
+    this.existingFrameworks = {
+      angular: false,
+      mvc: false,
+      netcore: false,
+      nextjs: false,
+      react: false,
+      sxa: false,
+      vue: false,
+      webforms: false,
+      xslt: false,
+    };
     this.securedPages = { securityloginrequired: false };
     this.experienceEdge = ExperienceEdgeOption.no;
     this.siteSearchUsed = { indexSearch: false };
@@ -161,6 +179,20 @@ export class OutcomeConditions {
       this.xpFeaturesUsed.externalDataSystems ||
       this.xpFeaturesUsed.identityResolution ||
       this.xpFeaturesUsed.patternCards
+    );
+  }
+
+  /**
+   * Checks current frameworks to ensure that there are no non-Headless frameworks selected.
+   * If even a single non-Headless framework is selected, there is front-end migration work
+   * required (such as MVC to Next.js)
+   */
+  isFullyHeadless(): boolean {
+    return (
+      !this.existingFrameworks.mvc &&
+      !this.existingFrameworks.sxa &&
+      !this.existingFrameworks.webforms &&
+      !this.existingFrameworks.xslt
     );
   }
 
