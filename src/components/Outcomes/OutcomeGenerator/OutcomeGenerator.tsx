@@ -191,6 +191,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
       </Text>
       <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
+        {/*Rob Habraken SUGCON video*/}
+        <YouTubeVideoDisplay videoId="vLAfx7dps_Q" />
+
+        {/*Start articles*/}
         <ConditionalResponse
           condition={
             outcomeConditions.isXM &&
