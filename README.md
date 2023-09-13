@@ -25,10 +25,20 @@ To get started you need to follow the following steps:
 
 ### Running Cypress Tests
 
-We use Cypress to create End-to-End and Component Test use cases. To run the tests, you'll need to do the following:
+We use Cypress to create End-to-End and Component Test use cases.
 
+**To Open the Cypress Testing Console**
 1. Clone the repository
 2. Run a `npm install` to install all the dependencies.
 3. If you have `npm run dev` running in a different terminal, please stop before running the next command.
 4. Run `npm run cypress` which will run `npm run dev and npx cypress open` in parallel.
 5. Select the test you want to run from the Cypress UI.
+
+**To Run the E2E Tests Headlessly and Locally**
+1. Run `npm run dev` to start the app in localhost:3000
+2. Run `npx cypress run` to run the E2E tests on your local machine
+3. View the terminal output to see passing or failing tests (no browser will open)
+
+**To Run the Component Tests Locally**
+1. Run `npx cypress run --component`
+2. View terminal output for passing or failing tests
