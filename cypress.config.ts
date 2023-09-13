@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
+  defaultCommandTimeout: 10000,
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
@@ -9,6 +10,7 @@ export default defineConfig({
     retries: {
       runMode: 3,
     },
+    experimentalStudio: true,
   },
   viewportHeight: 768,
   viewportWidth: 1400,
@@ -18,4 +20,5 @@ export default defineConfig({
       bundler: 'webpack',
     },
   },
+  video: false,
 });
