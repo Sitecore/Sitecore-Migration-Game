@@ -1,0 +1,24 @@
+name: Run Cypress Tests
+
+on: [workflow_dispatch, push]
+  
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v3
+        with:
+          project: ./
+          browser: chrome
+          build: yarn build
+          start: yarn start
+          wait-on: "http://localhost:3000"
+          component: true
+        env:
+          SITECORE_CH1_ENDPOINT_URL: ${{ secrets.SITECORE_CH1_ENDPOINT_URL }}
+          SITECORE_CH1_CLIENT_KEY: ${{ secrets.SITECORE_CH1_CLIENT_KEY }}
