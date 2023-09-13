@@ -1,9 +1,10 @@
 name: Run Cypress Tests
 
-on: [push]
+on: [workflow_dispatch, push]
+  
 
 jobs:
-  install:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
