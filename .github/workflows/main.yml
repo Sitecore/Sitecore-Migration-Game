@@ -18,5 +18,5 @@ jobs:
           start: yarn start
           wait-on: "http://localhost:3000"
         env:
-          SITECORE_CH1_ENDPOINT_URL: ${{ secrets.COMMERCE_PROVIDER }}
-          SITECORE_CH1_CLIENT_KEY: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          SITECORE_CH1_ENDPOINT_URL: ${{ secrets.SITECORE_CH1_ENDPOINT_URL }}
+          SITECORE_CH1_CLIENT_KEY: ${{ secrets.SITECORE_CH1_CLIENT_KEY }}
