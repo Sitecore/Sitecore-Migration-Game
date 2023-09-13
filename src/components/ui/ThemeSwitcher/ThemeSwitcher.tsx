@@ -1,6 +1,7 @@
 import { ChakraProvider, ChakraTheme, extendTheme } from '@chakra-ui/react';
 import { withProse } from '@nikolovlazar/chakra-ui-prose';
 import sitecoreTheme from '@sitecore/blok-theme';
+import { buttonOverride } from 'chakra/theme/corporate/button';
 import fantasyTheme from 'chakra/theme/fantasy/theme';
 import { useGameInfoContext } from 'components/Contexts';
 import { FC, useEffect, useState } from 'react';
@@ -28,7 +29,7 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ children }) => {
         )
       );
     } else if (gameInfoContext?.theme?.chakraTheme == 'corporate') {
-      setTheme(extendTheme(sitecoreTheme, withProse()));
+      setTheme(extendTheme(sitecoreTheme, buttonOverride, withProse()));
     }
   }, [gameInfoContext?.theme]);
 
