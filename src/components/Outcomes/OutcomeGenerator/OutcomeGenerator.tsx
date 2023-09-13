@@ -32,7 +32,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
       </Text>
       {requiredProducts && requiredProducts.length > 0 && (
-        <List size="lg" pb="20px">
+        <List size="lg" pb="20px" id='required-products'>
           {requiredProducts.map((product: TargetProduct) => (
             <ListItem>{product}</ListItem>
           ))}
