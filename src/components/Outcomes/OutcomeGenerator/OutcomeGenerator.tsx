@@ -5,7 +5,7 @@ import { LinkCard, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { FC } from 'react';
 
-interface OutcomeGeneratorProps { }
+interface OutcomeGeneratorProps {}
 
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
@@ -32,9 +32,20 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
       </Text>
       {requiredProducts && requiredProducts.length > 0 && (
-        <List size="lg" pb="20px" id='required-products'>
+        <List size="lg" pb="20px" id="required-products">
           {requiredProducts.map((product: TargetProduct) => (
-            <ListItem>{product}</ListItem>
+            <ListItem>
+              <Heading size="md" mb={2}>
+                {product}
+              </Heading>
+              {gameInfoContext.outcome?.outcomeReasons.results.find((r) => r.product === product) != undefined ? (
+                <RichTextOutput
+                  content={gameInfoContext.outcome?.outcomeReasons.results.find((r) => r.product === product)?.reason!}
+                />
+              ) : (
+                <></>
+              )}
+            </ListItem>
           ))}
         </List>
       )}
@@ -211,16 +222,13 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
             title="XM Cloud Introduction GitHub Repo: Shows Next.js and .NET headless sites migrated from XM 10.2"
           />
         </ConditionalResponse>
-        <ConditionalResponse
-          condition={outcomeConditions.desiredFrameworks.nextjs}
-        >
+        <ConditionalResponse condition={outcomeConditions.desiredFrameworks.nextjs}>
           <LinkCard
             link="https://thetombomb.com/posts/nextjs-hosting-alternatives"
-          title="Beyond Vercel: Hosting Alternatives for Next.js"
-        />
-      </ConditionalResponse>
-
-    </SimpleGrid >
+            title="Beyond Vercel: Hosting Alternatives for Next.js"
+          />
+        </ConditionalResponse>
+      </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
         <Heading size="lg" mb={2}>
           {gameInfoContext.outcome.aspnetHeadlessTitle}
