@@ -46,7 +46,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           {requiredProducts.map((product: TargetProduct) => (
             <AccordionItem>
               <AccordionButton>
-                <Box>
+                <Box as="span" flex="1" textAlign="left">
                   <Heading size="md" mb={2}>
                     {product}
                   </Heading>
