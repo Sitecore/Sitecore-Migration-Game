@@ -34,6 +34,7 @@ export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
         backgroundRepeat="no-repeat"
         paddingX={4}
         paddingBottom="140px"
+        id="backgroundImage"
       >
         <Navigation
           showProgressBar={showProgressBar}

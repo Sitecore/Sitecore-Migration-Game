@@ -26,6 +26,7 @@ export const PersonaList: FC<PersonaListProps> = ({ personas, toggledButtonId, h
                 <Button
                   isActive={isToggled}
                   key={p.id}
+                  value={p.name}
                   style={{ flex: 1 }}
                   onClick={() => {
                     handlePersonaChange(p.id);
