@@ -1,4 +1,14 @@
-import { Heading, List, ListItem, SimpleGrid, Text } from '@chakra-ui/react';
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Heading,
+  SimpleGrid,
+  Text,
+} from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { ConditionalResponse } from 'components/Outcomes';
 import { LinkCard, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
@@ -32,22 +42,31 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
       </Text>
       {requiredProducts && requiredProducts.length > 0 && (
-        <List size="lg" pb="20px" id="required-products">
+        <Accordion size="lg" pb="20px" id="required-products" allowMultiple>
           {requiredProducts.map((product: TargetProduct) => (
-            <ListItem>
-              <Heading size="md" mb={2}>
-                {product}
-              </Heading>
-              {gameInfoContext.outcome?.outcomeReasons.results.find((r) => r.product === product) != undefined ? (
-                <RichTextOutput
-                  content={gameInfoContext.outcome?.outcomeReasons.results.find((r) => r.product === product)?.reason!}
-                />
-              ) : (
-                <></>
-              )}
-            </ListItem>
+            <AccordionItem>
+              <AccordionButton>
+                <Box>
+                  <Heading size="md" mb={2}>
+                    {product}
+                  </Heading>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel>
+                {gameInfoContext.outcome?.outcomeReasons.results.find((r) => r.product === product) != undefined ? (
+                  <RichTextOutput
+                    content={
+                      gameInfoContext.outcome?.outcomeReasons.results.find((r) => r.product === product)?.reason!
+                    }
+                  />
+                ) : (
+                  <></>
+                )}
+              </AccordionPanel>
+            </AccordionItem>
           ))}
-        </List>
+        </Accordion>
       )}
 
       <Heading size="lg" mb={2}>
