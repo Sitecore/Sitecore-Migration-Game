@@ -11,6 +11,14 @@ fragment OutcomeDetails on GameOutcome {
   }
   title
   productsIntro
+  outcomeReasons {
+    results {
+      ... on GameOutcomeReason {
+        product
+        reason
+      }
+    }
+  }
   videoTitle
   videoIntro
   videoid
