@@ -221,6 +221,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
       </Text>
       <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
+        {/*Rob Habraken SUGCON video*/}
+        <YouTubeVideoDisplay videoId="vLAfx7dps_Q" />
+
+        {/*Start articles*/}
         <ConditionalResponse
           condition={
             outcomeConditions.isXM &&
@@ -245,6 +249,16 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           <LinkCard
             link="https://thetombomb.com/posts/nextjs-hosting-alternatives"
             title="Beyond Vercel: Hosting Alternatives for Next.js"
+          />
+        </ConditionalResponse>
+        <LinkCard
+          link="https://jackspektor.medium.com/estimating-sitecore-xp-to-xm-cloud-upgrade-what-challenges-lies-ahead-226d1c36b8e"
+          title="Estimating Sitecore XP to XM Cloud upgrade — what challenges lies ahead? (Jack Spektor)"
+        />
+        <ConditionalResponse condition={!outcomeConditions.isFullyHeadless()}>
+          <LinkCard
+            link="https://blogs.perficient.com/2022/11/28/a-practical-roadmap-for-existing-sitecore-customers-to-move-to-xm-cloud/"
+            title="A Practical Roadmap for Existing Sitecore Customers to Move To XM Cloud (David San Filippo)"
           />
         </ConditionalResponse>
       </SimpleGrid>

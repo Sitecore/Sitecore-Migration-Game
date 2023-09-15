@@ -127,7 +127,14 @@ export class GameContextParser {
       (x: IAnswer) => x.promptQuestionId == PromptMappings.existingFramework
     );
     if (existingFrameworkOptions != undefined) {
+      outcomeConditions.existingFrameworks.angular = existingFrameworkOptions.value.includes('angular');
+      outcomeConditions.existingFrameworks.mvc = existingFrameworkOptions.value.includes('mvc');
       outcomeConditions.existingFrameworks.netcore = existingFrameworkOptions.value.includes('netcore');
+      outcomeConditions.existingFrameworks.nextjs = existingFrameworkOptions.value.includes('nextjs');
+      outcomeConditions.existingFrameworks.sxa = existingFrameworkOptions.value.includes('sxa');
+      outcomeConditions.existingFrameworks.vue = existingFrameworkOptions.value.includes('vuejs');
+      outcomeConditions.existingFrameworks.webforms = existingFrameworkOptions.value.includes('webforms');
+      outcomeConditions.existingFrameworks.xslt = existingFrameworkOptions.value.includes('xslt');
     }
   }
 
