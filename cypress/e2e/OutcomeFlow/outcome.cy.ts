@@ -14,8 +14,8 @@ describe('Outcome Page', () => {
     cy.get('[value="yesexperienceedge"]').click();
     cy.wait(5000);
     cy.get('.chakra-modal__close-btn').click();
-    cy.get('ul#required-products').should('exist').find('li').should('have.length', 1);
-    cy.get('ul#required-products li').eq(0).should('contain', 'XM Cloud');
+    cy.get('#required-products').should('exist').children().should('have.length', 1);
+    cy.get('#required-products').children().should('contain', 'XM Cloud');
   });
 
   it('multiple required products', () => {
@@ -42,18 +42,16 @@ describe('Outcome Page', () => {
     cy.get('[value="historicalpersonalize90"]').click();
     cy.get('[value="search-index"]').click();
     cy.get('[value="unicorn"]').click();
-    // cy.get('.css-18udl74').click();
-    // cy.get('.css-e3ognv').click();
     cy.get('[value="netcore"]').click();
     cy.get('.css-gmuwbf > .chakra-button').click();
     cy.get('[value="noexperienceedge"]').click();
     cy.wait(5000);
     cy.get('.chakra-modal__close-btn').click();
-    cy.get('ul#required-products').should('exist').find('li').should('have.length', 5);
-    cy.get('ul#required-products li').eq(0).should('contain', 'XM Cloud');
-    cy.get('ul#required-products li').eq(1).should('contain', 'Search');
-    cy.get('ul#required-products li').eq(2).should('contain', 'Personalize');
-    cy.get('ul#required-products li').eq(3).should('contain', 'CDP');
-    cy.get('ul#required-products li').eq(4).should('contain', 'Send');
+    cy.get('#required-products').should('exist').children().should('have.length', 5);
+    cy.get('#required-products').children().should('contain', 'XM Cloud');
+    cy.get('#required-products').children().should('contain', 'Search');
+    cy.get('#required-products').children().should('contain', 'Personalize');
+    cy.get('#required-products').children().should('contain', 'CDP');
+    cy.get('#required-products').children().should('contain', 'Send');
   });
 });
