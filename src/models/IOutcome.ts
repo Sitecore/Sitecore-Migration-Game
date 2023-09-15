@@ -1,11 +1,12 @@
 import { JSONContent } from '@tiptap/core';
-import { IResult, ITheme } from 'models';
+import { IOutcomeReason, IResult, ITheme } from 'models';
 
 export interface IOutcome {
   id: string;
   name: string;
   title: string;
   productsIntro: JSONContent;
+  outcomeReasons: IResult<IOutcomeReason[]>;
   videoTitle: string;
   videoIntro: JSONContent;
   videoid: string;
