@@ -1,13 +1,13 @@
-import { Button, Center, Container } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
-import { AvatarGallery, Loading, PersonaList, ThemeList } from 'components/ui';
+import { Loading, ThemeList } from 'components/ui';
 import * as GTag from 'lib/GTag';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
 import { IImage, IOutcome, IPersona, ITheme } from 'models';
-import router from 'next/router';
 import { FC, useCallback, useEffect, useState } from 'react';
+import { ChooseCharacter } from '../ChooseCharacterDisplay/ChooseCharacter';
 
 interface SettingsProps {}
 
@@ -23,8 +23,6 @@ export const Settings: FC<SettingsProps> = () => {
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
   const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>();
   const [avatars, setAvatars] = useState<IImage[] | undefined>();
-  const [toggledButton, setToggledButton] = useState<string>();
-  const [toggledAvatar, setToggledAvatar] = useState<IImage>();
   const [loading, setLoading] = useState<Boolean>(false);
   const themeService = ThemeService();
   const personaService = PersonaService();
@@ -49,7 +47,6 @@ export const Settings: FC<SettingsProps> = () => {
     tracker.TrackPageView({ page: '/settings', channel: 'WEB', currency: 'USD', language: 'EN' });
   }, [initializeSettings]);
 
-  //#region Functions
   const handleSettingChange = async (newTheme: string) => {
     setLoading(true);
     await gameInfoContext.updateTheme(newTheme);
@@ -81,28 +78,6 @@ export const Settings: FC<SettingsProps> = () => {
     setLoading(false);
   };
 
-  const handlePersonaChange = async (newPersona: string) => {
-    await tracker.TrackEvent('PERSONA_CHANGE', { persona: newPersona });
-    GTag.event('persona_change', 'Persona', newPersona);
-
-    setToggledButton(newPersona);
-  };
-
-  const handleAvatarChange = async (newAvatar: IImage) => {
-    await tracker.TrackEvent('AVATAR_CHANGE', { avatar: newAvatar.id });
-    GTag.event('avatar_change', 'Avatar', newAvatar.id);
-
-    setToggledAvatar(newAvatar);
-  };
-
-  const handleStartGame = async () => {
-    await gameInfoContext.updatePersona(toggledButton as string);
-    await gameInfoContext.updateAvatar(toggledAvatar as IImage);
-
-    router.push('/prompt');
-  };
-  //#endregion
-
   return (
     <Container w="100%" maxWidth={'1136px'} rounded={'lg'} padding={{ sm: 0, md: 10 }}>
       {loading == true ? (
@@ -112,30 +87,7 @@ export const Settings: FC<SettingsProps> = () => {
       ) : (
         <>
           {showCharacterOptions ? (
-            <>
-              <PersonaList
-                personas={personas}
-                toggledButtonId={toggledButton}
-                handlePersonaChange={handlePersonaChange}
-                classStyles={null}
-              />
-              <AvatarGallery
-                avatars={avatars}
-                toggledAvatarId={toggledAvatar?.id}
-                handleAvatarChange={handleAvatarChange}
-              />
-              <Center>
-                <Button
-                  margin={10}
-                  variant={'solid'}
-                  size={'lg'}
-                  isDisabled={toggledAvatar == undefined || toggledButton == undefined}
-                  onClick={() => handleStartGame()}
-                >
-                  {gameInfoContext.theme?.startButtonText ?? 'Save Changes and Start Adventure'}
-                </Button>
-              </Center>
-            </>
+              <ChooseCharacter avatars={avatars} personas={personas} />
           ) : (
             <>
               <ThemeList themes={themes} handleThemeChange={handleSettingChange} classStyles={null} />
