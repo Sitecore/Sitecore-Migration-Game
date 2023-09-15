@@ -190,7 +190,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
           <ConditionalResponse condition={outcomeConditions.isSimplePersonalization()}>
             <LinkCard
-              link="https://jasonstcyr.com/2023/05/31/sitecore-architects-guide-to-saas-migration-classic-xp-with-simple-personalization/"
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=9fb319151b23e510efd0ec22604bcb12"
               title="Sitecore Architect’s Guide to SaaS Migration – Classic XP with Simple Personalization"
             />
           </ConditionalResponse>
@@ -198,13 +198,13 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
             condition={outcomeConditions.isComplexPersonalization() && !outcomeConditions.isMarketingAutomation()}
           >
             <LinkCard
-              link="https://jasonstcyr.com/2022/07/25/sitecore-architects-guide-to-saas-migration-xp-global-brand-scenario/"
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=ae56931f1b462554722d4042b24bcb76"
               title="Sitecore Architect’s Guide to SaaS Migration – XP Global Brand scenario"
             />
           </ConditionalResponse>
           <ConditionalResponse condition={outcomeConditions.isMarketingAutomation()}>
             <LinkCard
-              link="https://jasonstcyr.com/2023/03/09/sitecore-architects-guide-to-saas-migration-xp-marketing-automation/"
+              link="https://community.sitecore.com/community?id=community_blog&sys_id=f61af8f41b176910722d4042b24bcb72"
               title="Sitecore Architect’s Guide to SaaS Migration – XP Marketing Automation"
             />
           </ConditionalResponse>
@@ -233,7 +233,7 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           }
         >
           <LinkCard
-            link="https://jasonstcyr.com/2022/05/20/sitecore-architects-guide-to-saas-migration-xm-jamstack-scenario/"
+            link="https://community.sitecore.com/community?id=community_blog&sys_id=7c74bbfa1bb5e590b8954371b24bcb7b"
             title="Sitecore Architect’s Guide to SaaS Migration – XM Jamstack scenario"
           />
         </ConditionalResponse>
