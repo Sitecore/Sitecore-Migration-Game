@@ -5,8 +5,8 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 
 const elevated = definePartsStyle({
   container: {
-    backdropFilter: { base: 'blur(24px)' },
-    backgroundColor: { base: '#00000070' },
+    //backdropFilter: { base: 'blur(24px)' },
+    backgroundColor: { base: '#00000090' },
     fontFamily: 'var(--font-fondamento)',
     color: 'white',
     //opacity: { base: '0.2', xl: '1' },
