@@ -1,5 +1,6 @@
 import { Card, Center, Stack } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
+import { EmailForm } from 'components/EmailForm/EmailForm';
 import { OutcomeGenerator } from 'components/Outcomes';
 import { PreviousAnswers } from 'components/Prompts';
 import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
@@ -64,6 +65,7 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
           <Card w="100%" mt={8} mb={4} p={8} display="flex" alignItems="center" flexDirection="column">
             <Stack>
               <OutcomeGenerator />
+              <EmailForm />
               <PreviousAnswers />
             </Stack>
           </Card>

@@ -1,4 +1,4 @@
-import { Button, Box, Checkbox, FormControl, FormLabel, Input, Select, Text, useColorMode, useColorModeValue, Center, HStack } from '@chakra-ui/react';
+import { Button, Box, Checkbox, FormControl, FormLabel, Input, Select, Text, useColorMode, useColorModeValue, Center, HStack, Card, Divider } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { Country, IState, State } from 'country-state-city';
@@ -44,7 +44,7 @@ export const EmailForm = () => {
 
 
   return (
-    <Box p={2} maxWidth="800px" borderWidth={1} borderRadius={8} boxShadow="lg" bgColor={useColorModeValue('white', 'gray.800')}>
+    <Card p={2} borderWidth={1} borderRadius={8} boxShadow="lg">
       <Center>
         <Text fontSize='4xl'>Sign up for future content!</Text>
       </Center>
@@ -60,18 +60,19 @@ export const EmailForm = () => {
           <FormLabel pt={4}>Country Selection</FormLabel>
           <Select placeholder='Select Country' {...register("country", { required: true })}>
             {countryList.map((country) => (
-              <option value={country.name}>{country.name}</option>
+              <option style={{color: 'black'}} value={country.name}>{country.name}</option>
             ))}
           </Select>
-          {watchCountry == "United States" || watchCountry == "Canada" ? (
+          {watchCountry == "United States" || watchCountry == "Canada" || watchCountry == "Australia" ? (
             <Select pt={2} placeholder='Select State' {...register("state", { required: true })}>
               {stateList.map((state) => (
-                <option value={state.name}>{state.name}</option>
+                <option style={{color: 'black'}} value={state.name}>{state.name}</option>
               ))}
             </Select>
           ) : null}
           <Text p={4}>By submitting my contact information, I confirm that I have read and agree to the <Link style={{color: "blue", textDecoration: "underline"}} href="https://www.sitecore.com/trust/privacy-policy" passHref>Sitecore Privacy Policy</Link>, which explains how Sitecore collects, processes and shares my personal data. I consent to my data being processed in accordance with Sitecore’s Privacy Policy so that Sitecore can optimize my experience with the Sitecore brand.</Text>
           <Checkbox p={4} {...register("gdprOptIn", { required: true })}>I consent to receive communications about Sitecore’s business in accordance with Sitecore’s Privacy Policy. I understand that I can opt-out at any time.</Checkbox>
+          <Divider />
           <Button
             mt={4}
             colorScheme='teal'
@@ -81,6 +82,6 @@ export const EmailForm = () => {
           </Button>
         </FormControl >
       </form>
-    </Box>
+    </Card>
   )
 };
