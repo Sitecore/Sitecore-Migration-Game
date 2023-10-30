@@ -1,28 +1,14 @@
-import { Button, Box, Checkbox, FormControl, FormLabel, Input, Select, Text, useColorMode, useColorModeValue, Center, HStack, Card, Divider } from '@chakra-ui/react';
+import { Button, Checkbox, FormControl, FormLabel, Input, Select, Text, Center, Card, Divider } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { Country, IState, State } from 'country-state-city';
 import Link from 'next/link';
 
-interface IFormInput {
-  firstName: string
-  lastName: string
-  email: string
-  country: string
-  state: string
-  gdprOptIn: boolean
-}
-
 export const EmailForm = () => {
-  const onSubmit = (data: IFormInput) => console.log(data);
+  const [loading, setLoading] = useState(false);
   const countryList = Country.getAllCountries();
-  console.log(countryList);
-  const { colorMode, toggleColorMode } = useColorMode()
-  const { register, handleSubmit, watch, unregister, reset } = useForm<IFormInput>({
-    defaultValues:
-    {
-      country: "United States",
-    }
+  const { register, handleSubmit, watch, unregister } = useForm<IFormInput>({
+    defaultValues: { country: "United States", }
   });
   const [stateList, setStateList] = useState<IState[]>(State.getStatesOfCountry("US"));
   const watchCountry = watch("country");
@@ -42,6 +28,30 @@ export const EmailForm = () => {
     }
   }, [register, unregister, watchCountry]);
 
+  const onSubmit = async () => {
+    try {
+      setLoading(true);
+      const formElement = document.querySelector('form') as HTMLFormElement;
+      const formData = new FormData(formElement);
+
+      const response = await fetch(process.env.NEXT_PUBLIC_EMAIL_FORM_ENDPOINT as string,
+        {
+          body: formData,
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          }
+        });
+      if (response.status == 200) {
+        console.log('Form submitted successfully');
+      }
+
+    } catch (error) {
+      console.error('Error in form submission');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Card p={2} borderWidth={1} borderRadius={8} boxShadow="lg">
@@ -52,31 +62,32 @@ export const EmailForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isRequired pt={4}>
           <FormLabel >First Name</FormLabel>
-          <Input {...register("firstName", { required: true })} />
+          <Input {...register("first_name", { required: true })} />
           <FormLabel pt={4}>Last Name</FormLabel>
-          <Input {...register("lastName", { required: true })} />
+          <Input {...register("last_name", { required: true })} />
           <FormLabel pt={4}>Email</FormLabel>
           <Input{...register("email", { required: true })} />
           <FormLabel pt={4}>Country Selection</FormLabel>
           <Select placeholder='Select Country' {...register("country", { required: true })}>
             {countryList.map((country) => (
-              <option style={{color: 'black'}} value={country.name}>{country.name}</option>
+              <option style={{ color: 'black' }} value={country.name}>{country.name}</option>
             ))}
           </Select>
           {watchCountry == "United States" || watchCountry == "Canada" || watchCountry == "Australia" ? (
             <Select pt={2} placeholder='Select State' {...register("state", { required: true })}>
               {stateList.map((state) => (
-                <option style={{color: 'black'}} value={state.name}>{state.name}</option>
+                <option style={{ color: 'black' }} value={state.name}>{state.name}</option>
               ))}
             </Select>
           ) : null}
-          <Text p={4}>By submitting my contact information, I confirm that I have read and agree to the <Link style={{color: "blue", textDecoration: "underline"}} href="https://www.sitecore.com/trust/privacy-policy" passHref>Sitecore Privacy Policy</Link>, which explains how Sitecore collects, processes and shares my personal data. I consent to my data being processed in accordance with Sitecore’s Privacy Policy so that Sitecore can optimize my experience with the Sitecore brand.</Text>
-          <Checkbox p={4} {...register("gdprOptIn", { required: true })}>I consent to receive communications about Sitecore’s business in accordance with Sitecore’s Privacy Policy. I understand that I can opt-out at any time.</Checkbox>
+          <Text p={4}>By submitting my contact information, I confirm that I have read and agree to the <Link style={{ color: "blue", textDecoration: "underline" }} passHref href="https://www.sitecore.com/trust/privacy-policy" target="_blank">Sitecore Privacy Policy</Link>, which explains how Sitecore collects, processes and shares my personal data. I consent to my data being processed in accordance with Sitecore’s Privacy Policy so that Sitecore can optimize my experience with the Sitecore brand.</Text>
+          <Checkbox p={4} {...register("gdpr_optin", { required: true })}>I consent to receive communications about Sitecore’s business in accordance with Sitecore’s Privacy Policy. I understand that I can opt-out at any time.</Checkbox>
           <Divider />
           <Button
             mt={4}
             colorScheme='teal'
             type='submit'
+            disabled={loading}
           >
             Submit
           </Button>
