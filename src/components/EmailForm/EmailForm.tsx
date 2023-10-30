@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { Country, IState, State } from 'country-state-city';
 import Link from 'next/link';
+import { IFormInput } from 'models/IFormInput';
 
 export const EmailForm = () => {
   const [loading, setLoading] = useState(false);
@@ -68,20 +69,20 @@ export const EmailForm = () => {
           <FormLabel pt={4}>Email</FormLabel>
           <Input{...register("email", { required: true })} />
           <FormLabel pt={4}>Country Selection</FormLabel>
-          <Select placeholder='Select Country' {...register("country", { required: true })}>
+          <Select id="country" placeholder='Select Country' {...register("country", { required: true })}>
             {countryList.map((country) => (
               <option style={{ color: 'black' }} value={country.name}>{country.name}</option>
             ))}
           </Select>
           {watchCountry == "United States" || watchCountry == "Canada" || watchCountry == "Australia" ? (
-            <Select pt={2} placeholder='Select State' {...register("state", { required: true })}>
+            <Select id="state" pt={2} placeholder='Select State' {...register("state", { required: true })}>
               {stateList.map((state) => (
                 <option style={{ color: 'black' }} value={state.name}>{state.name}</option>
               ))}
             </Select>
           ) : null}
           <Text p={4}>By submitting my contact information, I confirm that I have read and agree to the <Link style={{ color: "blue", textDecoration: "underline" }} passHref href="https://www.sitecore.com/trust/privacy-policy" target="_blank">Sitecore Privacy Policy</Link>, which explains how Sitecore collects, processes and shares my personal data. I consent to my data being processed in accordance with Sitecore’s Privacy Policy so that Sitecore can optimize my experience with the Sitecore brand.</Text>
-          <Checkbox p={4} {...register("gdpr_optin", { required: true })}>I consent to receive communications about Sitecore’s business in accordance with Sitecore’s Privacy Policy. I understand that I can opt-out at any time.</Checkbox>
+          <Checkbox id="gdpr" p={4} {...register("gdpr_optin", { required: true })}>I consent to receive communications about Sitecore’s business in accordance with Sitecore’s Privacy Policy. I understand that I can opt-out at any time.</Checkbox>
           <Divider />
           <Button
             mt={4}
