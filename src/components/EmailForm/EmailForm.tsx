@@ -93,17 +93,20 @@ export const EmailForm = () => {
             <Text p={4}>By submitting my contact information, I confirm that I have read and agree to the <Link style={{ color: "blue", textDecoration: "underline" }} passHref href="https://www.sitecore.com/trust/privacy-policy" target="_blank">Sitecore Privacy Policy</Link>, which explains how Sitecore collects, processes and shares my personal data. I consent to my data being processed in accordance with Sitecore’s Privacy Policy so that Sitecore can optimize my experience with the Sitecore brand.</Text>
             <Checkbox id="gdpr" p={4} {...register("gdpr_optin", { required: true })}>I consent to receive communications about Sitecore’s business in accordance with Sitecore’s Privacy Policy. I understand that I can opt-out at any time.</Checkbox>
             <Divider />
-            <HStack px={4}>
-              <Button
-                mt={4}
-                colorScheme='teal'
-                type='submit'
-                disabled={loading}
-              >
-                Submit
-              </Button>
-              {loading && <Spinner />}
-            </HStack>
+            <Center>
+              <HStack px={4}>
+                <Button
+                  mt={4}
+                  colorScheme='teal'
+                  type='submit'
+                  disabled={loading}
+                  size='lg'
+                >
+                  Submit
+                </Button>
+                {loading && <Spinner />}
+              </HStack>
+            </Center>
           </FormControl >
         </form>
         :
