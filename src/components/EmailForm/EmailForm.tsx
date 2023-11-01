@@ -37,7 +37,7 @@ export const EmailForm = () => {
       setLoading(true);
       const formElement = document.querySelector('form') as HTMLFormElement;
       const formData = new FormData(formElement);
-      formData.append('url', 'www.migration.sitecore.com');
+      formData.append('url', 'https://migration.sitecore.com/');
 
       const response = await fetch(process.env.NEXT_PUBLIC_EMAIL_FORM_ENDPOINT as string,
         {
