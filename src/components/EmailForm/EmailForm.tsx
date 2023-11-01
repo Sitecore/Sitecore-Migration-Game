@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { Country, IState, State } from 'country-state-city';
 import Link from 'next/link';
 import { IFormInput } from 'models/IFormInput';
+import { useEngageTracker } from 'components/Contexts';
 
 export const EmailForm = () => {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,7 @@ export const EmailForm = () => {
   });
   const [stateList, setStateList] = useState<IState[]>(State.getStatesOfCountry("US"));
   const watchCountry = watch("country");
+  const tracker = useEngageTracker();
 
   useEffect(() => {
     if ((watchCountry == "United States")) {
@@ -30,9 +32,8 @@ export const EmailForm = () => {
     }
   }, [register, unregister, watchCountry]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: IFormInput) => {
     try {
-
       setLoading(true);
       const formElement = document.querySelector('form') as HTMLFormElement;
       const formData = new FormData(formElement);
@@ -47,6 +48,7 @@ export const EmailForm = () => {
           }
         });
       if (response.status == 200) {
+        tracker.Identify(data.email, data.first_name, data.last_name)
         setSubmitted(true);
         console.log('Form submitted successfully');
       }

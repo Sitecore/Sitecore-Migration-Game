@@ -2,8 +2,8 @@ import { EmailForm } from "./EmailForm";
 
 describe('<EmailForm />', () => {
   
-  it('when data is valid data is submitted to endpoint & display thank you message', () => {
-    cy.intercept(process.env.NEXT_PUBLIC_EMAIL_FORM_ENDPOINT as string, { statusCode: 200 }).as("emailFormSubmit")
+  it('when data is valid, data is submitted to endpoint & display thank you message', () => {
+    cy.intercept('POST', process.env.NEXT_PUBLIC_EMAIL_FORM_ENDPOINT as string, { statusCode: 200 }).as("emailFormSubmit")
     cy.mount(<EmailForm />);
     cy.get('input[name="first_name"]').type('FirstName');
     cy.get('input[name="last_name"]').type('LastName');
@@ -13,7 +13,7 @@ describe('<EmailForm />', () => {
     cy.get('.chakra-checkbox__control').click();
     cy.get('button[type="submit"]').click();
     cy.get('@emailFormSubmit.all').should('have.length', 1);
-    cy.get('#success-message').should('be.visible')
+    cy.get('#success-message').should('be.visible')    
   });  
 
   it('state select shows for United States, Canada, & Australia', () => {
