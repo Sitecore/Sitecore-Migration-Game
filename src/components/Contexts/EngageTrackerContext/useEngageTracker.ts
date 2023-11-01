@@ -15,8 +15,29 @@ export const useEngageTracker = () => {
     await context.engageTracker?.pageView(pageViewData, extensionData);
   };
 
-  const Identify = async (email: string) => {
-    console.log({ email });
+  const Identify = async (email: string, firstName: string, lastName: string) => {
+    if (!context.isTrackerEnabled) {
+      console.log('Tracker is not enabled');
+      return;
+    }
+    
+    const eventData = {
+      channel: "WEB",
+      currency: "USD",
+      pointOfSale: process.env.SITECORE_CDP_POS || '',
+      language: "EN",
+      page: "outcome",
+      email: email,
+      lastName: lastName,
+      firstName: firstName,
+      identifiers: [
+          {
+              id: email,
+              provider: "email",
+          }
+      ]
+    };
+    await context.engageTracker?.identity(eventData);
   };
 
   const TrackEvent = async (eventName: string, extensionData?: INestedObject | undefined) => {
