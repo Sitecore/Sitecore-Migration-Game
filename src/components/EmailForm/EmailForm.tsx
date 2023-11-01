@@ -45,6 +45,7 @@ export const EmailForm = () => {
           method: "POST",
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            'Access-Control-Allow-Origin': '*'
           }
         });
       if (response.status == 200) {
