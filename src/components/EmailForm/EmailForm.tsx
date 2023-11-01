@@ -97,7 +97,6 @@ export const EmailForm = () => {
               <HStack px={4}>
                 <Button
                   mt={4}
-                  colorScheme='teal'
                   type='submit'
                   disabled={loading}
                   size='lg'
