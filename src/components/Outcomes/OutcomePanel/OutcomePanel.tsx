@@ -64,9 +64,6 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
           <Card w="100%" mt={8} mb={4} p={8} display="flex" alignItems="center" flexDirection="column">
             <Stack>
               <OutcomeGenerator />
-              <Box mt={8} >
-                <EmailForm />
-              </Box>
             </Stack>
           </Card>
         }
