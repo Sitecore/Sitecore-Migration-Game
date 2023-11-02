@@ -35,19 +35,20 @@ export const EmailForm = () => {
   const onSubmit = async (data: IFormInput) => {
     try {
       setLoading(true);
-      const formElement = document.querySelector('form') as HTMLFormElement;
-      const formData = new FormData(formElement);
+      const formData = new FormData();
+      for (const [key, value] of Object.entries(data)) {
+        formData.append(key, value);
+      }
       formData.append('url', 'https://migration.sitecore.com/');
 
-      const response = await fetch(process.env.NEXT_PUBLIC_EMAIL_FORM_ENDPOINT as string,
-        {
-          body: formData,
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Access-Control-Allow-Origin': '*'
-          }
-        });
+      const response = await fetch(process.env.NEXT_PUBLIC_EMAIL_FORM_ENDPOINT as string, {
+        body: formData,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        }
+      });
+
       if (response.status == 200) {
         tracker.Identify(data.email, data.first_name, data.last_name)
         setSubmitted(true);
