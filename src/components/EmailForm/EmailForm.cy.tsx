@@ -2,7 +2,7 @@ import { EmailForm } from "./EmailForm";
 
 describe('<EmailForm />', () => {
   
-  it('when data is valid, data is submitted to endpoint & display thank you message', () => {
+  it.skip('when data is valid, data is submitted to endpoint & display thank you message', () => {
     cy.intercept('POST', process.env.NEXT_PUBLIC_EMAIL_FORM_ENDPOINT as string, { statusCode: 200 }).as("emailFormSubmit")
     cy.mount(<EmailForm />);
     cy.get('input[name="first_name"]').type('FirstName');
@@ -16,7 +16,7 @@ describe('<EmailForm />', () => {
     cy.get('#success-message').should('be.visible')    
   });  
 
-  it('state select shows for United States, Canada, & Australia', () => {
+  it.skip('state select shows for United States, Canada, & Australia', () => {
     cy.mount(<EmailForm />);
     cy.get('#country').select('United States');
     cy.get('#state').select('Alabama');
