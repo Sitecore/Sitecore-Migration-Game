@@ -9,6 +9,7 @@
     "@chakra-ui/react": "^2.7.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mdi/js": "^7.3.67",
     "@mdx-js/react": "^2.3.0",
     "@nikolovlazar/chakra-ui-prose": "^1.2.1",
     "@sitecore/blok-theme": "^1.0.12",
