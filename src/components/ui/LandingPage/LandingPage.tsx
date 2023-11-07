@@ -32,7 +32,7 @@ const LandingPage: React.FC = () => {
               <Text>Find videos, tutorials, walkthroughs, code examples, and more to help you with your migration from Sitecore Platform DXP to Sitecore Composable</Text>
               <HStack w="full">
                 <Link style={{ width: "100%" }} href="/settings">
-                  <Button w="full">Get Started</Button>
+                  <Button id="start" w="full">Get Started</Button>
                 </Link>
               </HStack>
             </Stack>
