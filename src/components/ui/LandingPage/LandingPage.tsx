@@ -16,11 +16,15 @@ const LandingPage: React.FC = () => {
             <Stack flex={1} spacing={{ base: 2, md: 4 }} width={{ sm: '90%', md: '50%' }}>
               <Heading variant="section">Migration made easy</Heading>
               <Heading as={'h1'} size={'xl'}>
-                Migrate to Sitecore's Composable DXP
+                Know your way when migrating to Sitecore's Composable DXP
               </Heading>
               <Text>
-                Find videos, tutorials, walkthroughs, code examples, and more to help you with your migration from
-                Sitecore Platform DXP to Sitecore Composable
+                Everyone has their own journey when it comes to migrating to the cloud, but we are here to help you
+                understand what's involved no matter where you are coming from.
+              </Text>
+              <Text>
+                Find videos, tutorials, walkthroughs, code examples, and more to help you migrate from Sitecore Platform
+                DXP to Sitecore XM Cloud and the rest of the Sitecore Composable DXP.
               </Text>
               <HStack w="full">
                 <Link style={{ width: '100%' }} href="/settings">
@@ -30,7 +34,12 @@ const LandingPage: React.FC = () => {
                 </Link>
               </HStack>
             </Stack>
-            <Image src="/logo.jpg" alt="Sitecore Composable Game" borderRadius="md" />
+            <Image
+              src="https://wwwsitecorecom.azureedge.net/-/media/sitecoresite/images/home/knowledge-center/digital-marketing-resources/migrating-to-xm-cloud/gettyimages-898545250.jpg?mw=310&md=20230901T160358Z&hash=CA7AE4A53096E607A51CA4C172B0E5D8&t=544x310"
+              alt="Sitecore Migration Advisor"
+              borderRadius="md"
+              width="50%"
+            />
           </Stack>
         </Container>
         {/* Features */}
