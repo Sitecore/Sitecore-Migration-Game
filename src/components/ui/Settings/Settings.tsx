@@ -39,6 +39,11 @@ export const Settings: FC<SettingsProps> = () => {
     }
 
     setLoading(false);
+
+    //After loading theme data, skip theme selection if there are no other themes.
+    if (data?.results !== undefined && data.results.length == 1) {
+      handleSettingChange(data.results[0].id);
+    }
   }, []);
 
   useEffect(() => {
@@ -87,7 +92,7 @@ export const Settings: FC<SettingsProps> = () => {
       ) : (
         <>
           {showCharacterOptions ? (
-              <ChooseCharacter avatars={avatars} personas={personas} />
+            <ChooseCharacter avatars={avatars} personas={personas} />
           ) : (
             <>
               <ThemeList themes={themes} handleThemeChange={handleSettingChange} classStyles={null} />
