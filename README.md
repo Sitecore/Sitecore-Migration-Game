@@ -1,8 +1,8 @@
 # Introduction
 
-Welcome to the open source project for the Sitecore Migration Game. The purpose of this game/adventure, is to help customers and partners alike in guiding them to their ideal migration path. This game represents a fun way to learn about the migration process, and the various tools and techniques that can be used to help you along the way.
+Welcome to the open source project for the Sitecore Migration app. The purpose of this application is to help customers and partners alike in guiding them to their ideal migration path. The "choose your own adventure" story approach to the questions represents a fun way to learn about the migration process, and the various tools and techniques that can be used to help you along the way.
 
-## Prerequisites
+## Prerequisites to run the application
 
 - Node 16.17.0 or higher
 - NPM 8.15.0 or higher
@@ -28,6 +28,7 @@ To get started you need to follow the following steps:
 We use Cypress to create End-to-End and Component Test use cases.
 
 **To Open the Cypress Testing Console**
+
 1. Clone the repository
 2. Run a `npm install` to install all the dependencies.
 3. If you have `npm run dev` running in a different terminal, please stop before running the next command.
@@ -35,10 +36,12 @@ We use Cypress to create End-to-End and Component Test use cases.
 5. Select the test you want to run from the Cypress UI.
 
 **To Run the E2E Tests Headlessly and Locally**
+
 1. Run `npm run dev` to start the app in localhost:3000
 2. Run `npx cypress run` to run the E2E tests on your local machine
 3. View the terminal output to see passing or failing tests (no browser will open)
 
 **To Run the Component Tests Locally**
+
 1. Run `npx cypress run --component`
 2. View terminal output for passing or failing tests

@@ -1,22 +1,11 @@
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  HStack,
-  Heading,
-  Image,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Button, Container, Grid, HStack, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import { Layout } from 'components/ui';
 import FeatureCard, { FeatureCardProps } from 'components/ui/LandingPage/FeatureCard';
 import LandingPageHeader from 'components/ui/LandingPage/Header';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 
 const LandingPage: React.FC = () => {
-
   return (
     <Layout minHeight={'100vh'} px={{ sm: '4', md: '0' }}>
       <LandingPageHeader />
@@ -27,12 +16,17 @@ const LandingPage: React.FC = () => {
             <Stack flex={1} spacing={{ base: 2, md: 4 }} width={{ sm: '90%', md: '50%' }}>
               <Heading variant="section">Migration made easy</Heading>
               <Heading as={'h1'} size={'xl'}>
-                Migrate You Software Seamlessly
+                Migrate to Sitecore's Composable DXP
               </Heading>
-              <Text>Find videos, tutorials, walkthroughs, code examples, and more to help you with your migration from Sitecore Platform DXP to Sitecore Composable</Text>
+              <Text>
+                Find videos, tutorials, walkthroughs, code examples, and more to help you with your migration from
+                Sitecore Platform DXP to Sitecore Composable
+              </Text>
               <HStack w="full">
-                <Link style={{ width: "100%" }} href="/settings">
-                  <Button id="start" w="full">Get Started</Button>
+                <Link style={{ width: '100%' }} href="/settings">
+                  <Button id="start" w="full">
+                    Get Started
+                  </Button>
                 </Link>
               </HStack>
             </Stack>
@@ -44,7 +38,10 @@ const LandingPage: React.FC = () => {
           <Stack spacing={4} as={Container} maxW={'5xl'} textAlign={'center'}>
             <Heading>Making Migrations Easier</Heading>
             <Text>
-              Migrate to Sitecore Composable with ease. Find the resources you need to make your migration a success.
+              Have you decided to move to the cloud? Are you not sure which of Sitecore's SaaS products will give you
+              what you already have? Find the resources you need to migrate to our new SaaS DXP from Sitecore's
+              traditional platform products like Experience Manager (XM), Experience Platform (XP), and Experience
+              Commerce (XC).
             </Text>
           </Stack>
           <Grid
@@ -72,19 +69,19 @@ export default LandingPage;
 
 const features: FeatureCardProps[] = [
   {
-    heading: 'Answer Questions',
+    heading: 'Step 1: Answer Questions',
     text: 'Tell us about your existing Sitecore Platform DXP installation.',
   },
   {
-    heading: 'Get Recommendations',
-    text: 'Personalized content recommendations based on your answers.',
+    heading: 'Step 2: Get Recommendations',
+    text: 'Receive personalized product recommendations based on your answers.',
   },
   {
-    heading: 'Find Helpful Content',
-    text: 'Migration content created by Sitecore and the community. Get your migration content featured.',
+    heading: 'Step 3: Find Helpful Content',
+    text: 'Find a collection of migration content created by Sitecore and the community, personalized to your context.',
   },
   {
-    heading: 'Follow Up',
-    text: 'Sign up for the email list to be notified of new content and updates.',
-  }
-]
+    heading: 'Step 4: Connect for more updates!',
+    text: 'Sign up for the email list to be notified of new content and updates as we add to the application.',
+  },
+];
