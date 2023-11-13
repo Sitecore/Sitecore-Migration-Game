@@ -8,4 +8,5 @@ export interface ITheme {
   avatarGallery?: IResult<IImage[]>;
   chakraTheme: string;
   startButtonText: string;
+  disabled: boolean;
 }
