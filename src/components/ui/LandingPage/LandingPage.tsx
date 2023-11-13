@@ -79,15 +79,15 @@ export default LandingPage;
 const features: FeatureCardProps[] = [
   {
     heading: 'Step 1: Answer Questions',
-    text: 'Tell us about your existing Sitecore Platform DXP installation.',
+    text: 'Tell us about which features you use in your existing Sitecore Platform DXP installation.',
   },
   {
     heading: 'Step 2: Get Recommendations',
-    text: 'Receive personalized product recommendations based on your answers.',
+    text: 'Receive personalized product recommendations that can give you the features you are using today.',
   },
   {
     heading: 'Step 3: Find Helpful Content',
-    text: 'Find a collection of migration content created by Sitecore and the community, personalized to your context.',
+    text: 'Find a collection of curated migration content created by Sitecore and the community, personalized to your context.',
   },
   {
     heading: 'Step 4: Connect for more updates!',
