@@ -80,7 +80,7 @@ export const Navigation: FC<NavigationProps> = ({
                 {showResetButton && (
                   <Tooltip label="Start Over" aria-label="Start Over">
                     <IconButton
-                      onClick={() => Router.push('/')}
+                      onClick={() => Router.push('/settings')}
                       variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
                       size={['md']}
                       colorScheme="neutral"
