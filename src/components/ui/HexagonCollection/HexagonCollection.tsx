@@ -30,7 +30,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
     <Card>
       <CardHeader>
         <Heading size="md" variant={'achievements'}>
-          <Center>Achievements</Center>
+          <Center>Product Recommendations</Center>
         </Heading>
       </CardHeader>
       <CardBody>
@@ -38,7 +38,7 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
         
       </Text> */}
         {loading ? (
-          <Loading message="Loading Achievements..." />
+          <Loading message="Loading Product Recommendations..." />
         ) : (
           <SimpleGrid
             templateColumns={{ base: '1fr 1fr 1fr 1fr', lg: '1fr 1fr 1fr' }}
