@@ -4,6 +4,7 @@ fragment Theme on GameTheme {
   description
   chakraTheme
   startButtonText
+  disabled
   characterImage {
     results {
       id
