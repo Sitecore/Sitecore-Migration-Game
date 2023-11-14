@@ -34,9 +34,6 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
         </Heading>
       </CardHeader>
       <CardBody>
-        {/* <Text fontSize={['lg', '2xl']} fontWeight="bold" textAlign="center" mb={[2, 10]} variant={'achievements'}>
-        
-      </Text> */}
         {loading ? (
           <Loading message="Loading Product Recommendations..." />
         ) : (
