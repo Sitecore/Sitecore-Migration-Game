@@ -33,12 +33,18 @@ export const Settings: FC<SettingsProps> = () => {
     setLoading(true);
 
     const data = await themeService.GetAllThemes();
+    const themes = data?.results !== undefined ? data.results.filter((t) => t.disabled != true) : undefined;
 
-    if (data?.results !== undefined) {
-      setThemes(data.results);
+    if (themes && themes.length > 0) {
+      setThemes(themes);
     }
 
     setLoading(false);
+
+    //After loading theme data, skip theme selection if there are no other themes.
+    if (themes?.length == 1) {
+      handleSettingChange(themes[0].id);
+    }
   }, []);
 
   useEffect(() => {
@@ -87,7 +93,7 @@ export const Settings: FC<SettingsProps> = () => {
       ) : (
         <>
           {showCharacterOptions ? (
-              <ChooseCharacter avatars={avatars} personas={personas} />
+            <ChooseCharacter avatars={avatars} personas={personas} />
           ) : (
             <>
               <ThemeList themes={themes} handleThemeChange={handleSettingChange} classStyles={null} />
