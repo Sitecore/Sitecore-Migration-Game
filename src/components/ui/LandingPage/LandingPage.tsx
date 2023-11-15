@@ -16,15 +16,21 @@ const LandingPage: React.FC = () => {
             <Stack flex={1} spacing={{ base: 2, md: 4 }} width={{ sm: '90%', md: '50%' }}>
               <Heading variant="section">Migration made easy</Heading>
               <Heading as={'h1'} size={'xl'}>
-                Know your way when migrating to Sitecore's Composable DXP
+                Find your way to Sitecore's Composable DXP with confidence!
               </Heading>
               <Text>
-                Everyone has their own journey when it comes to migrating to the cloud, but we are here to help you
-                understand what's involved no matter where you are coming from.
+                The benefits of migrating to the cloud with Sitecore's Composable DXP are clear: no more costly
+                upgrades, lower total cost of ownership (TCO), lightning fast site speed and quicker to market with new
+                content, all in a modern UI that updates with new features automatically.
               </Text>
               <Text>
-                Find videos, tutorials, walkthroughs, code examples, and more to help you migrate from Sitecore Platform
-                DXP to Sitecore XM Cloud and the rest of the Sitecore Composable DXP.
+                The path to get there is different for every individual and organization. We can guide you through the
+                journey, regardless of your starting point.
+              </Text>
+              <Text>
+                Tell the Sitecore Migration Advisor about your solution and then find videos, tutorials, walkthroughs,
+                code examples, and more to help you migrate from Sitecore Platform DXP to Sitecore XM Cloud and the rest
+                of the Sitecore Composable DXP.
               </Text>
               <HStack w="full">
                 <Link style={{ width: '100%' }} href="/settings">
@@ -47,10 +53,10 @@ const LandingPage: React.FC = () => {
           <Stack spacing={4} as={Container} maxW={'5xl'} textAlign={'center'}>
             <Heading>Making Migrations Easier</Heading>
             <Text>
-              Have you decided to move to the cloud? Are you not sure which of Sitecore's SaaS products will give you
-              what you already have? Find the resources you need to migrate to our new SaaS DXP from Sitecore's
-              traditional platform products like Experience Manager (XM), Experience Platform (XP), and Experience
-              Commerce (XC).
+              So you’ve decided to move to the cloud (great choice), but you want to know which of Sitecore's SaaS
+              products are right for your business? Find the resources you need to migrate to our new SaaS DXP from
+              Sitecore's traditional platform products like Experience Manager (XM), Experience Platform (XP), and
+              Experience Commerce (XC).
             </Text>
           </Stack>
           <Grid
@@ -79,11 +85,11 @@ export default LandingPage;
 const features: FeatureCardProps[] = [
   {
     heading: 'Step 1: Answer Questions',
-    text: 'Tell us about which features you use in your existing Sitecore Platform DXP installation.',
+    text: 'Tell us which features are important in creating your digital experiences.',
   },
   {
     heading: 'Step 2: Get Recommendations',
-    text: 'Receive personalized product recommendations that can give you the features you are using today.',
+    text: 'Receive personalized product recommendations for the capabilities that matter to you.',
   },
   {
     heading: 'Step 3: Find Helpful Content',
