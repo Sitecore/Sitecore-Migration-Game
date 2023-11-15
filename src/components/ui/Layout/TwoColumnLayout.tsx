@@ -28,7 +28,7 @@ export const TwoColumnLayout: FC<TwoColumnLayoutProps> = ({
   return (
     <>
       {loading ? (
-        <Loading message="Loading Adventure Artifacts..." />
+        <Loading message="Loading Artifacts..." />
       ) : (
         <>
           <Box

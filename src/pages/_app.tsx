@@ -37,7 +37,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         `}
       </style>
       <Head>
-        <title>Sitecore Migration Adventure</title>
+        <title>Sitecore Migration Advisor</title>
         <link rel="icon" href={`/favicon.png`} />
       </Head>
       {AppConfig.GaMeasurementId && (
