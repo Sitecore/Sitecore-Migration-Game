@@ -39,7 +39,6 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
 
   return (
     <>
-      <FeedbackModal />
       <TwoColumnLayout
         showProgressBar={props.showProgressBar}
         showResetButton={props.showResetButton}

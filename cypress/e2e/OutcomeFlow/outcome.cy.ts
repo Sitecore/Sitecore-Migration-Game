@@ -12,8 +12,6 @@ describe('Outcome Page', () => {
     cy.get('[value="vuejs"]').click();
     cy.get('.css-gmuwbf > .chakra-button').click();
     cy.get('[value="yesexperienceedge"]').click();
-    cy.wait(5000);
-    cy.get('.chakra-modal__close-btn').click();
     cy.get('#required-products').should('exist').children().should('have.length', 1);
     cy.get('#required-products').children().should('contain', 'XM Cloud');
   });
@@ -45,8 +43,6 @@ describe('Outcome Page', () => {
     cy.get('[value="netcore"]').click();
     cy.get('.css-gmuwbf > .chakra-button').click();
     cy.get('[value="noexperienceedge"]').click();
-    cy.wait(5000);
-    cy.get('.chakra-modal__close-btn').click();
     cy.get('#required-products').should('exist').children().should('have.length', 5);
     cy.get('#required-products').children().should('contain', 'XM Cloud');
     cy.get('#required-products').children().should('contain', 'Search');
