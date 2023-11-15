@@ -38,6 +38,15 @@ const LandingPage: React.FC = () => {
                     Get Started
                   </Button>
                 </Link>
+                <Link
+                  style={{ width: '100%' }}
+                  href="https://www.sitecore.com/knowledge-center/digital-marketing-resources/migrating-to-xm-cloud"
+                  target="_blank"
+                >
+                  <Button id="start" w="full" variant="ghost" shadow="md" bg="chakra-body-bg">
+                    Why migrate?
+                  </Button>
+                </Link>
               </HStack>
             </Stack>
             <Image
