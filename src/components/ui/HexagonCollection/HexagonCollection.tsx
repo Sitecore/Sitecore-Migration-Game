@@ -27,9 +27,9 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
   }, [GetProductsFromAnswers]);
 
   return (
-    <Card>
+    <Card variant="blurred">
       <CardHeader>
-        <Heading size="md" variant={'achievements'}>
+        <Heading size="md">
           <Center>Product Recommendations</Center>
         </Heading>
       </CardHeader>

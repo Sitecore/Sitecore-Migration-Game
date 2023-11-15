@@ -25,15 +25,8 @@ const variants = {
       _dark: {},
     },
     footer: {
-      color: 'white',
-      '*:link, *:visited': {
-        color: 'white',
-      },
-      _dark: {
-        '*:link, *:visited': {
-          color: 'white',
-        },
-      },
+      color: 'chakra-body-text',
+      _dark: {},
     },
   }),
 };
