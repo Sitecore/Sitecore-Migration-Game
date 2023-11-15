@@ -1,4 +1,5 @@
 import { AbsoluteCenter, Avatar, Card, Center, Container, Heading, Spacer, VStack } from '@chakra-ui/react';
+import { useGameInfoContext } from 'components/Contexts';
 
 interface AvatarDisplayProps {
   fileUrl: string;
@@ -6,6 +7,8 @@ interface AvatarDisplayProps {
 }
 
 export default function AvatarDisplay({ fileUrl, name }: AvatarDisplayProps) {
+  const gameInfoContext = useGameInfoContext();
+
   return (
     <VStack mb={[1, 8]}>
       <Container variant={'userProfilePicture'} width={{ base: '80px', md: '200px' }}>
@@ -20,7 +23,12 @@ export default function AvatarDisplay({ fileUrl, name }: AvatarDisplayProps) {
         </Center>
       </Container>
       <Spacer />
-      <Card width="100%" height="50px" position="relative" variant={'unstyled'}>
+      <Card
+        width="100%"
+        height="50px"
+        position="relative"
+        variant={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'unstyled' : 'blurred'}
+      >
         <AbsoluteCenter axis="both">
           <Heading size="sm" variant={'userName'}>
             <Center>{name}</Center>
