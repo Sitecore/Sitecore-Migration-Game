@@ -16,7 +16,7 @@ interface SingleColumnLayoutProps {
 
 export const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
   children,
-  backgroundImage = '/corporate/background.jpg',
+  backgroundImage = '/corporate/XM-cloud-3d-logo-hero.jpg',
   loading = false,
   showProgressBar = true,
   showResetButton = true,
