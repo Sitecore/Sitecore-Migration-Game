@@ -35,8 +35,7 @@ export const FeedbackModal: FC<FeedbackModalProps> = () => {
         <ModalCloseButton />
         <ModalBody>
           <Text>
-            Thank you for trying our Migration adventure, we would greatly appreciate any feedback (positive or
-            negative)!
+            Thank you for trying our Migration Advisor, we would greatly appreciate any feedback (positive or negative)!
           </Text>
         </ModalBody>
 
