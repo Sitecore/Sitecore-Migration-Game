@@ -256,6 +256,24 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
             link="https://community.sitecore.com/community?id=community_blog&sys_id=9390c8a91b76359438a46421b24bcb40"
             title="Converting a TDS project to Sitecore Content Serialization (SCS)"
           />
+          <LinkCard
+            link="https://gist.github.com/bic742/f77783c643420b704535d88fcbb5b18e"
+            title="PowerShell script to generate SCS JSON files from TDS projects (Aaron Bickle)"
+          />
+          <LinkCard
+            link="https://github.com/josephjlong/sitecore-serialisation-converter"
+            title=".NET application to convert TDS projects into SCS JSON files (Joseph Long)"
+          />
+        </ConditionalResponse>
+        <ConditionalResponse condition={outcomeConditions.serializationUsed.unicorn}>
+          <LinkCard
+            link="https://community.sitecore.com/community?id=community_blog&sys_id=64fdcd651bb6759438a46421b24bcb5a"
+            title="Converting a Unicorn project to Sitecore Content Serialization (SCS)"
+          />
+          <LinkCard
+            link="https://medium.com/@mitya_1988/convert-unicorn-serialization-configs-into-sitecore-content-serialization-module-json-with-1a4e93661616"
+            title="Convert Unicorn serialization to SCS JSON with PowerShell (Mihály Árvai)"
+          />
         </ConditionalResponse>
         <LinkCard
           link="https://jackspektor.medium.com/estimating-sitecore-xp-to-xm-cloud-upgrade-what-challenges-lies-ahead-226d1c36b8e"
