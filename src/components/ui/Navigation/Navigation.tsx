@@ -29,7 +29,9 @@ export const Navigation: FC<NavigationProps> = ({
         <Box maxW={{ base: '1200px' }} mx="auto" px={{ base: '1', md: '8' }}>
           <HStack justify="space-between">
             <Box width="200px">
-              <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
+              <Link href="/">
+                <Image src="/corporate/logo-sitecore.svg" alt="Sitecore Logo" width={200} height={50} />
+              </Link>
             </Box>
             {showProgressBar && (
               <Box width="300px" px="4">
