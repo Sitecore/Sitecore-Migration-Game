@@ -251,6 +251,12 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
             title="Beyond Vercel: Hosting Alternatives for Next.js"
           />
         </ConditionalResponse>
+        <ConditionalResponse condition={outcomeConditions.serializationUsed.tds}>
+          <LinkCard
+            link="https://community.sitecore.com/community?id=community_blog&sys_id=9390c8a91b76359438a46421b24bcb40"
+            title="Converting a TDS project to Sitecore Content Serialization (SCS)"
+          />
+        </ConditionalResponse>
         <LinkCard
           link="https://jackspektor.medium.com/estimating-sitecore-xp-to-xm-cloud-upgrade-what-challenges-lies-ahead-226d1c36b8e"
           title="Estimating Sitecore XP to XM Cloud upgrade — what challenges lies ahead? (Jack Spektor)"
