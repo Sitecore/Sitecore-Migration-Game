@@ -47,6 +47,7 @@ export class GameContextParser {
     this.parseContext_SecuredPages(gameInfoContext, outcomeConditions);
     this.parseContext_ExperienceEdge(gameInfoContext, outcomeConditions);
     this.parseContext_SiteSearchUsed(gameInfoContext, outcomeConditions);
+    this.parseContext_SerializationUsed(gameInfoContext, outcomeConditions);
   }
 
   /**
@@ -202,6 +203,24 @@ export class GameContextParser {
     );
     if (siteSearchUsedOptions != undefined) {
       outcomeConditions.siteSearchUsed.indexSearch = siteSearchUsedOptions.value.includes('search-index');
+    }
+  }
+
+  /**
+   * Check for what type of content serialization is in the solution. This drives which type of serialization
+   * migration they might need to do
+   * @param gameInfoContext: This is the current context which contains the prompts and answers
+   * @param outcomeConditions: This is where the results should be stored
+   */
+  parseContext_SerializationUsed(gameInfoContext: GameInfoContextType, outcomeConditions: OutcomeConditions) {
+    var serializationUsedOptions = gameInfoContext.answers?.find(
+      (x: IAnswer) => x.promptQuestionId == PromptMappings.serializationUsed
+    );
+    if (serializationUsedOptions != undefined) {
+      outcomeConditions.serializationUsed.none = serializationUsedOptions.value.includes('none');
+      outcomeConditions.serializationUsed.scs = serializationUsedOptions.value.includes('scs');
+      outcomeConditions.serializationUsed.tds = serializationUsedOptions.value.includes('tds');
+      outcomeConditions.serializationUsed.unicorn = serializationUsedOptions.value.includes('unicorn');
     }
   }
 }
