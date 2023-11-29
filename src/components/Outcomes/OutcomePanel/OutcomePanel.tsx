@@ -1,6 +1,5 @@
-import { Box, Card, Center, Stack } from '@chakra-ui/react';
+import { Card, Center, Stack } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
-import { EmailForm } from 'components/EmailForm/EmailForm';
 import { OutcomeGenerator } from 'components/Outcomes';
 import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
@@ -9,7 +8,7 @@ import * as GTag from 'lib/GTag';
 import router from 'next/router';
 import { FC, useEffect } from 'react';
 
-interface OutcomePanelProps extends LayoutProps { }
+interface OutcomePanelProps extends LayoutProps {}
 
 export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
   const gameInfoContext = useGameInfoContext();
