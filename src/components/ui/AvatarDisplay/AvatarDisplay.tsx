@@ -27,7 +27,7 @@ export default function AvatarDisplay({ fileUrl, name }: AvatarDisplayProps) {
         width="100%"
         height="50px"
         position="relative"
-        variant={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'unstyled' : 'blurred'}
+        variant="charcoal"
       >
         <AbsoluteCenter axis="both">
           <Heading size="sm" variant={'userName'}>

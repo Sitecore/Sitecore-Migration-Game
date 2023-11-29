@@ -29,6 +29,14 @@ const variants = {
       _dark: {},
     },
   }),
+  charcoal: definePartsStyle({
+    container: {
+      shadow: 'base',
+      background: '#545859',
+      borderRadius: '3xl',
+      color: 'white',
+    },
+  }),
 };
 
 export const cardTheme = defineMultiStyleConfig({ variants });
