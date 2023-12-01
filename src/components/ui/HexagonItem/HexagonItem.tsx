@@ -87,38 +87,33 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
               transition: 'transform 0.3s ease-out',
             }}
           >
-            <Image
-              className="hex-grid__content__icon"
-              sx={{
-                webkitFilter: 'brightness(0) invert(1) opacity(0.9)',
-                filter: 'brightness(0) invert(1) opacity(0.9)',
-              }}
-              src={`https://sitecorecontenthub.stylelabs.cloud/api/public/content/${productDetail.icon}`}
-              alt={productDetail.name}
-              width="auto"
-              height={{ base: '16px', lg: '24px' }}
-              margin={{ base: '.25rem 0 .25rem 0', lg: '.75rem 0 .25rem 0' }}
-            />
-
-            <Show above="991px">
-              <chakra.h3
+            <Show below="991px">
+              <Image
+                className="hex-grid__content__icon"
                 sx={{
-                  margin: '0 10px 10px 10px',
-                  padding: '0 !important',
-                  color: '#fff !important',
-                  fontSize: '10px',
-                  fontWeight: '500',
-                  lineHeight: '1.4',
-                  maxWidth: '68px',
-                  whiteSpace: 'normal !important',
-                  webkitHyphens: 'auto',
-                  msHyphens: 'auto',
-                  hyphens: 'auto',
-                  wordBreak: 'break-word',
+                  webkitFilter: 'brightness(0) invert(1) opacity(0.9)',
+                  filter: 'brightness(0) invert(1) opacity(0.9)',
                 }}
-              >
-                {productDetail.name}
-              </chakra.h3>
+                src={productDetail.iconSmall}
+                alt={productDetail.name}
+                width="auto"
+                height={{ base: '24px' }}
+                margin={{ base: '.25rem 0 0 0' }}
+              />
+            </Show>
+            <Show above="991px">
+              <Image
+                className="hex-grid__content__icon"
+                sx={{
+                  webkitFilter: 'brightness(0) invert(1) opacity(0.9)',
+                  filter: 'brightness(0) invert(1) opacity(0.9)',
+                }}
+                src={productDetail.icon}
+                alt={productDetail.name}
+                width="auto"
+                height={{ base: '24px', lg: '48px' }}
+                margin={{ base: '.25rem 0 .25rem 0', lg: '.75rem 0 .25rem 0' }}
+              />
             </Show>
           </Box>
         </Button>
