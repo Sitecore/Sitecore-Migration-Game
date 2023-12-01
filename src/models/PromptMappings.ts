@@ -8,4 +8,5 @@ export enum PromptMappings {
   xcFeatures = 'xcfeatures',
   siteSearchUsed = 'sitesearch',
   historicalPersonalization = 'historicalpersonalizationneeds',
+  serializationUsed = 'serialization',
 }
