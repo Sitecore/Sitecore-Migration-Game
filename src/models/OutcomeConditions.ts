@@ -61,6 +61,13 @@ export interface ISiteSearchUsed {
   indexSearch: boolean;
 }
 
+export interface ISerializationUsed {
+  unicorn: boolean;
+  tds: boolean;
+  scs: boolean;
+  none: boolean;
+}
+
 export enum ExperienceEdgeOption {
   yes = 'yesexperienceedge',
   no = 'noexperienceedge',
@@ -93,6 +100,7 @@ export class OutcomeConditions {
   securedPages: ISecuredPages;
   experienceEdge: ExperienceEdgeOption;
   siteSearchUsed: ISiteSearchUsed;
+  serializationUsed: ISerializationUsed;
 
   /**
    * Creates a new instance of OutcomeConditions.
@@ -151,6 +159,7 @@ export class OutcomeConditions {
     this.securedPages = { securityloginrequired: false };
     this.experienceEdge = ExperienceEdgeOption.no;
     this.siteSearchUsed = { indexSearch: false };
+    this.serializationUsed = { tds: false, unicorn: false, scs: false, none: false };
 
     //If a gameInfoContext was provided, initialize all data from the answers in the context
     if (gameInfoContext) {
