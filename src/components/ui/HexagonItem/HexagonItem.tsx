@@ -39,11 +39,11 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
           variant="unstyled"
           onClick={() => setIsOpen(!isOpen)}
           sx={{
-            opacity: active ? 1 : 0.15,
-            webkitFilter:
-              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
-            filter:
-              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
+            opacity: active ? 1 : 0.25,
+            webkitFilter: active ?
+              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(255, 255, 255, 0.6))' : '',
+            filter: active ? 
+              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(255, 255, 255, 0.6))' : '',
             transition: 'opacity 0.3s',
             pointerEvents: active ? 'auto' : 'none',
           }}
