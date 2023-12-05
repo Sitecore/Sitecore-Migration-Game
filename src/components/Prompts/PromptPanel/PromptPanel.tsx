@@ -143,9 +143,11 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       }
       rightColumn={<CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />}
       backgroundImage={
-        gameInfoContext.theme?.chakraTheme == 'corporate'
-          ? 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/1821f8838e284d6fad1d483d41877aba'
-          : 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4'
+        currentPrompt?.background?.results[0] === undefined || currentPrompt.background.results[0].fileUrl === ''
+          ? gameInfoContext.theme?.chakraTheme == 'corporate'
+            ? 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/1821f8838e284d6fad1d483d41877aba'
+            : 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4'
+          : currentPrompt?.background?.results[0].fileUrl
       }
       loading={loading}
     ></TwoColumnLayout>
