@@ -9,6 +9,7 @@ interface LinkCardProps {
   link: string;
   title: string;
   description?: string;
+  buttonText?: string;
 }
 
 export const LinkCard: FC<LinkCardProps> = ({ ...props }) => {
@@ -34,7 +35,7 @@ export const LinkCard: FC<LinkCardProps> = ({ ...props }) => {
           onClick={(e) => handleExternalLinkClick(e)}
         >
           <Link href={props.link} target="_blank" rel="noopener noreferrer">
-            Learn More
+            {props.buttonText ? props.buttonText : 'Learn more'}
           </Link>
         </Button>
       </CardBody>

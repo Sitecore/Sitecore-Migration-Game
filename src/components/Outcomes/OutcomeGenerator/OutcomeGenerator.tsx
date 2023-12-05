@@ -221,6 +221,14 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
       </Text>
       <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
+        {/* Content migration tool */}
+        <LinkCard
+          link="https://developers.sitecore.com/downloads/xm-cloud#xm-to-xm-cloud-content-migration-tool"
+          title="XM to XM Cloud Content Migration tool"
+          description="Move content, media and user data from a source XM on-premises instance to a target XM Cloud environment."
+          buttonText="Download"
+        />
+
         {/*Rob Habraken SUGCON video*/}
         <YouTubeVideoDisplay videoId="vLAfx7dps_Q" />
 
