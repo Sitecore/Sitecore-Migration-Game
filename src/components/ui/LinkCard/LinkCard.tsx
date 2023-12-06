@@ -27,16 +27,16 @@ export const LinkCard: FC<LinkCardProps> = ({ ...props }) => {
       </CardHeader>
       <CardBody>
         {props.description && <Text>{props.description}</Text>}
-        <Button
-          leftIcon={<FiExternalLink />}
-          variant={'solid'}
-          colorScheme="neutral"
-          onClick={(e) => handleExternalLinkClick(e)}
-        >
-          <Link href={props.link} target="_blank" rel="noopener noreferrer">
+        <Link href={props.link} target="_blank" rel="noopener noreferrer">
+          <Button
+            leftIcon={<FiExternalLink />}
+            variant={'solid'}
+            colorScheme="neutral"
+            onClick={(e) => handleExternalLinkClick(e)}
+          >
             Learn More
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </CardBody>
     </Card>
   );
