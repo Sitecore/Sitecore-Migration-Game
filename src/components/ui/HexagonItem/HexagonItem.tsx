@@ -41,9 +41,9 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
           sx={{
             opacity: active ? 1 : 0.25,
             webkitFilter: active ?
-              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(255, 255, 255, 0.6))' : '',
+              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(175, 175, 175, 0.4))' : '',
             filter: active ? 
-              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(255, 255, 255, 0.6))' : '',
+              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(175, 175, 175, 0.4))' : '',
             transition: 'opacity 0.3s',
             pointerEvents: active ? 'auto' : 'none',
           }}
