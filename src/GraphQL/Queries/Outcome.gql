@@ -34,7 +34,7 @@ fragment OutcomeDetails on Outcome {
 }
 
 query GetOutcomeByThemeIdQuery($id: ID!) {
-  allOutcomes(where: { themes: { gameOutcome_ids: $id } }) {
+  allOutcome(where: { themes: { gameOutcome_ids: $id } }) {
     results {
       ...OutcomeDetails
     }
