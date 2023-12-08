@@ -10,8 +10,9 @@ export const ThemeService = () => {
       console.log(error);
       return null;
     }
+    console.log(data);
 
-    const results = data?.allGameTheme as IResult<ITheme[]>;
+    const results = data?.allThemes as IResult<ITheme[]>;
 
     return results;
   };
@@ -24,7 +25,7 @@ export const ThemeService = () => {
       return undefined;
     }
 
-    const results = data?.gameTheme as ITheme;
+    const results = data?.theme as ITheme;
 
     return results;
   };

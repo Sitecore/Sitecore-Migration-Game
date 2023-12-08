@@ -1,11 +1,11 @@
-fragment Theme on GameTheme {
+fragment ThemeFragment on Theme {
   id
   name
   description
   chakraTheme
   startButtonText
   disabled
-  characterImage {
+  image {
     results {
       id
       fileUrl
@@ -22,15 +22,15 @@ fragment Theme on GameTheme {
 }
 
 query GetAllThemesQuery {
-  allGameTheme {
+  allTheme {
     results {
-      ...Theme
+      ...ThemeFragment
     }
   }
 }
 
 query GetThemesByIdQuery($id: String!) {
-  gameTheme(id: $id) {
-    ...Theme
+  theme(id: $id) {
+    ...ThemeFragment
   }
 }

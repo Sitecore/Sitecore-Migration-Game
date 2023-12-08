@@ -1,4 +1,4 @@
-fragment PersonaFragment on GamePersona {
+fragment PersonaFragment on Persona {
   id
   name
   personaImage {
@@ -10,7 +10,7 @@ fragment PersonaFragment on GamePersona {
   }
   theme {
     results {
-      ... on GameTheme {
+      ... on Theme {
         id
         name
       }
@@ -19,7 +19,7 @@ fragment PersonaFragment on GamePersona {
 }
 
 query GetAllPersonasQuery {
-  allGamePersona {
+  allPersona {
     results {
       ...PersonaFragment
     }
@@ -27,13 +27,13 @@ query GetAllPersonasQuery {
 }
 
 query GetPersonaByIdQuery($id: String!) {
-  gamePersona(id: $id) {
+  persona(id: $id) {
     ...PersonaFragment
   }
 }
 
 query GetPersonasByThemeIdQuery($id: ID!) {
-  allGamePersona(where: { theme: { gamePersona_ids: $id } }) {
+  allPersona(where: { theme: { persona_ids: $id } }) {
     results {
       ...PersonaFragment
     }

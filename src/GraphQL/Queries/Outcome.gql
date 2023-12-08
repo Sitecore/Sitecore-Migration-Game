@@ -1,9 +1,9 @@
-fragment OutcomeDetails on GameOutcome {
+fragment OutcomeDetails on Outcome {
   id
   name
   themes {
     results {
-      ... on GameTheme {
+      ... on Theme {
         id
         name
       }
@@ -13,7 +13,7 @@ fragment OutcomeDetails on GameOutcome {
   productsIntro
   outcomeReasons {
     results {
-      ... on GameOutcomeReason {
+      ... on OutcomeReason {
         product
         reason
       }
@@ -34,7 +34,7 @@ fragment OutcomeDetails on GameOutcome {
 }
 
 query GetOutcomeByThemeIdQuery($id: ID!) {
-  allGameOutcome(where: { themes: { gameOutcome_ids: $id } }) {
+  allOutcomes(where: { themes: { gameOutcome_ids: $id } }) {
     results {
       ...OutcomeDetails
     }
@@ -42,7 +42,7 @@ query GetOutcomeByThemeIdQuery($id: ID!) {
 }
 
 query GetOutcomeByIdQuery($id: String!) {
-  gameOutcome(id: $id) {
+  outcome(id: $id) {
     ...OutcomeDetails
   }
 }

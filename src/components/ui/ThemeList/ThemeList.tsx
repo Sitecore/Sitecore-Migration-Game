@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Image,
-  Stack,
-  Text,
-  useColorModeValue
-} from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Heading, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { ITheme } from 'models';
 import { FC } from 'react';
 
@@ -47,10 +37,10 @@ export const ThemeList: FC<ThemeListProps> = ({ themes, handleThemeChange, class
             height={'100%'}
             bg={useColorModeValue('white', 'gray.800')}
           >
-            {theme.characterImage?.results !== undefined && (
+            {theme.image?.results !== undefined && (
               <Image
-                src={theme.characterImage!.results[0].fileUrl}
-                alt={theme.characterImage!.results[0].fileName ?? ''}
+                src={theme.image!.results[0].fileUrl}
+                alt={theme.image!.results[0].fileName ?? ''}
                 maxHeight={['0', '300px']}
                 fit={'cover'}
                 rounded={['sm', 'lg']}
