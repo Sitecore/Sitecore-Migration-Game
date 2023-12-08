@@ -10,7 +10,6 @@ export const ThemeService = () => {
       console.log(error);
       return null;
     }
-    console.log(data);
 
     const results = data?.allThemes as IResult<ITheme[]>;
 
