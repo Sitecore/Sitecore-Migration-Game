@@ -1,8 +1,8 @@
 fragment PromptDetails on Prompt {
   id
   name
-  questionid
-  text
+  questionId
+  question
   bodyText
   theme {
     results {
