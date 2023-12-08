@@ -11,7 +11,7 @@ export const PersonaService = () => {
       return undefined;
     }
 
-    const results = data?.gamePersona as IPersona;
+    const results = data?.persona as IPersona;
 
     return results;
   };
@@ -28,7 +28,7 @@ export const PersonaService = () => {
       return undefined;
     }
 
-    const results = data?.allGamePersona as IResult<IPersona[]>;
+    const results = data?.allPersona as IResult<IPersona[]>;
 
     return results;
   };
