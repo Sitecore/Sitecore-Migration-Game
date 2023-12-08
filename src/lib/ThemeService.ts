@@ -11,7 +11,7 @@ export const ThemeService = () => {
       return null;
     }
 
-    const results = data?.allThemes as IResult<ITheme[]>;
+    const results = data?.allTheme as IResult<ITheme[]>;
 
     return results;
   };
