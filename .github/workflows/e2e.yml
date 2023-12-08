@@ -20,4 +20,4 @@ jobs:
           wait-on: "http://localhost:3000"
         env:
           SITECORE_CH1_ENDPOINT_URL: ${{ secrets.SITECORE_CH1_ENDPOINT_URL }}
-          SITECORE_CH1_CLIENT_KEY: ${{ secrets.SITECORE_CH1_CLIENT_KEY }}
+          SITECORE_CH1_CLIENT_KEY: ${{ secrets.SITECORE_CH1_CLIENT_KEY_v2 }}
