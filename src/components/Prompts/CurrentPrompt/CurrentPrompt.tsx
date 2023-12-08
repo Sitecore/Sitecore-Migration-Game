@@ -20,7 +20,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
 
     let answer: IAnswer = {
       promptId: prompt!.id,
-      promptQuestionId: prompt!.questionid,
+      promptQuestionId: prompt!.questionId,
       prompt: prompt!.text,
       value: new Array(option.value),
       valuePrettyText: new Array(option.label),
