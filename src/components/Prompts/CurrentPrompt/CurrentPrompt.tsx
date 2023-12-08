@@ -32,7 +32,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
   const multiSelectSubmit = (selectedOptions: IOption[]) => {
     let answer: IAnswer = {
       promptId: prompt!.id,
-      promptQuestionId: prompt!.questionid,
+      promptQuestionId: prompt!.questionId,
       prompt: prompt!.text,
       value: selectedOptions.map((o) => o.value),
       valuePrettyText: selectedOptions.map((o) => o.label),
