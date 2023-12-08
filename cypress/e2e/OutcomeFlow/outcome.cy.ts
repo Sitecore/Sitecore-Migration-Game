@@ -22,7 +22,7 @@ describe('Outcome Page', () => {
     cy.visit('/');
     cy.get('#start').click();
     cy.get(':nth-child(11) > .chakra-button').click();
-    cy.get('.css-1izj7gt > :nth-child(2)').click();
+    cy.get('[value="developer"]').click();
     cy.get('.chakra-container > :nth-child(3) > .chakra-button').click();
     cy.get('[value="xp"]').click();
     cy.get('[value="sessionpersonalization"]').click();
