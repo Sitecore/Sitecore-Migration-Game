@@ -37,6 +37,8 @@ export const Settings: FC<SettingsProps> = () => {
 
     if (themes && themes.length > 0) {
       setThemes(themes);
+    } else {
+      throw new Error('No themes loaded. At least one theme is required.');
     }
 
     setLoading(false);
