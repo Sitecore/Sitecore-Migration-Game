@@ -40,9 +40,6 @@ export const ChooseCharacter: FC<ChooseCharacterProps> = ({ avatars, personas })
     router.push('/prompt');
   };
 
-  console.log('Personas', personas);
-  console.log('Avatars', avatars);
-
   return (
     <>
       <PersonaList
