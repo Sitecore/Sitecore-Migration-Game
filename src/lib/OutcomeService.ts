@@ -3,10 +3,10 @@ import { GetOutcomeByIdQuery, GetOutcomeByThemeIdQuery } from '../GraphQL/Querie
 import { chOneService } from './CHOneService';
 
 export const OutcomeService = () => {
-  const GetOutcomeById = async (gameOutcomeId: string): Promise<IOutcome | undefined> => {
+  const GetOutcomeById = async (outcomeId: string): Promise<IOutcome | undefined> => {
     const { error, data } = await chOneService().query({
       query: GetOutcomeByIdQuery,
-      variables: { id: gameOutcomeId },
+      variables: { id: outcomeId },
     });
 
     if (error) {
@@ -14,7 +14,7 @@ export const OutcomeService = () => {
       return undefined;
     }
 
-    const results = data?.gameOutcome as IOutcome;
+    const results = data?.outcome as IOutcome;
 
     return results;
   };
@@ -31,7 +31,7 @@ export const OutcomeService = () => {
       return undefined;
     }
 
-    const results = data?.allGameOutcome as IResult<IOutcome[]>;
+    const results = data?.allOutcome as IResult<IOutcome[]>;
 
     return results;
   };
