@@ -75,8 +75,8 @@ const LandingPage: React.FC = () => {
             mt={12}
             pb={12}
           >
-            {features.map((feature) => (
-              <FeatureCard heading={feature.heading} text={feature.text} />
+            {features.map((feature, idx) => (
+              <FeatureCard key={idx} heading={feature.heading} text={feature.text} />
             ))}
           </Grid>
         </Container>
