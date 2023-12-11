@@ -36,6 +36,18 @@ const variants = {
       borderRadius: '3xl',
       color: 'white',
     },
+    header: {
+      color: 'chakra-body-text',
+      _dark: {},
+    },
+    body: {
+      color: 'chakra-body-text',
+      _dark: {},
+    },
+    footer: {
+      color: 'chakra-body-text',
+      _dark: {},
+    },
   }),
 };
 
