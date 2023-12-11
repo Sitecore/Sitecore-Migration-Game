@@ -44,7 +44,6 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
               'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
             filter:
               'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
-           
             transition: 'opacity 0.3s',
             pointerEvents: active ? 'auto' : 'none',
           }}
