@@ -12,7 +12,6 @@ import {
   PopoverTrigger,
   Show,
   Text,
-  chakra,
 } from '@chakra-ui/react';
 import { Products } from 'models/Config';
 import { TargetProduct } from 'models/OutcomeConditions';
@@ -40,10 +39,8 @@ export const HexagonItem: FC<HexagonItemProps> = ({ product, active = false }) =
           onClick={() => setIsOpen(!isOpen)}
           sx={{
             opacity: active ? 1 : 0.25,
-            webkitFilter:
-              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
-            filter:
-              'url(/images/hex-item-round-corners.svg#helix-round-borders) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
+            webkitFilter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
+            filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6))',
             transition: 'opacity 0.3s',
             pointerEvents: active ? 'auto' : 'none',
           }}
