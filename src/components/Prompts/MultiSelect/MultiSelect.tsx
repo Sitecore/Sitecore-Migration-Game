@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { IOption } from 'models';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { FaInfo } from 'react-icons/fa';
 
 interface MultiSelectProps {
@@ -63,9 +63,8 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
             alignItems={'left'}
             marginLeft={{ base: gameInfoContext.theme?.chakraTheme == 'fantasy' ? '8px' : '0', sm: 0, md: 5, lg: -5 }}
           >
-            {options.map((option: IOption) => (
-              <>
-                {/* Center all the below elements */}
+            {options.map((option: IOption, idx) => (
+              <React.Fragment key={idx}>
                 {option.tooltip && gameInfoContext.theme?.chakraTheme == 'fantasy' ? (
                   <>
                     <Show above="xl">
@@ -132,7 +131,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                     </Button>
                   </Container>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </SimpleGrid>
         </VStack>
