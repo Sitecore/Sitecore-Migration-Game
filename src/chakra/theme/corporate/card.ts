@@ -29,6 +29,26 @@ const variants = {
       _dark: {},
     },
   }),
+  charcoal: definePartsStyle({
+    container: {
+      shadow: 'base',
+      background: '#545859',
+      borderRadius: '3xl',
+      color: 'white',
+    },
+    header: {
+      color: 'chakra-body-text',
+      _dark: {},
+    },
+    body: {
+      color: 'chakra-body-text',
+      _dark: {},
+    },
+    footer: {
+      color: 'chakra-body-text',
+      _dark: {},
+    },
+  }),
 };
 
 export const cardTheme = defineMultiStyleConfig({ variants });

@@ -27,10 +27,10 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
   }, [GetProductsFromAnswers]);
 
   return (
-    <Card variant="blurred">
+    <Card variant="charcoal">
       <CardHeader>
         <Heading size="md">
-          <Center>Product Recommendations</Center>
+          <Center color="white">Product Recommendations</Center>
         </Heading>
       </CardHeader>
       <CardBody>
