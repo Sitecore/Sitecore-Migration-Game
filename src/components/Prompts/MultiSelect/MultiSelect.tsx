@@ -18,17 +18,23 @@ import {
 } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { IOption } from 'models';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FaInfo } from 'react-icons/fa';
 
 interface MultiSelectProps {
   options: IOption[];
   multiSelectSubmit?: (selectedOptions: IOption[]) => void;
+  currentPrompt?: string;
 }
 
-export const MultiSelect: FC<MultiSelectProps> = ({ options, multiSelectSubmit }) => {
+export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, multiSelectSubmit }) => {
   let [selectedOptions, setSelectedOptions] = useState<IOption[]>([]);
   const gameInfoContext = useGameInfoContext();
+
+  // Need to reset the selected options when the prompt changes
+  useEffect(() => {
+    setSelectedOptions([]);
+  }, [currentPrompt]);
 
   const handleOptionSelected = (option: IOption) => {
     const newCheckedArr = [...selectedOptions];

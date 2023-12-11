@@ -74,7 +74,11 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
           {prompt?.options?.results != null && (
             <>
               {prompt?.optionType?.results[0].name === 'Checklist' && (
-                <MultiSelect multiSelectSubmit={multiSelectSubmit} options={prompt.options.results}></MultiSelect>
+                <MultiSelect
+                  currentPrompt={prompt.id}
+                  multiSelectSubmit={multiSelectSubmit}
+                  options={prompt.options.results}
+                ></MultiSelect>
               )}
               {prompt?.optionType?.results[0].name === 'Buttons' && (
                 <>
