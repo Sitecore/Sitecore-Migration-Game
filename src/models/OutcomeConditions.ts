@@ -177,7 +177,7 @@ export class OutcomeConditions {
   }
 
   /**
-   * Analyzes current answers to determine if this is a complex personalizations cenario
+   * Analyzes current answers to determine if this is a complex personalization scenario
    * that would require Sitecore Personalize or CDP
    */
   isComplexPersonalization(): boolean {

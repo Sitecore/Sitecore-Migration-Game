@@ -11,7 +11,7 @@ export const ThemeService = () => {
       return null;
     }
 
-    const results = data?.allGameTheme as IResult<ITheme[]>;
+    const results = data?.allTheme as IResult<ITheme[]>;
 
     return results;
   };
@@ -24,7 +24,7 @@ export const ThemeService = () => {
       return undefined;
     }
 
-    const results = data?.gameTheme as ITheme;
+    const results = data?.theme as ITheme;
 
     return results;
   };

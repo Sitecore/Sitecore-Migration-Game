@@ -2,7 +2,7 @@ describe('Outcome Page', () => {
   it('XM Cloud should be the only product', () => {
     cy.visit('/');
     cy.get('#start').click();
-    cy.get('.css-1izj7gt > :nth-child(4)').click();
+    cy.get('[value="Developer"]').click();
     cy.get(':nth-child(9) > .chakra-button').click();
     cy.get('.chakra-container > :nth-child(3) > .chakra-button').click();
     cy.get('[value="xm"]').click();
@@ -22,7 +22,7 @@ describe('Outcome Page', () => {
     cy.visit('/');
     cy.get('#start').click();
     cy.get(':nth-child(11) > .chakra-button').click();
-    cy.get('.css-1izj7gt > :nth-child(2)').click();
+    cy.get('[value="Developer"]').click();
     cy.get('.chakra-container > :nth-child(3) > .chakra-button').click();
     cy.get('[value="xp"]').click();
     cy.get('[value="sessionpersonalization"]').click();

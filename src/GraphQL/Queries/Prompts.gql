@@ -1,13 +1,13 @@
 fragment PromptDetails on Prompt {
   id
   name
-  questionid
-  text
+  questionId
+  question
   bodyText
   theme {
     results {
       __typename
-      ... on GameTheme {
+      ... on Theme {
         id
       }
     }
@@ -21,14 +21,14 @@ fragment PromptDetails on Prompt {
   }
   persona {
     results {
-      ... on GamePersona {
+      ... on Persona {
         id
       }
     }
   }
   optionType {
     results {
-      ... on PromptOptionTypes {
+      ... on PromptOptionType {
         id
         name
       }
