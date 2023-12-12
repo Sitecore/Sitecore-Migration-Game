@@ -2,7 +2,7 @@ import { JSONContent } from '@tiptap/core';
 import { IImage, IOption, IOptionType, IPersona, IResult, ITheme } from 'models';
 
 export interface IPrompt {
-  text: string;
+  question: string;
   bodyText?: JSONContent;
   id: string;
   name: string;

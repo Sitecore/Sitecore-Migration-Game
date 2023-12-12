@@ -21,7 +21,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
     let answer: IAnswer = {
       promptId: prompt!.id,
       promptQuestionId: prompt!.questionId,
-      prompt: prompt!.text,
+      prompt: prompt!.question,
       value: new Array(option.value),
       valuePrettyText: new Array(option.label),
     };
@@ -33,7 +33,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
     let answer: IAnswer = {
       promptId: prompt!.id,
       promptQuestionId: prompt!.questionId,
-      prompt: prompt!.text,
+      prompt: prompt!.question,
       value: selectedOptions.map((o) => o.value),
       valuePrettyText: selectedOptions.map((o) => o.label),
     };
@@ -67,7 +67,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
             paddingLeft={{ base: '15px', md: '15px' }}
             paddingRight={{ base: '15px', md: '15px' }}
           >
-            {prompt?.text}
+            {prompt?.question}
           </Text>
         </CardBody>
         <CardFooter padding={'15px'}>
