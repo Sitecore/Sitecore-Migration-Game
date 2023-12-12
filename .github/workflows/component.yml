@@ -21,7 +21,7 @@ jobs:
           component: true
         env:
           SITECORE_CH1_ENDPOINT_URL: ${{ secrets.SITECORE_CH1_ENDPOINT_URL }}
-          SITECORE_CH1_CLIENT_KEY: ${{ secrets.SITECORE_CH1_CLIENT_KEY_v2 }}
+          SITECORE_CH1_CLIENT_KEY: ${{ secrets.SITECORE_CH1_CLIENT_KEY }}
           NEXT_PUBLIC_EMAIL_FORM_ENDPOINT: ${{ secrets.NEXT_PUBLIC_EMAIL_FORM_ENDPOINT }}
 
 
