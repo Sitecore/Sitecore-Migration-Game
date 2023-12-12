@@ -40,8 +40,10 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
     const requiredProducts: TargetProduct[] = outcomeConditions.requiredProducts();
 
     if (requiredProducts) {
-      tracker.TrackEvent('outcome_recommended_products', { requiredProducts: JSON.stringify(requiredProducts) });
-      GTag.event('outcome_recommended_products', 'Recommended Products', JSON.stringify(requiredProducts));
+      requiredProducts.forEach((product) => {
+        tracker.TrackEvent('outcome_required_product', { requiredProduct: product });
+        GTag.event('outcome_required_product', 'Required Product', product);
+      });
     }
   }, []);
 
