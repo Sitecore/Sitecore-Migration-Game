@@ -21,7 +21,7 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId
           {avatars?.map((avatar, i) => {
             const isToggled = avatar.id === toggledAvatarId;
             return (
-              <Box width={['80px', '80px', '100px']}>
+              <Box key={i} width={['80px', '80px', '100px']}>
                 {avatar !== undefined && (
                   <Button
                     key={avatar.id}

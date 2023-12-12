@@ -1,4 +1,5 @@
 import { AppConfig } from 'models/Config';
+import { consoleLogger } from 'utils/consoleLogger';
 
 declare global {
   interface Window {
@@ -11,7 +12,7 @@ export const pageView = (url: string) => {
     return;
   }
 
-  console.log('pageView', url);
+  consoleLogger('pageView', url);
 
   window.gtag('config', `${AppConfig.GaMeasurementId}`, {
     page_page: url,
@@ -23,7 +24,7 @@ export const event = (action: string, label: string, value: string) => {
     return;
   }
 
-  console.log('event', action, label, value);
+  consoleLogger('event', action, label, value);
 
   window.gtag('event', action, {
     event_label: label,
