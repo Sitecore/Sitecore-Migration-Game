@@ -5,6 +5,7 @@ import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { FeedbackModal } from 'components/ui/FeedbackModal/FeedbackModal';
 import * as GTag from 'lib/GTag';
+import { OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import router from 'next/router';
 import { FC, useEffect } from 'react';
 
@@ -34,6 +35,16 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
     );
 
     GTag.event('outcome_answers', 'Answers', JSON.stringify(gameInfoContext.answers));
+
+    let outcomeConditions = new OutcomeConditions(gameInfoContext);
+    const requiredProducts: TargetProduct[] = outcomeConditions.requiredProducts();
+
+    if (requiredProducts) {
+      requiredProducts.forEach((product) => {
+        tracker.TrackEvent('outcome_required_product', { requiredProduct: product });
+        GTag.event('outcome_required_product', product, product);
+      });
+    }
   }, []);
 
   return (

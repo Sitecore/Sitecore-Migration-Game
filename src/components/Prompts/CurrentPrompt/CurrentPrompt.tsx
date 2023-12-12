@@ -1,4 +1,4 @@
-import { Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
 import { RichTextOutput } from 'components/ui';
@@ -55,9 +55,9 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
       >
         <CardBody>
           {prompt?.bodyText && (
-            <Text textAlign={'center'} marginBottom={'15px'}>
+            <Box textAlign={'center'} marginBottom={'15px'}>
               <RichTextOutput content={prompt.bodyText} />
-            </Text>
+            </Box>
           )}
 
           <Text

@@ -43,8 +43,8 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       </Text>
       {requiredProducts && requiredProducts.length > 0 && (
         <Accordion size="lg" pb="20px" id="required-products" allowMultiple>
-          {requiredProducts.map((product: TargetProduct) => (
-            <AccordionItem>
+          {requiredProducts.map((product: TargetProduct, idx) => (
+            <AccordionItem key={idx}>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
                   <Heading size="md" mb={2}>

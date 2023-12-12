@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { IOption } from 'models';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { FaInfo } from 'react-icons/fa';
 
 interface IButtonGroupProps {
@@ -30,8 +30,8 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
       {options && (
         <>
           <SimpleGrid templateColumns={{ base: '1fr', md: '1fr 1fr', xl: '1fr 1fr 1fr' }} spacing={2}>
-            {options?.map((o: IOption) => (
-              <>
+            {options?.map((o: IOption, idx) => (
+              <React.Fragment key={idx}>
                 {o.tooltip && gameInfoContext.theme?.chakraTheme == 'fantasy' ? (
                   <>
                     <Show above="xl">
@@ -71,7 +71,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                     {o.label}
                   </Button>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </SimpleGrid>
         </>
