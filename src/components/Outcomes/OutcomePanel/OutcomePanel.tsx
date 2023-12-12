@@ -42,7 +42,7 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
     if (requiredProducts) {
       requiredProducts.forEach((product) => {
         tracker.TrackEvent('outcome_required_product', { requiredProduct: product });
-        GTag.event('outcome_required_product', 'Required Product', product);
+        GTag.event('outcome_required_product', product, product);
       });
     }
   }, []);
