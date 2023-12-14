@@ -29,6 +29,10 @@ export const EngageTrackerProvider: FC<EngageTrackerProviderProps> = ({ children
       !AppConfig.SitecoreCdpTargetUrl
     ) {
       isTrackerEnabled.current = false;
+      console.log('SitecoreCdpClientKey', AppConfig.SitecoreCdpClientKey);
+      console.log('SitecoreCdpCookieDomain', AppConfig.SitecoreCdpCookieDomain);
+      console.log('SitecoreCdpPos', AppConfig.SitecoreCdpPos);
+      console.log('SitecoreCdpTargetUrl', AppConfig.SitecoreCdpTargetUrl);
       console.log('Engage Tracker not configured correctly');
     }
 
