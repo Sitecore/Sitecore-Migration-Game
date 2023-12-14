@@ -22,29 +22,26 @@ export const EngageTrackerProvider: FC<EngageTrackerProviderProps> = ({ children
   const loadEngageTracker = useCallback(async () => {
     setLoading(true);
 
-    if (
-      !AppConfig.SitecoreCdpClientKey ||
-      !AppConfig.SitecoreCdpCookieDomain ||
-      !AppConfig.SitecoreCdpPos ||
-      !AppConfig.SitecoreCdpTargetUrl
-    ) {
+    if (!AppConfig.SitecoreCdpClientKey || !AppConfig.SitecoreCdpPos || !AppConfig.SitecoreCdpTargetUrl) {
       isTrackerEnabled.current = false;
-      console.log('SitecoreCdpClientKey', AppConfig.SitecoreCdpClientKey);
-      console.log('SitecoreCdpCookieDomain', AppConfig.SitecoreCdpCookieDomain);
-      console.log('SitecoreCdpPos', AppConfig.SitecoreCdpPos);
-      console.log('SitecoreCdpTargetUrl', AppConfig.SitecoreCdpTargetUrl);
       console.log('Engage Tracker not configured correctly');
     }
 
     if (isTrackerEnabled.current) {
-      const tracker: Engage = await init({
-        clientKey: AppConfig.SitecoreCdpClientKey!,
-        targetURL: AppConfig.SitecoreCdpTargetUrl!,
-        cookieDomain: AppConfig.SitecoreCdpCookieDomain!,
-        pointOfSale: AppConfig.SitecoreCdpPos!,
+      const initConfig: any = {
+        clientKey: AppConfig.SitecoreCdpClientKey,
+        targetURL: AppConfig.SitecoreCdpTargetUrl,
+        pointOfSale: AppConfig.SitecoreCdpPos,
         cookieExpiryDays: 365,
         forceServerCookieMode: false,
-      });
+        webPersonalization: false,
+      };
+
+      if (AppConfig.SitecoreCdpCookieDomain) {
+        initConfig.cookieDomain = AppConfig.SitecoreCdpCookieDomain;
+      }
+
+      const tracker: Engage = await init(initConfig);
 
       setEngageTracker(tracker);
     }
