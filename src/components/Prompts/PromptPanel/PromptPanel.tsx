@@ -74,6 +74,9 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
 
   const triggerNextPrompt = async () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
+    const base64Answers = Buffer.from(
+      JSON.stringify({ answers: gameInfoContext.answers, avatarId: gameInfoContext.avatar?.id })
+    ).toString('base64');
     if (gameInfoContext.questionsBank?.get() !== undefined) {
       if (gameInfoContext.questionsBank.get()!.length > 0) {
         const questionQueue = gameInfoContext.questionsBank.get();
@@ -84,10 +87,11 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
 
         await trackPromptPageView(nextPrompt);
       } else {
-        router.push('/outcome');
+        // Use Answers to create a base64 hash to pass to the outcome page
+        router.push(`/outcome/${encodeURIComponent(base64Answers)}`);
       }
     } else {
-      router.push('/outcome');
+      router.push(`/outcome/${encodeURIComponent(base64Answers)}`);
     }
   };
 

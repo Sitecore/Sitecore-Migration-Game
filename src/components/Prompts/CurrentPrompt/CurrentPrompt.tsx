@@ -21,9 +21,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
     let answer: IAnswer = {
       promptId: prompt!.id,
       promptQuestionId: prompt!.questionId,
-      prompt: prompt!.question,
       value: new Array(option.value),
-      valuePrettyText: new Array(option.label),
     };
 
     answerSelected(answer);
@@ -33,9 +31,7 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
     let answer: IAnswer = {
       promptId: prompt!.id,
       promptQuestionId: prompt!.questionId,
-      prompt: prompt!.question,
       value: selectedOptions.map((o) => o.value),
-      valuePrettyText: selectedOptions.map((o) => o.label),
     };
 
     answerSelected(answer);
