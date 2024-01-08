@@ -12,10 +12,10 @@ interface OutcomeHashPageProps {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const hash = context.params?.hash as string;
+  const encoding = context.params?.encoding as string;
 
-  if (hash) {
-    const decodedString = decodeURIComponent(hash);
+  if (encoding) {
+    const decodedString = decodeURIComponent(encoding);
     const jsonString = Buffer.from(decodedString, 'base64').toString();
 
     const payload = JSON.parse(jsonString);
