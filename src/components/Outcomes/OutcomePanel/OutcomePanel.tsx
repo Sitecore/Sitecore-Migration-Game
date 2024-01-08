@@ -14,17 +14,6 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
   const gameInfoContext = useGameInfoContext();
   const tracker = useEngageTracker();
 
-  // if (process.browser) {
-  //   if (gameInfoContext.answers === undefined || gameInfoContext.answers.length === 0) {
-  //     if (!(typeof window === undefined)) {
-  //       window.history.pushState(null, '', '/');
-  //       window.location.reload();
-  //     } else {
-  //       router.push('/');
-  //     }
-  //   }
-  // }
-
   useEffect(() => {
     tracker.TrackPageView(
       { page: '/outcome', channel: 'WEB', language: 'EN', currency: 'USD' },
