@@ -12,18 +12,38 @@ import {
 import { useGameInfoContext } from 'components/Contexts';
 import { ConditionalResponse } from 'components/Outcomes';
 import { LinkCard, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
+import { OutcomeService } from 'lib/OutcomeService';
+import { IOutcome } from 'models';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
-import { FC } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
-interface OutcomeGeneratorProps { }
+interface OutcomeGeneratorProps {}
 
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
+  const [outcome, setOutcome] = useState<IOutcome | undefined>();
+  const outcomeService = OutcomeService();
 
-  //If there is no Outcome information in the Game Info Context, we cannot output this page
-  if (!gameInfoContext.outcome || !gameInfoContext.outcome.productsIntro) {
+  // Pull Outcome Content here instead on load
+  const loadOutcomeResults = useCallback(async () => {
+    // TODO: Default to Corporate theme, will need to fix this line when theme switching is implemented again
+    const outcomeResult = await outcomeService.GetOutcomeByTheme('fk_VuvA0wkCqEF6Yx1zolQ');
+
+    if (outcomeResult?.results) {
+      // Only set outcome with the first result
+      if (outcomeResult.results.length > 0) {
+        setOutcome(outcomeResult.results[0]);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    loadOutcomeResults();
+  }, [loadOutcomeResults]);
+
+  if (!outcome || !outcome.productsIntro) {
     let errorMessage = 'Missing Outcome content for current theme: ' + gameInfoContext.theme;
-    console.error(errorMessage);
+    //console.error(errorMessage);
     return <div>{errorMessage}</div>;
   }
 
@@ -35,11 +55,11 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   return (
     <>
       <Heading size="lg" mb={2}>
-        {gameInfoContext.outcome.title}
+        {outcome.title}
       </Heading>
 
       <Text>
-        <RichTextOutput content={gameInfoContext.outcome.productsIntro} />
+        <RichTextOutput content={outcome.productsIntro} />
       </Text>
       {requiredProducts && requiredProducts.length > 0 && (
         <Accordion size="lg" pb="20px" id="required-products" allowMultiple>
@@ -54,11 +74,9 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
                 <AccordionIcon />
               </AccordionButton>
               <AccordionPanel>
-                {gameInfoContext.outcome?.outcomeReasons.results.find((r) => r.product === product) != undefined ? (
+                {outcome?.outcomeReasons.results.find((r) => r.product === product) != undefined ? (
                   <RichTextOutput
-                    content={
-                      gameInfoContext.outcome?.outcomeReasons.results.find((r) => r.product === product)?.reason!
-                    }
+                    content={outcome?.outcomeReasons.results.find((r) => r.product === product)?.reason!}
                   />
                 ) : (
                   <></>
@@ -70,14 +88,14 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       )}
 
       <Heading size="lg" mb={2}>
-        {gameInfoContext.outcome.videoTitle}
+        {outcome.videoTitle}
       </Heading>
       <Text>
-        <RichTextOutput content={gameInfoContext.outcome.videoIntro} />
+        <RichTextOutput content={outcome.videoIntro} />
       </Text>
-      <YouTubeVideoDisplay videoId={gameInfoContext.outcome.videoid} />
+      <YouTubeVideoDisplay videoId={outcome.videoid} />
       <Text className="pt-4">
-        <RichTextOutput content={gameInfoContext.outcome.guidesIntro} />
+        <RichTextOutput content={outcome.guidesIntro} />
       </Text>
       <ConditionalResponse condition={outcomeConditions.isXC}>
         <Heading size="lg" mb={2}>
@@ -96,10 +114,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXC}>
         <Heading size="lg" mb={2}>
-          {gameInfoContext.outcome.xcFeaturesTitle}
+          {outcome.xcFeaturesTitle}
         </Heading>
         <Text>
-          <RichTextOutput content={gameInfoContext.outcome.xcFeaturesIntro} />
+          <RichTextOutput content={outcome.xcFeaturesIntro} />
         </Text>
 
         <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
@@ -181,10 +199,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       </ConditionalResponse>
       <ConditionalResponse condition={outcomeConditions.isXP || outcomeConditions.isXC}>
         <Heading size="lg" mb={2}>
-          {gameInfoContext.outcome.xpFeaturesTitle}
+          {outcome.xpFeaturesTitle}
         </Heading>
         <Text>
-          <RichTextOutput content={gameInfoContext.outcome.xpFeaturesIntro} />
+          <RichTextOutput content={outcome.xpFeaturesIntro} />
         </Text>
 
         <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
@@ -215,10 +233,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         </SimpleGrid>
       </ConditionalResponse>
       <Heading size="lg" mb={2}>
-        {gameInfoContext.outcome.xmFeaturesTitle}
+        {outcome.xmFeaturesTitle}
       </Heading>
       <Text>
-        <RichTextOutput content={gameInfoContext.outcome.xmFeaturesIntro} />
+        <RichTextOutput content={outcome.xmFeaturesIntro} />
       </Text>
       <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
         {/* Content migration tool */}
@@ -300,10 +318,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
       </SimpleGrid>
       <ConditionalResponse condition={outcomeConditions.existingFrameworks.netcore}>
         <Heading size="lg" mb={2}>
-          {gameInfoContext.outcome.aspnetHeadlessTitle}
+          {outcome.aspnetHeadlessTitle}
         </Heading>
         <Text>
-          <RichTextOutput content={gameInfoContext.outcome.aspnetHeadlessIntro} />
+          <RichTextOutput content={outcome.aspnetHeadlessIntro} />
         </Text>
         <SimpleGrid columns={3} minChildWidth="250px" spacing="md">
           <LinkCard

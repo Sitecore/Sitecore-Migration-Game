@@ -1,9 +1,8 @@
 import { ITrait, useTrait } from 'hooks/useTrait';
-import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
-import { IAnswer, IImage, IOutcome, IPersona, IPrompt, ITheme } from 'models';
-import React, { FC, createContext, useEffect } from 'react';
+import { IAnswer, IImage, IPersona, IPrompt, ITheme } from 'models';
+import React, { FC, createContext, useCallback, useEffect } from 'react';
 
 export const GameInfoContext = createContext<GameInfoContextType>({} as GameInfoContextType);
 
@@ -11,7 +10,6 @@ export interface GameInfoContextType {
   theme: ITheme | undefined;
   persona: IPersona | undefined;
   answers?: IAnswer[] | undefined;
-  outcome: IOutcome | undefined;
   avatar: IImage | undefined;
   updateAnswers: (answers: IAnswer[]) => void;
   updateAvatar: (avatar: IImage) => void;
@@ -31,23 +29,22 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
   const savedAnswers = useTrait<IAnswer[]>([]);
   const themes = useTrait<ITheme>();
   const personas = useTrait<IPersona>();
-  const outcomes = useTrait<IOutcome>();
   const avatars = useTrait<IImage>();
   const questionTrait = useTrait<IPrompt[] | undefined>([]);
   //const [theme, setTheme] = useState<string>('-e_W0k2zO0uZPNBmYtorCQ');
   //const [persona, setPersona] = useState<string>('nMeJvakIB0Kvx29f5uVdiw');
 
-  useEffect(() => {
-    const initialize = async () => {
-      let persona = await PersonaService().GetPersonaById('nMeJvakIB0Kvx29f5uVdiw');
+  const initialize = useCallback(async () => {
+    let persona = await PersonaService().GetPersonaById('nMeJvakIB0Kvx29f5uVdiw');
 
-      if (persona) {
-        personas.set(persona);
-      }
-    };
-
-    initialize().catch((e) => console.error(e));
+    if (persona) {
+      personas.set(persona);
+    }
   }, []);
+
+  useEffect(() => {
+    initialize().catch((e: any) => console.error(e));
+  }, [initialize]);
 
   const updateAnswers = (promptAnswers: IAnswer[]) => {
     if (savedAnswers.get() && savedAnswers.get().length > 0) {
@@ -66,13 +63,6 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
 
     if (result) {
       themes.set(result);
-    }
-
-    //Get the outcome for the new theme. For now, we are using the first match even if multiple are returned.
-    const outcomeResult = await OutcomeService().GetOutcomeByTheme(id);
-    if (outcomeResult && outcomeResult.results.length > 0) {
-      let outcome = outcomeResult.results[0];
-      outcomes.set(outcome);
     }
   };
 
@@ -97,7 +87,6 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
         persona: personas.get(),
         answers: savedAnswers.get(),
         questionsBank: questionTrait,
-        outcome: outcomes.get(),
         avatar: avatars.get(),
         updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),
         resetAnswers: () => resetAnswers(),

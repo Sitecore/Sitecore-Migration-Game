@@ -75,7 +75,11 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
   const triggerNextPrompt = async () => {
     // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
     const base64Answers = Buffer.from(
-      JSON.stringify({ answers: gameInfoContext.answers, avatarId: gameInfoContext.avatar?.id })
+      JSON.stringify({
+        answers: gameInfoContext.answers,
+        avatarId: gameInfoContext.avatar?.id,
+        personaId: gameInfoContext.persona?.id,
+      })
     ).toString('base64');
     if (gameInfoContext.questionsBank?.get() !== undefined) {
       if (gameInfoContext.questionsBank.get()!.length > 0) {

@@ -6,7 +6,6 @@ import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { FeedbackModal } from 'components/ui/FeedbackModal/FeedbackModal';
 import * as GTag from 'lib/GTag';
 import { OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
-import router from 'next/router';
 import { FC, useEffect } from 'react';
 
 interface OutcomePanelProps extends LayoutProps {}
@@ -15,16 +14,16 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
   const gameInfoContext = useGameInfoContext();
   const tracker = useEngageTracker();
 
-  if (process.browser) {
-    if (gameInfoContext.answers === undefined || gameInfoContext.answers.length === 0) {
-      if (!(typeof window === undefined)) {
-        window.history.pushState(null, '', '/');
-        window.location.reload();
-      } else {
-        router.push('/');
-      }
-    }
-  }
+  // if (process.browser) {
+  //   if (gameInfoContext.answers === undefined || gameInfoContext.answers.length === 0) {
+  //     if (!(typeof window === undefined)) {
+  //       window.history.pushState(null, '', '/');
+  //       window.location.reload();
+  //     } else {
+  //       router.push('/');
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     tracker.TrackPageView(
