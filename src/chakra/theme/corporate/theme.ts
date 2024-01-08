@@ -3,6 +3,7 @@ import { withProse } from '@nikolovlazar/chakra-ui-prose';
 import sitecoreTheme from '@sitecore/blok-theme';
 // Load customizations
 import { cardTheme } from './card';
+import { buttonTheme } from './button';
 
 export const corporateTheme = extendTheme(
   {
@@ -10,6 +11,7 @@ export const corporateTheme = extendTheme(
     colors: {},
     components: {
       Card: cardTheme,
+      Button: buttonTheme,
     },
     sizes: {},
     fonts: {},
