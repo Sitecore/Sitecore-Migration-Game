@@ -32,7 +32,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
           <SimpleGrid templateColumns={{ base: '1fr', md: '1fr 1fr', xl: '1fr 1fr 1fr' }} spacing={2}>
             {options?.map((o: IOption, idx) => (
               <React.Fragment key={idx}>
-                {o.tooltip && gameInfoContext.theme?.chakraTheme == 'fantasy' ? (
+                {o.tooltip ? (
                   <>
                     <Show above="xl">
                       <Tooltip key={o.id} label={o.tooltip}>
@@ -42,8 +42,8 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                       </Tooltip>
                     </Show>
                     <Hide above="xl">
-                      <HStack spacing={0}>
-                        <Button key={o.id} value={o.value} mx={5} onClick={optionSelectEvent} variant="solid" size="lg">
+                    <HStack spacing={0} width={'100%'} justifyContent={'space-between'}>
+                        <Button key={o.id} value={o.value} m={1} onClick={optionSelectEvent} width="100%" variant="solid" size="lg">
                           {o.label}
                         </Button>
                         <Popover placement="top-start" closeOnBlur>
@@ -59,7 +59,6 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                           </PopoverTrigger>
                           <PopoverContent backgroundImage={'/fantasy/tooltip.svg'} background={'transparent'}>
                             <PopoverArrow />
-
                             <PopoverBody>{o.tooltip}</PopoverBody>
                           </PopoverContent>
                         </Popover>

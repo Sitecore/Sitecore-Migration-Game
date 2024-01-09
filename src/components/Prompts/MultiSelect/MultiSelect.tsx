@@ -65,7 +65,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
           >
             {options.map((option: IOption, idx) => (
               <React.Fragment key={idx}>
-                {option.tooltip && gameInfoContext.theme?.chakraTheme == 'fantasy' ? (
+                {option.tooltip ? (
                   <>
                     <Show above="xl">
                       <Tooltip key={option.id} label={option.tooltip}>
