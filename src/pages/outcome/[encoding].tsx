@@ -21,7 +21,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const payload = JSON.parse(jsonString);
 
-    // TODO: Parse Avatar Id to IImage
     const avatar: IImage | undefined = await MediaService().GetMediaById(payload.avatarId);
 
     return {
@@ -44,8 +43,6 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
 
     gameInfo.updateAnswers(props.answers);
     gameInfo.updatePersona(props.persona);
-
-    console.log('re-render');
   }, [props]);
 
   return (
