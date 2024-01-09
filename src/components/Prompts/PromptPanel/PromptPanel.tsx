@@ -81,6 +81,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
         personaId: gameInfoContext.persona?.id,
       })
     ).toString('base64');
+
     if (gameInfoContext.questionsBank?.get() !== undefined) {
       if (gameInfoContext.questionsBank.get()!.length > 0) {
         const questionQueue = gameInfoContext.questionsBank.get();
