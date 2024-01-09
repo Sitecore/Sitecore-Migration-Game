@@ -1,6 +1,7 @@
 import { useGameInfoContext } from 'components/Contexts';
 import { OutcomePanel } from 'components/Outcomes';
 import { Layout } from 'components/ui';
+import { MediaService } from 'lib/MediaService';
 import { IAnswer, IImage } from 'models';
 import { GetServerSideProps } from 'next';
 import { FC, useEffect } from 'react';
@@ -8,7 +9,7 @@ import { FC, useEffect } from 'react';
 interface OutcomeHashPageProps {
   answers: IAnswer[];
   persona: string;
-  avatar: IImage;
+  avatar: IImage | undefined;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -21,9 +22,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const payload = JSON.parse(jsonString);
 
     // TODO: Parse Avatar Id to IImage
+    const avatar: IImage | undefined = await MediaService().GetMediaById(payload.avatarId);
 
     return {
-      props: { answers: payload.answers, persona: payload.personaId, avatar: payload.avatarId },
+      props: { answers: payload.answers, persona: payload.personaId, avatar: avatar },
     };
   }
 
@@ -36,6 +38,10 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
   const gameInfo = useGameInfoContext();
 
   useEffect(() => {
+    if (props.avatar) {
+      gameInfo.updateAvatar(props.avatar);
+    }
+
     gameInfo.updateAnswers(props.answers);
     gameInfo.updatePersona(props.persona);
 
