@@ -8,7 +8,10 @@ const pulse = keyframes`
   `;
 
 export const buttonTheme = defineStyleConfig({
-  baseStyle,
+  baseStyle: {
+    whiteSpace: 'normal',
+    wordBreak: 'break-word',
+  },
   variants: {
     solid: {
       background: 'none',
