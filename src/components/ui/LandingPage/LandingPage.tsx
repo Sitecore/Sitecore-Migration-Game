@@ -105,7 +105,7 @@ const features: FeatureCardProps[] = [
     text: 'Find a collection of curated migration content created by Sitecore and the community, personalized to your context.',
   },
   {
-    heading: 'Step 4: Connect for more updates!',
-    text: 'Sign up for the email list to be notified of new content and updates as we add to the application.',
+    heading: 'Step 4: Give Feedback!',
+    text: 'Are we missing something you need? Do you have more questions? Use our in-app feedback form to let us know how we can help!',
   },
 ];
