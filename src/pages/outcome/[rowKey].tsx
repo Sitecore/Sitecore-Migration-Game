@@ -11,6 +11,7 @@ interface OutcomeHashPageProps {
   answers: IAnswer[];
   persona: string;
   avatar: IImage | undefined;
+  theme: string;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -28,7 +29,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         const avatarMedia = await MediaService().GetMediaById(jsonPayload.avatarId);
 
         return {
-          props: { answers: jsonPayload.answers, persona: jsonPayload.personaId, avatar: avatarMedia ?? '' },
+          props: {
+            answers: jsonPayload.answers,
+            persona: jsonPayload.personaId,
+            avatar: avatarMedia ?? '',
+            theme: jsonPayload.themeId,
+          },
         };
       }
     }
@@ -46,6 +52,8 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
     if (props.avatar) {
       gameInfo.updateAvatar(props.avatar);
     }
+
+    gameInfo.updateTheme(props.theme);
 
     gameInfo.updateAnswers(props.answers);
     gameInfo.updatePersona(props.persona);

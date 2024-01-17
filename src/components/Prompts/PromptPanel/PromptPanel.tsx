@@ -78,6 +78,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       answers: gameInfoContext.answers,
       avatarId: gameInfoContext.avatar?.id,
       personaId: gameInfoContext.persona?.id,
+      themeId: gameInfoContext.theme?.id,
     };
 
     const getEntityResult = await fetch(`/api/azure/get`, {
