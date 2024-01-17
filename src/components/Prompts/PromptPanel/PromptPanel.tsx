@@ -6,6 +6,7 @@ import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import * as GTag from 'lib/GTag';
 import { GetNextPrompts } from 'lib/NextPrompts';
 import { PromptService } from 'lib/PromptService';
+import { v4 as uuidv4 } from 'uuid';
 
 import { IAnswer, IPrompt } from 'models';
 import router from 'next/router';
@@ -72,31 +73,72 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
     }
   };
 
-  const triggerNextPrompt = async () => {
-    // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
-    const base64Answers = Buffer.from(
-      JSON.stringify({
-        answers: gameInfoContext.answers,
-        avatarId: gameInfoContext.avatar?.id,
-        personaId: gameInfoContext.persona?.id,
-      })
-    ).toString('base64');
+  const processOutcomeUrl = async () => {
+    let jsonPayload = {
+      answers: gameInfoContext.answers,
+      avatarId: gameInfoContext.avatar?.id,
+      personaId: gameInfoContext.persona?.id,
+    };
 
-    if (gameInfoContext.questionsBank?.get() !== undefined) {
-      if (gameInfoContext.questionsBank.get()!.length > 0) {
-        const questionQueue = gameInfoContext.questionsBank.get();
-        const nextPrompt = questionQueue!.shift();
-        gameInfoContext.questionsBank.set(questionQueue);
+    const getEntityResult = await fetch(`/api/azure/get`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(jsonPayload),
+    });
 
-        setCurrentPrompt(nextPrompt);
+    // Already exists send to outcome page
+    if (getEntityResult.ok) {
+      let entityResponse = await getEntityResult.json();
 
-        await trackPromptPageView(nextPrompt);
-      } else {
-        // Use Answers to create a base64 hash to pass to the outcome page
-        router.push(`/outcome/${encodeURIComponent(base64Answers)}`);
+      if (entityResponse?.result && entityResponse.result.rowKey) {
+        return `/outcome/${entityResponse.result.rowKey}`;
       }
+    }
+
+    const rowKey = uuidv4();
+    const postPayload = {
+      rowKey,
+      json: jsonPayload,
+    };
+
+    // TODO: Should I create a hook service for this to simplify the implementation?
+    const result = await fetch('/api/azure', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postPayload),
+    });
+
+    if (result.ok) {
+      const response = await result.json();
+
+      if (response.success) {
+        return `/outcome/${rowKey}`;
+      }
+    }
+
+    // TODO: Add error handling, send user to error page instead of Outcome page
+    return `/outcome/`;
+  };
+
+  const triggerNextPrompt = async () => {
+    const questionBank = gameInfoContext.questionsBank.get();
+
+    if (questionBank !== undefined && questionBank.length > 0) {
+      const questionQueue = gameInfoContext.questionsBank.get();
+      const nextPrompt = questionQueue!.shift();
+      gameInfoContext.questionsBank.set(questionQueue);
+
+      setCurrentPrompt(nextPrompt);
+
+      await trackPromptPageView(nextPrompt);
     } else {
-      router.push(`/outcome/${encodeURIComponent(base64Answers)}`);
+      const urlString = await processOutcomeUrl();
+
+      router.push(urlString);
     }
   };
 

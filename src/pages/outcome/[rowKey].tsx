@@ -5,6 +5,7 @@ import { MediaService } from 'lib/MediaService';
 import { IAnswer, IImage } from 'models';
 import { GetServerSideProps } from 'next';
 import { FC, useEffect } from 'react';
+import { AzureTableService } from 'services/AzureTable/AzureTableService';
 
 interface OutcomeHashPageProps {
   answers: IAnswer[];
@@ -13,23 +14,28 @@ interface OutcomeHashPageProps {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const encoding = context.params?.encoding as string;
+  const rowKey = context.params?.rowKey as string;
 
-  if (encoding) {
-    const decodedString = decodeURIComponent(encoding);
-    const jsonString = Buffer.from(decodedString, 'base64').toString();
+  if (rowKey) {
+    const azureTableService = new AzureTableService();
 
-    const payload = JSON.parse(jsonString);
+    const payload = await azureTableService.getByRowKey(rowKey);
 
-    const avatar: IImage | undefined = await MediaService().GetMediaById(payload.avatarId);
+    if (payload) {
+      const jsonPayload = JSON.parse(payload.json);
 
-    return {
-      props: { answers: payload.answers, persona: payload.personaId, avatar: avatar },
-    };
+      if (jsonPayload) {
+        const avatarMedia = await MediaService().GetMediaById(jsonPayload.avatarId);
+
+        return {
+          props: { answers: jsonPayload.answers, persona: jsonPayload.personaId, avatar: avatarMedia ?? '' },
+        };
+      }
+    }
   }
 
   return {
-    props: { answers: [], persona: '', avatar: '' },
+    notFound: true,
   };
 };
 

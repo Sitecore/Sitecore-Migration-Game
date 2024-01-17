@@ -10,6 +10,7 @@ Welcome to the open source project for the Sitecore Migration app. The purpose o
 - Cypress 16.6.0
 - Sitecore Content Hub One (to drive the data for the application)
 - Sitecore CDP/Personalize (not required)
+- Azure Table Storage (either using the emulator or a live account)
 
 ## Development
 
@@ -20,6 +21,14 @@ To get started you need to follow the following steps:
 3. Duplicate the `.env.template` and name it `.env` and update the values with the information you collected in step #2.
 4. Run `npm install` to install all the dependencies.
 5. Run `npm run dev` to start the development server.
+
+## Running Azure Table Storage (locally)
+
+This project relies on creating outcome urls on the fly based on the users answers. To do this, we use Azure Table Storage to store the outcome urls. You can configure in your `.env` file the connection string to your Azure Table Storage account. Optionally you can run Azure Table Storage locally, which those steps are listed below:
+
+To run Azure Table Storage locally, you'll need to install the Azure Storage Emulator. You can find the download here: https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator
+
+https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=npm%2Cblob-storage
 
 ### Optional
 
