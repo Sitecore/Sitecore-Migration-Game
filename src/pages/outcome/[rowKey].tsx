@@ -54,7 +54,6 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
     }
 
     gameInfo.updateTheme(props.theme);
-
     gameInfo.updateAnswers(props.answers);
     gameInfo.updatePersona(props.persona);
   }, [props]);

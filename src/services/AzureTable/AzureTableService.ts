@@ -30,7 +30,6 @@ export class AzureTableService {
     });
 
     consoleLogger('getByJson', results);
-    console.log('getByJson', results);
 
     let firstEntity: TableEntityResult<IUrlEntity> | undefined;
     for await (const entity of results) {
