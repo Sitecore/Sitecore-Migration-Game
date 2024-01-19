@@ -25,6 +25,9 @@ interface IButtonGroupProps {
 
 export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent }) => {
   const gameInfoContext = useGameInfoContext();
+
+  const buttonWidth = '80%';
+
   return (
     <Container maxWidth={'100%'}>
       {options && (
@@ -32,20 +35,21 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
           <SimpleGrid templateColumns={{ base: '1fr', md: '1fr 1fr', xl: '1fr 1fr 1fr' }} spacing={2}>
             {options?.map((o: IOption, idx) => (
               <React.Fragment key={idx}>
-                {o.tooltip && gameInfoContext.theme?.chakraTheme == 'fantasy' ? (
+                {o.tooltip ? (
                   <>
                     <Show above="xl">
                       <Tooltip key={o.id} label={o.tooltip}>
-                        <Button key={o.id} value={o.value} mx={5} onClick={optionSelectEvent} variant="solid" size="lg">
+                        <Button key={o.id} value={o.value} m={1} onClick={optionSelectEvent} variant="solid" size="lg">
                           {o.label}
                         </Button>
                       </Tooltip>
                     </Show>
                     <Hide above="xl">
-                      <HStack spacing={0}>
-                        <Button key={o.id} value={o.value} mx={5} onClick={optionSelectEvent} variant="solid" size="lg">
+                      <HStack spacing={0} width={'100%'} justifyContent={'space-between'}>
+                        <Button key={o.id} value={o.value} m={1} onClick={optionSelectEvent} width={{ base: buttonWidth, xl: '100%' }} variant="solid" size="lg">
                           {o.label}
                         </Button>
+
                         <Popover placement="top-start" closeOnBlur>
                           <PopoverTrigger>
                             <IconButton
@@ -57,9 +61,8 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                               icon={<FaInfo size={18} />}
                             ></IconButton>
                           </PopoverTrigger>
-                          <PopoverContent backgroundImage={'/fantasy/tooltip.svg'} background={'transparent'}>
+                          <PopoverContent>
                             <PopoverArrow />
-
                             <PopoverBody>{o.tooltip}</PopoverBody>
                           </PopoverContent>
                         </Popover>
@@ -67,7 +70,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                     </Hide>
                   </>
                 ) : (
-                  <Button key={o.id} value={o.value} mx={5} onClick={optionSelectEvent} variant="solid" size="lg">
+                  <Button key={o.id} value={o.value} width={{ base: buttonWidth, xl: '100%' }} m={1} onClick={optionSelectEvent} variant="solid" size="lg">
                     {o.label}
                   </Button>
                 )}

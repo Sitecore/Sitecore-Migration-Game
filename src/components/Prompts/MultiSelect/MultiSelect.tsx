@@ -47,7 +47,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
     setSelectedOptions(newCheckedArr);
   };
 
-  const buttonWidth = '90%';
+  const buttonWidth = '88%';
 
   return (
     <>
@@ -65,7 +65,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
           >
             {options.map((option: IOption, idx) => (
               <React.Fragment key={idx}>
-                {option.tooltip && gameInfoContext.theme?.chakraTheme == 'fantasy' ? (
+                {option.tooltip ? (
                   <>
                     <Show above="xl">
                       <Tooltip key={option.id} label={option.tooltip}>
@@ -83,7 +83,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                     </Show>
                     <Hide above="xl">
                       <HStack spacing={0} width={'100%'} justifyContent={'space-between'}>
-                        <Container width={{ base: buttonWidth, md: '100%' }}>
+                        <Container width={{ base: buttonWidth, xl: '100%' }}>
                           <Button
                             key={option.id}
                             value={option.value}
@@ -108,7 +108,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                               icon={<FaInfo size={14} />}
                             ></IconButton>
                           </PopoverTrigger>
-                          <PopoverContent backgroundImage={'/fantasy/tooltip.svg'} background={'transparent'}>
+                          <PopoverContent>
                             <PopoverArrow />
                             <PopoverBody>{option.tooltip}</PopoverBody>
                           </PopoverContent>
@@ -122,7 +122,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                       key={option.id}
                       value={option.value}
                       m={1}
-                      width={{ base: buttonWidth, md: '100%' }}
+                      width={{ base: buttonWidth, xl: '100%' }}
                       isActive={selectedOptions.includes(option) ? true : false}
                       onClick={() => handleOptionSelected(option)}
                       variant={{ base: 'solid' }}
