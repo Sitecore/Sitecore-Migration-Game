@@ -83,7 +83,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                     </Show>
                     <Hide above="xl">
                       <HStack spacing={0} width={'100%'} justifyContent={'space-between'}>
-                        <Container width={{ base: buttonWidth, md: '100%' }}>
+                        <Container width={{ base: buttonWidth, xl: '100%' }}>
                           <Button
                             key={option.id}
                             value={option.value}
