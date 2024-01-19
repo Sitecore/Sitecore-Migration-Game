@@ -47,7 +47,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
     setSelectedOptions(newCheckedArr);
   };
 
-  const buttonWidth = '90%';
+  const buttonWidth = '88%';
 
   return (
     <>
@@ -122,7 +122,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                       key={option.id}
                       value={option.value}
                       m={1}
-                      width={{ base: buttonWidth, md: '100%' }}
+                      width={{ base: buttonWidth, xl: '100%' }}
                       isActive={selectedOptions.includes(option) ? true : false}
                       onClick={() => handleOptionSelected(option)}
                       variant={{ base: 'solid' }}
