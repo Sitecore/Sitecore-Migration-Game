@@ -57,7 +57,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                               icon={<FaInfo size={18} />}
                             ></IconButton>
                           </PopoverTrigger>
-                          <PopoverContent backgroundImage={'/fantasy/tooltip.svg'} background={'transparent'}>
+                          <PopoverContent>
                             <PopoverArrow />
                             <PopoverBody>{o.tooltip}</PopoverBody>
                           </PopoverContent>

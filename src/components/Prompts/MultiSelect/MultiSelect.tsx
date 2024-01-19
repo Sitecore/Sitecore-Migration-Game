@@ -108,7 +108,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                               icon={<FaInfo size={14} />}
                             ></IconButton>
                           </PopoverTrigger>
-                          <PopoverContent backgroundImage={'/fantasy/tooltip.svg'} background={'transparent'}>
+                          <PopoverContent>
                             <PopoverArrow />
                             <PopoverBody>{option.tooltip}</PopoverBody>
                           </PopoverContent>
