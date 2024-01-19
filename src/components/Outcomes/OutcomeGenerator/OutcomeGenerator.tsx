@@ -15,7 +15,7 @@ import { LinkCard, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { FC } from 'react';
 
-interface OutcomeGeneratorProps { }
+interface OutcomeGeneratorProps {}
 
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
@@ -261,6 +261,10 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
           <LinkCard
             link="https://thetombomb.com/posts/nextjs-hosting-alternatives"
             title="Beyond Vercel: Hosting Alternatives for Next.js"
+          />
+          <LinkCard
+            link="https://sitecore-nextjs-guide.hakmeng.com"
+            title="Beginner's Guide to developing with Sitecore Next.js (Meng Hak)"
           />
         </ConditionalResponse>
         <ConditionalResponse condition={outcomeConditions.serializationUsed.tds}>
