@@ -7,6 +7,8 @@ import { buttonTheme } from './button';
 
 export const corporateTheme = extendTheme(
   {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
     styles: {},
     colors: {},
     components: {
