@@ -6,17 +6,19 @@ import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { FeedbackModal } from 'components/ui/FeedbackModal/FeedbackModal';
 import * as GTag from 'lib/GTag';
 import { OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
+import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 
 interface OutcomePanelProps extends LayoutProps {}
 
 export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
+  const router = useRouter();
   const gameInfoContext = useGameInfoContext();
   const tracker = useEngageTracker();
 
   useEffect(() => {
     tracker.TrackPageView(
-      { page: '/outcome', channel: 'WEB', language: 'EN', currency: 'USD' },
+      { page: router.asPath, channel: 'WEB', language: 'EN', currency: 'USD' },
       {
         answers: JSON.stringify(gameInfoContext.answers),
       }
