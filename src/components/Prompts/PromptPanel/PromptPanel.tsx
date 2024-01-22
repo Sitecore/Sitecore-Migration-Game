@@ -74,6 +74,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
   };
 
   const processOutcomeUrl = async () => {
+    setLoading(true);
     let jsonPayload = {
       answers: gameInfoContext.answers,
       avatarId: gameInfoContext.avatar?.id,
@@ -121,8 +122,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       }
     }
 
-    // TODO: Add error handling, send user to error page instead of Outcome page
-    return `/outcome/`;
+    setLoading(false);
   };
 
   const triggerNextPrompt = async () => {
@@ -139,7 +139,9 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
     } else {
       const urlString = await processOutcomeUrl();
 
-      router.push(urlString);
+      if (urlString) {
+        router.push(urlString);
+      }
     }
   };
 
