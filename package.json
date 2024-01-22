@@ -71,6 +71,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "dev:azurite": "concurrently --kill-others \"npm run dev\" \"azurite\"",
     "cypress": "concurrently --kill-others \"npm run dev\" \"npx cypress open\"",
     "build": "next build",
     "start": "next start",

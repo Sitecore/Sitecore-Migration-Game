@@ -22,13 +22,33 @@ To get started you need to follow the following steps:
 4. Run `npm install` to install all the dependencies.
 5. Run `npm run dev` to start the development server.
 
-## Running Azure Table Storage (locally)
+## Running Azure Table Storage
 
-This project relies on creating outcome urls on the fly based on the users answers. To do this, we use Azure Table Storage to store the outcome urls. You can configure in your `.env` file the connection string to your Azure Table Storage account. Optionally you can run Azure Table Storage locally, which those steps are listed below:
+This project relies on creating outcome urls on the fly based on the users answers. To do this, we use Azure Table Storage to store the outcome urls. You can configure in your `.env` file the connection string to your Azure Table Storage account. The environment variables needed to connect to Azure Table Storage consist of:
 
-To run Azure Table Storage locally, you'll need to install the Azure Storage Emulator. You can find the download here: https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator
+- AZURE_TABLE_NAME
+- AZURE_TABLE_CONNECTION_STRING
 
-https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=npm%2Cblob-storage
+The name of the table should always be `Urls` to match up with the code.
+
+### Running Azure Table Storage Locally
+
+You can run Azure Table Storage locally, but not required. Below are the steps to run Azure Table Storage locally.
+
+1. Install the Azure Storage Emulator. You can find the download here: https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator
+2. Ensure you are able to run the command `azurite` in your terminal. If you are not able to run this command, you may need to add the path to your `azurite` executable to your PATH environment variable.
+3. Update your `.env` file with the following values:
+
+```
+AZURE_TABLE_NAME=Urls
+AZURE_TABLE_CONNECTION_STRING=UseDevelopmentStorage=true
+```
+
+4. Run `npm run dev:azurite` to start the development server.
+
+> This will start the Azure Table Storage emulator and the development server at the same time. You can now run the application locally.
+
+5. If this is the first time running the above command, you will need to create the table in Azure Table Storage manually. You can do this by connecting to the local emulator using Azure Storage Explorer. You can download Azure Storage Explorer here: https://azure.microsoft.com/en-us/features/storage-explorer/
 
 ### Optional
 
