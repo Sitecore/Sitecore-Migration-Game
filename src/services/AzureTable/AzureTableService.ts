@@ -1,4 +1,4 @@
-import { TableClient, TableEntityResult, odata } from '@azure/data-tables';
+import { RestError, TableClient, TableEntityResult, odata } from '@azure/data-tables';
 import { consoleLogger } from 'utils/consoleLogger';
 import { IAzureTableOptions, IUrlEntity } from './models';
 
@@ -15,11 +15,22 @@ export class AzureTableService {
   }
 
   public getByRowKey = async (rowKey: string) => {
-    const results = await this._tableClient.getEntity<IUrlEntity>(this._partitionKey, rowKey);
+    // Unfortunately, the Azure SDK doesn't return undefined when a resource isn't found but instead errors out.
+    try {
+      const results = await this._tableClient.getEntity<IUrlEntity>(this._partitionKey, rowKey);
 
-    consoleLogger(results);
+      consoleLogger(results);
 
-    return results;
+      return results;
+    } catch (error: any) {
+      const restError = error as RestError;
+
+      if (restError.name === 'ResourceNotFoundError') {
+        return undefined;
+      }
+
+      consoleLogger(error);
+    }
   };
 
   public getByJson = async (json: string): Promise<TableEntityResult<IUrlEntity> | undefined> => {
