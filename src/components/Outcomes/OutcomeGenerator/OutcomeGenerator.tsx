@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { ConditionalResponse } from 'components/Outcomes';
-import { LinkCard, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
+import { LinkCard, Loading, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
 import { IOutcome } from 'models';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
@@ -22,10 +22,12 @@ interface OutcomeGeneratorProps {}
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
   const [outcome, setOutcome] = useState<IOutcome | undefined>();
+  const [loading, setLoading] = useState<boolean>(true);
   const outcomeService = OutcomeService();
 
   // Pull Outcome Content here instead on load
   const loadOutcomeResults = useCallback(async () => {
+    setLoading(true);
     // TODO: Default to Corporate theme, will need to fix this line when theme switching is implemented again
     const outcomeResult = await outcomeService.GetOutcomeByTheme('fk_VuvA0wkCqEF6Yx1zolQ');
 
@@ -35,16 +37,30 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
         setOutcome(outcomeResult.results[0]);
       }
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
     loadOutcomeResults();
   }, [loadOutcomeResults]);
 
-  if (!outcome || !outcome.productsIntro) {
-    let errorMessage = 'Missing Outcome content for current theme: ' + gameInfoContext.theme;
-    //console.error(errorMessage);
-    return <div>{errorMessage}</div>;
+  if (loading || outcome === undefined) {
+    return (
+      <div>
+        <Loading message="Loading the Outcome results..." />
+      </div>
+    );
+  }
+
+  if (outcome === undefined) {
+    return (
+      <div>
+        <Heading size="lg" mb={2}>
+          No outcome found
+        </Heading>
+        <Text>No outcome was found for the answers you provided. Please try again.</Text>
+      </div>
+    );
   }
 
   //Use the OutcomeConditions class for storing all the answers as the conditions we'll use in the logic.
