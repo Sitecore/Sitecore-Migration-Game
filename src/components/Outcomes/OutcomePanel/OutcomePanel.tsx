@@ -17,25 +17,28 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
   const tracker = useEngageTracker();
 
   useEffect(() => {
-    tracker.TrackPageView(
-      { page: router.asPath, channel: 'WEB', language: 'EN', currency: 'USD' },
-      {
-        answers: JSON.stringify(gameInfoContext.answers),
+    // Only track page if answers are present
+    if (gameInfoContext.answers && gameInfoContext.answers.length > 0) {
+      tracker.TrackPageView(
+        { page: router.asPath, channel: 'WEB', language: 'EN', currency: 'USD' },
+        {
+          answers: JSON.stringify(gameInfoContext.answers),
+        }
+      );
+
+      GTag.event('outcome_answers', 'Answers', JSON.stringify(gameInfoContext.answers));
+
+      let outcomeConditions = new OutcomeConditions(gameInfoContext);
+      const requiredProducts: TargetProduct[] = outcomeConditions.requiredProducts();
+
+      if (requiredProducts) {
+        requiredProducts.forEach((product) => {
+          tracker.TrackEvent('outcome_required_product', { requiredProduct: product });
+          GTag.event('outcome_required_product', product, product);
+        });
       }
-    );
-
-    GTag.event('outcome_answers', 'Answers', JSON.stringify(gameInfoContext.answers));
-
-    let outcomeConditions = new OutcomeConditions(gameInfoContext);
-    const requiredProducts: TargetProduct[] = outcomeConditions.requiredProducts();
-
-    if (requiredProducts) {
-      requiredProducts.forEach((product) => {
-        tracker.TrackEvent('outcome_required_product', { requiredProduct: product });
-        GTag.event('outcome_required_product', product, product);
-      });
     }
-  }, []);
+  }, [gameInfoContext.answers]);
 
   return (
     <>
