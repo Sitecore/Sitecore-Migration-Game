@@ -41,7 +41,7 @@ You can run Azure Table Storage locally, but not required. Below are the steps t
 
 ```
 AZURE_TABLE_NAME=Urls
-AZURE_TABLE_CONNECTION_STRING=UseDevelopmentStorage=true
+AZURE_TABLE_CONNECTION_STRING='UseDevelopmentStorage=true'
 ```
 
 4. Run `npm run dev:azurite` to start the development server.
@@ -49,8 +49,6 @@ AZURE_TABLE_CONNECTION_STRING=UseDevelopmentStorage=true
 > This will start the Azure Table Storage emulator and the development server at the same time. You can now run the application locally.
 
 5. If this is the first time running the above command, you will need to create the table in Azure Table Storage manually. You can do this by connecting to the local emulator using Azure Storage Explorer. You can download Azure Storage Explorer here: https://azure.microsoft.com/en-us/features/storage-explorer/
-
-### Optional
 
 ### Running Cypress Tests
 
