@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { IAnswer, IPrompt } from 'models';
 import router from 'next/router';
 import { FC, useEffect, useState } from 'react';
+import { AzureProxyService } from 'services/AzureTable/AzureProxyService';
 
 interface PromptPanelProps extends LayoutProps {}
 
@@ -82,44 +83,24 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       themeId: gameInfoContext.theme?.id,
     };
 
-    const getEntityResult = await fetch(`/api/azure/get`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(jsonPayload),
-    });
+    // Check if JSON payload (answers, etc) already exists and if it does redirect
+    const entityResult = await AzureProxyService().getByJson(JSON.stringify(jsonPayload));
 
-    // Already exists send to outcome page
-    if (getEntityResult.ok) {
-      let entityResponse = await getEntityResult.json();
-
-      if (entityResponse?.result && entityResponse.result.rowKey) {
-        return `/outcome/${entityResponse.result.rowKey}`;
-      }
+    if (entityResult?.result?.rowKey) {
+      return `/outcome/${entityResult.result.rowKey}`;
     }
 
+    // JSON Payload doesn't exist so lets create it
     const rowKey = uuidv4();
     const postPayload = {
       rowKey,
       json: jsonPayload,
     };
 
-    // TODO: Should I create a hook service for this to simplify the implementation?
-    const result = await fetch('/api/azure', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(postPayload),
-    });
+    const createResult = await AzureProxyService().createEntity(JSON.stringify(postPayload));
 
-    if (result.ok) {
-      const response = await result.json();
-
-      if (response.success) {
-        return `/outcome/${rowKey}`;
-      }
+    if (createResult.success) {
+      return `/outcome/${rowKey}`;
     }
 
     setLoading(false);
