@@ -3,7 +3,7 @@ import { OutcomePanel } from 'components/Outcomes';
 import { Layout } from 'components/ui';
 import { MediaService } from 'lib/MediaService';
 import { IAnswer, IImage } from 'models';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { FC, useEffect } from 'react';
 import { AzureTableService } from 'services/AzureTable/AzureTableService';
 
@@ -14,13 +14,24 @@ interface OutcomeHashPageProps {
   theme: string;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+// Don't pre-render pages at build time.
+export const getStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: true,
+  };
+};
+
+// Generate Pages when requested
+export const getStaticProps: GetStaticProps = async (context) => {
   const rowKey = context.params?.rowKey as string;
 
   if (rowKey) {
     const azureTableService = new AzureTableService();
 
     const payload = await azureTableService.getByRowKey(rowKey);
+
+    console.log(payload);
 
     if (payload) {
       const jsonPayload = JSON.parse(payload.json);
