@@ -129,3 +129,5 @@ yarn-error.log*
 
 # Ignore azurite files
 __azurite**
+__blobstorage
+__queuestorage
