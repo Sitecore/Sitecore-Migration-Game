@@ -31,8 +31,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const payload = await azureTableService.getByRowKey(rowKey);
 
-    console.log(payload);
-
     if (payload) {
       const jsonPayload = JSON.parse(payload.json);
 
@@ -64,9 +62,17 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
       gameInfo.updateAvatar(props.avatar);
     }
 
-    gameInfo.updateTheme(props.theme);
-    gameInfo.updateAnswers(props.answers);
-    gameInfo.updatePersona(props.persona);
+    if (props.theme) {
+      gameInfo.updateTheme(props.theme);
+    }
+
+    if (props.persona) {
+      gameInfo.updatePersona(props.persona);
+    }
+
+    if (props.answers) {
+      gameInfo.updateAnswers(props.answers);
+    }
   }, [props]);
 
   return (
