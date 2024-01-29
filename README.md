@@ -45,7 +45,7 @@ AZURE_TABLE_NAME=Urls
 AZURE_TABLE_CONNECTION_STRING='UseDevelopmentStorage=true'
 ```
 
-4. Run `npm run dev:azurite` to start the development server.
+4. Run `npm run dev:azurite` which will start the Next.js development server and azurite local service simultaneously.
 
 > This will start the Azure Table Storage emulator and the development server at the same time. You can now run the application locally.
 
