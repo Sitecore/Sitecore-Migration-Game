@@ -84,7 +84,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
     };
 
     // Check if JSON payload (answers, etc) already exists and if it does redirect
-    const entityResult = await AzureProxyService().getByJson(JSON.stringify(jsonPayload));
+    const entityResult = await AzureProxyService().getByJsonProxy(JSON.stringify(jsonPayload));
 
     if (entityResult?.result?.rowKey) {
       return `/outcome/${entityResult.result.rowKey}`;
@@ -97,7 +97,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       json: jsonPayload,
     };
 
-    const createResult = await AzureProxyService().createEntity(JSON.stringify(postPayload));
+    const createResult = await AzureProxyService().createEntityProxy(JSON.stringify(postPayload));
 
     if (createResult.success) {
       return `/outcome/${rowKey}`;
