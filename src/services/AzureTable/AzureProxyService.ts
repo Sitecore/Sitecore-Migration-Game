@@ -4,7 +4,7 @@ export const AzureProxyService = () => {
    * @param json
    * @returns
    */
-  const getByJson = async (jsonString: string) => {
+  const getByJsonProxy = async (jsonString: string) => {
     const getEntityResult = await fetch(`/api/azure/get`, {
       method: 'POST',
       headers: {
@@ -20,7 +20,7 @@ export const AzureProxyService = () => {
     }
   };
 
-  const createEntity = async (jsonString: string) => {
+  const createEntityProxy = async (jsonString: string) => {
     const createEntityResult = await fetch('/api/azure', {
       method: 'POST',
       headers: {
@@ -37,7 +37,7 @@ export const AzureProxyService = () => {
   };
 
   return {
-    getByJson,
-    createEntity,
+    getByJsonProxy,
+    createEntityProxy,
   };
 };
