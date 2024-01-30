@@ -11,6 +11,12 @@ export class AzureTableService {
   private _partitionKey = 'Primary';
 
   constructor() {
+    if (this._options.tableName == '' || this._options.connectionString == '') {
+      throw new Error(
+        'You must provide a table name and connection string to use Azure Table Storage which is a pre-requisite for this app. To learn more about using it, refer to the readme.'
+      );
+    }
+
     this._tableClient = TableClient.fromConnectionString(this._options.connectionString, this._options.tableName);
   }
 
