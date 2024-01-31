@@ -48,6 +48,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             persona: jsonPayload.personaId,
             avatar: avatarMedia ?? '',
             theme: jsonPayload.themeId,
+            error: false,
           },
         };
       }
