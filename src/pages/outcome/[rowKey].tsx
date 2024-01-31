@@ -1,6 +1,6 @@
 import { useGameInfoContext } from 'components/Contexts';
-import { OutcomePanel } from 'components/Outcomes';
-import { Layout } from 'components/ui';
+import { OutcomePanel, OutcomeUnavailable } from 'components/Outcomes';
+import { Layout, SingleColumnLayout } from 'components/ui';
 import { MediaService } from 'lib/MediaService';
 import { IAnswer, IImage } from 'models';
 import { GetStaticProps } from 'next';
@@ -12,6 +12,7 @@ interface OutcomeHashPageProps {
   persona: string;
   avatar: IImage | undefined;
   theme: string;
+  error?: boolean;
 }
 
 // Don't pre-render pages at build time.
@@ -25,6 +26,10 @@ export const getStaticPaths = async () => {
 // Generate Pages when requested
 export const getStaticProps: GetStaticProps = async (context) => {
   const rowKey = context.params?.rowKey as string;
+
+  if (rowKey === 'error') {
+    return { props: { error: true } };
+  }
 
   if (rowKey) {
     const azureTableService = new AzureTableService();
@@ -50,7 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   return {
-    notFound: true,
+    props: { error: true },
   };
 };
 
@@ -74,6 +79,26 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
       gameInfo.updateAnswers(props.answers);
     }
   }, [props]);
+
+  if (props.error) {
+    return (
+      <Layout>
+        <SingleColumnLayout
+          showProgressBar={false}
+          showSaveButton={false}
+          showResetButton={true}
+          showFeedbackButton={true}
+          backgroundImage={
+            gameInfo.theme?.chakraTheme == 'fantasy'
+              ? 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4'
+              : 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/1821f8838e284d6fad1d483d41877aba'
+          }
+        >
+          <OutcomeUnavailable />
+        </SingleColumnLayout>
+      </Layout>
+    );
+  }
 
   return (
     <>

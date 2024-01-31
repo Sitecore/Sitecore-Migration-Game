@@ -123,6 +123,8 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       if (urlString) {
         router.push(urlString);
       }
+
+      router.push('/outcome/error');
     }
   };
 
