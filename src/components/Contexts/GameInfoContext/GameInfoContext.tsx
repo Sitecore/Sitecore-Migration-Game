@@ -11,7 +11,7 @@ export interface GameInfoContextType {
   persona: IPersona | undefined;
   answers?: IAnswer[] | undefined;
   avatar: IImage | undefined;
-  updateAnswers: (answers: IAnswer[]) => void;
+  updateAnswers: (answers: IAnswer[]) => Promise<IAnswer[]>;
   updateAvatar: (avatar: IImage) => void;
   updatePersona: (persona: string) => void;
   updateTheme: (theme: string) => void;
@@ -46,12 +46,18 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
     initialize().catch((e: any) => console.error(e));
   }, [initialize]);
 
-  const updateAnswers = (promptAnswers: IAnswer[]) => {
-    if (savedAnswers.get() && savedAnswers.get().length > 0) {
-      savedAnswers.set([...savedAnswers.get(), ...promptAnswers]);
-    } else {
-      savedAnswers.set(promptAnswers);
-    }
+  const updateAnswers = async (promptAnswers: IAnswer[]): Promise<IAnswer[]> => {
+    return new Promise((resolve) => {
+      let newAnswers = savedAnswers.get();
+
+      if (newAnswers && newAnswers.length > 0) {
+        newAnswers = [...newAnswers, ...promptAnswers];
+      } else {
+        newAnswers = promptAnswers;
+      }
+      savedAnswers.set(newAnswers);
+      resolve(newAnswers);
+    });
   };
 
   const resetAnswers = () => {
@@ -88,7 +94,7 @@ export const GameInfoProvider: FC<GameInfoProviderProps> = ({ children }) => {
         answers: savedAnswers.get(),
         questionsBank: questionTrait,
         avatar: avatars.get(),
-        updateAnswers: (promptAnswers: IAnswer[]) => updateAnswers(promptAnswers),
+        updateAnswers: async (promptAnswers: IAnswer[]) => await updateAnswers(promptAnswers),
         resetAnswers: () => resetAnswers(),
         updateTheme: async (id: string) => {
           await handleThemeUpdate(id);

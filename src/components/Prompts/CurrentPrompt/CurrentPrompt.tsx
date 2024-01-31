@@ -12,7 +12,7 @@ interface PromptProps {
 
 export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
   const gameInfoContext = useGameInfoContext();
-  const optionSelected = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const optionSelected = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const option = prompt?.options?.results.find((o: IOption) => o.value === e.currentTarget.value);
     if (option === undefined) {
       return;
@@ -24,17 +24,17 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
       value: new Array(option.value),
     };
 
-    answerSelected(answer);
+    await answerSelected(answer);
   };
 
-  const multiSelectSubmit = (selectedOptions: IOption[]) => {
+  const multiSelectSubmit = async (selectedOptions: IOption[]) => {
     let answer: IAnswer = {
       promptId: prompt!.id,
       promptQuestionId: prompt!.questionId,
       value: selectedOptions.map((o) => o.value),
     };
 
-    answerSelected(answer);
+    await answerSelected(answer);
   };
 
   return (

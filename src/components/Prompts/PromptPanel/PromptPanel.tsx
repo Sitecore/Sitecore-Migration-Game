@@ -74,10 +74,10 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
     }
   };
 
-  const processOutcomeUrl = async () => {
+  const processOutcomeUrl = async (answers: IAnswer[]) => {
     setLoading(true);
     let jsonPayload = {
-      answers: gameInfoContext.answers,
+      answers: answers,
       avatarId: gameInfoContext.avatar?.id,
       personaId: gameInfoContext.persona?.id,
       themeId: gameInfoContext.theme?.id,
@@ -106,7 +106,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
     setLoading(false);
   };
 
-  const triggerNextPrompt = async () => {
+  const triggerNextPrompt = async (answers: IAnswer[]) => {
     const questionBank = gameInfoContext.questionsBank.get();
 
     if (questionBank !== undefined && questionBank.length > 0) {
@@ -118,7 +118,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
 
       await trackPromptPageView(nextPrompt);
     } else {
-      const urlString = await processOutcomeUrl();
+      const urlString = await processOutcomeUrl(answers);
 
       if (urlString) {
         router.push(urlString);
@@ -127,14 +127,14 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
   };
 
   const answerSelected = async (answer: IAnswer) => {
-    saveAnswers(answer);
+    let updatedAnswers = await saveAnswers(answer);
     await populateQuestions(answer);
 
-    triggerNextPrompt();
+    await triggerNextPrompt(updatedAnswers);
   };
 
-  const saveAnswers = (promptAnswers: IAnswer) => {
-    gameInfoContext.updateAnswers([promptAnswers]);
+  const saveAnswers = async (promptAnswers: IAnswer): Promise<IAnswer[]> => {
+    return await gameInfoContext.updateAnswers([promptAnswers]);
   };
 
   const populateQuestions = async (answers: IAnswer) => {
