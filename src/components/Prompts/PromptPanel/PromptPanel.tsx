@@ -76,6 +76,10 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
 
   const processOutcomeUrl = async (answers: IAnswer[]) => {
     setLoading(true);
+
+    // custom event tracking for "generated_outcome" event
+    await trackGenerateOutcomeEvent();
+
     let jsonPayload = {
       answers: answers,
       avatarId: gameInfoContext.avatar?.id,
@@ -161,6 +165,12 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       { prompt: prompt?.id }
     );
     GTag.pageView(`/prompts/${prompt?.id}`);
+  };
+
+  const trackGenerateOutcomeEvent = async () => {
+    await tracker.TrackEvent('generated_outcome');
+
+    GTag.event('generated_outcome', 'Generated Outcome Page', 'true');
   };
 
   return (
