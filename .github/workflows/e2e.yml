@@ -21,3 +21,5 @@ jobs:
         env:
           SITECORE_CH1_ENDPOINT_URL: ${{ secrets.SITECORE_CH1_ENDPOINT_URL }}
           SITECORE_CH1_CLIENT_KEY: ${{ secrets.SITECORE_CH1_CLIENT_KEY }}
+          AZURE_TABLE_NAME: 'Urls'
+          AZURE_TABLE_CONNECTION_STRING: ${{ secrets.AZURE_TABLE_CONNECTION_STRING }}

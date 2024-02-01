@@ -4,48 +4,15 @@ import { OutcomeGenerator } from 'components/Outcomes';
 import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { FeedbackModal } from 'components/ui/FeedbackModal/FeedbackModal';
-import * as GTag from 'lib/GTag';
-import { OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
-import router from 'next/router';
-import { FC, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
 interface OutcomePanelProps extends LayoutProps {}
 
 export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
+  const router = useRouter();
   const gameInfoContext = useGameInfoContext();
   const tracker = useEngageTracker();
-
-  if (process.browser) {
-    if (gameInfoContext.answers === undefined || gameInfoContext.answers.length === 0) {
-      if (!(typeof window === undefined)) {
-        window.history.pushState(null, '', '/');
-        window.location.reload();
-      } else {
-        router.push('/');
-      }
-    }
-  }
-
-  useEffect(() => {
-    tracker.TrackPageView(
-      { page: '/outcome', channel: 'WEB', language: 'EN', currency: 'USD' },
-      {
-        answers: JSON.stringify(gameInfoContext.answers),
-      }
-    );
-
-    GTag.event('outcome_answers', 'Answers', JSON.stringify(gameInfoContext.answers));
-
-    let outcomeConditions = new OutcomeConditions(gameInfoContext);
-    const requiredProducts: TargetProduct[] = outcomeConditions.requiredProducts();
-
-    if (requiredProducts) {
-      requiredProducts.forEach((product) => {
-        tracker.TrackEvent('outcome_required_product', { requiredProduct: product });
-        GTag.event('outcome_required_product', product, product);
-      });
-    }
-  }, []);
 
   return (
     <>

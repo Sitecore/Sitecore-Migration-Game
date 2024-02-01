@@ -6,10 +6,12 @@ import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import * as GTag from 'lib/GTag';
 import { GetNextPrompts } from 'lib/NextPrompts';
 import { PromptService } from 'lib/PromptService';
+import { v4 as uuidv4 } from 'uuid';
 
 import { IAnswer, IPrompt } from 'models';
 import router from 'next/router';
 import { FC, useEffect, useState } from 'react';
+import { AzureProxyService } from 'services/AzureTable/AzureProxyService';
 
 interface PromptPanelProps extends LayoutProps {}
 
@@ -72,34 +74,73 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
     }
   };
 
-  const triggerNextPrompt = async () => {
-    // Next Prompt is based on Pool of Questions that are not answered yet, Collection is FIFO (First In First Out)
-    if (gameInfoContext.questionsBank?.get() !== undefined) {
-      if (gameInfoContext.questionsBank.get()!.length > 0) {
-        const questionQueue = gameInfoContext.questionsBank.get();
-        const nextPrompt = questionQueue!.shift();
-        gameInfoContext.questionsBank.set(questionQueue);
+  const processOutcomeUrl = async (answers: IAnswer[]) => {
+    setLoading(true);
 
-        setCurrentPrompt(nextPrompt);
+    // custom event tracking for "generated_outcome" event
+    await trackGenerateOutcomeEvent();
 
-        await trackPromptPageView(nextPrompt);
-      } else {
-        router.push('/outcome');
-      }
+    let jsonPayload = {
+      answers: answers,
+      avatarId: gameInfoContext.avatar?.id,
+      personaId: gameInfoContext.persona?.id,
+      themeId: gameInfoContext.theme?.id,
+    };
+
+    // Check if JSON payload (answers, etc) already exists and if it does redirect
+    const entityResult = await AzureProxyService().getByJsonProxy(JSON.stringify(jsonPayload));
+
+    if (entityResult?.result?.rowKey) {
+      return `/outcome/${entityResult.result.rowKey}`;
+    }
+
+    // JSON Payload doesn't exist so lets create it
+    const rowKey = uuidv4();
+    const postPayload = {
+      rowKey,
+      json: jsonPayload,
+    };
+
+    const createResult = await AzureProxyService().createEntityProxy(JSON.stringify(postPayload));
+
+    if (createResult.success) {
+      return `/outcome/${rowKey}`;
+    }
+
+    setLoading(false);
+  };
+
+  const triggerNextPrompt = async (answers: IAnswer[]) => {
+    const questionBank = gameInfoContext.questionsBank.get();
+
+    if (questionBank !== undefined && questionBank.length > 0) {
+      const questionQueue = gameInfoContext.questionsBank.get();
+      const nextPrompt = questionQueue!.shift();
+      gameInfoContext.questionsBank.set(questionQueue);
+
+      setCurrentPrompt(nextPrompt);
+
+      await trackPromptPageView(nextPrompt);
     } else {
-      router.push('/outcome');
+      const urlString = await processOutcomeUrl(answers);
+
+      if (urlString) {
+        router.push(urlString);
+      } else {
+        router.push('/outcome/error');
+      }
     }
   };
 
   const answerSelected = async (answer: IAnswer) => {
-    saveAnswers(answer);
+    let updatedAnswers = await saveAnswers(answer);
     await populateQuestions(answer);
 
-    triggerNextPrompt();
+    await triggerNextPrompt(updatedAnswers);
   };
 
-  const saveAnswers = (promptAnswers: IAnswer) => {
-    gameInfoContext.updateAnswers([promptAnswers]);
+  const saveAnswers = async (promptAnswers: IAnswer): Promise<IAnswer[]> => {
+    return await gameInfoContext.updateAnswers([promptAnswers]);
   };
 
   const populateQuestions = async (answers: IAnswer) => {
@@ -124,6 +165,12 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       { prompt: prompt?.id }
     );
     GTag.pageView(`/prompts/${prompt?.id}`);
+  };
+
+  const trackGenerateOutcomeEvent = async () => {
+    await tracker.TrackEvent('generated_outcome');
+
+    GTag.event('generated_outcome', 'Generated Outcome Page', 'true');
   };
 
   return (

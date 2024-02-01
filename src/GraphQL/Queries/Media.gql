@@ -1,0 +1,11 @@
+fragment MediaFragment on Media {
+  id
+  fileUrl
+  fileName
+}
+
+query GetMediaByIdQuery($id: String!) {
+  media(id: $id) {
+    ...MediaFragment
+  }
+}
