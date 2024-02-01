@@ -4,10 +4,8 @@ import { OutcomeGenerator } from 'components/Outcomes';
 import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import { FeedbackModal } from 'components/ui/FeedbackModal/FeedbackModal';
-import * as GTag from 'lib/GTag';
-import { OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 interface OutcomePanelProps extends LayoutProps {}
 
@@ -15,30 +13,6 @@ export const OutcomePanel: FC<OutcomePanelProps> = (props) => {
   const router = useRouter();
   const gameInfoContext = useGameInfoContext();
   const tracker = useEngageTracker();
-
-  useEffect(() => {
-    // Only track page if answers are present
-    if (gameInfoContext.answers && gameInfoContext.answers.length > 0) {
-      tracker.TrackPageView(
-        { page: router.asPath, channel: 'WEB', language: 'EN', currency: 'USD' },
-        {
-          answers: JSON.stringify(gameInfoContext.answers),
-        }
-      );
-
-      GTag.event('outcome_answers', 'Answers', JSON.stringify(gameInfoContext.answers));
-
-      let outcomeConditions = new OutcomeConditions(gameInfoContext);
-      const requiredProducts: TargetProduct[] = outcomeConditions.requiredProducts();
-
-      if (requiredProducts) {
-        requiredProducts.forEach((product) => {
-          tracker.TrackEvent('outcome_required_product', { requiredProduct: product });
-          GTag.event('outcome_required_product', product, product);
-        });
-      }
-    }
-  }, [gameInfoContext.answers]);
 
   return (
     <>
