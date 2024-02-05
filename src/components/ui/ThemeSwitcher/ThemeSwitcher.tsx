@@ -1,41 +1,46 @@
-import { ChakraProvider, ChakraTheme, extendTheme } from '@chakra-ui/react';
-import { withProse } from '@nikolovlazar/chakra-ui-prose';
-import sitecoreTheme from '@sitecore/blok-theme';
+import { ChakraProvider } from '@chakra-ui/react';
 import { corporateTheme } from 'chakra/theme/corporate/theme';
 import fantasyTheme from 'chakra/theme/fantasy/theme';
-import { useGameInfoContext } from 'components/Contexts';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useState, createContext } from 'react';
 
 interface ThemeSwitcherProps {
   children: React.ReactNode;
 }
 
-export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ children }) => {
-  const gameInfoContext = useGameInfoContext();
-  const [theme, setTheme] = useState<ChakraTheme | Record<string, any>>(sitecoreTheme);
+export const ThemeSwitcher = createContext<ThemeSwitcherType>({} as ThemeSwitcherType);
 
-  useEffect(() => {
-    if (gameInfoContext?.theme?.chakraTheme == 'fantasy') {
-      setTheme(
-        extendTheme(
-          fantasyTheme,
-          withProse({
-            baseStyle: {
-              p: {
-                fontFamily: 'inherit',
-              },
-            },
-          })
-        )
-      );
-    } else if (gameInfoContext?.theme?.chakraTheme == 'corporate') {
-      setTheme(corporateTheme);
-    }
-  }, [gameInfoContext?.theme]);
+export interface ThemeSwitcherType {
+  changeTheme: (themeChoice: string) => void;
+}
+
+export const useThemeSwitcher = () => React.useContext(ThemeSwitcher);
+
+
+export const ThemeSwitcherProvider: FC<ThemeSwitcherProps> = ({ children }) => {
+  const themes = {
+    "corporate": corporateTheme,
+    "fantasy": fantasyTheme
+  };
+
+  const [themeName, setThemeName] = useState<string>("corporate");
+
+  const changeTheme = (themeChoice: string) => {
+    setThemeName(themeChoice);
+  }
+
+  const currentTheme = themes[themeName as keyof typeof themes];
 
   return (
-    <>
-      <ChakraProvider theme={theme}>{children}</ChakraProvider>
-    </>
+    <ThemeSwitcher.Provider
+      value={{
+        changeTheme: (themeChoice: string) => {
+          changeTheme(themeChoice);
+        },
+      }}
+    >
+      <ChakraProvider theme={currentTheme}>
+        {children}
+      </ChakraProvider>
+    </ThemeSwitcher.Provider>
   );
 };
