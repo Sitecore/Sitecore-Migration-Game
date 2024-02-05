@@ -1,4 +1,4 @@
-import { ThemeConfig, extendTheme } from '@chakra-ui/react';
+import { ThemeConfig, extendTheme, withDefaultColorScheme  } from '@chakra-ui/react';
 import { buttonTheme } from './button';
 import { cardTheme } from './card';
 import { containerTheme } from './container';
@@ -12,7 +12,11 @@ const config: ThemeConfig = {
   initialColorMode: 'light',
 };
 
-const fantasyTheme = extendTheme({
+const fantasyTheme = extendTheme(
+  withDefaultColorScheme({
+    colorScheme: 'primary',
+  }),
+  {
   semanticTokens: {
     fonts: {
       heading: 'var(--font-fondamento)',

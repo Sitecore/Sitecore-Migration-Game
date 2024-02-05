@@ -102,7 +102,6 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                             <IconButton
                               variant={'iconButton'}
                               size={['sm']}
-                              colorScheme="neutral"
                               data-type="icon"
                               aria-label={'Start over'}
                               icon={<FaInfo size={14} />}
