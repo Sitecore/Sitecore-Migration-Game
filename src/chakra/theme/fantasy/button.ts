@@ -15,7 +15,7 @@ export const buttonTheme = defineStyleConfig({
   variants: {
     iconOnly: {
       background: 'none',
-      backgroundImage: '/fantasy/icon-button-default.svg',
+      //backgroundImage: '/fantasy/icon-button-default.svg',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'contain',
       backgroundPosition: 'center center',
@@ -48,24 +48,25 @@ export const buttonTheme = defineStyleConfig({
       overflow: 'hidden',
       color: '#ffffff',
       position: 'relative',
+      background: '#522d5b',
+      fontFamily: 'var(--font-fondamento)',
+      paddingX: '1.5em',
+      clipPath: 'polygon(5% 50%,10% 0,90% 0,95% 50%,90% 90%,90% 90%,5% 90%,10% 90%,5% 50%)',
       _hover: {
-        boxShadow: '1px 1px 25px 10px rgba(146, 148, 248, 0.4)',
-        _before: {
-          left: '100%',
-        },
-      },
-      _before: {
-        content: `''`,
-        position: 'absolute',
-        top: 0,
-        left: '-100%',
-        width: '100%',
-        height: '100%',
-        background: 'linear-gradient(120deg,transparent,rgba(146, 148, 248, 0.4),transparent)',
-        transition: 'all 650ms',
+        backgroundImage: 'linear-gradient(90deg, rgba(41,50,60,1) 0%, rgba(38,152,31,.6) 50%, rgba(78,67,118,1) 100%)',
       },
       _active: {
         backgroundImage: 'linear-gradient(90deg, rgba(41,50,60,1) 0%, rgba(38,152,31,1) 50%, rgba(78,67,118,1) 100%)',
+      },
+    },
+    avatar: {
+      borderRadius: '50%',
+      boxShadow: '0 4px 15px 0 rgba(45, 54, 65, 0.5)',
+      _active: {
+        borderColor: '#522d5b',
+        borderWidth: '4px',
+        borderStyle: 'outset',
+        boxShadow: '0 0 5px 5px #26981f',
       },
     },
   },

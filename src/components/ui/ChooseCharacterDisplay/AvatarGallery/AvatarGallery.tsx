@@ -31,7 +31,6 @@ export const AvatarGallery: FC<AvatarGalleryProps> = ({ avatars, toggledAvatarId
                     shadow={'md'}
                     width={['60px', '80px', '100px']}
                     height={['60px', '80px', '100px']}
-                    boxShadow={isToggled ? '0 0 5px 5px #5548D9' : '0 4px 15px 0 rgba(45, 54, 65, 0.5)'}
                     isActive={avatar.id === toggledAvatarId}
                     variant={'avatar'}
                   />
