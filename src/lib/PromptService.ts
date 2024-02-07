@@ -1,15 +1,14 @@
 import { chOneService } from 'lib/CHOneService';
 import { IPrompt, IResult } from 'models';
-import { GetAllPromptsQuery, GetPromptsByThemeAndPersonaQuery } from '../GraphQL/Queries/Prompts.gql';
+import { GetAllPromptsQuery, GetPromptsByPersonaQuery } from '../GraphQL/Queries/Prompts.gql';
 
 export const PromptService = () => {
-  const GetAllPromptsByThemePersona = async (
-    themeId: string,
+  const GetAllPromptsByPersona = async (
     personaId: string
   ): Promise<IResult<IPrompt[]> | null> => {
     const { data, error } = await chOneService().query({
-      query: GetPromptsByThemeAndPersonaQuery,
-      variables: { themeId: themeId, personaId: personaId },
+      query: GetPromptsByPersonaQuery,
+      variables: { personaId: personaId },
       fetchPolicy: 'no-cache', // Disabled Caching
     });
 
@@ -36,5 +35,5 @@ export const PromptService = () => {
     return results;
   };
 
-  return { GetAllPrompts, GetAllPromptsByThemePersona };
+  return { GetAllPrompts, GetAllPromptsByPersona };
 };

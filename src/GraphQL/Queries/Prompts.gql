@@ -71,8 +71,8 @@ query GetAllPromptsQuery {
   }
 }
 
-query GetPromptsByThemeAndPersonaQuery($themeId: ID!, $personaId: ID!) {
-  allPrompt(where: { AND: [{ theme: { prompt_ids: $themeId } }, { persona: { prompt_ids: $personaId } }] }) {
+query GetPromptsByPersonaQuery($personaId: ID!) {
+  allPrompt(where: { persona: { prompt_ids: $personaId } } ) {
     results {
       ...PromptDetails
     }
