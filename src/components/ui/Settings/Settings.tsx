@@ -45,7 +45,7 @@ export const Settings: FC<SettingsProps> = () => {
 
     //After loading theme data, skip theme selection if there are no other themes.
     if (themes?.length == 1) {
-      handleSettingChange(themes[0].id);
+    handleSettingChange(themes[0].id);
     }
   }, []);
 
@@ -57,7 +57,6 @@ export const Settings: FC<SettingsProps> = () => {
 
   const handleSettingChange = async (newTheme: string) => {
     setLoading(true);
-    await gameInfoContext.updateTheme(newTheme);
 
     await tracker.TrackEvent('THEME_CHANGE', { theme: newTheme });
     GTag.event('theme_change', 'Theme', newTheme);
@@ -67,13 +66,6 @@ export const Settings: FC<SettingsProps> = () => {
 
     if (data?.results !== undefined) {
       setPersonas(data.results);
-    }
-
-    // Load Outcome content
-    // TODO: I'm not sure this belongs at this point in the app, shouldn't this load when the outcome page loads?
-    const outcomeData = await outcomeService.GetOutcomeByTheme(newTheme);
-    if (outcomeData?.results !== undefined) {
-      setOutcomes(outcomeData.results);
     }
 
     //Load avatars

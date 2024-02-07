@@ -1,7 +1,9 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { corporateTheme } from 'chakra/theme/corporate/theme';
 import fantasyTheme from 'chakra/theme/fantasy/theme';
+import { useEngageTracker } from 'components/Contexts';
 import React, { FC, useState, createContext } from 'react';
+import * as GTag from 'lib/GTag';
 
 interface ThemeSwitcherProps {
   children: React.ReactNode;
@@ -11,12 +13,14 @@ export const ThemeSwitcher = createContext<ThemeSwitcherType>({} as ThemeSwitche
 
 export interface ThemeSwitcherType {
   changeTheme: (themeChoice: string) => void;
+  currentTheme: string;
 }
 
 export const useThemeSwitcher = () => React.useContext(ThemeSwitcher);
 
-
 export const ThemeSwitcherProvider: FC<ThemeSwitcherProps> = ({ children }) => {
+  const tracker = useEngageTracker();
+  
   const themes = {
     "corporate": corporateTheme,
     "fantasy": fantasyTheme
@@ -24,11 +28,18 @@ export const ThemeSwitcherProvider: FC<ThemeSwitcherProps> = ({ children }) => {
 
   const [themeName, setThemeName] = useState<string>("corporate");
 
-  const changeTheme = (themeChoice: string) => {
+  const changeTheme = async (themeChoice: string) => {
+    await tracker.TrackEvent('THEME_CHANGE', { theme: themeChoice });
+    GTag.event('theme_change', 'Theme', themeChoice);
+
     setThemeName(themeChoice);
   }
 
-  const currentTheme = themes[themeName as keyof typeof themes];
+  const currentTheme = () => {
+    return themeName;
+  }
+
+  const theme = themes[themeName as keyof typeof themes];
 
   return (
     <ThemeSwitcher.Provider
@@ -36,9 +47,10 @@ export const ThemeSwitcherProvider: FC<ThemeSwitcherProps> = ({ children }) => {
         changeTheme: (themeChoice: string) => {
           changeTheme(themeChoice);
         },
+        currentTheme: currentTheme()
       }}
     >
-      <ChakraProvider theme={currentTheme}>
+      <ChakraProvider theme={theme}>
         {children}
       </ChakraProvider>
     </ThemeSwitcher.Provider>
