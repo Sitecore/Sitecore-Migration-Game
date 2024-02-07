@@ -49,6 +49,11 @@ const variants = {
       _dark: {},
     },
   }),
+  elevated: definePartsStyle({
+    container: {
+      backgroundColor: 'white'
+    }
+  }),
 };
 
 export const cardTheme = defineMultiStyleConfig({ variants });

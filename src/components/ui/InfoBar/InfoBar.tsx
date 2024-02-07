@@ -27,18 +27,6 @@ export const InfoBar: FC<InfoBarProps> = ({ remainingQuestions, isSolution = fal
         )}
       </GridItem>
       <GridItem colSpan={6}>
-        {gameInfoContext.theme?.image?.results !== undefined && (
-          <AvatarGroup spacing="xs">
-            <Avatar
-              size={'xl'}
-              src={gameInfoContext.theme.image!.results[0].fileUrl}
-              title={gameInfoContext.theme.image!.results[0].fileName ?? ''}
-            />
-            <div style={{ flex: 1 }}>
-              <Text>{gameInfoContext.theme.name}</Text>
-            </div>
-          </AvatarGroup>
-        )}
         {gameInfoContext.persona !== undefined && gameInfoContext.avatar !== undefined && (
           <AvatarGroup spacing="xs">
             <Avatar size="xl" src={gameInfoContext.avatar?.fileUrl} title={gameInfoContext.avatar?.fileName ?? ''} />

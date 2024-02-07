@@ -1,7 +1,7 @@
 import { Box, Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
-import { RichTextOutput } from 'components/ui';
+import { RichTextOutput, useThemeSwitcher } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
 import React, { FC } from 'react';
 
@@ -44,10 +44,6 @@ export const CurrentPrompt: FC<PromptProps> = ({ prompt, answerSelected }) => {
         margin={0}
         padding={[0, 5]}
         alignItems={'center'}
-        backgroundColor={{
-          base: gameInfoContext.theme?.chakraTheme == 'corporate' ? 'whiteAlpha.700' : 'blackAlpha.500',
-          md: gameInfoContext.theme?.chakraTheme == 'corporate' ? 'white' : 'blackAlpha.500',
-        }}
       >
         <CardBody>
           {prompt?.bodyText && (

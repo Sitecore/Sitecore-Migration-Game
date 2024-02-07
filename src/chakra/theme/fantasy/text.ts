@@ -6,11 +6,7 @@ export const textTheme = defineStyleConfig({
   baseStyle,
   variants: {
     customFont: {
-      color: 'black',
-      fontFamily: 'var(--font-fondamento)',
-    },
-    achievements: {
-      color: 'black',
+      color: 'white',
       fontFamily: 'var(--font-fondamento)',
     },
   },

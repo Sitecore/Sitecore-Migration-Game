@@ -6,23 +6,10 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 
 const elevated = definePartsStyle({
   container: {
-    //backdropFilter: { base: 'blur(24px)' },
-    backgroundColor: { base: '#00000090' },
+    backgroundColor: 'blackAlpha.700',
     fontFamily: 'var(--font-fondamento)',
     color: 'white',
-    //opacity: { base: '0.2', xl: '1' },
-  },
-  header: {
-    color: 'chakra-body-text',
-    _dark: {},
-  },
-  body: {
-    color: 'chakra-body-text',
-    _dark: {},
-  },
-  footer: {
-    color: 'chakra-body-text',
-    _dark: {},
+    fontcolor: 'white',
   },
 });
 
