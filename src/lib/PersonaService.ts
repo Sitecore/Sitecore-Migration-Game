@@ -1,5 +1,5 @@
 import { IPersona, IResult } from 'models';
-import { GetPersonaByIdQuery, GetPersonasByThemeIdQuery } from '../GraphQL/Queries/Personas.gql';
+import { GetPersonaByIdQuery, GetPersonasQuery } from '../GraphQL/Queries/Personas.gql';
 import { chOneService } from './CHOneService';
 
 export const PersonaService = () => {
@@ -16,10 +16,9 @@ export const PersonaService = () => {
     return results;
   };
 
-  const GetPersonasByTheme = async (themeId: string): Promise<IResult<IPersona[]> | undefined> => {
+  const GetPersonas = async () => {
     const { error, data } = await chOneService().query({
-      query: GetPersonasByThemeIdQuery,
-      variables: { id: themeId },
+      query: GetPersonasQuery,
     });
 
     if (error) {
@@ -33,5 +32,5 @@ export const PersonaService = () => {
     return results;
   };
 
-  return { GetPersonaById, GetPersonasByTheme };
+  return { GetPersonaById, GetPersonas };
 };

@@ -1,7 +1,6 @@
 import { Container } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { Loading, ThemeList } from 'components/ui';
-import * as GTag from 'lib/GTag';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
@@ -21,7 +20,6 @@ export const Settings: FC<SettingsProps> = () => {
   const [showCharacterOptions, setShowCharacterOptions] = useState<Boolean>(false);
   const [themes, setThemes] = useState<ITheme[] | undefined>();
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
-  const [outcomes, setOutcomes] = useState<IOutcome[] | undefined>();
   const [avatars, setAvatars] = useState<IImage[] | undefined>();
   const [loading, setLoading] = useState<Boolean>(false);
   const themeService = ThemeService();
@@ -58,11 +56,8 @@ export const Settings: FC<SettingsProps> = () => {
   const handleSettingChange = async (newTheme: string) => {
     setLoading(true);
 
-    await tracker.TrackEvent('THEME_CHANGE', { theme: newTheme });
-    GTag.event('theme_change', 'Theme', newTheme);
-
     // Load Personas
-    const data = await personaService.GetPersonasByTheme(newTheme);
+    const data = await personaService.GetPersonas();
 
     if (data?.results !== undefined) {
       setPersonas(data.results);
