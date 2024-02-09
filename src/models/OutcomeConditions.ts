@@ -209,7 +209,7 @@ export class OutcomeConditions {
    * Looks at selections to determine if some sort of marketing automation feature is in use
    */
   isMarketingAutomation(): boolean {
-    return this.xpFeaturesUsed.forms || this.xpFeaturesUsed.exm || this.xpFeaturesUsed.marketingAutomation;
+    return this.xpFeaturesUsed.exm || this.xpFeaturesUsed.marketingAutomation;
   }
 
   /**
