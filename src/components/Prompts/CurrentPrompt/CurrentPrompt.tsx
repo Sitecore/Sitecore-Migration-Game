@@ -1,7 +1,7 @@
 import { Box, Card, CardBody, CardFooter, Text } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { ButtonGroup, MultiSelect } from 'components/Prompts';
-import { RichTextOutput, useThemeSwitcher } from 'components/ui';
+import { RichTextOutput } from 'components/ui';
 import { IAnswer, IOption, IPrompt } from 'models';
 import React, { FC } from 'react';
 

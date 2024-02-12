@@ -1,7 +1,7 @@
 import { Center, Stack } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { CurrentPrompt } from 'components/Prompts';
-import { HexagonCollection, LayoutProps, TwoColumnLayout, useThemeSwitcher } from 'components/ui';
+import { HexagonCollection, LayoutProps, TwoColumnLayout, useThemeContext } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import * as GTag from 'lib/GTag';
 import { GetNextPrompts } from 'lib/NextPrompts';
@@ -13,7 +13,7 @@ import router from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { AzureProxyService } from 'services/AzureTable/AzureProxyService';
 
-interface PromptPanelProps extends LayoutProps {}
+interface PromptPanelProps extends LayoutProps { }
 
 const defaultBackground = 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/1821f8838e284d6fad1d483d41877aba';
 const fantasyBackground = 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4';
@@ -23,7 +23,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
   gameInfoContext.updatePersona("HA90KhNvLEueaZO2_zsCrw");
 
 
-  const themeSwitcher = useThemeSwitcher();
+  const themeContext = useThemeContext();
   const tracker = useEngageTracker();
   const [loading, setLoading] = useState(true);
   const [prompts, setPrompts] = useState<IPrompt[]>([]);
@@ -199,8 +199,8 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       backgroundImage={
         currentPrompt?.background?.results[0] === undefined || currentPrompt.background.results[0].fileUrl === ''
           ? defaultBackground
-          : themeSwitcher.currentTheme === 'fantasy' 
-          ? fantasyBackground : currentPrompt.background.results[0].fileUrl
+          : themeContext.currentTheme === 'fantasy'
+            ? fantasyBackground : currentPrompt.background.results[0].fileUrl
       }
       loading={loading}
     ></TwoColumnLayout>

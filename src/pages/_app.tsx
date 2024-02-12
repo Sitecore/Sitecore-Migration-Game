@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/react';
 import { EngageTrackerProvider, GameInfoProvider } from 'components/Contexts';
-import { ThemeSwitcherProvider } from 'components/ui';
+import { ThemeProvider } from 'components/ui';
 import * as GTag from 'lib/GTag';
 import { AppConfig } from 'models/Config';
 import { AppProps } from 'next/app';
@@ -60,9 +60,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Analytics />
       <EngageTrackerProvider>
         <GameInfoProvider>
-          <ThemeSwitcherProvider>
+          <ThemeProvider>
             <Component {...pageProps} />
-          </ThemeSwitcherProvider>
+          </ThemeProvider>
         </GameInfoProvider>
       </EngageTrackerProvider>
     </>

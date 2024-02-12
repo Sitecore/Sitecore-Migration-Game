@@ -1,10 +1,10 @@
 import { Container } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
-import { Loading, ThemeList } from 'components/ui';
+import { Loading } from 'components/ui';
 import { OutcomeService } from 'lib/OutcomeService';
 import { PersonaService } from 'lib/PersonaService';
 import { ThemeService } from 'lib/ThemeService';
-import { IImage, IOutcome, IPersona, ITheme } from 'models';
+import { IImage, IPersona, ITheme } from 'models';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { ChooseCharacter } from '../ChooseCharacterDisplay/ChooseCharacter';
 
@@ -17,7 +17,6 @@ export const Settings: FC<SettingsProps> = () => {
   const gameInfoContext = useGameInfoContext();
   const tracker = useEngageTracker();
 
-  const [showCharacterOptions, setShowCharacterOptions] = useState<Boolean>(false);
   const [themes, setThemes] = useState<ITheme[] | undefined>();
   const [personas, setPersonas] = useState<IPersona[] | undefined>();
   const [avatars, setAvatars] = useState<IImage[] | undefined>();
@@ -69,7 +68,6 @@ export const Settings: FC<SettingsProps> = () => {
       setAvatars(themeData.avatarGallery?.results);
     }
 
-    setShowCharacterOptions(true);
     setLoading(false);
   };
 
@@ -79,16 +77,8 @@ export const Settings: FC<SettingsProps> = () => {
         <>
           <Loading message="Loading settings..." />
         </>
-      ) : (
-        <>
-          {showCharacterOptions ? (
-            <ChooseCharacter avatars={avatars} personas={personas} />
-          ) : (
-            <>
-              <ThemeList themes={themes} handleThemeChange={handleSettingChange} classStyles={null} />
-            </>
-          )}
-        </>
+      ) : (            
+        <ChooseCharacter avatars={avatars} personas={personas} />
       )}
     </Container>
   );
