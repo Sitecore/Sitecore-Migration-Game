@@ -1,12 +1,12 @@
-import { Box, Button, HStack, IconButton, Link, Show, Tooltip, Select } from '@chakra-ui/react';
-import { useGameInfoContext } from 'components/Contexts';
+import { Box, Button, HStack, IconButton, Link, Show, Tooltip } from '@chakra-ui/react';
 import Image from 'next/image';
 import Router from 'next/router';
 import { FC } from 'react';
 import { MdCached, MdOutlineMarkChatRead, MdSave } from 'react-icons/md';
+
 import { InfoModal } from '../InfoModal/InfoModal';
 import { ProgressTracker } from '../ProgressTracker/ProgressTracker';
-import { useThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
+import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 
 interface NavigationProps {
   showProgressBar?: boolean;
@@ -22,8 +22,6 @@ export const Navigation: FC<NavigationProps> = ({
   showSaveButton = true,
   showFeedbackButton = true,
 }) => {
-  const gameInfoContext = useGameInfoContext();
-  const themeSwitcher = useThemeSwitcher();
 
   return (
     <>
@@ -45,9 +43,9 @@ export const Navigation: FC<NavigationProps> = ({
                 {showFeedbackButton && (
                   <Show
                     above={
-                        showProgressBar && showResetButton
-                          ? 'md'
-                          : 'sm'
+                      showProgressBar && showResetButton
+                        ? 'md'
+                        : 'sm'
                     }
                   >
                     <Tooltip label="Leave Feedback" aria-label="Leave Feedback">
@@ -92,11 +90,7 @@ export const Navigation: FC<NavigationProps> = ({
 
                 <InfoModal />
               </HStack>
-              <Select onChange={(event) => themeSwitcher.changeTheme(event.target.selectedOptions[0].value)}>
-                <option selected hidden disabled value="">Change Theme</option>
-                <option value='fantasy'>Fantasy</option>
-                <option value='corporate'>Corporate</option>
-              </Select>
+                <ThemeSwitcher />
             </Box>
           </HStack>
         </Box>

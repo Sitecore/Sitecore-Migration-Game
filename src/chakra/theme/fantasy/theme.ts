@@ -6,6 +6,7 @@ import { headingTheme } from './headings';
 import { progressTheme } from './progress';
 import { textTheme } from './text';
 import { tooltipTheme } from './tooltip';
+import { selectTheme } from './select';
 
 const fantasyTheme = extendTheme(
   withDefaultColorScheme({
@@ -27,6 +28,8 @@ const fantasyTheme = extendTheme(
       Tooltip: tooltipTheme,
       Card: cardTheme,
       Button: buttonTheme,
+      Select: selectTheme,
+      Option: selectTheme
     },
   });
 
