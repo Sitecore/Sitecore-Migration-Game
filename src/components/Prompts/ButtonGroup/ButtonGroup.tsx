@@ -53,7 +53,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                         <Popover placement="top-start" closeOnBlur>
                           <PopoverTrigger>
                             <IconButton
-                              variant='solid'
+                              variant='ghost'
                               size={['md']}
                               colorScheme="neutral"
                               data-type="icon"
