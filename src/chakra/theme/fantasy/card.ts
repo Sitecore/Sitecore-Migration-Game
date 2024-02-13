@@ -52,6 +52,12 @@ const charcoal = definePartsStyle({
   },
 });
 
+const avatarDisplay = definePartsStyle({
+  container: {
+    background: 'transparent',
+  },
+});
+
 export const cardTheme = defineMultiStyleConfig({
-  variants: { elevated, unstyled, charcoal },
+  variants: { elevated, unstyled, charcoal, avatarDisplay },
 });

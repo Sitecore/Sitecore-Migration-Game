@@ -1,5 +1,5 @@
 import React from 'react'
-import { Select, Text, Show } from '@chakra-ui/react';
+import { Select } from '@chakra-ui/react';
 import { useThemeContext } from 'components/Contexts/ThemeContext/ThemeContext';
 
 export default function () {
