@@ -88,9 +88,9 @@ export const Navigation: FC<NavigationProps> = ({
                   </Tooltip>
                 )}
 
+                <ThemeSwitcher />
                 <InfoModal />
               </HStack>
-                <ThemeSwitcher />
             </Box>
           </HStack>
         </Box>
