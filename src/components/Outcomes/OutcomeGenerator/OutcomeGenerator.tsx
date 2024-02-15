@@ -6,18 +6,21 @@ import {
   AccordionPanel,
   Box,
   Heading,
+  Button,
   SimpleGrid,
+  HStack,
   Text,
 } from '@chakra-ui/react';
 import { useGameInfoContext } from 'components/Contexts';
 import { ConditionalResponse } from 'components/Outcomes';
 import { LinkCard, Loading, RichTextOutput, YouTubeVideoDisplay } from 'components/ui';
+import ShareModal from 'components/ui/ShareModal/ShareModal';
 import { OutcomeService } from 'lib/OutcomeService';
 import { IOutcome } from 'models';
 import { ExperienceEdgeOption, OutcomeConditions, TargetProduct } from 'models/OutcomeConditions';
 import { FC, useCallback, useEffect, useState } from 'react';
 
-interface OutcomeGeneratorProps {}
+interface OutcomeGeneratorProps { }
 
 export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   const gameInfoContext = useGameInfoContext();
@@ -70,9 +73,12 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
 
   return (
     <>
-      <Heading size="lg" mb={2}>
-        {outcome.title}
-      </Heading>
+      <HStack justify={'space-between'}>
+        <Heading size="lg" mb={2}>
+          {outcome.title}
+        </Heading>
+        <ShareModal />
+      </HStack>
 
       <Text>
         <RichTextOutput content={outcome.productsIntro} />
