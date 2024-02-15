@@ -28,7 +28,6 @@ export const OutcomeGenerator: FC<OutcomeGeneratorProps> = () => {
   // Pull Outcome Content here instead on load
   const loadOutcomeResults = useCallback(async () => {
     setLoading(true);
-    // TODO: Default to Corporate theme, will need to fix this line when theme switching is implemented again
     const outcomeResult = await outcomeService.GetOutcome();
 
     if (outcomeResult?.results) {
