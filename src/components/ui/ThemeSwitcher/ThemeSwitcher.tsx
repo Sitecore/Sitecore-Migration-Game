@@ -9,6 +9,11 @@ export default function () {
 
   return (
     <>
+    </>
+  )
+
+  return (
+    <>
       <Menu>
         <Tooltip label="Change Theme" aria-label="Change Theme">
           <MenuButton colorScheme='neutral' variant="solid" as={Button}>
