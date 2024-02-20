@@ -45,7 +45,8 @@ export default function ShareModal() {
               </RedditShareButton>
               <EmailShareButton
                 url={shareUrl}
-                title={shareText}>
+                subject='Sitecore Migration Advisor Results'
+                body={shareText}>
                 <EmailIcon size={32} round={true} />
               </EmailShareButton>
               <LinkedinShareButton
