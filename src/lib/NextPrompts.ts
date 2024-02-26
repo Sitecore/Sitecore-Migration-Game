@@ -4,7 +4,7 @@ import { IAnswer, IOption, IPrompt } from 'models';
 export const GetNextPrompts = async (
   currentPrompt: IPrompt | undefined,
   currentPromptAnswer: IAnswer,
-  allThemePrompts: IPrompt[],
+  allPrompts: IPrompt[],
   questionsBank: IPrompt[],
   answersBank: IAnswer[]
 ): Promise<IPrompt[] | undefined> => {
@@ -17,7 +17,7 @@ export const GetNextPrompts = async (
 
     const nextPrompts: IPrompt[] | undefined = await hydrateAndFilterOutNextPrompts(
       promptIds,
-      allThemePrompts,
+      allPrompts,
       questionsBank,
       answersBank
     );

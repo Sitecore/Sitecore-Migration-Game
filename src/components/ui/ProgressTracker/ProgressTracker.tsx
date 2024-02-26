@@ -39,7 +39,6 @@ export const ProgressTracker: FC<ProgressTrackerProps> = () => {
         paddingBottom={{ base: '3px', md: '6px' }}
         size="md"
         variant={'progressBar'}
-        background={gameInfoContext.theme?.chakraTheme == 'fantasy' ? 'transparent' : 'whiteAlpha.300'}
       />
     </>
   );

@@ -35,7 +35,7 @@ export const InfoModal: FC<InfoModalProps> = () => {
       <Tooltip label="About" aria-label="About the application">
         <IconButton
           onClick={onOpen}
-          variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
+          variant='ghost'
           size={'md'}
           button-type="icon"
           colorScheme="neutral"

@@ -32,8 +32,8 @@ query GetPersonaByIdQuery($id: String!) {
   }
 }
 
-query GetPersonasByThemeIdQuery($id: ID!) {
-  allPersona(where: { theme: { persona_ids: $id } }) {
+query GetPersonasQuery {
+  allPersona {
     results {
       ...PersonaFragment
     }

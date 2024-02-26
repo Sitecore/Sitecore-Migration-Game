@@ -3,28 +3,61 @@ import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(cardAnatomy.keys);
 
+
 const elevated = definePartsStyle({
   container: {
-    //backdropFilter: { base: 'blur(24px)' },
-    backgroundColor: { base: '#00000090' },
+    backgroundColor: 'blackAlpha.700',
     fontFamily: 'var(--font-fondamento)',
     color: 'white',
-    //opacity: { base: '0.2', xl: '1' },
+    fontcolor: 'white',
   },
-  header: {},
-  body: {},
-  footer: {},
 });
 
 const unstyled = definePartsStyle({
   container: {
     background: 'none',
   },
-  header: {},
-  body: {},
-  footer: {},
+  header: {
+    color: 'chakra-body-text',
+    _dark: {},
+  },
+  body: {
+    color: 'chakra-body-text',
+    _dark: {},
+  },
+  footer: {
+    color: 'chakra-body-text',
+    _dark: {},
+  },
+});
+
+const charcoal = definePartsStyle({
+  container: {
+    shadow: 'base',
+    background: '#545859',
+    borderRadius: '3xl',
+    color: 'white',
+  },
+  header: {
+    color: 'chakra-body-text',
+    _dark: {},
+  },
+  body: {
+    color: 'chakra-body-text',
+    _dark: {},
+  },
+  footer: {
+    color: 'chakra-body-text',
+    _dark: {},
+  },
+});
+
+const avatarDisplay = definePartsStyle({
+  container: {
+    background: 'transparent',
+  },
 });
 
 export const cardTheme = defineMultiStyleConfig({
-  variants: { elevated, unstyled },
+  variants: { elevated, unstyled, charcoal, avatarDisplay },
 });

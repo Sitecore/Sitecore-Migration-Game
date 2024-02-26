@@ -58,7 +58,7 @@ export const ChooseCharacter: FC<ChooseCharacterProps> = ({ avatars, personas })
           isDisabled={chosenAvatar == undefined || chosenPersona == undefined}
           onClick={() => handleStartGame()}
         >
-          {gameInfoContext.theme?.startButtonText ?? 'Save Changes and Start Your Migration'}
+          Save Changes and Start Your Migration
         </Button>
       </Center>
     </>

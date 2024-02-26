@@ -61,7 +61,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
             spacing="md"
             columnGap={10}
             alignItems={'left'}
-            marginLeft={{ base: gameInfoContext.theme?.chakraTheme == 'fantasy' ? '8px' : '0', sm: 0, md: 5, lg: -5 }}
+            marginLeft={{ base: '8px', sm: 0, md: 5, lg: -5 }}
           >
             {options.map((option: IOption, idx) => (
               <React.Fragment key={idx}>
@@ -100,9 +100,8 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                         <Popover placement="top-start">
                           <PopoverTrigger>
                             <IconButton
-                              variant={'iconButton'}
+                              variant='ghost'
                               size={['sm']}
-                              colorScheme="neutral"
                               data-type="icon"
                               aria-label={'Start over'}
                               icon={<FaInfo size={14} />}
@@ -110,7 +109,7 @@ export const MultiSelect: FC<MultiSelectProps> = ({ currentPrompt, options, mult
                           </PopoverTrigger>
                           <PopoverContent>
                             <PopoverArrow />
-                            <PopoverBody>{option.tooltip}</PopoverBody>
+                            <PopoverBody color='black'>{option.tooltip}</PopoverBody>
                           </PopoverContent>
                         </Popover>
                       </HStack>

@@ -1,41 +1,30 @@
-import { ChakraProvider, ChakraTheme, extendTheme } from '@chakra-ui/react';
-import { withProse } from '@nikolovlazar/chakra-ui-prose';
-import sitecoreTheme from '@sitecore/blok-theme';
-import { corporateTheme } from 'chakra/theme/corporate/theme';
-import fantasyTheme from 'chakra/theme/fantasy/theme';
-import { useGameInfoContext } from 'components/Contexts';
-import { FC, useEffect, useState } from 'react';
+import React from 'react'
+import { Menu, MenuButton, MenuItem, MenuList, Button, Tooltip } from '@chakra-ui/react';
+import { useThemeContext } from 'components/Contexts/ThemeContext/ThemeContext';
+import { MdColorLens } from "react-icons/md";
 
-interface ThemeSwitcherProps {
-  children: React.ReactNode;
-}
+export default function () {
 
-export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ children }) => {
-  const gameInfoContext = useGameInfoContext();
-  const [theme, setTheme] = useState<ChakraTheme | Record<string, any>>(sitecoreTheme);
-
-  useEffect(() => {
-    if (gameInfoContext?.theme?.chakraTheme == 'fantasy') {
-      setTheme(
-        extendTheme(
-          fantasyTheme,
-          withProse({
-            baseStyle: {
-              p: {
-                fontFamily: 'inherit',
-              },
-            },
-          })
-        )
-      );
-    } else if (gameInfoContext?.theme?.chakraTheme == 'corporate') {
-      setTheme(corporateTheme);
-    }
-  }, [gameInfoContext?.theme]);
+  const themeContext = useThemeContext();
 
   return (
     <>
-      <ChakraProvider theme={theme}>{children}</ChakraProvider>
     </>
-  );
-};
+  )
+
+  return (
+    <>
+      <Menu>
+        <Tooltip label="Change Theme" aria-label="Change Theme">
+          <MenuButton colorScheme='neutral' variant="solid" as={Button}>
+            <MdColorLens />
+          </MenuButton>
+        </Tooltip>
+        <MenuList>
+          <MenuItem onClick={() => themeContext.changeTheme('corporate')}>Corporate</MenuItem>
+          <MenuItem onClick={() => themeContext.changeTheme('fantasy')}>👑 Fantasy</MenuItem>
+        </MenuList>
+      </Menu>
+    </>
+  )
+}

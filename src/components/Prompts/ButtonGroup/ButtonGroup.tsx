@@ -53,7 +53,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                         <Popover placement="top-start" closeOnBlur>
                           <PopoverTrigger>
                             <IconButton
-                              variant={'iconButton'}
+                              variant='ghost'
                               size={['md']}
                               colorScheme="neutral"
                               data-type="icon"
@@ -63,7 +63,7 @@ export const ButtonGroup: FC<IButtonGroupProps> = ({ options, optionSelectEvent 
                           </PopoverTrigger>
                           <PopoverContent>
                             <PopoverArrow />
-                            <PopoverBody>{o.tooltip}</PopoverBody>
+                            <PopoverBody color="black">{o.tooltip}</PopoverBody>
                           </PopoverContent>
                         </Popover>
                       </HStack>
