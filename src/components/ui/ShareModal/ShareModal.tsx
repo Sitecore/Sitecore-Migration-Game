@@ -19,7 +19,7 @@ export default function ShareModal() {
 
   return (
     <div>
-      <Button variant={'ghost'} onClick={onOpen}>Share</Button>
+      <Button onClick={onOpen}>Share</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -27,7 +27,7 @@ export default function ShareModal() {
           <ModalHeader>Share Your Migration Advisor Results</ModalHeader>
           <ModalCloseButton />
           <ModalBody mb={2}>
-            <HStack mb={2} justifyContent={'center'}>
+            <HStack mb={2} justifyContent={'center'} gap={4} >
               <WhatsappShareButton
                 url={shareUrl}
                 title={shareText}>
