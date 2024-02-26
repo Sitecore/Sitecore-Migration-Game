@@ -19,7 +19,7 @@ export default function ShareModal() {
 
   return (
     <div>
-      <Button onClick={onOpen}>Share</Button>
+      <Button id='shareButton' onClick={onOpen}>Share</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

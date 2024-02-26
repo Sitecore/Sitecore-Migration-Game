@@ -1,5 +1,5 @@
 describe('Outcome Page', () => {
-  it('XM Cloud should be the only product', () => {
+  it('XM Cloud should be the only product and share button exists', () => {
     cy.visit('/');
     cy.get('#start').click();
     cy.get('[value="Developer"]').click();
@@ -16,6 +16,9 @@ describe('Outcome Page', () => {
     cy.get('.chakra-modal__close-btn').click();
     cy.get('#required-products').should('exist').children().should('have.length', 1);
     cy.get('#required-products').children().should('contain', 'XM Cloud');
+    cy.get('#shareButton').click();
+    cy.get('header').contains('Share Your Migration Advisor Results').should('exist');
+
   });
 
   it('multiple required products', () => {
