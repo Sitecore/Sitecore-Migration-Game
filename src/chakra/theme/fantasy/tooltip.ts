@@ -16,6 +16,7 @@ const baseStyle = defineStyle({
   backgroundImage: '/fantasy/tooltip.svg',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'contain',
+  fontcolor: 'black'
 });
 
 export const tooltipTheme = defineStyleConfig({

@@ -27,7 +27,7 @@ export default function AvatarDisplay({ fileUrl, name }: AvatarDisplayProps) {
         width="100%"
         height="50px"
         position="relative"
-        variant="charcoal"
+        variant="avatarDisplay"
       >
         <AbsoluteCenter axis="both">
           <Heading size="sm" variant={'userName'}>

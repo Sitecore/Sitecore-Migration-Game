@@ -33,16 +33,10 @@ fragment OutcomeDetails on Outcome {
   aspnetHeadlessIntro
 }
 
-query GetOutcomeByThemeIdQuery($id: ID!) {
-  allOutcome(where: { themes: { outcome_ids: $id } }) {
+query GetOutcomeQuery {
+  allOutcome {
     results {
       ...OutcomeDetails
     }
-  }
-}
-
-query GetOutcomeByIdQuery($id: String!) {
-  outcome(id: $id) {
-    ...OutcomeDetails
   }
 }

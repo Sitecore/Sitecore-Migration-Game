@@ -1,7 +1,7 @@
 import { Center, Stack } from '@chakra-ui/react';
 import { useEngageTracker, useGameInfoContext } from 'components/Contexts';
 import { CurrentPrompt } from 'components/Prompts';
-import { HexagonCollection, LayoutProps, TwoColumnLayout } from 'components/ui';
+import { HexagonCollection, LayoutProps, TwoColumnLayout, useThemeContext } from 'components/ui';
 import AvatarDisplay from 'components/ui/AvatarDisplay/AvatarDisplay';
 import * as GTag from 'lib/GTag';
 import { GetNextPrompts } from 'lib/NextPrompts';
@@ -13,10 +13,17 @@ import router from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { AzureProxyService } from 'services/AzureTable/AzureProxyService';
 
-interface PromptPanelProps extends LayoutProps {}
+interface PromptPanelProps extends LayoutProps { }
+
+const defaultBackground = 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/1821f8838e284d6fad1d483d41877aba';
+const fantasyBackground = 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4';
 
 export const PromptPanel: FC<PromptPanelProps> = (props) => {
-  const gameInfoContext = useGameInfoContext();
+  let gameInfoContext = useGameInfoContext();
+  gameInfoContext.updatePersona("HA90KhNvLEueaZO2_zsCrw");
+
+
+  const themeContext = useThemeContext();
   const tracker = useEngageTracker();
   const [loading, setLoading] = useState(true);
   const [prompts, setPrompts] = useState<IPrompt[]>([]);
@@ -25,7 +32,7 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
   const promptService = PromptService();
 
   if (process.browser) {
-    if (gameInfoContext.theme === undefined || !gameInfoContext.theme.id) {
+    if (gameInfoContext.persona === undefined || gameInfoContext.persona.id === undefined) {
       if (!(typeof window === undefined)) {
         window.history.pushState(null, '', '/');
         window.location.reload();
@@ -53,7 +60,8 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
   };
 
   const preloadPrompts = async () => {
-    let data = await promptService.GetAllPromptsByThemePersona(gameInfoContext.theme!.id, gameInfoContext.persona!.id);
+
+    let data = await promptService.GetAllPromptsByPersona(gameInfoContext.persona!.id);
 
     if (data != null) {
       setPrompts(data.results);
@@ -84,7 +92,6 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       answers: answers,
       avatarId: gameInfoContext.avatar?.id,
       personaId: gameInfoContext.persona?.id,
-      themeId: gameInfoContext.theme?.id,
     };
 
     // Check if JSON payload (answers, etc) already exists and if it does redirect
@@ -191,10 +198,9 @@ export const PromptPanel: FC<PromptPanelProps> = (props) => {
       rightColumn={<CurrentPrompt prompt={currentPrompt} answerSelected={answerSelected} />}
       backgroundImage={
         currentPrompt?.background?.results[0] === undefined || currentPrompt.background.results[0].fileUrl === ''
-          ? gameInfoContext.theme?.chakraTheme == 'corporate'
-            ? 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/1821f8838e284d6fad1d483d41877aba'
-            : 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4'
-          : currentPrompt?.background?.results[0].fileUrl
+          ? defaultBackground
+          : themeContext.currentTheme === 'fantasy'
+            ? fantasyBackground : currentPrompt.background.results[0].fileUrl
       }
       loading={loading}
     ></TwoColumnLayout>

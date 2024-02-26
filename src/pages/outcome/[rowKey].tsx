@@ -50,7 +50,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
             answers: jsonPayload.answers,
             persona: jsonPayload.personaId,
             avatar: avatarMedia ?? '',
-            theme: jsonPayload.themeId,
             error: false,
           },
         };
@@ -85,10 +84,6 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
       gameInfoContext.updateAvatar(props.avatar);
     }
 
-    if (props.theme) {
-      gameInfoContext.updateTheme(props.theme);
-    }
-
     if (props.persona) {
       gameInfoContext.updatePersona(props.persona);
     }
@@ -119,7 +114,7 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
     }
   }, [gameInfoContext.answers]);
 
-  if (props.error) {
+  if (props.error) { 
     return (
       <Layout>
         <SingleColumnLayout
@@ -127,11 +122,6 @@ const OutcomeHashPage: FC<OutcomeHashPageProps> = (props) => {
           showSaveButton={false}
           showResetButton={true}
           showFeedbackButton={true}
-          backgroundImage={
-            gameInfoContext.theme?.chakraTheme == 'fantasy'
-              ? 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/182bc6d196aa465cbf9b614ff2883eb4'
-              : 'https://mms-delivery.sitecorecloud.io/api/media/v2/delivery/df4c80ea-db67-49f8-bcd3-08daadeee4f5/1821f8838e284d6fad1d483d41877aba'
-          }
         >
           <OutcomeUnavailable />
         </SingleColumnLayout>

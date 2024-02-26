@@ -9,9 +9,5 @@ export const textTheme = defineStyleConfig({
       color: 'white',
       fontFamily: 'var(--font-fondamento)',
     },
-    achievements: {
-      color: 'white',
-      fontFamily: 'var(--font-fondamento)',
-    },
   },
 });

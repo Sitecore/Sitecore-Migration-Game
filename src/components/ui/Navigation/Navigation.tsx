@@ -1,11 +1,12 @@
 import { Box, Button, HStack, IconButton, Link, Show, Tooltip } from '@chakra-ui/react';
-import { useGameInfoContext } from 'components/Contexts';
 import Image from 'next/image';
 import Router from 'next/router';
 import { FC } from 'react';
 import { MdCached, MdOutlineMarkChatRead, MdSave } from 'react-icons/md';
+
 import { InfoModal } from '../InfoModal/InfoModal';
 import { ProgressTracker } from '../ProgressTracker/ProgressTracker';
+import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 
 interface NavigationProps {
   showProgressBar?: boolean;
@@ -21,7 +22,6 @@ export const Navigation: FC<NavigationProps> = ({
   showSaveButton = true,
   showFeedbackButton = true,
 }) => {
-  const gameInfoContext = useGameInfoContext();
 
   return (
     <>
@@ -43,11 +43,7 @@ export const Navigation: FC<NavigationProps> = ({
                 {showFeedbackButton && (
                   <Show
                     above={
-                      gameInfoContext.theme?.chakraTheme == 'fantasy'
-                        ? showProgressBar && showResetButton
-                          ? 'lg'
-                          : 'sm'
-                        : showProgressBar && showResetButton
+                      showProgressBar && showResetButton
                         ? 'md'
                         : 'sm'
                     }
@@ -70,7 +66,7 @@ export const Navigation: FC<NavigationProps> = ({
                 {showSaveButton && (
                   <Tooltip label="Save Your Result" aria-label="Save Your Result">
                     <IconButton
-                      variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
+                      variant='solid'
                       size={['md']}
                       colorScheme="neutral"
                       data-type="icon"
@@ -83,7 +79,7 @@ export const Navigation: FC<NavigationProps> = ({
                   <Tooltip label="Start Over" aria-label="Start Over">
                     <IconButton
                       onClick={() => Router.push('/settings')}
-                      variant={gameInfoContext.theme?.chakraTheme == 'corporate' ? 'solid' : 'iconButton'}
+                      variant='solid'
                       size={['md']}
                       colorScheme="neutral"
                       aria-label={'Start over'}
@@ -92,6 +88,7 @@ export const Navigation: FC<NavigationProps> = ({
                   </Tooltip>
                 )}
 
+                <ThemeSwitcher />
                 <InfoModal />
               </HStack>
             </Box>
