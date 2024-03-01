@@ -56,6 +56,7 @@
     "react-hook-form": "^7.47.0",
     "react-icons": "4.8.0",
     "react-lite-youtube-embed": "^2.3.52",
+    "react-share": "^5.1.0",
     "typescript": "^4.9.5",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
