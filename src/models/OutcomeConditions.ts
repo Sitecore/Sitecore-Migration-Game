@@ -75,7 +75,7 @@ export interface IConnectorsUsed {
   contenthub: boolean,
   dam: boolean,
   cmp: boolean,
-  dynamics365: boolean,
+  dynamics365commerce: boolean,
   dynamics365sales: boolean,
   komfo: boolean,
   sharepoint: boolean,
@@ -181,7 +181,7 @@ export class OutcomeConditions {
       contenthub: false,
       dam: false,
       cmp: false,
-      dynamics365: false,
+      dynamics365commerce: false,
       dynamics365sales: false,
       komfo: false,
       sharepoint: false
