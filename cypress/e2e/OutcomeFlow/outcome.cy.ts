@@ -9,6 +9,7 @@ describe('Outcome Page', () => {
     cy.get('[value="nosecuredpages"]').click();
     cy.get('[value="search-no"]').click();
     cy.get('[value="xp-connect-none"]').click();
+    cy.get('.css-1baj6k3 > .chakra-button').click();
     cy.get('[value="scs"]').click();
     cy.get('[value="vuejs"]').click();
     cy.get('.css-gmuwbf > .chakra-button').click();
@@ -45,6 +46,8 @@ describe('Outcome Page', () => {
     cy.get('[value="securityloginrequired"]').click();
     cy.get('[value="historicalpersonalize90"]').click();
     cy.get('[value="search-index"]').click();
+    cy.get('[value="xp-connect-none"]').click();
+    cy.get('.css-1baj6k3 > .chakra-button').click();
     cy.get('[value="unicorn"]').click();
     cy.get('[value="netcore"]').click();
     cy.get('.css-gmuwbf > .chakra-button').click();
