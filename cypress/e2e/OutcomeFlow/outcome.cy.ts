@@ -8,6 +8,7 @@ describe('Outcome Page', () => {
     cy.get('[value="xm"]').click();
     cy.get('[value="nosecuredpages"]').click();
     cy.get('[value="search-no"]').click();
+    cy.get('[value="xp-connect-none"]').click();
     cy.get('[value="scs"]').click();
     cy.get('[value="vuejs"]').click();
     cy.get('.css-gmuwbf > .chakra-button').click();
