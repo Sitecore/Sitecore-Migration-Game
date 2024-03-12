@@ -68,6 +68,19 @@ export interface ISerializationUsed {
   none: boolean;
 }
 
+export interface IConnectorsUsed {
+  none: boolean,
+  sfmc: boolean,
+  sfcrm: boolean,
+  contenthub: boolean,
+  dam: boolean,
+  cmp: boolean,
+  dynamics365: boolean,
+  dynamics365sales: boolean,
+  komfo: boolean,
+  sharepoint: boolean,
+}
+
 export enum ExperienceEdgeOption {
   yes = 'yesexperienceedge',
   no = 'noexperienceedge',
@@ -101,6 +114,7 @@ export class OutcomeConditions {
   experienceEdge: ExperienceEdgeOption;
   siteSearchUsed: ISiteSearchUsed;
   serializationUsed: ISerializationUsed;
+  connectorsUsed: IConnectorsUsed;
 
   /**
    * Creates a new instance of OutcomeConditions.
@@ -160,6 +174,18 @@ export class OutcomeConditions {
     this.experienceEdge = ExperienceEdgeOption.no;
     this.siteSearchUsed = { indexSearch: false };
     this.serializationUsed = { tds: false, unicorn: false, scs: false, none: false };
+    this.connectorsUsed = {
+      none: true,
+      sfmc: false,
+      sfcrm: false,
+      contenthub: false,
+      dam: false,
+      cmp: false,
+      dynamics365: false,
+      dynamics365sales: false,
+      komfo: false,
+      sharepoint: false
+    };
 
     //If a gameInfoContext was provided, initialize all data from the answers in the context
     if (gameInfoContext) {
