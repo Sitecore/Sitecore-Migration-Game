@@ -9,4 +9,5 @@ export enum PromptMappings {
   siteSearchUsed = 'sitesearch',
   historicalPersonalization = 'historicalpersonalizationneeds',
   serializationUsed = 'serialization',
+  connectorsUsed = 'integrationmodules',
 }

@@ -48,6 +48,7 @@ export class GameContextParser {
     this.parseContext_ExperienceEdge(gameInfoContext, outcomeConditions);
     this.parseContext_SiteSearchUsed(gameInfoContext, outcomeConditions);
     this.parseContext_SerializationUsed(gameInfoContext, outcomeConditions);
+    this.parseContext_ConnectorsUsed(gameInfoContext, outcomeConditions);
   }
 
   /**
@@ -221,6 +222,51 @@ export class GameContextParser {
       outcomeConditions.serializationUsed.scs = serializationUsedOptions.value.includes('scs');
       outcomeConditions.serializationUsed.tds = serializationUsedOptions.value.includes('tds');
       outcomeConditions.serializationUsed.unicorn = serializationUsedOptions.value.includes('unicorn');
+    }
+  }
+
+  /**
+   * Check for what type of integration connection modules are in the solution. 
+   * This will drive them towards a Connect implementation (likely)
+   * @param gameInfoContext: This is the current context which contains the prompts and answers
+   * @param outcomeConditions: This is where the results should be stored
+   */
+  parseContext_ConnectorsUsed(gameInfoContext: GameInfoContextType, outcomeConditions: OutcomeConditions) {
+    var connectorsUsedOptions = gameInfoContext.answers?.find(
+      (x: IAnswer) => x.promptQuestionId == PromptMappings.connectorsUsed
+    );
+    if (connectorsUsedOptions != undefined) {
+      outcomeConditions.connectorsUsed.none = connectorsUsedOptions.value.includes('xp-connect-none');
+
+      //Only read the other options if None is not selected. Blank out all selections if user selected None
+      //Technically, because it's a multi-select, they could select a connector and None, but we will use 'None' to rule out other selections
+      if (outcomeConditions.connectorsUsed.none) {
+        outcomeConditions.connectorsUsed = {
+          none: true,
+          sfmc: false,
+          sfcrm: false,
+          contenthub: false,
+          dam: false,
+          cmp: false,
+          dynamics365commerce: false,
+          dynamics365sales: false,
+          komfo: false,
+          sharepoint: false
+        };
+      }
+      //If they didn't select None, read the rest of their selections
+      else {
+        outcomeConditions.connectorsUsed.sfmc = connectorsUsedOptions.value.includes('xp-connect-sfmc');
+        outcomeConditions.connectorsUsed.sfcrm = connectorsUsedOptions.value.includes('xp-connect-sfcrm');
+        outcomeConditions.connectorsUsed.contenthub = connectorsUsedOptions.value.includes('xp-connect-contenthub');
+        outcomeConditions.connectorsUsed.dam = connectorsUsedOptions.value.includes('xp-connect-dam');
+        outcomeConditions.connectorsUsed.cmp = connectorsUsedOptions.value.includes('xp-connect-cmp');
+        outcomeConditions.connectorsUsed.dynamics365commerce = connectorsUsedOptions.value.includes('xp-commerce-dynamics365-commerce');
+        outcomeConditions.connectorsUsed.dynamics365sales = connectorsUsedOptions.value.includes('xp-connect-dynamics365sales');
+        outcomeConditions.connectorsUsed.komfo = connectorsUsedOptions.value.includes('xp-komfo');
+        outcomeConditions.connectorsUsed.sharepoint = connectorsUsedOptions.value.includes('xp-sharepoint');
+      }
+
     }
   }
 }
