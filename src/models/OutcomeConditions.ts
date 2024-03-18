@@ -255,13 +255,19 @@ export class OutcomeConditions {
   }
 
   /**
-   * Analyzes current answers to determine if the solution has some form of external system integration
+   * Analyzes current answers to determine if the solution has some form of external system integration that could be moved to Connect.
    * Any use of Data Exchange Framework or Sitecore external integration module also qualifies for migration
+   * Not required for some connectors which are included in other products (such as DAM integration)
    */
-  hasSystemIntegration(): boolean {
+  requiresConnect(): boolean {
     return (
       this.xpFeaturesUsed.externalDataSystems ||
-      !this.connectorsUsed.none
+      this.connectorsUsed.customDEF ||
+      this.connectorsUsed.dynamics365commerce ||
+      this.connectorsUsed.dynamics365sales ||
+      this.connectorsUsed.komfo ||
+      this.connectorsUsed.sfcrm ||
+      this.connectorsUsed.sfmc
     );
   }
 
@@ -304,7 +310,7 @@ export class OutcomeConditions {
     }
 
     //If they are using some form of integration, we direct towards migrating to Sitecore Connect
-    if (this.hasSystemIntegration()) {
+    if (this.requiresConnect()) {
       products.push(TargetProduct.connect);
     }
 
