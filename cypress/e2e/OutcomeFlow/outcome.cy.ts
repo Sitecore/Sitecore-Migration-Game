@@ -36,7 +36,6 @@ describe('Outcome Page', () => {
     cy.get('[value="exm"]').click();
     cy.get('[value="forms"]').click();
     cy.get('[value="customanalyticsdashboards"]').click();
-    cy.get('[value="externaldatasystems"]').click();
     cy.get('[value="historicalpersonalization"]').click();
     cy.get('[value="patterncards"]').click();
     cy.get('[value="customrules"]').click();
