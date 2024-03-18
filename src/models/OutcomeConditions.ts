@@ -79,6 +79,7 @@ export interface IConnectorsUsed {
   dynamics365sales: boolean,
   komfo: boolean,
   sharepoint: boolean,
+  customDEF: boolean,
 }
 
 export enum ExperienceEdgeOption {
@@ -184,7 +185,8 @@ export class OutcomeConditions {
       dynamics365commerce: false,
       dynamics365sales: false,
       komfo: false,
-      sharepoint: false
+      sharepoint: false,
+      customDEF: false
     };
 
     //If a gameInfoContext was provided, initialize all data from the answers in the context
