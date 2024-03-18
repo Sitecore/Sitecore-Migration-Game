@@ -253,6 +253,17 @@ export class OutcomeConditions {
   }
 
   /**
+   * Analyzes current answers to determine if the solution has some form of external system integration
+   * Any use of Data Exchange Framework or Sitecore external integration module also qualifies for migration
+   */
+  hasSystemIntegration(): boolean {
+    return (
+      this.xpFeaturesUsed.externalDataSystems ||
+      !this.connectorsUsed.none
+    );
+  }
+
+  /**
    * Returns a list of products that can be migrated to.
    * NOTE: Several product options don't have Prompts yet that can help lead to a result, so are not included.
    * @returns
@@ -288,6 +299,11 @@ export class OutcomeConditions {
     //If they have XC, regardless of features selected, we direct the customer to OrderCloud
     if (this.isXC) {
       products.push(TargetProduct.orderCloud);
+    }
+
+    //If they are using some form of integration, we direct towards migrating to Sitecore Connect
+    if (this.hasSystemIntegration()) {
+      products.push(TargetProduct.connect);
     }
 
     return products;
