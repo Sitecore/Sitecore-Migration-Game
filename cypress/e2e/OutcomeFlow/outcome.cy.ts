@@ -36,7 +36,6 @@ describe('Outcome Page', () => {
     cy.get('[value="exm"]').click();
     cy.get('[value="forms"]').click();
     cy.get('[value="customanalyticsdashboards"]').click();
-    cy.get('[value="externaldatasystems"]').click();
     cy.get('[value="historicalpersonalization"]').click();
     cy.get('[value="patterncards"]').click();
     cy.get('[value="customrules"]').click();
@@ -60,5 +59,28 @@ describe('Outcome Page', () => {
     cy.get('#required-products').children().should('contain', 'Personalize');
     cy.get('#required-products').children().should('contain', 'CDP');
     cy.get('#required-products').children().should('contain', 'Send');
+  });
+
+  it('require connect', () => {
+    cy.visit('/');
+    cy.get('#start').click();
+    cy.get('[value="Developer"]').click();
+    cy.get(':nth-child(9) > .chakra-button').click();
+    cy.get('.chakra-container > :nth-child(3) > .chakra-button').click();
+    cy.get('[value="xm"]').click();
+    cy.get('[value="nosecuredpages"]').click();
+    cy.get('[value="search-no"]').click();
+    cy.get('[value="xp-connect-sfmc"]').click();
+    cy.get('.css-gmuwbf > .chakra-button').click();
+    cy.get('[value="scs"]').click();
+    cy.get('[value="vuejs"]').click();
+    cy.get('.css-gmuwbf > .chakra-button').click();
+    cy.get('[value="yesexperienceedge"]').click();
+    cy.wait(5000);
+    cy.get('.chakra-modal__close-btn').click();
+    cy.get('#required-products').should('exist').children().should('have.length', 2);
+    cy.get('#required-products').children().should('contain', 'XM Cloud');
+    cy.get('#required-products').children().should('contain', 'Connect');
+    cy.get('#shareButton').click();
   });
 });

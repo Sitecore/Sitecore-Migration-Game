@@ -79,6 +79,7 @@ export interface IConnectorsUsed {
   dynamics365sales: boolean,
   komfo: boolean,
   sharepoint: boolean,
+  customDEF: boolean,
 }
 
 export enum ExperienceEdgeOption {
@@ -184,7 +185,8 @@ export class OutcomeConditions {
       dynamics365commerce: false,
       dynamics365sales: false,
       komfo: false,
-      sharepoint: false
+      sharepoint: false,
+      customDEF: false
     };
 
     //If a gameInfoContext was provided, initialize all data from the answers in the context
@@ -253,6 +255,23 @@ export class OutcomeConditions {
   }
 
   /**
+   * Analyzes current answers to determine if the solution has some form of external system integration that could be moved to Connect.
+   * Any use of Data Exchange Framework or Sitecore external integration module also qualifies for migration
+   * Not required for some connectors which are included in other products (such as DAM integration)
+   */
+  requiresConnect(): boolean {
+    return (
+      this.xpFeaturesUsed.externalDataSystems ||
+      this.connectorsUsed.customDEF ||
+      this.connectorsUsed.dynamics365commerce ||
+      this.connectorsUsed.dynamics365sales ||
+      this.connectorsUsed.komfo ||
+      this.connectorsUsed.sfcrm ||
+      this.connectorsUsed.sfmc
+    );
+  }
+
+  /**
    * Returns a list of products that can be migrated to.
    * NOTE: Several product options don't have Prompts yet that can help lead to a result, so are not included.
    * @returns
@@ -288,6 +307,11 @@ export class OutcomeConditions {
     //If they have XC, regardless of features selected, we direct the customer to OrderCloud
     if (this.isXC) {
       products.push(TargetProduct.orderCloud);
+    }
+
+    //If they are using some form of integration, we direct towards migrating to Sitecore Connect
+    if (this.requiresConnect()) {
+      products.push(TargetProduct.connect);
     }
 
     return products;

@@ -251,7 +251,8 @@ export class GameContextParser {
           dynamics365commerce: false,
           dynamics365sales: false,
           komfo: false,
-          sharepoint: false
+          sharepoint: false,
+          customDEF: false,
         };
       }
       //If they didn't select None, read the rest of their selections
@@ -265,6 +266,7 @@ export class GameContextParser {
         outcomeConditions.connectorsUsed.dynamics365sales = connectorsUsedOptions.value.includes('xp-connect-dynamics365sales');
         outcomeConditions.connectorsUsed.komfo = connectorsUsedOptions.value.includes('xp-komfo');
         outcomeConditions.connectorsUsed.sharepoint = connectorsUsedOptions.value.includes('xp-sharepoint');
+        outcomeConditions.connectorsUsed.customDEF = connectorsUsedOptions.value.includes('connect-custom-def');
       }
 
     }

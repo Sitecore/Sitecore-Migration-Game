@@ -75,6 +75,12 @@ export const HexagonCollection: FC<HexagonCollectionProps> = ({ classStyles }) =
               }
             />
             <HexagonItem
+              product={TargetProduct.connect}
+              active={
+                requiredProducts != undefined && requiredProducts.find((x) => x == TargetProduct.connect) ? true : false
+              }
+            />
+            <HexagonItem
               product={TargetProduct.orderCloud}
               active={
                 requiredProducts != undefined && requiredProducts.find((x) => x == TargetProduct.orderCloud)
