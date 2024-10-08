@@ -40,7 +40,7 @@ const LandingPage: React.FC = () => {
                 </Link>
                 <Link
                   style={{ width: '100%' }}
-                  href="https://www.sitecore.com/knowledge-center/digital-marketing-resources/migrating-to-xm-cloud"
+                  href="https://www.sitecore.com/resources/insights/content-management/xm-cloud-6-benefits-for-your-business"
                   target="_blank"
                 >
                   <Button id="start" w="full" variant="ghost" shadow="md" bg="chakra-body-bg">
@@ -50,7 +50,7 @@ const LandingPage: React.FC = () => {
               </HStack>
             </Stack>
             <Image
-              src="https://wwwsitecorecom.azureedge.net/-/media/sitecoresite/images/home/knowledge-center/digital-marketing-resources/migrating-to-xm-cloud/gettyimages-898545250.jpg?mw=310&md=20230901T160358Z&hash=CA7AE4A53096E607A51CA4C172B0E5D8&t=544x310"
+              src="https://delivery-sitecore.sitecorecontenthub.cloud/api/public/content/79641d4e53c04ad9a1f9307bccae1458?v=ef401c0b"
               alt="Sitecore Migration Advisor"
               borderRadius="md"
               width="50%"
